@@ -3,6 +3,38 @@
   "WorkspaceRootPath": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{51D601AE-BB57-4320-9F18-2E579041F747}|Amazon.Server\\Amazon.Server.csproj|c:\\users\\youse\\desktop\\projects\\fullstack\\.net\\amazon\\amazon.server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{51D601AE-BB57-4320-9F18-2E579041F747}|Amazon.Server\\Amazon.Server.csproj|solutionrelative:amazon.server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{51D601AE-BB57-4320-9F18-2E579041F747}|Amazon.Server\\Amazon.Server.csproj|c:\\users\\youse\\desktop\\projects\\fullstack\\.net\\amazon\\amazon.server\\amazon.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{51D601AE-BB57-4320-9F18-2E579041F747}|Amazon.Server\\Amazon.Server.csproj|solutionrelative:amazon.server\\amazon.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|c:\\users\\youse\\desktop\\projects\\fullstack\\.net\\amazon\\amazon.core\\configurations\\productconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|solutionrelative:amazon.core\\configurations\\productconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|c:\\users\\youse\\desktop\\projects\\fullstack\\.net\\amazon\\amazon.core\\applicationdbcontext\\amazondbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|solutionrelative:amazon.core\\applicationdbcontext\\amazondbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|c:\\users\\youse\\desktop\\projects\\fullstack\\.net\\amazon\\amazon.core\\entities\\productcategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|solutionrelative:amazon.core\\entities\\productcategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|c:\\users\\youse\\desktop\\projects\\fullstack\\.net\\amazon\\amazon.core\\entities\\productbrand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|solutionrelative:amazon.core\\entities\\productbrand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|c:\\users\\youse\\desktop\\projects\\fullstack\\.net\\amazon\\amazon.core\\entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|solutionrelative:amazon.core\\entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|c:\\users\\youse\\desktop\\projects\\fullstack\\.net\\amazon\\amazon.core\\entities\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|solutionrelative:amazon.core\\entities\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5215180C-A108-4000-ADE9-FED4A735A14E}|amazon.client\\amazon.client.esproj|c:\\users\\youse\\desktop\\projects\\fullstack\\.net\\amazon\\amazon.client\\src\\app\\app.module.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
       "RelativeMoniker": "D:0:0:{5215180C-A108-4000-ADE9-FED4A735A14E}|amazon.client\\amazon.client.esproj|solutionrelative:amazon.client\\src\\app\\app.module.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
@@ -25,34 +57,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{51D601AE-BB57-4320-9F18-2E579041F747}|Amazon.Server\\Amazon.Server.csproj|c:\\users\\youse\\desktop\\projects\\fullstack\\.net\\amazon\\amazon.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{51D601AE-BB57-4320-9F18-2E579041F747}|Amazon.Server\\Amazon.Server.csproj|solutionrelative:amazon.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{51D601AE-BB57-4320-9F18-2E579041F747}|Amazon.Server\\Amazon.Server.csproj|c:\\users\\youse\\desktop\\projects\\fullstack\\.net\\amazon\\amazon.server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{51D601AE-BB57-4320-9F18-2E579041F747}|Amazon.Server\\Amazon.Server.csproj|solutionrelative:amazon.server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|c:\\users\\youse\\desktop\\projects\\fullstack\\.net\\amazon\\amazon.core\\applicationdbcontext\\amazondbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|solutionrelative:amazon.core\\applicationdbcontext\\amazondbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|c:\\users\\youse\\desktop\\projects\\fullstack\\.net\\amazon\\amazon.core\\configurations\\productconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|solutionrelative:amazon.core\\configurations\\productconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|c:\\users\\youse\\desktop\\projects\\fullstack\\.net\\amazon\\amazon.core\\entities\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|solutionrelative:amazon.core\\entities\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|c:\\users\\youse\\desktop\\projects\\fullstack\\.net\\amazon\\amazon.core\\entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|solutionrelative:amazon.core\\entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|c:\\users\\youse\\desktop\\projects\\fullstack\\.net\\amazon\\amazon.core\\entities\\productbrand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|solutionrelative:amazon.core\\entities\\productbrand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|c:\\users\\youse\\desktop\\projects\\fullstack\\.net\\amazon\\amazon.core\\entities\\productcategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9FA6BC70-ED40-4643-B43B-C694DF64DA95}|Amazon.Core\\Amazon.Core.csproj|solutionrelative:amazon.core\\entities\\productcategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -62,128 +66,24 @@
       "DocumentGroups": [
         {
           "DockedHeight": 220,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "app.module.ts",
-              "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\amazon.client\\src\\app\\app.module.ts",
-              "RelativeDocumentMoniker": "amazon.client\\src\\app\\app.module.ts",
-              "ToolTip": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\amazon.client\\src\\app\\app.module.ts",
-              "RelativeToolTip": "amazon.client\\src\\app\\app.module.ts",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAA+AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2024-07-23T16:13:09.968Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "app.component.ts",
-              "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\amazon.client\\src\\app\\app.component.ts",
-              "RelativeDocumentMoniker": "amazon.client\\src\\app\\app.component.ts",
-              "ToolTip": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\amazon.client\\src\\app\\app.component.ts",
-              "RelativeToolTip": "amazon.client\\src\\app\\app.component.ts",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAmAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2024-07-23T16:13:04.867Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "app.component.spec.ts",
-              "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\amazon.client\\src\\app\\app.component.spec.ts",
-              "RelativeDocumentMoniker": "amazon.client\\src\\app\\app.component.spec.ts",
-              "ToolTip": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\amazon.client\\src\\app\\app.component.spec.ts",
-              "RelativeToolTip": "amazon.client\\src\\app\\app.component.spec.ts",
+              "Title": "Amazon.Server",
+              "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Server\\Amazon.Server.csproj",
+              "RelativeDocumentMoniker": "Amazon.Server\\Amazon.Server.csproj",
+              "ToolTip": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Server\\Amazon.Server.csproj",
+              "RelativeToolTip": "Amazon.Server\\Amazon.Server.csproj",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2024-07-23T16:12:56.942Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "app.component.css",
-              "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\amazon.client\\src\\app\\app.component.css",
-              "RelativeDocumentMoniker": "amazon.client\\src\\app\\app.component.css",
-              "ToolTip": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\amazon.client\\src\\app\\app.component.css",
-              "RelativeToolTip": "amazon.client\\src\\app\\app.component.css",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-07-23T16:10:16.168Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "app.component.html",
-              "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\amazon.client\\src\\app\\app.component.html",
-              "RelativeDocumentMoniker": "amazon.client\\src\\app\\app.component.html",
-              "ToolTip": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\amazon.client\\src\\app\\app.component.html",
-              "RelativeToolTip": "amazon.client\\src\\app\\app.component.html",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAZAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2024-07-23T16:10:03.385Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Server\\Program.cs",
-              "RelativeDocumentMoniker": "Amazon.Server\\Program.cs",
-              "ToolTip": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Server\\Program.cs",
-              "RelativeToolTip": "Amazon.Server\\Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAVAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-23T15:55:54.455Z",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-07-23T16:49:08.806Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Server\\appsettings.json",
-              "RelativeDocumentMoniker": "Amazon.Server\\appsettings.json",
-              "ToolTip": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Server\\appsettings.json",
-              "RelativeToolTip": "Amazon.Server\\appsettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAADAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-07-23T15:58:58.07Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "ProductCategory.cs",
-              "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Core\\Entities\\ProductCategory.cs",
-              "RelativeDocumentMoniker": "Amazon.Core\\Entities\\ProductCategory.cs",
-              "ToolTip": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Core\\Entities\\ProductCategory.cs",
-              "RelativeToolTip": "Amazon.Core\\Entities\\ProductCategory.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-23T15:52:05.572Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ProductBrand.cs",
-              "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Core\\Entities\\ProductBrand.cs",
-              "RelativeDocumentMoniker": "Amazon.Core\\Entities\\ProductBrand.cs",
-              "ToolTip": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Core\\Entities\\ProductBrand.cs",
-              "RelativeToolTip": "Amazon.Core\\Entities\\ProductBrand.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-23T15:52:01.838Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
               "Title": "Product.cs",
               "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Core\\Entities\\Product.cs",
               "RelativeDocumentMoniker": "Amazon.Core\\Entities\\Product.cs",
@@ -196,7 +96,72 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 5,
+              "Title": "ProductBrand.cs",
+              "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Core\\Entities\\ProductBrand.cs",
+              "RelativeDocumentMoniker": "Amazon.Core\\Entities\\ProductBrand.cs",
+              "ToolTip": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Core\\Entities\\ProductBrand.cs",
+              "RelativeToolTip": "Amazon.Core\\Entities\\ProductBrand.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-23T15:52:01.838Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ProductCategory.cs",
+              "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Core\\Entities\\ProductCategory.cs",
+              "RelativeDocumentMoniker": "Amazon.Core\\Entities\\ProductCategory.cs",
+              "ToolTip": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Core\\Entities\\ProductCategory.cs",
+              "RelativeToolTip": "Amazon.Core\\Entities\\ProductCategory.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-23T15:52:05.572Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AmazonDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Core\\ApplicationDbContext\\AmazonDbContext.cs",
+              "RelativeDocumentMoniker": "Amazon.Core\\ApplicationDbContext\\AmazonDbContext.cs",
+              "ToolTip": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Core\\ApplicationDbContext\\AmazonDbContext.cs",
+              "RelativeToolTip": "Amazon.Core\\ApplicationDbContext\\AmazonDbContext.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-23T15:48:30.096Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProductConfigurations.cs",
+              "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Core\\Configurations\\ProductConfigurations.cs",
+              "RelativeDocumentMoniker": "Amazon.Core\\Configurations\\ProductConfigurations.cs",
+              "ToolTip": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Core\\Configurations\\ProductConfigurations.cs",
+              "RelativeToolTip": "Amazon.Core\\Configurations\\ProductConfigurations.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAA9AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-23T15:51:21.659Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Server\\appsettings.json",
+              "RelativeDocumentMoniker": "Amazon.Server\\appsettings.json",
+              "ToolTip": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Server\\appsettings.json",
+              "RelativeToolTip": "Amazon.Server\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-07-23T15:58:58.07Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "BaseEntity.cs",
               "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Core\\Entities\\BaseEntity.cs",
               "RelativeDocumentMoniker": "Amazon.Core\\Entities\\BaseEntity.cs",
@@ -210,27 +175,79 @@
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "ProductConfigurations.cs",
-              "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Core\\Configurations\\ProductConfigurations.cs",
-              "RelativeDocumentMoniker": "Amazon.Core\\Configurations\\ProductConfigurations.cs",
-              "ToolTip": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Core\\Configurations\\ProductConfigurations.cs",
-              "RelativeToolTip": "Amazon.Core\\Configurations\\ProductConfigurations.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAA9AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-23T15:51:21.659Z",
+              "Title": "app.module.ts",
+              "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\amazon.client\\src\\app\\app.module.ts",
+              "RelativeDocumentMoniker": "amazon.client\\src\\app\\app.module.ts",
+              "ToolTip": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\amazon.client\\src\\app\\app.module.ts",
+              "RelativeToolTip": "amazon.client\\src\\app\\app.module.ts",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2024-07-23T16:13:09.968Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "AmazonDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Core\\ApplicationDbContext\\AmazonDbContext.cs",
-              "RelativeDocumentMoniker": "Amazon.Core\\ApplicationDbContext\\AmazonDbContext.cs",
-              "ToolTip": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Core\\ApplicationDbContext\\AmazonDbContext.cs",
-              "RelativeToolTip": "Amazon.Core\\ApplicationDbContext\\AmazonDbContext.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAAAAAA",
+              "DocumentIndex": 9,
+              "Title": "app.component.ts",
+              "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\amazon.client\\src\\app\\app.component.ts",
+              "RelativeDocumentMoniker": "amazon.client\\src\\app\\app.component.ts",
+              "ToolTip": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\amazon.client\\src\\app\\app.component.ts",
+              "RelativeToolTip": "amazon.client\\src\\app\\app.component.ts",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAmAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2024-07-23T16:13:04.867Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "app.component.spec.ts",
+              "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\amazon.client\\src\\app\\app.component.spec.ts",
+              "RelativeDocumentMoniker": "amazon.client\\src\\app\\app.component.spec.ts",
+              "ToolTip": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\amazon.client\\src\\app\\app.component.spec.ts",
+              "RelativeToolTip": "amazon.client\\src\\app\\app.component.spec.ts",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2024-07-23T16:12:56.942Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "app.component.html",
+              "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\amazon.client\\src\\app\\app.component.html",
+              "RelativeDocumentMoniker": "amazon.client\\src\\app\\app.component.html",
+              "ToolTip": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\amazon.client\\src\\app\\app.component.html",
+              "RelativeToolTip": "amazon.client\\src\\app\\app.component.html",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-07-23T16:10:03.385Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "app.component.css",
+              "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\amazon.client\\src\\app\\app.component.css",
+              "RelativeDocumentMoniker": "amazon.client\\src\\app\\app.component.css",
+              "ToolTip": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\amazon.client\\src\\app\\app.component.css",
+              "RelativeToolTip": "amazon.client\\src\\app\\app.component.css",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-07-23T16:10:16.168Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Server\\Program.cs",
+              "RelativeDocumentMoniker": "Amazon.Server\\Program.cs",
+              "ToolTip": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon.Server\\Program.cs",
+              "RelativeToolTip": "Amazon.Server\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAVAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-23T15:48:30.096Z",
+              "WhenOpened": "2024-07-23T15:55:54.455Z",
               "EditorCaption": ""
             }
           ]

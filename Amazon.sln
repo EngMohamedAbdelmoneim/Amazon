@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazon.Infrastructure", "Am
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazon.Services", "Amazon.Services\Amazon.Services.csproj", "{F166E965-7996-4905-9F28-382D0DB694DE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{B6E0FBCD-49FB-420E-9224-0BDC2B35D249}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{1D09621A-A353-47DF-AE68-C87E7F98CB20}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +48,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{51D601AE-BB57-4320-9F18-2E579041F747} = {1D09621A-A353-47DF-AE68-C87E7F98CB20}
+		{5215180C-A108-4000-ADE9-FED4A735A14E} = {B6E0FBCD-49FB-420E-9224-0BDC2B35D249}
+		{9FA6BC70-ED40-4643-B43B-C694DF64DA95} = {1D09621A-A353-47DF-AE68-C87E7F98CB20}
+		{C46338DC-67B3-4A98-AA6A-64AA33273A5D} = {1D09621A-A353-47DF-AE68-C87E7F98CB20}
+		{F166E965-7996-4905-9F28-382D0DB694DE} = {1D09621A-A353-47DF-AE68-C87E7F98CB20}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B2C1E246-3113-42D9-BC00-1D9E36E9CF90}
