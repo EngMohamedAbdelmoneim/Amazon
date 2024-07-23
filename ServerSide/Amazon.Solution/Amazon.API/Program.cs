@@ -1,4 +1,7 @@
 
+using Amazon.Core.ApplicationDBContext;
+using Microsoft.EntityFrameworkCore;
+
 namespace Amazon.API
 {
     public class Program
@@ -10,6 +13,13 @@ namespace Amazon.API
             // Add services to the container.
 
             builder.Services.AddControllers();
+
+            #region ConnectionString Configuration
+            builder.Services.AddDbContext<AmazonDBContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+            #endregion
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
