@@ -1,0 +1,23 @@
+{
+  "Version": 1,
+  "Hash": "4Mo4lenRVvT3naPfUIAPiJvSkGwdJhTfNOIQbm1kRPI=",
+  "Source": "Amazon.Server",
+  "BasePath": "_content/Amazon.Server",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\amazon.client\\amazon.client.esproj",
+      "Version": 2,
+      "Source": "amazon.client",
+      "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained"
+    }
+  ],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
