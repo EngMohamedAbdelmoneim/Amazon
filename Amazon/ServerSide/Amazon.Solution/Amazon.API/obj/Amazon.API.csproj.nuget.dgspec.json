@@ -1,0 +1,309 @@
+{
+  "format": 1,
+  "restore": {
+    "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Amazon.API.csproj": {}
+  },
+  "projects": {
+    "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Amazon.API.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Amazon.API.csproj",
+        "projectName": "Amazon.API",
+        "projectPath": "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Amazon.API.csproj",
+        "packagesPath": "C:\\Users\\Abmos\\.nuget\\packages\\",
+        "outputPath": "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Abmos\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\Amazon.Services.csproj": {
+                "projectPath": "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\Amazon.Services.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.7, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Amazon.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Amazon.Core.csproj",
+        "projectName": "Amazon.Core",
+        "projectPath": "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Amazon.Core.csproj",
+        "packagesPath": "C:\\Users\\Abmos\\.nuget\\packages\\",
+        "outputPath": "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Abmos\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.7, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\Amazon.Services.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\Amazon.Services.csproj",
+        "projectName": "Amazon.Services",
+        "projectPath": "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\Amazon.Services.csproj",
+        "packagesPath": "C:\\Users\\Abmos\\.nuget\\packages\\",
+        "outputPath": "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Abmos\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\Amazone.Infrastructure.csproj": {
+                "projectPath": "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\Amazone.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\Amazone.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\Amazone.Infrastructure.csproj",
+        "projectName": "Amazone.Infrastructure",
+        "projectPath": "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\Amazone.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\Abmos\\.nuget\\packages\\",
+        "outputPath": "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Abmos\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Amazon.Core.csproj": {
+                "projectPath": "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Amazon.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
