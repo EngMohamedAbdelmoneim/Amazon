@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pueJ/f9lNaY=",
+  "dgSpecHash": "70197aPxUkY=",
   "success": true,
-  "projectFilePath": "E:\\ITI - ITP .NET\\GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\Amazone.Infrastructure.csproj",
+  "projectFilePath": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\Amazone.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Abmos\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Abmos\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
