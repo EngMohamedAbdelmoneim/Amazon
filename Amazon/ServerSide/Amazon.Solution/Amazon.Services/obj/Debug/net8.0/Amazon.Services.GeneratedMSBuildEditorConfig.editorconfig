@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Amazon.Services
-build_property.ProjectDir = E:\ITI - ITP .NET\ITI-GP\Amazon\ServerSide\Amazon.Solution\Amazon.Services\
+build_property.ProjectDir = C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazon.Services\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

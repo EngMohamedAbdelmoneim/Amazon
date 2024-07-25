@@ -1,0 +1,12 @@
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    div:nth-child(2){
+        width: 50%;
+    }
+}
+
+.dropdown-menu{
+    text-align: center;
+}
