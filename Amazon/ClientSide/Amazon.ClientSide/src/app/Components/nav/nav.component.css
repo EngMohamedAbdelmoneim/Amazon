@@ -2,11 +2,45 @@ nav{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    a{
+        text-decoration: none;
+        color: black;
+    }
     div:nth-child(2){
+        display: flex;
+        align-items: center;
         width: 50%;
+        div{
+            border: 1px solid gray;
+            border-radius: 5px;
+            display: flex;
+            width: 100%;
+            input{
+                border: none;
+                display: inline-block;
+            }
+            div{
+                width: 50px;
+                border: none;
+            }
+        }
     }
 }
 
+.dropdown{
+    border: 1px solid gray;
+    border-radius: 5px;
+    /* overflow: hidden; */
+    .dropdown-toggle{
+        border: none;
+        background: transparent;
+    }
+    .dropdown-menu{
+        text-align: center;
+    }
+}
+
+/* 
 .dropdown-menu{
     text-align: center;
-}
+} */
