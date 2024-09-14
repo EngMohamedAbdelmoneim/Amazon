@@ -30,3 +30,19 @@ E:\ITI - ITP .NET\ITI-GP\Amazon\ServerSide\Amazon.Solution\Amazone.Infrastructur
 E:\ITI - ITP .NET\ITI-GP\Amazon\ServerSide\Amazon.Solution\Amazone.Infrastructure\obj\Debug\net8.0\refint\Amazone.Infrastructure.dll
 E:\ITI - ITP .NET\ITI-GP\Amazon\ServerSide\Amazon.Solution\Amazone.Infrastructure\obj\Debug\net8.0\Amazone.Infrastructure.pdb
 E:\ITI - ITP .NET\ITI-GP\Amazon\ServerSide\Amazon.Solution\Amazone.Infrastructure\obj\Debug\net8.0\ref\Amazone.Infrastructure.dll
+C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazone.Infrastructure\bin\Debug\net8.0\Amazone.Infrastructure.deps.json
+C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazone.Infrastructure\bin\Debug\net8.0\Amazone.Infrastructure.dll
+C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazone.Infrastructure\bin\Debug\net8.0\Amazone.Infrastructure.pdb
+C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazone.Infrastructure\bin\Debug\net8.0\Amazon.Core.dll
+C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazone.Infrastructure\bin\Debug\net8.0\Amazon.Core.pdb
+C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazone.Infrastructure\obj\Debug\net8.0\Amazone.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazone.Infrastructure\obj\Debug\net8.0\Amazone.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazone.Infrastructure\obj\Debug\net8.0\Amazone.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazone.Infrastructure\obj\Debug\net8.0\Amazone.Infrastructure.AssemblyInfo.cs
+C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazone.Infrastructure\obj\Debug\net8.0\Amazone.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazone.Infrastructure\obj\Debug\net8.0\Amazone.Infrastructure.sourcelink.json
+C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazone.Infrastructure\obj\Debug\net8.0\Amazone..254C6B58.Up2Date
+C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazone.Infrastructure\obj\Debug\net8.0\Amazone.Infrastructure.dll
+C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazone.Infrastructure\obj\Debug\net8.0\refint\Amazone.Infrastructure.dll
+C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazone.Infrastructure\obj\Debug\net8.0\Amazone.Infrastructure.pdb
+C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazone.Infrastructure\obj\Debug\net8.0\ref\Amazone.Infrastructure.dll

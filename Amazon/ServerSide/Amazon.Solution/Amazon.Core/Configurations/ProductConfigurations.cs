@@ -15,6 +15,7 @@ namespace Amazon.Core.Configurations
             builder.HasOne(p => p.ProductBrand)
                    .WithMany()
                    .HasForeignKey(p => p.ProductBrandId);
+
             builder.HasOne(p => p.ProductCategory)
                    .WithMany()
                    .HasForeignKey(p => p.ProductCategoryId);

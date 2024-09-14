@@ -14,6 +14,7 @@ export class NavComponent {
 
   query: string;
 
+  
   search = () => {
     this.query = (<HTMLInputElement>document.getElementById("search"))?.value;
     this.router.navigateByUrl(`/search/${this.query}`);

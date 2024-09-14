@@ -9,3 +9,5 @@ Amazon/ServerSide/Amazon.Solution/Amazon.API/obj/Debug/net8.0/Amazon.API.assets.
 Amazon/ServerSide/Amazon.Solution/Amazon.Core/obj/project.nuget.cache
 Amazon/ServerSide/Amazon.Solution/.vs/Amazon.Solution/FileContentIndex/50eb33a4-b024-4fe7-aafc-2f866820b06c.vsidx
 Amazon/ServerSide/Amazon.Solution/.vs/Amazon.Solution/FileContentIndex/c4c144ad-cebd-4507-9962-2f8169231dc2.vsidx
+*.vsidx
+*.vsidx

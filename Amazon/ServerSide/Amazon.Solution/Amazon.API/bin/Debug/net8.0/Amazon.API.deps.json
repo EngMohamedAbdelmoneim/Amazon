@@ -881,12 +881,6 @@
       "System.Text.Json/8.0.4": {
         "dependencies": {
           "System.Text.Encodings.Web": "8.0.0"
-        },
-        "runtime": {
-          "lib/net8.0/System.Text.Json.dll": {
-            "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.724.31311"
-          }
         }
       },
       "System.Threading.Channels/6.0.0": {},
@@ -916,7 +910,10 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.7"
         },
         "runtime": {
-          "Amazon.Core.dll": {}
+          "Amazon.Core.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "Amazon.Services/1.0.0": {
@@ -924,7 +921,10 @@
           "Amazone.Infrastructure": "1.0.0"
         },
         "runtime": {
-          "Amazon.Services.dll": {}
+          "Amazon.Services.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "Amazone.Infrastructure/1.0.0": {
@@ -932,7 +932,10 @@
           "Amazon.Core": "1.0.0"
         },
         "runtime": {
-          "Amazone.Infrastructure.dll": {}
+          "Amazone.Infrastructure.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

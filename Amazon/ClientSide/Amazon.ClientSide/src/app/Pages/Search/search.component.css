@@ -1,0 +1,6 @@
+.Container{
+    display: flex;
+    aside{
+        overflow-y: scroll;
+    }
+}

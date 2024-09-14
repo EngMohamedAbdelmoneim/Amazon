@@ -565,7 +565,10 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.7"
         },
         "runtime": {
-          "Amazon.Core.dll": {}
+          "Amazon.Core.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "Amazone.Infrastructure/1.0.0": {
@@ -573,7 +576,10 @@
           "Amazon.Core": "1.0.0"
         },
         "runtime": {
-          "Amazone.Infrastructure.dll": {}
+          "Amazone.Infrastructure.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
