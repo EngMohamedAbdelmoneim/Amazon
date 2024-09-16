@@ -1,8 +1,7 @@
 ﻿namespace Amazon.Core.Entities
 {
-    public class ProductCategory : BaseEntity
+    public class Brand : BaseEntity
     {
         public string Name { get; set; }
-
     }
 }

@@ -1,16 +1,31 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace Amazon.Core.Entities
 {
     public class Product : BaseEntity
     {
         public string Name { get; set; }
+
         public string Description { get; set; }
+        
         [Column(TypeName = "money")]
         public decimal Price { get; set; }
+        
         public string PictureUrl { get; set; }
-        public ProductCategory ProductCategory { get; set; }
-        public int ProductCategoryId { get; set; }
-        public ProductBrand ProductBrand { get; set; }
-        public int ProductBrandId { get; set; }
+
+        [NotMapped]
+		public IFormFile ImageFile { get; set; }
+
+		public int QuantityInStock { get; set; }
+
+        public virtual Category Category { get; set; }
+        public int CategoryId { get; set; }
+
+        public virtual Brand Brand { get; set; }
+        public int BrandId { get; set; }
+
+        public virtual ICollection<ProductImages> Images { get; set; }
+
+
     }
 }

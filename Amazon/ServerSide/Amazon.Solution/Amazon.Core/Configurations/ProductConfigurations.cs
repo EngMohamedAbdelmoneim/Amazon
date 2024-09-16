@@ -12,13 +12,13 @@ namespace Amazon.Core.Configurations
             builder.Property(p => p.Description).IsRequired();
             builder.Property(p => p.Price).IsRequired();
             builder.Property(p => p.PictureUrl).IsRequired();
-            builder.HasOne(p => p.ProductBrand)
+            builder.HasOne(p => p.Brand)
                    .WithMany()
-                   .HasForeignKey(p => p.ProductBrandId);
+                   .HasForeignKey(p => p.BrandId);
 
-            builder.HasOne(p => p.ProductCategory)
+            builder.HasOne(p => p.Category)
                    .WithMany()
-                   .HasForeignKey(p => p.ProductCategoryId);
+                   .HasForeignKey(p => p.CategoryId);
 
         }
     }

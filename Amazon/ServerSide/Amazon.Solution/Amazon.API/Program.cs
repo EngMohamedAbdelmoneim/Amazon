@@ -1,10 +1,15 @@
 
 using Amazon.Core.DBContext;
+using Amazon.Services.ProductService.Dto;
+using Amazon.Services.ProductService;
 using Microsoft.EntityFrameworkCore;
+using Amazone.Infrastructure.Interfaces;
+using Amazone.Infrastructure.Repos;
+using System.Text.Json.Serialization;
 
 namespace Amazon.API
 {
-    public class Program
+	public class Program
     {
         public static void Main(string[] args)
         {
@@ -17,11 +22,23 @@ namespace Amazon.API
             #region Connection String Configuration
             builder.Services.AddDbContext<AmazonDbContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+                options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
             #endregion
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
+
+            #region Register Services
+
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+            #region ProductService
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddAutoMapper(typeof(ProductProfile));
+			#endregion
+
+
+			#endregion
+			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+			builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddCors(options =>
@@ -31,6 +48,10 @@ namespace Amazon.API
                     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
                 });
             });
+
+			builder.Services.AddControllers().AddJsonOptions(x =>
+            x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
 
             var app = builder.Build();
 

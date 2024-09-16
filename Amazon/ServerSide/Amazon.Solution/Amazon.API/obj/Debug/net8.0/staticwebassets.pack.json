@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\wwwroot\\Files\\productImages\\a4453957-32c7-4755-a3bc-4fbbb273f79c-download.jpeg",
+      "PackagePath": "staticwebassets\\Files\\productImages\\a4453957-32c7-4755-a3bc-4fbbb273f79c-download.jpeg"
+    },
+    {
+      "Id": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\wwwroot\\Files\\productImages\\d04ccc6c-5e47-4edc-b78a-7aeaf95b5809-galaxy-s24-ultra-highlights-color-titanium-gray-back-mo.jpg",
+      "PackagePath": "staticwebassets\\Files\\productImages\\d04ccc6c-5e47-4edc-b78a-7aeaf95b5809-galaxy-s24-ultra-highlights-color-titanium-gray-back-mo.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Amazon.API.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.Amazon.API.props",
+      "PackagePath": "build\\Amazon.API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.Amazon.API.props",
+      "PackagePath": "buildMultiTargeting\\Amazon.API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.Amazon.API.props",
+      "PackagePath": "buildTransitive\\Amazon.API.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

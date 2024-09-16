@@ -192,7 +192,6 @@ E:\ITI - ITP .NET\ITI-GP\Amazon\ServerSide\Amazon.Solution\Amazon.API\bin\Debug\
 E:\ITI - ITP .NET\ITI-GP\Amazon\ServerSide\Amazon.Solution\Amazon.API\bin\Debug\net8.0\System.Runtime.Caching.dll
 E:\ITI - ITP .NET\ITI-GP\Amazon\ServerSide\Amazon.Solution\Amazon.API\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
 E:\ITI - ITP .NET\ITI-GP\Amazon\ServerSide\Amazon.Solution\Amazon.API\bin\Debug\net8.0\System.Security.Permissions.dll
-E:\ITI - ITP .NET\ITI-GP\Amazon\ServerSide\Amazon.Solution\Amazon.API\bin\Debug\net8.0\System.Text.Json.dll
 E:\ITI - ITP .NET\ITI-GP\Amazon\ServerSide\Amazon.Solution\Amazon.API\bin\Debug\net8.0\System.Windows.Extensions.dll
 E:\ITI - ITP .NET\ITI-GP\Amazon\ServerSide\Amazon.Solution\Amazon.API\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
 E:\ITI - ITP .NET\ITI-GP\Amazon\ServerSide\Amazon.Solution\Amazon.API\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
@@ -429,3 +428,7 @@ C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.S
 C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazon.API\obj\Debug\net8.0\Amazon.API.pdb
 C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazon.API\obj\Debug\net8.0\Amazon.API.genruntimeconfig.cache
 C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazon.API\obj\Debug\net8.0\ref\Amazon.API.dll
+E:\ITI - ITP .NET\ITI-GP\Amazon\ServerSide\Amazon.Solution\Amazon.API\bin\Debug\net8.0\AutoMapper.dll
+E:\ITI - ITP .NET\ITI-GP\Amazon\ServerSide\Amazon.Solution\Amazon.API\bin\Debug\net8.0\Amazon.API.staticwebassets.runtime.json
+E:\ITI - ITP .NET\ITI-GP\Amazon\ServerSide\Amazon.Solution\Amazon.API\bin\Debug\net8.0\Castle.Core.dll
+E:\ITI - ITP .NET\ITI-GP\Amazon\ServerSide\Amazon.Solution\Amazon.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Proxies.dll
