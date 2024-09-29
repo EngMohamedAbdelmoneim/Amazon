@@ -432,3 +432,7 @@ E:\ITI - ITP .NET\ITI-GP\Amazon\ServerSide\Amazon.Solution\Amazon.API\bin\Debug\
 E:\ITI - ITP .NET\ITI-GP\Amazon\ServerSide\Amazon.Solution\Amazon.API\bin\Debug\net8.0\Amazon.API.staticwebassets.runtime.json
 E:\ITI - ITP .NET\ITI-GP\Amazon\ServerSide\Amazon.Solution\Amazon.API\bin\Debug\net8.0\Castle.Core.dll
 E:\ITI - ITP .NET\ITI-GP\Amazon\ServerSide\Amazon.Solution\Amazon.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Proxies.dll
+C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazon.API\bin\Debug\net8.0\Amazon.API.staticwebassets.runtime.json
+C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazon.API\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazon.API\bin\Debug\net8.0\Castle.Core.dll
+C:\Users\youse\Desktop\Projects\FullStack\.Net\Amazon\Amazon\ServerSide\Amazon.Solution\Amazon.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Proxies.dll

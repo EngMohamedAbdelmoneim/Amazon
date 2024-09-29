@@ -24,8 +24,6 @@ namespace Amazon.Core.Entities
         public virtual Brand Brand { get; set; }
         public int BrandId { get; set; }
 
-        public virtual ICollection<ProductImages> Images { get; set; }
-
-
+        public virtual ICollection<ProductImages> Images { get; set; } = [];
     }
 }
