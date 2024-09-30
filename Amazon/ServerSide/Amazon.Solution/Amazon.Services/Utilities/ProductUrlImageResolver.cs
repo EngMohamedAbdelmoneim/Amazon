@@ -27,4 +27,24 @@ namespace Amazon.Services.Utilities
 			return null;
 		}
 	}
+
+
+	public class ProductImagesUrlResolver : IValueResolver<Product, ProductToReturnDto, ICollection<string>>
+	{
+		private readonly IConfiguration _configuration;
+
+		public ProductImagesUrlResolver(IConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
+
+		public ICollection<string> Resolve(Product source, ProductToReturnDto destination, ICollection<string> destMember, ResolutionContext context)
+		{
+			if (source.Images != null && source.Images.Any())
+			{
+				return source.Images.Select(image => _configuration["BaseUrl"] + image.ImagePath).ToList();
+			}
+			return new List<string>();
+		}
+	}
 }

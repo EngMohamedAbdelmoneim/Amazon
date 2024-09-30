@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Amazon.API.csproj": {}
+    "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Amazon.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Amazon.API.csproj": {
+    "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Amazon.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Amazon.API.csproj",
+        "projectUniqueName": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Amazon.API.csproj",
         "projectName": "Amazon.API",
-        "projectPath": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Amazon.API.csproj",
-        "packagesPath": "C:\\Users\\youse\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\obj\\",
+        "projectPath": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Amazon.API.csproj",
+        "packagesPath": "C:\\Users\\Abmos\\.nuget\\packages\\",
+        "outputPath": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\youse\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Abmos\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -29,8 +32,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\Amazon.Services.csproj": {
-                "projectPath": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\Amazon.Services.csproj"
+              "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\Amazon.Services.csproj": {
+                "projectPath": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\Amazon.Services.csproj"
               }
             }
           }
@@ -88,17 +91,20 @@
         }
       }
     },
-    "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Amazon.Core.csproj": {
+    "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Amazon.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Amazon.Core.csproj",
+        "projectUniqueName": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Amazon.Core.csproj",
         "projectName": "Amazon.Core",
-        "projectPath": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Amazon.Core.csproj",
-        "packagesPath": "C:\\Users\\youse\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\obj\\",
+        "projectPath": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Amazon.Core.csproj",
+        "packagesPath": "C:\\Users\\Abmos\\.nuget\\packages\\",
+        "outputPath": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\youse\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Abmos\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -163,17 +169,20 @@
         }
       }
     },
-    "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\Amazon.Services.csproj": {
+    "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\Amazon.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\Amazon.Services.csproj",
+        "projectUniqueName": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\Amazon.Services.csproj",
         "projectName": "Amazon.Services",
-        "projectPath": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\Amazon.Services.csproj",
-        "packagesPath": "C:\\Users\\youse\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\obj\\",
+        "projectPath": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\Amazon.Services.csproj",
+        "packagesPath": "C:\\Users\\Abmos\\.nuget\\packages\\",
+        "outputPath": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\youse\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Abmos\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -188,8 +197,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\Amazone.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\Amazone.Infrastructure.csproj"
+              "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\Amazone.Infrastructure.csproj": {
+                "projectPath": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\Amazone.Infrastructure.csproj"
               }
             }
           }
@@ -238,17 +247,20 @@
         }
       }
     },
-    "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\Amazone.Infrastructure.csproj": {
+    "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\Amazone.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\Amazone.Infrastructure.csproj",
+        "projectUniqueName": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\Amazone.Infrastructure.csproj",
         "projectName": "Amazone.Infrastructure",
-        "projectPath": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\Amazone.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\youse\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\obj\\",
+        "projectPath": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\Amazone.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\Abmos\\.nuget\\packages\\",
+        "outputPath": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\youse\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Abmos\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -263,8 +275,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Amazon.Core.csproj": {
-                "projectPath": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Amazon.Core.csproj"
+              "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Amazon.Core.csproj": {
+                "projectPath": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Amazon.Core.csproj"
               }
             }
           }

@@ -22,10 +22,11 @@ namespace Amazon.Services.ProductService.Dto
 
 		public int QuantityInStock { get; set; }
 
-		public Category Category { get; set; }
 		public int CategoryId { get; set; }
-		public virtual Brand Brand { get; set; }
+		public String CategoryName { get; set; }
 		public int BrandId { get; set; }
-		public ICollection<ProductImages> Images { get; set; }
-	}
+		public string BrandName { get; set; }
+		public ICollection<string> ProductImages { get; set; } = [];
+      
+    }
 }

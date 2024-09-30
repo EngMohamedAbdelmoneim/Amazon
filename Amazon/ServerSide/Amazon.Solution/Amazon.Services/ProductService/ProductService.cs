@@ -3,6 +3,7 @@ using Amazon.Services.ProductService.Dto;
 using Amazon.Services.Utilities;
 using Amazone.Infrastructure.Interfaces;
 using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +16,14 @@ namespace Amazon.Services.ProductService
 	{
 
 		private readonly IGenericRepository<Product> _productRepo;
+		private readonly IConfiguration _configuration;
 		private readonly IMapper _mapper;
 
-		public ProductService(IMapper mapper, IGenericRepository<Product> productRepo)
+		public ProductService(IMapper mapper, IGenericRepository<Product> productRepo,IConfiguration configuration)
 		{
 			_mapper = mapper;
 			_productRepo = productRepo;
+			_configuration = configuration;
 		}
 
 
@@ -69,6 +72,10 @@ namespace Amazon.Services.ProductService
 		{
 			var product = await _productRepo.GetByIdAsync(id);
 			var mappedProduct = _mapper.Map<ProductToReturnDto>(product);
+			//foreach (var item in product.Images)
+			//{
+			//	mappedProduct.ProductImages.Add(_configuration["BaseUrl"] + item.ImagePath);
+			//}
 			return mappedProduct;
 		}
 

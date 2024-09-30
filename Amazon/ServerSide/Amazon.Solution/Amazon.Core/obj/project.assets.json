@@ -2823,19 +2823,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\youse\\.nuget\\packages\\": {}
+    "C:\\Users\\Abmos\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Amazon.Core.csproj",
+      "projectUniqueName": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Amazon.Core.csproj",
       "projectName": "Amazon.Core",
-      "projectPath": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Amazon.Core.csproj",
-      "packagesPath": "C:\\Users\\youse\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\youse\\Desktop\\Projects\\FullStack\\.Net\\Amazon\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\obj\\",
+      "projectPath": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Amazon.Core.csproj",
+      "packagesPath": "C:\\Users\\Abmos\\.nuget\\packages\\",
+      "outputPath": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\youse\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Abmos\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
