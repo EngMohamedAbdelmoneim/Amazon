@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Amazone.Infrastructure.Interfaces;
 using Amazone.Infrastructure.Repos;
 using System.Text.Json.Serialization;
+using Amazon.Core.Entities;
 
 namespace Amazon.API
 {
@@ -31,6 +32,7 @@ namespace Amazon.API
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             #region ProductService
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddAutoMapper(typeof(ProductProfile));
 			#endregion

@@ -15,15 +15,13 @@ namespace Amazon.Services.ProductService
 	public class ProductService : IProductService
 	{
 
-		private readonly IGenericRepository<Product> _productRepo;
-		private readonly IConfiguration _configuration;
+		private readonly IProductRepository _productRepo;
 		private readonly IMapper _mapper;
 
-		public ProductService(IMapper mapper, IGenericRepository<Product> productRepo,IConfiguration configuration)
+		public ProductService(IMapper mapper, IProductRepository productRepo)
 		{
 			_mapper = mapper;
 			_productRepo = productRepo;
-			_configuration = configuration;
 		}
 
 
@@ -68,15 +66,102 @@ namespace Amazon.Services.ProductService
 			return mappedProdcts;
 		}
 
-		public async Task<ProductToReturnDto> GetProductByIdAsync(int? id)
+		public async Task<ProductToReturnDto> GetProductByIdAsync(int id)
 		{
 			var product = await _productRepo.GetByIdAsync(id);
 			var mappedProduct = _mapper.Map<ProductToReturnDto>(product);
-			//foreach (var item in product.Images)
-			//{
-			//	mappedProduct.ProductImages.Add(_configuration["BaseUrl"] + item.ImagePath);
-			//}
 			return mappedProduct;
+		}
+
+		public async Task<IReadOnlyList<ProductToReturnDto>> GetProductsByBrandIdAsync(int id)
+		{
+			var products = await _productRepo.SearchByBrandAsync(id);
+			var mappedProdcts = _mapper.Map<IReadOnlyList<ProductToReturnDto>>(products);
+
+			return mappedProdcts;
+		}
+
+		public async Task<IReadOnlyList<ProductToReturnDto>> GetProductsByBrandNameAsync(string name)
+		{
+			if (string.IsNullOrWhiteSpace(name))
+			{
+				return await GetAllProductsAsync();
+			}
+			var products = await _productRepo.SearchByBrandNameAsync(name);
+			var mappedProdcts = _mapper.Map<IReadOnlyList<ProductToReturnDto>>(products);
+
+			return mappedProdcts;
+		}
+
+		public async Task<IReadOnlyList<ProductToReturnDto>> GetProductsByCategoryIdAndNameAsync(string name, int? id)
+		{
+		
+			if(id == 0 || id == null)
+			{
+				if (string.IsNullOrWhiteSpace(name)) 
+				{
+					return await GetAllProductsAsync();
+				}
+				return await GetProductsByNameAsync(name);
+			}
+
+
+			if (id.HasValue && id != 0)
+			{
+				if (string.IsNullOrWhiteSpace(name))
+				{
+					return await GetProductsByCategoryIdAsync(id.Value);
+				}
+			}
+			var products = await _productRepo.SearchByCategoryAndProductNameAsync(name,id);
+			var mappedProdcts = _mapper.Map<IReadOnlyList<ProductToReturnDto>>(products);
+			return mappedProdcts;
+		}
+
+		public async Task<IReadOnlyList<ProductToReturnDto>> GetProductsByCategoryIdAsync(int id)
+		{
+
+			var products = await _productRepo.SearchByCategoryAsync(id);
+			var mappedProdcts = _mapper.Map<IReadOnlyList<ProductToReturnDto>>(products);
+
+			return mappedProdcts;
+		}
+
+		public async Task<IReadOnlyList<ProductToReturnDto>> GetProductsByCategoryNameAsync(string name)
+		{
+			if (string.IsNullOrWhiteSpace(name))
+			{
+				return await GetAllProductsAsync();
+			}
+			var products = await _productRepo.SearchByCategoryNameAsync(name);
+			var mappedProdcts = _mapper.Map<IReadOnlyList<ProductToReturnDto>>(products);
+
+			return mappedProdcts;
+		}
+
+		public async Task<IReadOnlyList<ProductToReturnDto>> GetProductsByNameAsync(string name)
+		{
+			
+			if (string.IsNullOrWhiteSpace(name))
+			{
+				return await GetAllProductsAsync();
+			}
+			var products = await _productRepo.SearchByProductNameAsync(name);
+			var mappedProdcts = _mapper.Map<IReadOnlyList<ProductToReturnDto>>(products);
+
+			return mappedProdcts;
+		}
+
+		public async Task<IReadOnlyList<ProductToReturnDto>> SearchByStringAsync(string str)
+		{
+			if (string.IsNullOrWhiteSpace(str))
+			{
+				return await GetAllProductsAsync();
+			}
+			var products = await _productRepo.SearchByStringAsync(str);
+			var mappedProdcts = _mapper.Map<IReadOnlyList<ProductToReturnDto>>(products);
+
+			return mappedProdcts;
 		}
 
 		public async Task<ProductToReturnDto> UpdateProduct(int id, ProductDto productDto)
@@ -97,5 +182,6 @@ namespace Amazon.Services.ProductService
 			await _productRepo.Update(existintProduct);
 			return _mapper.Map<ProductToReturnDto>(existintProduct);
 		}
+
 	}
 }
