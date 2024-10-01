@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Amazon.API.Controllers
 {
 	
+	//product Search controller
 	public class SearchController : BaseController
 	{
 		private readonly IProductService _productService;
