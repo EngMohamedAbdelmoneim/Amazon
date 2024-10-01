@@ -1,68 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { log } from 'node:console';
+import { Product } from '../../Models/product';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Subscription } from 'rxjs';
+import { SearchService } from '../../Services/search.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [],
+  imports: [RouterModule, CommonModule],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit{
 
-  constructor()
-  {
-    console.table(this.products);
-  }
+  constructor(public http: HttpClient, public activatedRoute: ActivatedRoute, public SearchService: SearchService) { }
 
-  ngOnInit()
+  @ViewChild('Category') Category:ElementRef;
+  products: Array<Product> = [];
+  sub: Subscription | null = null;
+
+  ngOnInit(): void
   {
-    fetch("https://localhost:7283/Product").then((res) => {
-      return res.json();
+    this.sub = this.activatedRoute.params.subscribe(p => {
+      this.SearchService.Search(p['productName']).subscribe({
+        next: data => {
+          console.log(data);
+          this.products = data;
+        }
+      })
     })
-    .then((data) => console.log(data))
-    .catch((err) => console.log(err));
   }
-
-  products = [
-    {
-      id: 1,
-      name: 'Laptop',
-      price: 999.99,
-      category: 'Electronics'
-    },
-    {
-      id: 2,
-      name: 'Smartphone',
-      price: 799.99,
-      category: 'Electronics'
-    },
-    {
-      id: 3,
-      name: 'Headphones',
-      price: 199.99,
-      category: 'Electronics'
-    },
-    {
-      id: 4,
-      name: 'Coffee Maker',
-      price: 49.99,
-      category: 'Home Appliances'
-    },
-    {
-      id: 5,
-      name: 'Blender',
-      price: 39.99,
-      category: 'Home Appliances'
-    },
-    {
-      id: 6,
-      name: 'Book',
-      price: 14.99,
-      category: 'Books'
-    }
-  ];
-
 
 
   LowtoHighSort()

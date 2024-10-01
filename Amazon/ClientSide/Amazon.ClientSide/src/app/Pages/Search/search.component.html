@@ -34,7 +34,22 @@
                 </ul>
               </div>
         </div>
-        <div>
+        <div class="products mt-4">
+            <a routerLink="/product/{{p.id}}" class="card" style="width: 16rem; height: 22rem;" *ngFor="let p of products">
+                <div style="height: 50%;">
+                  <img src={{p.pictureUrl}} style="height: 100%; object-fit:cover;" class="card-img-top" alt="...">
+                </div>
+                <div class="card-body" style="height:50%">
+                  <p class="card-text">{{p.name}}</p>
+                  <p class="card-text">EGP  <b>{{p.price}}</b></p>
+                  <!-- <div *ngIf="p.quantity < 10" style="font-weight: bold; color: #b02a37;">
+                    Only {{p.quantity}} Remaining
+                  </div> -->
+                  <div>
+                    <span class="badge text-bg-success">4.8</span>
+                  </div>
+                </div>
+              </a>
         </div>
     </main>
 </div>

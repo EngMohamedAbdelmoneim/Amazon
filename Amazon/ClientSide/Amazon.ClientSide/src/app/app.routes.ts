@@ -6,5 +6,5 @@ import { HomeComponent } from './Pages/Home/home.component';
 export const routes: Routes = 
 [
     { path: '', component: HomeComponent },
-    { path: 'search/:id', component: SearchComponent },
+    { path: 'search/:productName', component: SearchComponent },
 ];

@@ -1,0 +1,91 @@
+<nav class="p-2">
+
+    <div class="nav">
+
+        <div>
+            
+            <h1 class="">
+                <a [routerLink]="['/']">
+                    <img src="Amazon_logo.png" alt="">
+                </a>
+            </h1>
+
+        </div>
+  
+        <div>
+            <div>
+  
+                <select name="" id="" #Category>
+                    <option value="All">All</option>
+                    <option value="1">Phones</option>
+                    <option value="2">Laptops</option>
+                    <option value="3">Tablets</option>
+                    <option value="4">Air Conditioners</option>
+                    <option value="5">Washing Machines</option>
+                    <option value="6">Ovens</option>
+                </select>
+                <input #query type="search" name="" id="search" class="form-control" placeholder="Search" (keyup.enter)="search(query.value)"/>
+                <!-- <div class="btn btn-primary" (click)="search(query.value)">
+                <svg fill="#ffffff" height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                    viewBox="0 0 488.4 488.4" xml:space="preserve">
+                    <g>
+                    <g>
+                        <path d="M0,203.25c0,112.1,91.2,203.2,203.2,203.2c51.6,0,98.8-19.4,134.7-51.2l129.5,129.5c2.4,2.4,5.5,3.6,8.7,3.6
+                        s6.3-1.2,8.7-3.6c4.8-4.8,4.8-12.5,0-17.3l-129.6-129.5c31.8-35.9,51.2-83,51.2-134.7c0-112.1-91.2-203.2-203.2-203.2
+                        S0,91.15,0,203.25z M381.9,203.25c0,98.5-80.2,178.7-178.7,178.7s-178.7-80.2-178.7-178.7s80.2-178.7,178.7-178.7
+                        S381.9,104.65,381.9,203.25z"/>
+                    </g>
+                    </g>
+                </svg>
+                </div> -->
+            </div>
+        </div>
+  
+        <div style="display: flex;">
+            <button style="background-color: #f1f1f1; border: none; border-radius: 0.3em;" class="p-2 mx-1">WISHLIST</button>
+            <button style="background-color: #f1f1f1; border: none; border-radius: 0.3em;" class="p-2 mx-1">🛒</button>
+            <div class="dropdown">
+                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    My Account
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Orders</a></li>
+                    <li><a class="dropdown-item" href="#">Adresses</a></li>
+                    <li><a class="dropdown-item" href="#">Payments</a></li>
+                    <li><a class="dropdown-item" href="#">Returns</a></li>
+                    <li><a class="dropdown-item" href="#">Warranty Claims</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><a class="dropdown-item" href="#">Sign Out</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+  
+    <div class="lower-nav">
+  
+      <div class="burger-menu" (click)="toggleMenu()">
+        <div [ngClass]="['line1', open ? 'line1O' : '']"></div>
+        <div [ngClass]="['line2', open ? 'line2O' : '']"></div>
+        <div [ngClass]="['line3', open ? 'line3O' : '']"></div>
+      </div>
+  
+      <a href="">Men</a>
+      <a href="">Women</a>
+      <a href="">Kids</a>
+      <a href="">Home</a>
+      <a href="">Elctronics</a>
+      <a href="">Mobile Phones</a>
+    </div>
+    
+</nav>
+  
+<div class="sidebar" [style.translate]="open ?'0px':'-251px'">
+    <button>test</button>
+    <button>test</button>
+    <button>test</button>
+    <button>test</button>
+    <button>test</button>
+    <button>test</button>
+</div>
+  
+<div class="overlay" [style.display]="open ?'block':'none'" (click)="toggleMenu()"></div>

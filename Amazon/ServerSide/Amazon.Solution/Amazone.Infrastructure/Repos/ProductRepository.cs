@@ -36,8 +36,11 @@ namespace Amazone.Infrastructure.Repos
 
 		public async Task<IReadOnlyList<Product>> SearchByCategoryAndProductNameAsync(string productName,int? categoryId)
 		{
-			return await _context.Products.Where(p => p.CategoryId == categoryId && p.Name.Contains(productName)).ToListAsync();
-		}
+			return await _context.Products.Include(p => p.Brand).Include(p => p.Category)
+                                      .Where(p => p.Name.Contains(productName) ||
+                                             p.Brand.Name.Contains(productName) ||
+                                             p.Category.Name.Contains(productName)).Where(p => p.CategoryId == categoryId).ToListAsync();
+        }
 
 		public async Task<IReadOnlyList<Product>> SearchByStringAsync(string searchString) 
 			=> await _context.Products.Include(p => p.Brand).Include(p => p.Category)

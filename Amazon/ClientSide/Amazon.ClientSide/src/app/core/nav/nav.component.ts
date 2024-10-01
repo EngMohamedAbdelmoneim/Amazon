@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, signal, ViewChild, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
-import { sign } from 'crypto';
+import { SearchService } from '../../Services/search.service';
 
 @Component({
   selector: 'app-nav',
@@ -13,8 +13,9 @@ import { sign } from 'crypto';
   encapsulation: ViewEncapsulation.Emulated
 })
 export class NavComponent {
-  constructor(private router:Router){}
+  constructor(private router:Router, private searchService: SearchService){}
 
+  @ViewChild('Category') Category:ElementRef;
   query: string;
   open:boolean = false;
 
@@ -37,9 +38,12 @@ export class NavComponent {
     this.open = !this.open;
   }
   
-  search = (q: string) => {
+  search(q: string)
+  {
+    let Category = this.Category.nativeElement.value;
+    this.searchService.searchType = Category;
     console.log(q);
     this.router.navigateByUrl(`/search/${q}`);
-    console.log(window.location.href)
   }
+
 }
