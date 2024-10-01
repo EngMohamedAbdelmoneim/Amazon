@@ -33,3 +33,17 @@ Amazon/ServerSide/Amazon.Solution/Amazon.Services/obj/Debug/net8.0/Amazon.Servic
 Amazon/ServerSide/Amazon.Solution/Amazon.Core/obj/Debug/net8.0/Amazon.Core.AssemblyInfoInputs.cache
 Amazon/ServerSide/Amazon.Solution/Amazon.Core/obj/Debug/net8.0/Amazon.Core.AssemblyInfo.cs
 Amazon/ServerSide/Amazon.Solution/Amazon.Services/obj/Debug/net8.0/Amazon.Services.AssemblyInfo.cs
+/Amazon/ServerSide/Amazon.Solution/Amazon.API/obj
+*.cache
+/Amazon/ServerSide/Amazon.Solution/Amazon.Core/obj
+*.cache
+/Amazon/ServerSide/Amazon.Solution/Amazon.Services/obj
+/Amazon/ServerSide/Amazon.Solution/Amazone.Infrastructure/obj
+Amazon/ServerSide/Amazon.Solution/Amazon.API/obj/Debug/net8.0/Amazon.API.AssemblyInfo.cs
+Amazon/ServerSide/Amazon.Solution/Amazon.API/obj/Debug/net8.0/Amazon.API.AssemblyInfoInputs.cache
+Amazon/ServerSide/Amazon.Solution/Amazon.Core/obj/Debug/net8.0/Amazon.Core.AssemblyInfo.cs
+Amazon/ServerSide/Amazon.Solution/Amazon.Core/obj/Debug/net8.0/Amazon.Core.AssemblyInfoInputs.cache
+Amazon/ServerSide/Amazon.Solution/Amazon.Services/obj/Debug/net8.0/Amazon.Services.AssemblyInfo.cs
+Amazon/ServerSide/Amazon.Solution/Amazon.Services/obj/Debug/net8.0/Amazon.Services.AssemblyInfoInputs.cache
+Amazon/ServerSide/Amazon.Solution/Amazone.Infrastructure/obj/Debug/net8.0/Amazone.Infrastructure.AssemblyInfo.cs
+Amazon/ServerSide/Amazon.Solution/Amazone.Infrastructure/obj/Debug/net8.0/Amazone.Infrastructure.AssemblyInfoInputs.cache

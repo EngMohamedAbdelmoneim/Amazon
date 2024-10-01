@@ -41,6 +41,12 @@ namespace Amazon.API.Controllers
 		public async Task<IReadOnlyList<ProductToReturnDto>> SearchByProductNameAndCategoryId(string? productName, int? categoryId)
 			=> await _productService.GetProductsByCategoryIdAndNameAsync(productName, categoryId);
 
+		
+		/// <summary>
+		/// search End Point that take a string  and return the search result if the product name or category or brand contains that string
+		/// </summary>
+		/// <param name="Search Keyword"></param>
+		/// <returns></returns>
 		[HttpGet]
 		public async Task<IReadOnlyList<ProductToReturnDto>> SearchByString(string? str)
 			=> await _productService.SearchByStringAsync(str);
