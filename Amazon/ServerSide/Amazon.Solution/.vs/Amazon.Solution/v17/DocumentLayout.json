@@ -3,32 +3,40 @@
   "WorkspaceRootPath": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{10F8FAB6-2F19-4F4D-9764-93A5F0A85FD3}|Amazon.Services\\Amazon.Services.csproj|e:\\iti - itp .net\\iti-gp\\amazon\\serverside\\amazon.solution\\amazon.services\\productservice\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{10F8FAB6-2F19-4F4D-9764-93A5F0A85FD3}|Amazon.Services\\Amazon.Services.csproj|solutionrelative:amazon.services\\productservice\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C5907C84-4FF4-4D37-A5E3-8E99700ABD6B}|Amazon.API\\Amazon.API.csproj|e:\\iti - itp .net\\iti-gp\\amazon\\serverside\\amazon.solution\\amazon.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C5907C84-4FF4-4D37-A5E3-8E99700ABD6B}|Amazon.API\\Amazon.API.csproj|solutionrelative:amazon.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C5907C84-4FF4-4D37-A5E3-8E99700ABD6B}|Amazon.API\\Amazon.API.csproj|e:\\iti - itp .net\\iti-gp\\amazon\\serverside\\amazon.solution\\amazon.api\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C5907C84-4FF4-4D37-A5E3-8E99700ABD6B}|Amazon.API\\Amazon.API.csproj|solutionrelative:amazon.api\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C7D486F4-C4A6-41F5-B281-C1C9DB6DDFEA}|Amazon.Core\\Amazon.Core.csproj|e:\\iti - itp .net\\iti-gp\\amazon\\serverside\\amazon.solution\\amazon.core\\entities\\brand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C7D486F4-C4A6-41F5-B281-C1C9DB6DDFEA}|Amazon.Core\\Amazon.Core.csproj|solutionrelative:amazon.core\\entities\\brand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C5907C84-4FF4-4D37-A5E3-8E99700ABD6B}|Amazon.API\\Amazon.API.csproj|e:\\iti - itp .net\\iti-gp\\amazon\\serverside\\amazon.solution\\amazon.api\\controllers\\searchcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C5907C84-4FF4-4D37-A5E3-8E99700ABD6B}|Amazon.API\\Amazon.API.csproj|solutionrelative:amazon.api\\controllers\\searchcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{C5907C84-4FF4-4D37-A5E3-8E99700ABD6B}|Amazon.API\\Amazon.API.csproj|e:\\iti - itp .net\\iti-gp\\amazon\\serverside\\amazon.solution\\amazon.api\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C5907C84-4FF4-4D37-A5E3-8E99700ABD6B}|Amazon.API\\Amazon.API.csproj|solutionrelative:amazon.api\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10F8FAB6-2F19-4F4D-9764-93A5F0A85FD3}|Amazon.Services\\Amazon.Services.csproj|e:\\iti - itp .net\\iti-gp\\amazon\\serverside\\amazon.solution\\amazon.services\\productservice\\dto\\productprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10F8FAB6-2F19-4F4D-9764-93A5F0A85FD3}|Amazon.Services\\Amazon.Services.csproj|solutionrelative:amazon.services\\productservice\\dto\\productprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{10F8FAB6-2F19-4F4D-9764-93A5F0A85FD3}|Amazon.Services\\Amazon.Services.csproj|e:\\iti - itp .net\\iti-gp\\amazon\\serverside\\amazon.solution\\amazon.services\\productservice\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{10F8FAB6-2F19-4F4D-9764-93A5F0A85FD3}|Amazon.Services\\Amazon.Services.csproj|solutionrelative:amazon.services\\productservice\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C5907C84-4FF4-4D37-A5E3-8E99700ABD6B}|Amazon.API\\Amazon.API.csproj|e:\\iti - itp .net\\iti-gp\\amazon\\serverside\\amazon.solution\\amazon.api\\controllers\\basecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C5907C84-4FF4-4D37-A5E3-8E99700ABD6B}|Amazon.API\\Amazon.API.csproj|solutionrelative:amazon.api\\controllers\\basecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{10F8FAB6-2F19-4F4D-9764-93A5F0A85FD3}|Amazon.Services\\Amazon.Services.csproj|e:\\iti - itp .net\\iti-gp\\amazon\\serverside\\amazon.solution\\amazon.services\\productservice\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10F8FAB6-2F19-4F4D-9764-93A5F0A85FD3}|Amazon.Services\\Amazon.Services.csproj|solutionrelative:amazon.services\\productservice\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{340E1711-6CFF-4CCF-B0DB-9540B67AD329}|Amazone.Infrastructure\\Amazone.Infrastructure.csproj|e:\\iti - itp .net\\iti-gp\\amazon\\serverside\\amazon.solution\\amazone.infrastructure\\repos\\productrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{340E1711-6CFF-4CCF-B0DB-9540B67AD329}|Amazone.Infrastructure\\Amazone.Infrastructure.csproj|solutionrelative:amazone.infrastructure\\repos\\productrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C5907C84-4FF4-4D37-A5E3-8E99700ABD6B}|Amazon.API\\Amazon.API.csproj|e:\\iti - itp .net\\iti-gp\\amazon\\serverside\\amazon.solution\\amazon.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C5907C84-4FF4-4D37-A5E3-8E99700ABD6B}|Amazon.API\\Amazon.API.csproj|solutionrelative:amazon.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C5907C84-4FF4-4D37-A5E3-8E99700ABD6B}|Amazon.API\\Amazon.API.csproj|e:\\iti - itp .net\\iti-gp\\amazon\\serverside\\amazon.solution\\amazon.api\\controllers\\basecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C5907C84-4FF4-4D37-A5E3-8E99700ABD6B}|Amazon.API\\Amazon.API.csproj|solutionrelative:amazon.api\\controllers\\basecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{340E1711-6CFF-4CCF-B0DB-9540B67AD329}|Amazone.Infrastructure\\Amazone.Infrastructure.csproj|e:\\iti - itp .net\\iti-gp\\amazon\\serverside\\amazon.solution\\amazone.infrastructure\\interfaces\\iproductrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -55,10 +63,6 @@
       "RelativeMoniker": "D:0:0:{10F8FAB6-2F19-4F4D-9764-93A5F0A85FD3}|Amazon.Services\\Amazon.Services.csproj|solutionrelative:amazon.services\\utilities\\producturlimageresolver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{10F8FAB6-2F19-4F4D-9764-93A5F0A85FD3}|Amazon.Services\\Amazon.Services.csproj|e:\\iti - itp .net\\iti-gp\\amazon\\serverside\\amazon.solution\\amazon.services\\productservice\\dto\\productprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{10F8FAB6-2F19-4F4D-9764-93A5F0A85FD3}|Amazon.Services\\Amazon.Services.csproj|solutionrelative:amazon.services\\productservice\\dto\\productprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{10F8FAB6-2F19-4F4D-9764-93A5F0A85FD3}|Amazon.Services\\Amazon.Services.csproj|e:\\iti - itp .net\\iti-gp\\amazon\\serverside\\amazon.solution\\amazon.services\\productservice\\dto\\producttoreturndto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{10F8FAB6-2F19-4F4D-9764-93A5F0A85FD3}|Amazon.Services\\Amazon.Services.csproj|solutionrelative:amazon.services\\productservice\\dto\\producttoreturndto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -77,10 +81,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{10F8FAB6-2F19-4F4D-9764-93A5F0A85FD3}|Amazon.Services\\Amazon.Services.csproj|e:\\iti - itp .net\\iti-gp\\amazon\\serverside\\amazon.solution\\amazon.services\\productservice\\dto\\productdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{10F8FAB6-2F19-4F4D-9764-93A5F0A85FD3}|Amazon.Services\\Amazon.Services.csproj|solutionrelative:amazon.services\\productservice\\dto\\productdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C7D486F4-C4A6-41F5-B281-C1C9DB6DDFEA}|Amazon.Core\\Amazon.Core.csproj|e:\\iti - itp .net\\iti-gp\\amazon\\serverside\\amazon.solution\\amazon.core\\entities\\brand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C7D486F4-C4A6-41F5-B281-C1C9DB6DDFEA}|Amazon.Core\\Amazon.Core.csproj|solutionrelative:amazon.core\\entities\\brand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C7D486F4-C4A6-41F5-B281-C1C9DB6DDFEA}|Amazon.Core\\Amazon.Core.csproj|e:\\iti - itp .net\\iti-gp\\amazon\\serverside\\amazon.solution\\amazon.core\\migrations\\20240929100828_seedingdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -125,7 +125,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 220,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 11,
           "Children": [
             {
               "$type": "Bookmark",
@@ -149,54 +149,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Program.cs",
-              "RelativeDocumentMoniker": "Amazon.API\\Program.cs",
-              "ToolTip": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Program.cs",
-              "RelativeToolTip": "Amazon.API\\Program.cs",
-              "ViewState": "AgIAABUAAACgNDMzM7MgwCIAAABQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-16T01:58:21.622Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 6,
               "Title": "ProductRepository.cs",
               "DocumentMoniker": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\Repos\\ProductRepository.cs",
               "RelativeDocumentMoniker": "Amazone.Infrastructure\\Repos\\ProductRepository.cs",
               "ToolTip": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\Repos\\ProductRepository.cs",
               "RelativeToolTip": "Amazone.Infrastructure\\Repos\\ProductRepository.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAkwCUAAAADAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-30T17:04:16.447Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "IProductService.cs",
               "DocumentMoniker": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\ProductService\\IProductService.cs",
               "RelativeDocumentMoniker": "Amazon.Services\\ProductService\\IProductService.cs",
               "ToolTip": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\ProductService\\IProductService.cs",
               "RelativeToolTip": "Amazon.Services\\ProductService\\IProductService.cs",
-              "ViewState": "AgIAAA4AAADAmZmZmVk+wBQAAABJAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAADAmZmZmVk8wBQAAABJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-16T01:37:29.006Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "BaseController.cs",
-              "DocumentMoniker": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Controllers\\BaseController.cs",
-              "RelativeDocumentMoniker": "Amazon.API\\Controllers\\BaseController.cs",
-              "ToolTip": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Controllers\\BaseController.cs",
-              "RelativeToolTip": "Amazon.API\\Controllers\\BaseController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-16T01:51:44.058Z",
               "EditorCaption": ""
             },
             {
@@ -207,7 +181,7 @@
               "RelativeDocumentMoniker": "Amazon.API\\Controllers\\ProductController.cs",
               "ToolTip": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Controllers\\ProductController.cs",
               "RelativeToolTip": "Amazon.API\\Controllers\\ProductController.cs",
-              "ViewState": "AgIAAB0AAACAMjMzM/MlwAQAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAABg/////38kwAQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-16T02:07:31.632Z",
               "EditorCaption": ""
@@ -220,27 +194,77 @@
               "RelativeDocumentMoniker": "Amazon.Services\\ProductService\\ProductService.cs",
               "ToolTip": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\ProductService\\ProductService.cs",
               "RelativeToolTip": "Amazon.Services\\ProductService\\ProductService.cs",
-              "ViewState": "AgIAAJwAAADA/v////8hwLcAAAADAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAZmZmZmb0v7cAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-16T01:37:40.932Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "SearchController.cs",
               "DocumentMoniker": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Controllers\\SearchController.cs",
               "RelativeDocumentMoniker": "Amazon.API\\Controllers\\SearchController.cs",
               "ToolTip": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Controllers\\SearchController.cs",
               "RelativeToolTip": "Amazon.API\\Controllers\\SearchController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAABAAAADgMjMzMzMiwCoAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-30T18:29:29.242Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "productProfile.cs",
+              "DocumentMoniker": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\ProductService\\Dto\\productProfile.cs",
+              "RelativeDocumentMoniker": "Amazon.Services\\ProductService\\Dto\\productProfile.cs",
+              "ToolTip": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\ProductService\\Dto\\productProfile.cs",
+              "RelativeToolTip": "Amazon.Services\\ProductService\\Dto\\productProfile.cs",
+              "ViewState": "AgIAAAoAAABAzczMzMwewBgAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-16T00:55:45.753Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Brand.cs",
+              "DocumentMoniker": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Entities\\Brand.cs",
+              "RelativeDocumentMoniker": "Amazon.Core\\Entities\\Brand.cs",
+              "ToolTip": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Entities\\Brand.cs",
+              "RelativeToolTip": "Amazon.Core\\Entities\\Brand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-16T02:30:03.443Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "BaseController.cs",
+              "DocumentMoniker": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Controllers\\BaseController.cs",
+              "RelativeDocumentMoniker": "Amazon.API\\Controllers\\BaseController.cs",
+              "ToolTip": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Controllers\\BaseController.cs",
+              "RelativeToolTip": "Amazon.API\\Controllers\\BaseController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-16T01:51:44.058Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Program.cs",
+              "RelativeDocumentMoniker": "Amazon.API\\Program.cs",
+              "ToolTip": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Program.cs",
+              "RelativeToolTip": "Amazon.API\\Program.cs",
+              "ViewState": "AgIAABUAAACgNDMzM7MgwCIAAABQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-16T01:58:21.622Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "IProductRepository.cs",
               "DocumentMoniker": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\Interfaces\\IProductRepository.cs",
               "RelativeDocumentMoniker": "Amazone.Infrastructure\\Interfaces\\IProductRepository.cs",
@@ -248,12 +272,11 @@
               "RelativeToolTip": "Amazone.Infrastructure\\Interfaces\\IProductRepository.cs",
               "ViewState": "AgIAAAkAAACAAQAAAAAYwBoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-30T17:13:44.615Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-30T17:13:44.615Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "IGenericRepository.cs",
               "DocumentMoniker": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\Interfaces\\IGenericRepository.cs",
               "RelativeDocumentMoniker": "Amazone.Infrastructure\\Interfaces\\IGenericRepository.cs",
@@ -261,12 +284,11 @@
               "RelativeToolTip": "Amazone.Infrastructure\\Interfaces\\IGenericRepository.cs",
               "ViewState": "AgIAAAcAAACAmZmZmRkfwAsAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-15T21:43:10.173Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-15T21:43:10.173Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "appsettings.json",
               "DocumentMoniker": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\appsettings.json",
               "RelativeDocumentMoniker": "Amazon.API\\appsettings.json",
@@ -274,12 +296,11 @@
               "RelativeToolTip": "Amazon.API\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-09-16T01:22:58.788Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-16T01:22:58.788Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "GenericRepository.cs",
               "DocumentMoniker": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazone.Infrastructure\\Repos\\GenericRepository.cs",
               "RelativeDocumentMoniker": "Amazone.Infrastructure\\Repos\\GenericRepository.cs",
@@ -287,12 +308,11 @@
               "RelativeToolTip": "Amazone.Infrastructure\\Repos\\GenericRepository.cs",
               "ViewState": "AgIAACAAAAAAa2ZmZmbwvywAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-15T21:43:23.575Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-15T21:43:23.575Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "Amazon.API.http",
               "DocumentMoniker": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.API\\Amazon.API.http",
               "RelativeDocumentMoniker": "Amazon.API\\Amazon.API.http",
@@ -300,12 +320,11 @@
               "RelativeToolTip": "Amazon.API\\Amazon.API.http",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2024-09-30T15:40:42.859Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-30T15:40:42.859Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "ProductImages.cs",
               "DocumentMoniker": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Entities\\ProductImages.cs",
               "RelativeDocumentMoniker": "Amazon.Core\\Entities\\ProductImages.cs",
@@ -317,7 +336,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "BaseEntity.cs",
               "DocumentMoniker": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Entities\\BaseEntity.cs",
               "RelativeDocumentMoniker": "Amazon.Core\\Entities\\BaseEntity.cs",
@@ -329,7 +348,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "Product.cs",
               "DocumentMoniker": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Entities\\Product.cs",
               "RelativeDocumentMoniker": "Amazon.Core\\Entities\\Product.cs",
@@ -341,7 +360,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "ProductToReturnDto.cs",
               "DocumentMoniker": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\ProductService\\Dto\\ProductToReturnDto.cs",
               "RelativeDocumentMoniker": "Amazon.Services\\ProductService\\Dto\\ProductToReturnDto.cs",
@@ -353,19 +372,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "productProfile.cs",
-              "DocumentMoniker": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\ProductService\\Dto\\productProfile.cs",
-              "RelativeDocumentMoniker": "Amazon.Services\\ProductService\\Dto\\productProfile.cs",
-              "ToolTip": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\ProductService\\Dto\\productProfile.cs",
-              "RelativeToolTip": "Amazon.Services\\ProductService\\Dto\\productProfile.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAgwBUAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-16T00:55:45.753Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 14,
               "Title": "ProductUrlImageResolver.cs",
               "DocumentMoniker": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\Utilities\\ProductUrlImageResolver.cs",
               "RelativeDocumentMoniker": "Amazon.Services\\Utilities\\ProductUrlImageResolver.cs",
@@ -373,12 +380,11 @@
               "RelativeToolTip": "Amazon.Services\\Utilities\\ProductUrlImageResolver.cs",
               "ViewState": "AgIAAAQAAACAaGZmZuYswB4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-16T01:19:31.528Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-16T01:19:31.528Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "ProductDto.cs",
               "DocumentMoniker": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Services\\ProductService\\Dto\\ProductDto.cs",
               "RelativeDocumentMoniker": "Amazon.Services\\ProductService\\Dto\\ProductDto.cs",
@@ -387,18 +393,6 @@
               "ViewState": "AgIAAAQAAAAAZ2ZmZuYUwBMAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-16T00:55:45.292Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "Brand.cs",
-              "DocumentMoniker": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Entities\\Brand.cs",
-              "RelativeDocumentMoniker": "Amazon.Core\\Entities\\Brand.cs",
-              "ToolTip": "E:\\ITI - ITP .NET\\ITI-GP\\Amazon\\ServerSide\\Amazon.Solution\\Amazon.Core\\Entities\\Brand.cs",
-              "RelativeToolTip": "Amazon.Core\\Entities\\Brand.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-16T02:30:03.443Z"
             },
             {
               "$type": "Document",
