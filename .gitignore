@@ -11,3 +11,5 @@ Amazon/ServerSide/Amazon.Solution/Amazon.Services/obj/
 Amazon/ServerSide/Amazon.Solution/Amazone.Infrastructure/bin/
 Amazon/ServerSide/Amazon.Solution/Amazone.Infrastructure/obj/
 Amazon/ServerSide/Amazon.Solution/.vs/
+*.wsuo
+/.vs/Amazon Clone/v17/DocumentLayout.json
