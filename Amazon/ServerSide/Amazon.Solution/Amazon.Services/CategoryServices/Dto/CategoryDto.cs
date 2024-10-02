@@ -19,7 +19,7 @@ namespace Amazon.Services.CategoryServices.Dto
         public string Type { get; set; }
 
         [Required]
-        public int? DisplayOrder { get; set; }
+        public int DisplayOrder { get; set; }
 
         [Required]
         public bool IsActive { get; set; }
