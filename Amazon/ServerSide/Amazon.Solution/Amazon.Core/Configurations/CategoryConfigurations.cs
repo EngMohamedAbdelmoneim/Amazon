@@ -13,10 +13,11 @@ namespace Amazon.Core.Configurations
         {
             builder.Property(p => p.Id).IsRequired();
             builder.Property(p => p.Name).IsRequired().HasMaxLength(100);
-            builder.Property(p => p.Description).IsRequired().HasMaxLength(100);
-            builder.Property(p => p.DisplayOrder).IsRequired();
-            builder.Property(p => p.IsActive).IsRequired();
-            builder.Property(p=>p.IsVisible).IsRequired();
+            builder.Property(p => p.Description).IsRequired(false).HasMaxLength(100);
+            builder.Property(p => p.Type).IsRequired(false).HasMaxLength(100);
+            builder.Property(p => p.DisplayOrder).IsRequired(false);
+            builder.Property(p => p.IsActive).IsRequired(false);
+            builder.Property(p=>p.IsVisible).IsRequired(false);
 
             builder.HasOne(p => p.ParentCategory)
                     .WithMany(c => c.Categories)
