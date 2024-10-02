@@ -2,6 +2,10 @@
 using Amazon.Core.DBContext;
 using Amazon.Services.ProductService.Dto;
 using Amazon.Services.ProductService;
+using Amazon.Services.ParentCategoryService;
+using Amazon.Services.ParentCategoryService.Dto;
+using Amazon.Services.CategoryServices;
+using Amazon.Services.CategoryServices.Dto;
 using Microsoft.EntityFrameworkCore;
 using Amazone.Infrastructure.Interfaces;
 using Amazone.Infrastructure.Repos;
@@ -35,12 +39,19 @@ namespace Amazon.API
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddAutoMapper(typeof(ProductProfile));
-			#endregion
+            #endregion
+            #region ParentCategoryService
+            builder.Services.AddScoped<IParentCategoryService, ParentCategoryService>();
+            builder.Services.AddAutoMapper(typeof(ParentCategoryProfile));
+            #endregion
+            #region CategoryService
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddAutoMapper(typeof(CategoryProfile));
+            #endregion
 
-
-			#endregion
-			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-			builder.Services.AddEndpointsApiExplorer();
+            #endregion
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddCors(options =>
