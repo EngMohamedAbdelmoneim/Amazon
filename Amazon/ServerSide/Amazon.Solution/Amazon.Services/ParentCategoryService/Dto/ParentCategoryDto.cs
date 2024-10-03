@@ -12,7 +12,5 @@ namespace Amazon.Services.ParentCategoryService.Dto
     {
         [Required]
         public string Name { get; set; }
-
-        
     }
 }

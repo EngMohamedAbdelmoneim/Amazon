@@ -26,7 +26,7 @@ namespace Amazon.Services.CategoryServices
             var mappedCategories = _mapper.Map<IReadOnlyList<CategoryToReturnDto>>(category);
             return mappedCategories;
         }
-        public async Task<CategoryToReturnDto> AddCategoryAsync(CategoryDto categoryDto)
+        public async Task<CategoryToReturnDto> AddCategory(CategoryDto categoryDto)
         {
             try
             {
@@ -40,11 +40,12 @@ namespace Amazon.Services.CategoryServices
             }
             catch(Exception ex)
             {
+                throw new Exception($"Inner exception: {ex.InnerException?.Message}");
                 throw new Exception("An unexpected error occured while adding parent category: " + ex.Message);
             }
         }
 
-        public async Task<IReadOnlyList<CategoryToReturnDto>> DeleteCategoryAsync(int Id)
+        public async Task<IReadOnlyList<CategoryToReturnDto>> DeleteCategory(int Id)
         {
             var category = await _categoryRepo.GetByIdAsync(Id);
 
@@ -56,7 +57,7 @@ namespace Amazon.Services.CategoryServices
 
             return mappedCategories;
         }
-        public async Task<CategoryToReturnDto> UpdateCategoryAsync(int Id, CategoryDto categoryDto)
+        public async Task<CategoryToReturnDto> UpdateCategory(int Id, CategoryDto categoryDto)
         {
             var existingCategory = await _categoryRepo.GetByIdAsync(Id);
 

@@ -26,11 +26,11 @@ namespace Amazon.API.Controllers
             =>await _parentCategoryService.DeleteParentCategory(Id);
 
         [HttpPut("id")]
-        public async Task<ParentCategoryToReturnDto> UpdateProduct (int Id, ParentCategoryDto parentCategory)
+        public async Task<ParentCategoryToReturnDto> UpdateParentCategory(int Id, ParentCategoryDto parentCategory)
             => await _parentCategoryService.UpdateParentCategory(Id, parentCategory);
 
         [HttpGet("{Id}")]
-        public async Task<ParentCategoryToReturnDto> GetProductById(int? Id)
+        public async Task<ParentCategoryToReturnDto> GetParentCategoryById(int? Id)
             => await _parentCategoryService.GetParentCategoryByIdAsync(Id);
 
 

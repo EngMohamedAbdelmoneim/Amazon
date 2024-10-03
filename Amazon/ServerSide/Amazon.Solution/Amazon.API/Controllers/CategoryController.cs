@@ -19,15 +19,15 @@ namespace Amazon.API.Controllers
 
         [HttpPost]
         public async Task<CategoryToReturnDto> AddCategory(CategoryDto categoryDto)
-            => await _categoryService.AddCategoryAsync(categoryDto);
+            => await _categoryService.AddCategory(categoryDto);
 
         [HttpDelete]
         public async Task<IReadOnlyList<CategoryToReturnDto>> DeleteCategory(int Id)
-            => await _categoryService.DeleteCategoryAsync(Id);
+            => await _categoryService.DeleteCategory(Id);
 
         [HttpPut("id")]
         public async Task<CategoryToReturnDto> UpdateCategory(int Id, CategoryDto categoryDto)
-            => await _categoryService.UpdateCategoryAsync(Id, categoryDto);
+            => await _categoryService.UpdateCategory(Id, categoryDto);
 
         [HttpGet("{Id}")]
         public async Task <CategoryToReturnDto> GetCategoryById(int? Id)

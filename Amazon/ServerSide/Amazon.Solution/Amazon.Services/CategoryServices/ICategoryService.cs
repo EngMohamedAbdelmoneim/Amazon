@@ -11,9 +11,9 @@ namespace Amazon.Services.CategoryServices
     {
         Task<IReadOnlyList<CategoryToReturnDto>> GetAllCategoriesAsync();
 
-        Task<CategoryToReturnDto> AddCategoryAsync(CategoryDto categoryDto);
-        Task<IReadOnlyList<CategoryToReturnDto>> DeleteCategoryAsync(int Id);
-        Task<CategoryToReturnDto> UpdateCategoryAsync(int Id, CategoryDto categoryDto);
+        Task<CategoryToReturnDto> AddCategory(CategoryDto categoryDto);
+        Task<IReadOnlyList<CategoryToReturnDto>> DeleteCategory(int Id);
+        Task<CategoryToReturnDto> UpdateCategory(int Id, CategoryDto categoryDto);
         Task <CategoryToReturnDto> GetCategoryByIdAsync(int? Id);
     }
 }
