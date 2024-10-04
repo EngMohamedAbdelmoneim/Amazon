@@ -1,10 +1,17 @@
-<app-nav></app-nav>
-
-<!-- <main class="main">
-  <h1>Home Page</h1>
-</main> -->
-
+<!-- <app-nav></app-nav>
 
 <router-outlet />
 
-<app-footer></app-footer>
+<app-footer></app-footer> -->
+
+@switch (pageLayoutService.layout$ | async)
+{
+  @case(PageLayout.Authorized)
+  {
+    <app-authorized-layout><router-outlet /></app-authorized-layout>
+  }
+  @case(PageLayout.UnAuthorized)
+  {
+    <app-un-authorized-layout><router-outlet /></app-un-authorized-layout>
+  }
+}

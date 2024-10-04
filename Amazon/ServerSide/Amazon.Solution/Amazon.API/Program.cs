@@ -10,7 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Amazone.Infrastructure.Interfaces;
 using Amazone.Infrastructure.Repos;
 using System.Text.Json.Serialization;
-using Amazon.Core.Entities;
+using Amazon.Services.BrandService;
+using Amazon.Services.BrandService.Dto;
 
 namespace Amazon.API
 {
@@ -40,13 +41,20 @@ namespace Amazon.API
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddAutoMapper(typeof(ProductProfile));
             #endregion
+
             #region ParentCategoryService
             builder.Services.AddScoped<IParentCategoryService, ParentCategoryService>();
             builder.Services.AddAutoMapper(typeof(ParentCategoryProfile));
             #endregion
+
             #region CategoryService
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddAutoMapper(typeof(CategoryProfile));
+            #endregion
+
+            #region BrandService
+            builder.Services.AddScoped<IBrandService, BrandService>();
+            builder.Services.AddAutoMapper(typeof(BrandProfile));
             #endregion
 
             #endregion

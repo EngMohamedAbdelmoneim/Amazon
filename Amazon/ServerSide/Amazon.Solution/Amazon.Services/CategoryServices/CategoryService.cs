@@ -1,9 +1,4 @@
 ﻿using Amazon.Services.CategoryServices.Dto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using Amazone.Infrastructure.Interfaces;
 using Amazon.Core.Entities;

@@ -1,0 +1,10 @@
+main{
+    display: grid;
+    place-items: center;
+    .form{
+        width: 40%;
+        border: 1px solid grey;
+        border-radius: 1em;
+        /* margin-inline: auto; */
+    }
+}

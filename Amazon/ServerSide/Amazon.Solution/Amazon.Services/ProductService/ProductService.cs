@@ -3,12 +3,6 @@ using Amazon.Services.ProductService.Dto;
 using Amazon.Services.Utilities;
 using Amazone.Infrastructure.Interfaces;
 using AutoMapper;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Amazon.Services.ProductService
 {
@@ -39,9 +33,7 @@ namespace Amazon.Services.ProductService
 			}
 			catch (Exception ex)
 			{
-
 				throw new Exception(ex.Message);
-
 			}	
 		}
 
@@ -177,7 +169,6 @@ namespace Amazon.Services.ProductService
 			}
 
 			_mapper.Map(productDto, existintProduct);
-
 
 			await _productRepo.Update(existintProduct);
 			return _mapper.Map<ProductToReturnDto>(existintProduct);
