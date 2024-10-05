@@ -25,5 +25,7 @@ namespace Amazon.Core.Entities
         public int BrandId { get; set; }
 
         public virtual ICollection<ProductImages> Images { get; set; } = [];
+        [NotMapped]
+        public ICollection<IFormFile> ImagesFiles { get; set; }
     }
 }

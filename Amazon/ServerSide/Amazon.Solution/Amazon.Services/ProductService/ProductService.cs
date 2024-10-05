@@ -3,6 +3,7 @@ using Amazon.Services.ProductService.Dto;
 using Amazon.Services.Utilities;
 using Amazone.Infrastructure.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 
 namespace Amazon.Services.ProductService
 {
@@ -26,7 +27,9 @@ namespace Amazon.Services.ProductService
 				var mappedProduct = _mapper.Map<Product>(productDto);
 				mappedProduct.PictureUrl = await DocumentSettings.UploadFile(productDto.ImageFile, "productImages");
 
-				await _productRepo.Add(mappedProduct);
+                await HandleProductImages(productDto.ImagesFiles, mappedProduct);
+
+                await _productRepo.Add(mappedProduct);
 
 				var productToReturn = _mapper.Map<ProductToReturnDto>(mappedProduct);
 				return productToReturn;
@@ -174,5 +177,21 @@ namespace Amazon.Services.ProductService
 			return _mapper.Map<ProductToReturnDto>(existintProduct);
 		}
 
-	}
+		// Helper method to add other product images
+        private async Task HandleProductImages(ICollection<IFormFile> imagesFiles, Product product)
+        {
+            if (imagesFiles != null && imagesFiles.Count() > 0)
+            {
+                foreach (var image in imagesFiles)
+                {
+                    var productImage = new ProductImages
+                    {
+                        ProductId = product.Id,
+                        ImagePath = await DocumentSettings.UploadFile(image, "productImages")
+                    };
+                    product.Images.Add(productImage);
+                }
+            }
+        }
+    }
 }

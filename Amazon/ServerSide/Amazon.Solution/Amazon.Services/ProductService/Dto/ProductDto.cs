@@ -17,6 +17,6 @@ namespace Amazon.Services.ProductService.Dto
 		public int QuantityInStock { get; set; }
 		public int BrandId { get; set; }
 		public int CategoryId { get; set; }
-		public ICollection<ProductImages> Images { get; set; }
-	}
+        public ICollection<IFormFile> ImagesFiles { get; set; }
+    }
 }
