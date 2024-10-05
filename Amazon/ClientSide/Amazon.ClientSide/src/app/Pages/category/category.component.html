@@ -1,0 +1,60 @@
+<div class="Container">
+
+  <aside class="p-4" style="border-right: 1px solid gray; width: 300px;">
+    <div class="mb-2">
+      <h4 style="font-weight:bolder;">Shop by Category</h4>
+      <ul class="list-unstyled">
+
+        <li style="font-weight: 500;">{{ParentCategoryName}}
+          <ul class="list-group-numbered">
+            @for (category of parentcategories; track category.id) {
+            @if(category.name == ParentCategoryName){
+            @for (item of category.categories; track item.id) {
+            <li><a [routerLink]="['/category' ,  ParentCategoryName,item.name]" routerLinkActive="router-link-active"
+                routerLinkActive="router-link-active" class="list-group-item" href="#">&#x3c;
+                {{item.name}}</a></li>
+            }}
+            }
+          </ul>
+        </li>
+
+      </ul>
+    </div>
+    <div class="mb-2">
+      <h6>Fulfilled by Amazon</h6>
+      <input type="checkbox" id="FulfilledbyAmazon">
+      <label for="FulfilledbyAmazon" class="mx-1">Fulfilled by Amazon</label>
+    </div>
+    <div>
+      <h6>Eligible for Free Shipping</h6>
+      <input type="checkbox" id="FreeShipping">
+      <label for="FreeShipping" class="mx-1">Free Shipping</label>
+    </div>
+    <div>
+      <h6>Price</h6>
+      <div>
+        <input type="text" placeholder="Min Value" id="minValue">
+        <input type="text" placeholder="Max Value" id="maxValue">
+      </div>
+      <!-- <input type="range" id="price" min="1" max="1000000"> -->
+    </div>
+    <button (click)="filterProducts()">filter</button>
+  </aside>
+
+  <main>
+    <div class="products mt-4">
+      <a routerLink="/product/{{p.id}}" class="card" style="width: 16rem; height: 22rem;" *ngFor="let p of products">
+        <div style="height: 50%;">
+          <img src={{p.pictureUrl}} style="height: 100%; object-fit:cover;" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body" style="height:50%">
+          <p class="card-text">{{p.name}}</p>
+          <p class="card-text">EGP <b>{{p.price}}</b></p>
+          <div>
+            <span class="badge text-bg-success">4.8</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </main>
+</div>

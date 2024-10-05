@@ -1,0 +1,28 @@
+.Container {
+    display: flex;
+
+    aside {
+        overflow-y: scroll;
+    }
+}
+
+main {
+    flex-grow: 1;
+}
+
+.products {
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 15rem);
+    justify-content: center;
+    justify-items: center;
+    gap: 2rem;
+}
+
+.list-group-item:hover {
+    color: #ff3300;
+}
+
+.router-link-active {
+    font-weight: bold;
+}

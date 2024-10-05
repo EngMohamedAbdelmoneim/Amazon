@@ -3,7 +3,7 @@
     <div class="nav">
 
         <div>
-            
+
             <h1 class="">
                 <a [routerLink]="['/']">
                     <img src="Amazon_logo.png" alt="">
@@ -11,10 +11,10 @@
             </h1>
 
         </div>
-  
+
         <div>
             <div>
-  
+
                 <select name="" id="" #Category>
                     <option value="All">All</option>
                     <option value="1">Phones</option>
@@ -24,7 +24,8 @@
                     <option value="5">Washing Machines</option>
                     <option value="6">Ovens</option>
                 </select>
-                <input #query type="search" name="" id="search" class="form-control" placeholder="Search" (keyup.enter)="search(query.value)"/>
+                <input #query type="search" name="" id="search" class="form-control" placeholder="Search"
+                    (keyup.enter)="search(query.value)" />
                 <!-- <div class="btn btn-primary" (click)="search(query.value)">
                 <svg fill="#ffffff" height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
                     viewBox="0 0 488.4 488.4" xml:space="preserve">
@@ -40,9 +41,10 @@
                 </div> -->
             </div>
         </div>
-  
+
         <div style="display: flex;">
-            <button style="background-color: #f1f1f1; border: none; border-radius: 0.3em;" class="p-2 mx-1">WISHLIST</button>
+            <button style="background-color: #f1f1f1; border: none; border-radius: 0.3em;"
+                class="p-2 mx-1">WISHLIST</button>
             <button style="background-color: #f1f1f1; border: none; border-radius: 0.3em;" class="p-2 mx-1">🛒</button>
             <div class="dropdown">
                 <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -60,32 +62,31 @@
             </div>
         </div>
     </div>
-  
+
     <div class="lower-nav">
-  
-      <div class="burger-menu" (click)="toggleMenu()">
-        <div [ngClass]="['line1', open ? 'line1O' : '']"></div>
-        <div [ngClass]="['line2', open ? 'line2O' : '']"></div>
-        <div [ngClass]="['line3', open ? 'line3O' : '']"></div>
-      </div>
-  
-      <a href="">Men</a>
-      <a href="">Women</a>
-      <a href="">Kids</a>
-      <a href="">Home</a>
-      <a href="">Elctronics</a>
-      <a href="">Mobile Phones</a>
+
+        <div class="burger-menu" (click)="toggleMenu()">
+            <div [ngClass]="['line1', open ? 'line1O' : '']"></div>
+            <div [ngClass]="['line2', open ? 'line2O' : '']"></div>
+            <div [ngClass]="['line3', open ? 'line3O' : '']"></div>
+        </div>
+
+        <a href="">Men</a>
+        <a href="">Women</a>
+        <a href="">Kids</a>
+        <a href="">Home</a>
+        <a href="">Elctronics</a>
+        <a href="">Mobile Phones</a>
     </div>
-    
+
 </nav>
-  
-<div class="sidebar" [style.translate]="open ?'0px':'-251px'">
-    <button>test</button>
-    <button>test</button>
-    <button>test</button>
-    <button>test</button>
-    <button>test</button>
-    <button>test</button>
+
+<div class="sidebar" [style.translate]="open ?'0px':'-300px'">
+    <div class="mb-3 authbar">
+            <img src="user.svg" alt="">
+            <h4 class="m-lg-2">Hello, sign in</h4>
+    </div>
+    <app-category-list></app-category-list>
 </div>
-  
+
 <div class="overlay" [style.display]="open ?'block':'none'" (click)="toggleMenu()"></div>

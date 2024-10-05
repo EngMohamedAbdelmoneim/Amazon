@@ -1,0 +1,20 @@
+<div class="m-2">
+    <h4 style="font-weight:bolder;">Shop by Category</h4>
+    <ul class="list-unstyled">
+        @for (parentcategory of parentcategories; track parentcategory.id)
+        {
+        <li style="font-weight: 500;">{{parentcategory.name}}
+            <ul class="list-group-numbered">
+                @for (category of parentcategory.categories; track $index) {
+
+                <li><a [routerLink]="['/category' , parentcategory.name,category.name]"
+                        routerLinkActive="router-link-active" routerLinkActive="router-link-active"
+                        class="list-group-item" href="#">&#x3c;
+                        {{category.name}}</a></li>
+                }
+            </ul>
+        </li>
+        }
+    </ul>
+
+</div>
