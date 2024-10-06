@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { SearchComponent } from './Pages/Search/search.component';
 import { HomeComponent } from './Pages/Home/home.component';
-import { ProductComponent } from './Pages/Product/product.component';
 import { setLayout } from './Resolvers/set-layout.resolver';
 import { PageLayout } from './Models/PageLayout';
 
