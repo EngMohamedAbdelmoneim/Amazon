@@ -13,6 +13,7 @@ namespace Amazon.Services.ProductService.Dto
 		public string Description { get; set; }
 		[Required]
 		public decimal Price { get; set; }
+		[Required]
 		public IFormFile ImageFile { get; set; }
 		public int QuantityInStock { get; set; }
 		public int BrandId { get; set; }

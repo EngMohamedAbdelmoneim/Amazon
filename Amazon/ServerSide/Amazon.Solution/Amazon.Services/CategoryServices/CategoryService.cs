@@ -68,6 +68,9 @@ namespace Amazon.Services.CategoryServices
         {
             var category = await _categoryRepo.GetByIdAsync(Id);
 
+            if (category is null)
+                return null;
+
             var mappedCategory = _mapper.Map<CategoryToReturnDto>(category);
 
             return mappedCategory;

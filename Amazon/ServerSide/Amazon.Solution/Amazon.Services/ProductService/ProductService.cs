@@ -22,8 +22,7 @@ namespace Amazon.Services.ProductService
 
 		public async Task<ProductToReturnDto> AddProduct(ProductDto productDto)
 		{
-			try
-			{
+
 				var mappedProduct = _mapper.Map<Product>(productDto);
 				mappedProduct.PictureUrl = await DocumentSettings.UploadFile(productDto.ImageFile, "productImages");
 
@@ -31,13 +30,10 @@ namespace Amazon.Services.ProductService
 
                 await _productRepo.Add(mappedProduct);
 
-				var productToReturn = _mapper.Map<ProductToReturnDto>(mappedProduct);
-				return productToReturn;
-			}
-			catch (Exception ex)
-			{
-				throw new Exception(ex.Message);
-			}	
+				//var productToReturn = _mapper.Map<ProductToReturnDto>(mappedProduct);
+
+				return await GetProductByIdAsync(mappedProduct.Id);
+		
 		}
 
 		public async Task<IReadOnlyList<ProductToReturnDto>> DeleteProduct(int id)
@@ -46,8 +42,15 @@ namespace Amazon.Services.ProductService
 			if (product is null)
 				return null;
 
+
+			DocumentSettings.DeleteFile("productImages", product.PictureUrl);
+			foreach (var item in product.Images)
+			{
+				DocumentSettings.DeleteFile("productImages", item.ImagePath);
+			}
+
 			await _productRepo.Delete(product);
-			DocumentSettings.DeleteFile("Uploads", product.PictureUrl);
+
 
 			var products = await GetAllProductsAsync();
 			return products;
@@ -64,6 +67,9 @@ namespace Amazon.Services.ProductService
 		public async Task<ProductToReturnDto> GetProductByIdAsync(int id)
 		{
 			var product = await _productRepo.GetByIdAsync(id);
+
+			if (product is null) 
+				return null;
 			var mappedProduct = _mapper.Map<ProductToReturnDto>(product);
 			return mappedProduct;
 		}
@@ -161,13 +167,13 @@ namespace Amazon.Services.ProductService
 
 		public async Task<ProductToReturnDto> UpdateProduct(int id, ProductDto productDto)
 		{
-			var existintProduct = await _productRepo.GetByIdAsync(id);
+			Product existintProduct = await _productRepo.GetByIdAsync(id);
 			if (existintProduct == null)
-				throw new Exception("Product Doesn't Exist");
+				return null;
 
 			if (productDto.ImageFile != null)
 			{
-				DocumentSettings.DeleteFile("Uploads", existintProduct.PictureUrl);
+				DocumentSettings.DeleteFile("productImages", existintProduct.PictureUrl);
 				existintProduct.PictureUrl = await DocumentSettings.UploadFile(productDto.ImageFile, "productImages");
 			}
 
@@ -183,10 +189,12 @@ namespace Amazon.Services.ProductService
                 await HandleProductImages(productDto.ImagesFiles, existintProduct);
             }
 
-			_mapper.Map(productDto, existintProduct);
+			 _mapper.Map(productDto, existintProduct);
 
 			await _productRepo.Update(existintProduct);
-			return _mapper.Map<ProductToReturnDto>(existintProduct);
+
+
+			return await GetProductByIdAsync(existintProduct.Id);
 		}
 
 		// Helper method to add other product images

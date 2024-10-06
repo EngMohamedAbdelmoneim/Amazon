@@ -26,7 +26,7 @@ namespace Amazon.Services.Utilities
 
 		public static void DeleteFile(string folderName, string fileName)
 		{
-			var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Files", folderName, fileName);
+			var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Files", $"{folderName}/", fileName);
 
 			if (File.Exists(filePath))
 			{
