@@ -14,7 +14,7 @@ namespace Amazon.Services.ParentCategoryService.Dto
         {
             CreateMap<ParentCategoryDto, ParentCategory>().ReverseMap();
             CreateMap<ParentCategory,ParentCategoryToReturnDto>()
-                .ForMember(dest=>dest.Categories,options=>options.MapFrom(Src=>Src.Categories));
+                .ForMember(dest=>dest.Categories,options=>options.MapFrom(Src=>Src.Categories.Select(c => c.Name)));
         }
         
     }

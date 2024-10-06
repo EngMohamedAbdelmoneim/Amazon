@@ -12,7 +12,7 @@ namespace Amazon.Services.ParentCategoryService.Dto
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<CategoryToReturnDto> Categories { get; set; } = new List<CategoryToReturnDto>();
+        public ICollection<string> Categories { get; set; } =[];
 
     }
 }

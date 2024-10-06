@@ -55,6 +55,8 @@ namespace Amazon.Services.BrandService
         public async Task<BrandDto> GetBrandByIdAsync(int id)
         {
             var brand = await _brandRepo.GetByIdAsync(id);
+            if(brand is null)
+                return null;
             var mappedBrand = _mapper.Map<BrandDto>(brand);
             return mappedBrand;
         }

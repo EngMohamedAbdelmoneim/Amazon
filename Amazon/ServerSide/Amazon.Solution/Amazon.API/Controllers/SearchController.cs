@@ -1,4 +1,6 @@
-﻿using Amazon.Services.ProductService;
+﻿using Amazon.Services.BrandService;
+using Amazon.Services.CategoryServices;
+using Amazon.Services.ProductService;
 using Amazon.Services.ProductService.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +12,14 @@ namespace Amazon.API.Controllers
 	public class SearchController : BaseController
 	{
 		private readonly IProductService _productService;
+		private readonly ICategoryService _categoryService;
+		private readonly IBrandService _brandService;
 
-		public SearchController(IProductService productService)
+		public SearchController(IProductService productService,ICategoryService categoryService,IBrandService brandService)
 		{
 			_productService = productService;
+			_categoryService = categoryService;
+			_brandService = brandService;
 		}
 
 
@@ -30,8 +36,17 @@ namespace Amazon.API.Controllers
 			=> await _productService.GetProductsByCategoryNameAsync(categoryName);
 
 		[HttpGet("{categoryId}")]
-		public async Task<IReadOnlyList<ProductToReturnDto>> SearchByCategoryId(int categoryId)
-			=> await _productService.GetProductsByCategoryIdAsync(categoryId);
+		public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> SearchByCategoryId(int categoryId)
+		{
+			var cat = await _categoryService.GetCategoryByIdAsync(categoryId);
+			
+			if (cat == null)
+				return NotFound();
+
+			return Ok(await _productService.GetProductsByCategoryIdAsync(categoryId));
+		
+		}
+
 
 		[HttpGet]
 		public async Task<IReadOnlyList<ProductToReturnDto>> SearchByParentCategoryName(string? parentCategoryName)
@@ -42,8 +57,14 @@ namespace Amazon.API.Controllers
 			=> await _productService.GetProductsByParentCategoryIdAsync(parentCategoryId);
 
 		[HttpGet("{brandId}")]
-		public async Task<IReadOnlyList<ProductToReturnDto>> SearchByBrandId(int brandId)
-			=> await _productService.GetProductsByBrandIdAsync(brandId);
+		public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> SearchByBrandId(int brandId)
+		{
+			var brand = await _brandService.GetBrandByIdAsync(brandId);
+			if (brand == null)
+				return NotFound();
+
+			return Ok(await _productService.GetProductsByBrandIdAsync(brandId));
+		}
 
 		[HttpGet]
 		public async Task<IReadOnlyList<ProductToReturnDto>> SearchByProductNameAndCategoryId(string? productName, int? categoryId)
