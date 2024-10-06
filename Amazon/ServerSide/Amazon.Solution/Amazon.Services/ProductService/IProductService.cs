@@ -9,10 +9,13 @@ namespace Amazon.Services.ProductService
 		Task<ProductToReturnDto> GetProductByIdAsync(int id);
 		Task<IReadOnlyList<ProductToReturnDto>> GetProductsByBrandIdAsync(int id);
 		Task<IReadOnlyList<ProductToReturnDto>> GetProductsByCategoryIdAsync(int id);
+		Task<IReadOnlyList<ProductToReturnDto>> GetProductsByParentCategoryIdAsync(int id);
+
 
 		Task<IReadOnlyList<ProductToReturnDto>> GetProductsByNameAsync(string name);
 		Task<IReadOnlyList<ProductToReturnDto>> GetProductsByBrandNameAsync(string name);
 		Task<IReadOnlyList<ProductToReturnDto>> GetProductsByCategoryNameAsync(string name);
+		Task<IReadOnlyList<ProductToReturnDto>> GetProductsByParentCategoryNameAsync(string name);
 		Task<IReadOnlyList<ProductToReturnDto>> SearchByStringAsync(string str);
 
 		Task<IReadOnlyList<ProductToReturnDto>> GetProductsByCategoryIdAndNameAsync(string name, int? id);

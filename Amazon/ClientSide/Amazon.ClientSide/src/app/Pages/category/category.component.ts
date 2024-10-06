@@ -22,15 +22,25 @@ export class CategoryComponent {
   ParentCategoryName: string;
   ngOnInit(): void {
     this.sub = this.activatedRoute.params.subscribe(p => {
-      this.ParentCategoryName = p['ParentCategoryName'];
-      this.categoryService.getCategoryProducts(p['ParentCategoryName'], p['categoryName']).subscribe({
-        next: data => {
-          console.log(data);
-          this.products = data;
-        }
-      })
+      if (p['categoryName']!=null) {
+        this.ParentCategoryName = p['ParentCategoryName'];
+        this.categoryService.getCategoryProducts(p['ParentCategoryName'], p['categoryName']).subscribe({
+          next: data => {
+            console.log(data);
+            this.products = data;
+          }
+        })
+      }
+      else {
+        this.ParentCategoryName = p['ParentCategoryName'];
+        this.categoryService.getPaarentCategoryProducts(p['ParentCategoryName']).subscribe({
+          next: data => {
+            console.log(data);
+            this.products = data;
+          }
+        })
+      }
     })
-
     try {
       this.sub = this.categoryService.getParentCategories().subscribe({
         next: data => {

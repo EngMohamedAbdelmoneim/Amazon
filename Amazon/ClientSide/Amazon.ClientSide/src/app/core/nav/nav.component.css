@@ -156,11 +156,11 @@ nav{
 
   .authbar{
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     height: 50px;
     width: 100%;
- 
+    padding-left: 27px;
     background-color: #232f3e;
   }
 
@@ -170,4 +170,5 @@ nav{
   }
   .authbar h4{
     color: #ffffff;
+    font-weight: bolder;
   }

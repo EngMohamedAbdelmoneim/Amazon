@@ -1,9 +1,8 @@
-﻿using Amazon.Core.Entities;
+using Amazon.Core.Entities;
 using Amazon.Services.ProductService.Dto;
 using Amazon.Services.Utilities;
 using Amazone.Infrastructure.Interfaces;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 
 namespace Amazon.Services.ProductService
 {
@@ -27,9 +26,7 @@ namespace Amazon.Services.ProductService
 				var mappedProduct = _mapper.Map<Product>(productDto);
 				mappedProduct.PictureUrl = await DocumentSettings.UploadFile(productDto.ImageFile, "productImages");
 
-                await HandleProductImages(productDto.ImagesFiles, mappedProduct);
-
-                await _productRepo.Add(mappedProduct);
+				await _productRepo.Add(mappedProduct);
 
 				var productToReturn = _mapper.Map<ProductToReturnDto>(mappedProduct);
 				return productToReturn;
@@ -147,6 +144,26 @@ namespace Amazon.Services.ProductService
 			return mappedProdcts;
 		}
 
+		public async Task<IReadOnlyList<ProductToReturnDto>> GetProductsByParentCategoryIdAsync(int id)
+		{
+			var products = await _productRepo.SearchByParentCategoryAsync(id);
+			var mappedProdcts = _mapper.Map<IReadOnlyList<ProductToReturnDto>>(products);
+
+			return mappedProdcts;
+		}
+
+		public async Task<IReadOnlyList<ProductToReturnDto>> GetProductsByParentCategoryNameAsync(string name)
+		{
+			if (string.IsNullOrWhiteSpace(name))
+			{
+				return await GetAllProductsAsync();
+			}
+			var products = await _productRepo.SearchByParentCategoryNameAsync(name);
+			var mappedProdcts = _mapper.Map<IReadOnlyList<ProductToReturnDto>>(products);
+
+			return mappedProdcts;
+		}
+
 		public async Task<IReadOnlyList<ProductToReturnDto>> SearchByStringAsync(string str)
 		{
 			if (string.IsNullOrWhiteSpace(str))
@@ -171,39 +188,11 @@ namespace Amazon.Services.ProductService
 				existintProduct.PictureUrl = await DocumentSettings.UploadFile(productDto.ImageFile, "productImages");
 			}
 
-			// Deleting additional images
-            if (productDto.ImagesFiles != null && productDto.ImagesFiles.Count > 0)
-            {
-                foreach (var image in existintProduct.Images.ToList())
-                {
-					DocumentSettings.DeleteFile("productImages", image.ImagePath);
-					existintProduct.Images.Remove(image);
-                }
-
-                await HandleProductImages(productDto.ImagesFiles, existintProduct);
-            }
-
 			_mapper.Map(productDto, existintProduct);
 
 			await _productRepo.Update(existintProduct);
 			return _mapper.Map<ProductToReturnDto>(existintProduct);
 		}
 
-		// Helper method to add other product images
-        private async Task HandleProductImages(ICollection<IFormFile> imagesFiles, Product product)
-        {
-            if (imagesFiles != null && imagesFiles.Count() > 0)
-            {
-                foreach (var image in imagesFiles)
-                {
-                    var productImage = new ProductImages
-                    {
-                        ProductId = product.Id,
-                        ImagePath = await DocumentSettings.UploadFile(image, "productImages")
-                    };
-                    product.Images.Add(productImage);
-                }
-            }
-        }
-    }
+	}
 }

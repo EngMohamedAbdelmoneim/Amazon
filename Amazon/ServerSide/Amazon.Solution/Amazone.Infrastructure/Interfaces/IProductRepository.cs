@@ -8,10 +8,13 @@ namespace Amazone.Infrastructure.Interfaces
 		
 		Task<IReadOnlyList<Product>> SearchByBrandAsync(int brandId);
 		Task<IReadOnlyList<Product>> SearchByBrandNameAsync(string brandName);
+		Task<IReadOnlyList<Product>> SearchByParentCategoryAsync(int categoryId);
+		Task<IReadOnlyList<Product>> SearchByParentCategoryNameAsync(string categoryName);
 
 		Task<IReadOnlyList<Product>> SearchByCategoryAsync(int categoryId);
 		Task<IReadOnlyList<Product>> SearchByCategoryNameAsync(string categoryName);
-		
+
+
 		Task<IReadOnlyList<Product>> SearchByCategoryAndProductNameAsync(string productName,int? categoryId);
 
 		Task<IReadOnlyList<Product>> SearchByStringAsync(string searchString);

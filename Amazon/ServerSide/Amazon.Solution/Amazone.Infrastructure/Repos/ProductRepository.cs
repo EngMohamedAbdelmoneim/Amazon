@@ -29,6 +29,12 @@ namespace Amazone.Infrastructure.Repos
 		public async Task<IReadOnlyList<Product>> SearchByCategoryNameAsync(string categoryName)
 			=> await _context.Products.Include(p => p.Category).Where(p => p.Category.Name.Contains(categoryName)).ToListAsync();
 
+		public async Task<IReadOnlyList<Product>> SearchByParentCategoryAsync(int parentCategoryId)
+			=> await _context.Products.Include(p => p.Category).ThenInclude(c => c.ParentCategory).Where(p => p.Category.ParentCategoryId == parentCategoryId).ToListAsync();
+
+		public async Task<IReadOnlyList<Product>> SearchByParentCategoryNameAsync(string parentCategoryName)
+			=> await _context.Products.Include(p => p.Category).ThenInclude(c => c.ParentCategory).Where(p => p.Category.ParentCategory.Name.Contains(parentCategoryName)).ToListAsync();
+
 		public async Task<IReadOnlyList<Product>> SearchByCategoryAndProductNameAsync(string productName,int? categoryId)
 		{
 			return await _context.Products.Include(p => p.Brand).Include(p => p.Category)

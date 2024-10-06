@@ -33,6 +33,14 @@ namespace Amazon.API.Controllers
 		public async Task<IReadOnlyList<ProductToReturnDto>> SearchByCategoryId(int categoryId)
 			=> await _productService.GetProductsByCategoryIdAsync(categoryId);
 
+		[HttpGet]
+		public async Task<IReadOnlyList<ProductToReturnDto>> SearchByParentCategoryName(string? parentCategoryName)
+			=> await _productService.GetProductsByParentCategoryNameAsync(parentCategoryName);
+
+		[HttpGet("{categoryId}")]
+		public async Task<IReadOnlyList<ProductToReturnDto>> SearchByParentCategoryId(int parentCategoryId)
+			=> await _productService.GetProductsByParentCategoryIdAsync(parentCategoryId);
+
 		[HttpGet("{brandId}")]
 		public async Task<IReadOnlyList<ProductToReturnDto>> SearchByBrandId(int brandId)
 			=> await _productService.GetProductsByBrandIdAsync(brandId);

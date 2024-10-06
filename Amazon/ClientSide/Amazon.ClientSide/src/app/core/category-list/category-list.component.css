@@ -1,5 +1,10 @@
+
+.category-list-body{
+   margin-left: 27px;
+}
+
 .list-group-item:hover {
-   color: #ff3300;
+   color: #ff3300;   
 }
 
 .router-link-active {
