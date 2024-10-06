@@ -171,6 +171,18 @@ namespace Amazon.Services.ProductService
 				existintProduct.PictureUrl = await DocumentSettings.UploadFile(productDto.ImageFile, "productImages");
 			}
 
+			// Deleting additional images
+            if (productDto.ImagesFiles != null && productDto.ImagesFiles.Count > 0)
+            {
+                foreach (var image in existintProduct.Images.ToList())
+                {
+					DocumentSettings.DeleteFile("productImages", image.ImagePath);
+					existintProduct.Images.Remove(image);
+                }
+
+                await HandleProductImages(productDto.ImagesFiles, existintProduct);
+            }
+
 			_mapper.Map(productDto, existintProduct);
 
 			await _productRepo.Update(existintProduct);
