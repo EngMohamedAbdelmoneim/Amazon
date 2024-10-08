@@ -19,7 +19,6 @@ namespace Amazon.Core.Configurations
             builder.HasOne(p => p.Category)
                    .WithMany()
                    .HasForeignKey(p => p.CategoryId);
-
         }
     }
 }

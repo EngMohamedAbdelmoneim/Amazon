@@ -1,78 +1,90 @@
-/* .Container{
-    display: flex;
-    flex-direction: row;
-} */
-
-.Container{
-    display: grid;
-    grid-template-columns: 50px 300px 600px 1fr;
-    /* grid-template-rows: auto; */
-    align-items: start;
-    grid-gap: 10px;
-    margin: 0 auto;
+main{
     width: 100%;
-    padding-top: 40px;
-}
-.SideImages{
-    grid-column: 1;
-
     display: flex;
-    flex-direction: column;
-    
-    max-width: 100px;
-    padding: 20px;
-    height: 300px;
-}
-.SideImages img{
-    width: 100%;
-    height: 100px;
-    cursor: pointer;
-}
-.MainImageContainer {
-    grid-column: 2;
-    display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    /* width: 20%; */
-    height: 400px;
-    position: relative;
-    cursor: crosshair;
-    overflow: hidden;
-}
-#Product-Full-Size{
-    /* position: relative;
+    section:nth-of-type(1)
+    {
     
-    bottom:-20px;
-    left: 5px; */
-    width:400px;
-    max-width: 100%;
-    height: auto;
-    /* background-size: 200%;
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: background-size 0.5s ease, background-position 0.5s ease; */
-    /* transition: transform 2s ease; */
+        align-self: self-start;
+        display: flex;
+        align-items: center;
+        width: 40%;
+        .SideImages
+        {
+            width: 10%;
+            display: flex;
+            flex-direction: column;
+            align-self: self-start;
+            padding: 20px;
+            height: 300px;
+            cursor: pointer;
+            img
+            {
+                position: relative;
+                margin-bottom:40px;
+                width:40px;
+                top:15px;
+                height: 40px;
+                transition: transform 0.5s ease;
+                &:hover
+                {
+                    transform: scale(1.4);
+                }
+            }
+        }
+        .MainImageContainer
+        {
+            width: 90%;
+            text-align: center;
+            cursor: pointer;
+            overflow: hidden;
+            img
+            {
+                height: 100%;
+                max-width: 100%;
+            }
+        }
+    }
+    section:nth-of-type(2){
+      width: 40%;
+      font-weight: 3rem;
+    }
+    section:nth-of-type(3){
+        align-self: self-start;
+        width: 15%;
+        border: 1px solid #ddd;
+        border-radius: 0.5em;
+        p{
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        button
+        {
+            width: 100%;
+            border: none;
+            border-radius: 1em;
+        }
+        button:nth-of-type(1)
+        {
+            background-color: #ffd814;
+            &:hover{
+                background-color: #f7ca00;
+            }
+        }
+        button:nth-of-type(2)
+        {
+            background-color: #ffa41c;
+            &:hover{
+                background-color: #fa8900;
+            }
+        }
+    }
 }
 
- .Name{
-    /* position: absolute;
-    top:100px;
-    width:400px;
-    right: 500px;
-    display: flex;
-    flex-direction: column; */
-    grid-column:  3;
-    
-    width:550px;
-} 
-#Info{
-    font-family: 'Times New Roman', Times, serif;
-    font-weight:lighter;
-}
 .star{
     font-size: 4vh;
     cursor: pointer;
-
 }
 .star:hover,.star:hover ~ .star{
     color: yellow;
@@ -128,19 +140,6 @@ h3{
     
     transition: opacity 0.3s ease;
 } */
-#Side-Image{
-    position: relative;
-    margin-bottom:40px;
-    
-    width:40px;
-    
-    top:15px;
-    
-    height: 40px;
-    transition: transform 0.5s ease;
-}
-
-
 
  .MainImageContainer:hover #Product-Full-Size{
     
@@ -172,9 +171,6 @@ h3{
 .MainImageContainer:hover img{
     transform: scale(1.2);
 }
-#Side-Image:hover{
-    transform: scale(1.4);
-} 
 /* .Physical-Details{
     
     position: relative;

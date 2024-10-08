@@ -1,10 +1,68 @@
 main{
     display: grid;
     place-items: center;
-    .form{
-        width: 40%;
-        border: 1px solid grey;
-        border-radius: 1em;
-        /* margin-inline: auto; */
+    width: 350px;
+    margin-inline: auto;
+    img{
+        width: 100px;
     }
+    .form{
+        width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 0.5em;
+        font-size: 13px;
+        input.ng-invalid.ng-touched{
+            border: 1px solid red;
+        }
+        label{
+            font-weight: 700;
+        }
+        button{
+            background-color: #FFD814;
+            border-radius: 0.5em;
+            border: none;
+            width: 100%;
+            &:hover{
+                background-color: #f7ca00;
+            }
+        }
+        a{
+            border: none;
+            color: #0066c0;
+            text-decoration: underline;
+        }
+    }
+    .line-container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        color: #767676;
+        font-size: 12px;
+        font-weight: 400;
+        .line{
+            height: 1px;
+            width: 35%;
+            background-color: #e7e7e7;
+        }
+    }
+    a{
+        color: #0F1111;
+        background-color: transparent;
+        text-decoration: none;
+        text-align: center;
+        width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 0.5em;
+        cursor: pointer;
+        font-size: 13px;
+        &:hover{
+            background-color: #f7fafa;
+        }
+    }
+    .a-divider-inner{
+        height: 1px;
+        background-color: (to bottom, rgba(0, 0, 0, .14), rgba(0, 0, 0, .03) 3px, transparent);
+    }
+
 }

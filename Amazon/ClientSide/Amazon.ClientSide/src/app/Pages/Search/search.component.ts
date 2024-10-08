@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { log } from 'node:console';
+import { Console, log } from 'node:console';
 import { Product } from '../../Models/product';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -19,7 +19,11 @@ export class SearchComponent implements OnInit{
   constructor(public http: HttpClient, public activatedRoute: ActivatedRoute, public SearchService: SearchService) { }
 
   @ViewChild('Category') Category:ElementRef;
+  @ViewChild('minValue') minValue:ElementRef;
+  @ViewChild('maxValue') maxValue:ElementRef;
+
   products: Array<Product> = [];
+  orginalProducts: Array<Product> = [];
   sub: Subscription | null = null;
 
   ngOnInit(): void
@@ -27,8 +31,8 @@ export class SearchComponent implements OnInit{
     this.sub = this.activatedRoute.params.subscribe(p => {
       this.SearchService.Search(p['productName']).subscribe({
         next: data => {
-          console.log(data);
           this.products = data;
+          this.orginalProducts = data;
         }
       })
     })
@@ -37,26 +41,44 @@ export class SearchComponent implements OnInit{
 
   LowtoHighSort()
   {
-    let p = this.products.sort((a, b) => a.price - b.price);
-    console.log(p);
+    this.products  = this.products.sort((a, b) => a.price - b.price);
   }
 
   HightoLowSort()
   {
-    let p = this.products.sort((a, b) => b.price - a.price);
-    console.log(p); 
+    this.products = this.products.sort((a, b) => b.price - a.price);
   }
 
   filterProducts()
   {
-    let minValue = (<HTMLInputElement>document.getElementById("minValue")).value;
-    let maxValue = (<HTMLInputElement>document.getElementById("maxValue")).value;
+    let maxValue = this.maxValue.nativeElement.value;
+    let minValue = this.minValue.nativeElement.value;
+
+    if(minValue == undefined || minValue == null || minValue == "")
+    {
+      minValue = 0;
+    }
+    else
+    {
+      minValue = parseInt(this.minValue.nativeElement.value);
+    }
+
+    if(maxValue == undefined || maxValue == null || maxValue == "")
+    {
+      maxValue = Number.MAX_VALUE;
+    }
+    else
+    {
+      maxValue = parseInt(this.maxValue.nativeElement.value);
+    }
 
     console.log(minValue);
     console.log(maxValue);
-    
-    let p = this.products.filter(p => p.price > parseInt(minValue) && p.price < parseInt(maxValue));
-    console.table(p);
+
+    // debugger
+    this.products = this.orginalProducts.filter(p => p.price > minValue && p.price < maxValue);
+
+    console.log(this.products);
   }
 
 }

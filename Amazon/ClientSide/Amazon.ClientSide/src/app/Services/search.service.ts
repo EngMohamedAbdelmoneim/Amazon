@@ -16,12 +16,12 @@ export class SearchService {
   {
     if(this.searchType == "All")
     {
-      console.log("all");
+      // console.log("all");
       return this.http.get<Array<Product>>("https://localhost:7283/api/Search/SearchByString", {params: {str:`${query}`}});
     }
     else
     {
-      console.log("specific");
+      // console.log("specific");
       console.log(this.searchType);
       return this.http.get<Array<Product>>("https://localhost:7283/api/Search/SearchByProductNameAndCategoryId", {params: {productName:`${query}`, categoryId: this.searchType}});
       // switch(this.searchType)
