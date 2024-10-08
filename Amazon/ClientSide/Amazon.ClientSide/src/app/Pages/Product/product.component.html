@@ -1,122 +1,118 @@
-<!-- <div *ngIf="errorMessage" class="error-message">
-    {{ errorMessage }}
-  </div>
-  
-  <div *ngIf="products">
-    <h2>{{ products.name }}</h2>
-    <p>{{ products.description }}</p>
-    <p>Price: EGP {{ products.price }}</p>
-    <img [src]="products.pictureUrl" alt="{{ products.name }}" />
-    <p>Stock: {{ products.quantityInStock }}</p>
-  </div>
-   -->
-   <div class="Container">
-    
-    <div class = "SideImages">
-        
-        <img *ngFor = "let image of products?.productImages"
-            [src] = image
-            id="Side-Image"
-            (click)="DisplaySideImage(image)">
-    </div>
-    
-    <div class="MainImageContainer">
-    <!-- <img src = -->
-    <img [src]="products.pictureUrl" alt="{{ products.name }}" id="Product-Full-Size" (mousemove)="zoomImage($event)" (mouseleave)="resetImage()">
-    </div>
-    
-    <div class="Name">
-        <h4 id="Info">
-            {{ products.name }},<br>
-            {{ products.description }}<br>
-            Available:{{ products.quantityInStock }}
-        </h4>
-        <div>
-          <span
-          *ngFor = "let star of [1,2,3,4,5]; let i =index"
-          (moushover)="setRate(i+1)"
-          (mouseleave)="resetRate()"
-          (click) = "submitRate(i+1)"
-          class="star"
-          [ngClass] = "{'selected':selectedStar>=(i+1)}"
-          [attr.data-value]="i+1"
-          [ngStyle]="{'color':(selectedStar && i < selectedStar)?'yellow':'black'}">
-          ★
-          </span>
-          
-        <!-- </span> -->
-    </div>
-    <div *ngIf="selectedStar !=null" class="rating-message">
-      <div class="ratingMessage">
-      {{ratingMessage}}
-      </div>
-    </div>
-    <div>
-        <span class="badge rounded-pill text-bg-dark"><i class="fa fa-amazon" aria-hidden="true">Editor's <span class="Choiceinyellow">choice</span></i></span>
-    </div>
-    <h3> This item cannot be shipped to your selected delivery location. Please choose a different delivery location.
-    </h3>
-    <div class ="ColorResult"></div>
-    <div class="PickColor"> 
-        
-        <div class="ProductColor" style="background-color: #ffffff;" data-color="#ffffff" color-name="White"> </div>
-        <div class="ProductColor" style="background-color: #ac9a9a;" data-color="#ac9a9a" color-name="Heliotrope Gray"> </div>
-        <div class="ProductColor" style="background-color: #36525f;" data-color="#36525f" color-name="grey"> </div>
-        <div class="ProductColor" style="background-color: #124055;" data-color="#124055" color-name="light-blue"> </div>
-        <div class="ProductColor" style="background-color: #000000;" data-color="#000000" color-name="Black"> </div>
-    </div>
-    </div>
-    <div class = "Physical-Details">
-    
-    <table>
-    <tbody>
-       <tr>
-        <td> Dimensions</td> 
-        <td>56D x 60W x 85H centimeters</td>
-        </tr>
-        <tr> 
-        <td>D x W x H</td> 
-        </tr>
-       <tr> 
-        <td>Brand Name </td>
-        <td>LG</td>
-        </tr>    
-       <tr>
-        <td>Capacity</td>
-        <td>9 Kilograms</td>
-        </tr>
-        <tr>
-        <td>Special Features </td>
-        <td>Inverter </td>
-        </tr>
-        <tr>
-        <td>Access Location</td>
-        <td>Front Load</td>
-        </tr>
-        <tr>
-        <td>Color</td> 
-        <td>Black</td> 
-        </tr>
-    </tbody>
-    </table>
-    </div>
-    <div class="Side">
-    <div class="LearnMore">No Featured Avaliable <br>
-        Learn More<span class="arrow"></span>
-    </div>
-    <div class="Shipping"><p>This item cannot be shipped to your selected delivery location. Please choose a different delivery location.</p>
-        <button type="button" class="btn btn-warning">See Similar Items</button>
-        <div class="Delivertoyou">
-            <i class="bi bi-geo-alt"></i>
-            Deliver to you
+<main class="p-4">
+    <section>
+        <div class = "SideImages">
+            <img *ngFor = "let image of productImages"
+                [src] = image
+                id="Side-Image"
+                (click)="DisplaySideImage(image)">
         </div>
-        <button type="button" class="btn" data-bs-toggle="button">Add to List</button>
-    
-    </div>
-    <div class="Latest">Latest Product
-    <img src = "https://i.pinimg.com/564x/1a/8e/3d/1a8e3d74af3202a4b82db75d41cff381.jpg" class="LatestProductImage">
-    
-    <p class="Discount-Details"> -20% + <span class="Old-Price">{{ products.price }} </span> &nbsp;&nbsp; 160$</p>
-    </div>
-    </div>
-    </div>
+
+        <div class="MainImageContainer">
+            <img [src]="product.pictureUrl" [alt]="product.name" id="Product-Full-Size" (mousemove)="zoomImage($event)" (mouseleave)="resetImage()">
+        </div>
+    </section>
+
+    <section>
+        <div>
+            <h4>
+                {{ product.name }},<br>
+                {{ product.description }}<br>
+                <!-- Available:{{ products.quantityInStock }} -->
+            </h4>
+            <div>
+              <span
+              *ngFor = "let star of [1,2,3,4,5]; let i =index"
+              (moushover)="setRate(i+1)"
+              (mouseleave)="resetRate()"
+              (click) = "submitRate(i+1)"
+              class="star"
+              [ngClass] = "{'selected':selectedStar>=(i+1)}"
+              [attr.data-value]="i+1"
+              [ngStyle]="{'color':(selectedStar && i < selectedStar)?'yellow':'black'}">
+              ★
+              </span>
+              
+            <!-- </span> -->
+        </div>
+        <div *ngIf="selectedStar !=null" class="rating-message">
+          <div class="ratingMessage">
+          {{ratingMessage}}
+          </div>
+        </div>
+        <div>
+            <span class="badge rounded-pill text-bg-dark"><i class="fa fa-amazon" aria-hidden="true">Editor's <span class="Choiceinyellow">choice</span></i></span>
+        </div>
+        <h3> This item cannot be shipped to your selected delivery location. Please choose a different delivery location.
+        </h3>
+        <div class ="ColorResult"></div>
+        <div class="PickColor"> 
+            <div class="ProductColor" style="background-color: #ffffff;" data-color="#ffffff" color-name="White"> </div>
+            <div class="ProductColor" style="background-color: #ac9a9a;" data-color="#ac9a9a" color-name="Heliotrope Gray"> </div>
+            <div class="ProductColor" style="background-color: #36525f;" data-color="#36525f" color-name="grey"> </div>
+            <div class="ProductColor" style="background-color: #124055;" data-color="#124055" color-name="light-blue"> </div>
+            <div class="ProductColor" style="background-color: #000000;" data-color="#000000" color-name="Black"> </div>
+        </div>
+        </div>
+        <div class = "Physical-Details">
+        
+        <table>
+        <tbody>
+           <tr>
+            <td> Dimensions</td> 
+            <td>56D x 60W x 85H centimeters</td>
+            </tr>
+            <tr> 
+            <td>D x W x H</td> 
+            </tr>
+           <tr> 
+            <td>Brand Name </td>
+            <td>LG</td>
+            </tr>    
+           <tr>
+            <td>Capacity</td>
+            <td>9 Kilograms</td>
+            </tr>
+            <tr>
+            <td>Special Features </td>
+            <td>Inverter </td>
+            </tr>
+            <tr>
+            <td>Access Location</td>
+            <td>Front Load</td>
+            </tr>
+            <tr>
+            <td>Color</td> 
+            <td>Black</td> 
+            </tr>
+        </tbody>
+        </table>
+        </div>    
+    </section>
+
+    <section class="p-4">
+        <h2>{{product.price}}</h2>
+        @if (product.quantityInStock > 10)
+        {
+            <h5 class="text-success">In Stock</h5>
+        }
+        @else
+        {
+            <p class="text-danger">Only {{product.quantityInStock}} left in stock - order soon.</p>
+        }
+        <select name="" id="" class="form-select mb-2">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        <button class="p-1 mb-2">Add to Cart</button>
+        <button class="p-1 mb-2">Buy Now</button>
+        <button class="p-1">Add to Wishlist</button>
+    </section>
+</main>

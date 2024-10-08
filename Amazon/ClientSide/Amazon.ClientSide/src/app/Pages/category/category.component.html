@@ -10,13 +10,20 @@
             routerLinkActive="router-link-active" class="list-group-item">
             {{ParentCategoryName}}</a>
           <ul class="list-group-numbered">
-            @for (category of parentcategories; track category.id) {
-            @if(category.name == ParentCategoryName){
-            @for (item of category.categories; track item.id) {
-            <li><a [routerLink]="['/category' ,  ParentCategoryName,item.name]" routerLinkActive="router-link-active"
-                routerLinkActive="router-link-active" class="list-group-item" href="#">&#x3c;
-                {{item.name}}</a></li>
-            }}
+            @for (category of parentcategories; track category.id)
+            {
+              @if(category.name == ParentCategoryName)
+              {
+                @for (item of category.categories; track item.id) 
+                {
+                  <li>
+                    <a [routerLink]="['/category' ,  ParentCategoryName,item.name]" routerLinkActive="router-link-active"
+                      routerLinkActive="router-link-active" class="list-group-item" href="#">&#x3c;
+                      {{item.name}}
+                    </a>
+                  </li>
+                }
+              } 
             }
           </ul>
         </li>

@@ -7,11 +7,12 @@ import { PageLayout } from './Models/PageLayout';
 import { AuthorizedLayoutComponent } from './core/authorized-layout/authorized-layout.component';
 import { UnAuthorizedLayoutComponent } from './core/un-authorized-layout/un-authorized-layout.component';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, NavComponent, FooterComponent, AuthorizedLayoutComponent, UnAuthorizedLayoutComponent],
+  imports: [ReactiveFormsModule, CommonModule, RouterOutlet, NavComponent, FooterComponent, AuthorizedLayoutComponent, UnAuthorizedLayoutComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

@@ -1,13 +1,32 @@
 <main>
-    <div class="form p-4">
-        <h3>Login</h3>
+    <img src="Amazon_logo.png" alt="Amazon" class="mt-4 mb-4">
+    <form class="form p-4" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <h3>Sign In</h3>
         <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">User Name</label>
-            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="User Name">
+            <label for="formGroupExampleInput" class="form-label">Email or mobile phone number</label>
+            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Email" formControlName="email">
+            <span *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched" class="text-danger">Email is invalid</span>
         </div>
           <div class="mb-3">
             <label for="formGroupExampleInput2" class="form-label">Password</label>
-            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Password">
+            <input type="password" class="form-control" id="formGroupExampleInput2" placeholder="Password" formControlName="password">
         </div>
+        <button type="submit" class="p-1 mb-2">Login</button>
+        <span>By signing in, you agree to Amazon's 
+            <a href="/gp/help/customer/display.html/ref=ap_signin_notification_condition_of_use?ie=UTF8&nodeId=201909000" class="mx-1">Conditions of Use</a>
+                and
+            <a href="/gp/help/customer/display.html/ref=ap_signin_notification_privacy_notice?ie=UTF8&nodeId=201909010" class="mx-1">Privacy Notice</a>.
+        </span>
+    </form>
+    
+    <div class="mt-4 mb-2 line-container">
+        <div class="line"></div>
+        New to Amazon?
+        <div class="line"></div>
     </div>
+
+    <a class="p-1">Create your Amazon account</a>
+
+    <div class="a-divider-inner"></div>
+    
 </main>

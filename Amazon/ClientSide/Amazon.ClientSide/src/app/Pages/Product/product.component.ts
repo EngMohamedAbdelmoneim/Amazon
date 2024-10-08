@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../Services/product.service';
 import { Product } from '../../Models/product';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product',
@@ -12,34 +13,38 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  products: Product | undefined;
+  productImages: any;
+  product: Product | null = new Product(0, "", 0, "", "", [], "", 0);
   errorMessage: string | null = null;
   selectedColorName: string | null = null;
   selectedStar: number | null = null;
-  ratingMessage:String|null=null;
+  ratingMessage:String | null = null;
   availableColors: string[] = ['#ffffff', '#ac9a9a', '#36525f', '#124055', '#000000'];
-  hoveredStar:number | null=null;
+  hoveredStar:number | null = null;
+  sub: Subscription | null = null;
+
   constructor(private productService: ProductService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    const productId = this.route.snapshot.paramMap.get('id');
-    if (productId) {
-      this.productService.getProductById(+productId).subscribe({
+    this.sub = this.route.params.subscribe(p => {
+      this.productService.getProductById(p['id']).subscribe({
         next: data => {
-          this.products = data;
+          this.product = data;
+          this.productImages = [data.pictureUrl, ...data.productImages];
+          console.log(data)
         },
         error: err => {
           console.error('Sorry, we couldn\'t fetch the data', err);
           this.errorMessage = 'Sorry';
         }
-      });
-    }
+      })
+    })
   }
 
   // Function to display side image
   DisplaySideImage(pictureUrl: string): void {
-    if (this.products) {
-      this.products.pictureUrl = pictureUrl;
+    if (this.product) {
+      this.product.pictureUrl = pictureUrl;
     }
   }
 
@@ -72,11 +77,11 @@ export class ProductComponent implements OnInit {
     // const fullImage = fullImageElement.querySelector('img');
 
     const rectangle = fullImage.getBoundingClientRect();
-    const x = (event.clientX - rectangle.left)/rectangle.width*100;
-    const y = (event.clientY - rectangle.top)/rectangle.height*100;
+    const x = (event.clientX - rectangle.left) / rectangle.width*100;
+    const y = (event.clientY - rectangle.top) / rectangle.height*100;
 
     fullImage.style.transformOrigin = `${x}% ${y}%`
-    fullImage.style.transform = "scale(5)";
+    fullImage.style.transform = "scale(2)";
   }
 }
   resetImage():void{

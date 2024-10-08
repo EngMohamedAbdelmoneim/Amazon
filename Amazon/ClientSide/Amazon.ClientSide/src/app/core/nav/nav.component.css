@@ -1,6 +1,7 @@
 nav{
     width: 90%;
     margin-inline: auto; 
+    /* background-color: #131921; */
   }
   .nav{
     display: flex;
