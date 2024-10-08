@@ -12,6 +12,11 @@ using Amazone.Infrastructure.Repos;
 using System.Text.Json.Serialization;
 using Amazon.Services.BrandService;
 using Amazon.Services.BrandService.Dto;
+using StackExchange.Redis;
+using Amazon.Services.CartService.Dto;
+using Amazon.Services.CartService;
+using Amazon.Services.WishlistService;
+using Amazon.Services.WishlistService.Dto;
 
 namespace Amazon.API
 {
@@ -29,6 +34,11 @@ namespace Amazon.API
             builder.Services.AddDbContext<AmazonDbContext>(options =>
             {
                 options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+            builder.Services.AddSingleton<IConnectionMultiplexer>(c =>
+            {
+                var options = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"));
+                return ConnectionMultiplexer.Connect(options);
             });
             #endregion
 
@@ -55,6 +65,18 @@ namespace Amazon.API
             #region BrandService
             builder.Services.AddScoped<IBrandService, BrandService>();
             builder.Services.AddAutoMapper(typeof(BrandProfile));
+            #endregion
+
+            #region CartService
+            builder.Services.AddScoped<ICartRepository, CartRepository>();
+            builder.Services.AddScoped<ICartService, CartService>();
+            builder.Services.AddAutoMapper(typeof(CartProfile));
+            #endregion
+
+            #region WishlistService
+            builder.Services.AddScoped<IWishlistRepository, WishlistRepository>();
+            builder.Services.AddScoped<IWishlistService, WishlistService>();
+            builder.Services.AddAutoMapper(typeof(WishlistProfile));
             #endregion
 
             #endregion
