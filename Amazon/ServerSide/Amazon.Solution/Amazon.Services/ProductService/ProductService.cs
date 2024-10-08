@@ -3,6 +3,7 @@ using Amazon.Services.ProductService.Dto;
 using Amazon.Services.Utilities;
 using Amazone.Infrastructure.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 
 namespace Amazon.Services.ProductService
 {
@@ -22,14 +23,17 @@ namespace Amazon.Services.ProductService
 		public async Task<ProductToReturnDto> AddProduct(ProductDto productDto)
 		{
 
-				var mappedProduct = _mapper.Map<Product>(productDto);
-				mappedProduct.PictureUrl = await DocumentSettings.UploadFile(productDto.ImageFile, "productImages");
+			var mappedProduct = _mapper.Map<Product>(productDto);
+			mappedProduct.PictureUrl = await DocumentSettings.UploadFile(productDto.ImageFile, "productImages");
+				
+			await HandleProductImages(productDto.ImagesFiles, mappedProduct);
 
-				await _productRepo.Add(mappedProduct);
 
-				//var productToReturn = _mapper.Map<ProductToReturnDto>(mappedProduct);
+			await _productRepo.Add(mappedProduct);
 
-				return await GetProductByIdAsync(mappedProduct.Id);
+			//var productToReturn = _mapper.Map<ProductToReturnDto>(mappedProduct);
+
+			return await GetProductByIdAsync(mappedProduct.Id);
 		
 		}
 
@@ -194,12 +198,40 @@ namespace Amazon.Services.ProductService
 				existintProduct.PictureUrl = await DocumentSettings.UploadFile(productDto.ImageFile, "productImages");
 			}
 
-			 _mapper.Map(productDto, existintProduct);
+			if (productDto.ImagesFiles != null && productDto.ImagesFiles.Count > 0)
+			{
+				foreach (var image in existintProduct.Images.ToList())
+				{
+					DocumentSettings.DeleteFile("productImages", image.ImagePath);
+					//existintProduct.Images.Remove(image);
+				}
+
+				await HandleProductImages(productDto.ImagesFiles, existintProduct);
+			}
+
+			_mapper.Map(productDto, existintProduct);
 
 			await _productRepo.Update(existintProduct);
 
 
 			return await GetProductByIdAsync(existintProduct.Id);
+		}
+
+		// Helper method to add other product images
+		private async Task HandleProductImages(ICollection<IFormFile> imagesFiles, Product product)
+		{
+			if (imagesFiles != null && imagesFiles.Count() > 0)
+			{
+				foreach (var image in imagesFiles)
+				{
+					var productImage = new ProductImages
+					{
+						ProductId = product.Id,
+						ImagePath = await DocumentSettings.UploadFile(image, "productImages")
+					};
+					product.Images.Add(productImage);
+				}
+			}
 		}
 
 	}
