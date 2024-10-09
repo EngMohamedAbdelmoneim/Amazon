@@ -1,121 +1,91 @@
-
 using Amazon.Core.DBContext;
-using Amazon.Services.ProductService.Dto;
-using Amazon.Services.ProductService;
-using Amazon.Services.ParentCategoryService;
-using Amazon.Services.ParentCategoryService.Dto;
-using Amazon.Services.CategoryServices;
-using Amazon.Services.CategoryServices.Dto;
 using Microsoft.EntityFrameworkCore;
-using Amazone.Infrastructure.Interfaces;
-using Amazone.Infrastructure.Repos;
 using System.Text.Json.Serialization;
-using Amazon.Services.BrandService;
-using Amazon.Services.BrandService.Dto;
 using StackExchange.Redis;
-using Amazon.Services.CartService.Dto;
-using Amazon.Services.CartService;
-using Amazon.Services.WishlistService;
-using Amazon.Services.WishlistService.Dto;
+using Amazon.Core.IdentityDb;
+using Microsoft.AspNetCore.Identity;
+using Amazon.Core.Entities.Identity;
+using Amazon.API.Extentions;
 
 namespace Amazon.API
 {
 	public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
-
+            // Add services to the container
+            #region Configure Services
             builder.Services.AddControllers();
+            builder.Services.AddSwaggerServices();
+            builder.Services.AddApplicationServices();
+            builder.Services.AddIdentityServices(builder.Configuration);
 
             #region Connection String Configuration
             builder.Services.AddDbContext<AmazonDbContext>(options =>
             {
                 options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+            builder.Services.AddDbContext<AppIdentityDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection"));
+            });
             builder.Services.AddSingleton<IConnectionMultiplexer>(c =>
             {
                 var options = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"));
                 return ConnectionMultiplexer.Connect(options);
             });
-            #endregion
+			#endregion
 
-            #region Register Services
-
-            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            builder.Services.AddScoped(typeof(IGenericCacheRepository<>), typeof(GenericCacheRepository<>));
-
-            #region ProductService
-            builder.Services.AddScoped<IProductRepository, ProductRepository>();
-            builder.Services.AddScoped<IProductService, ProductService>();
-            builder.Services.AddAutoMapper(typeof(ProductProfile));
-            #endregion
-
-            #region ParentCategoryService
-            builder.Services.AddScoped<IParentCategoryService, ParentCategoryService>();
-            builder.Services.AddAutoMapper(typeof(ParentCategoryProfile));
-            #endregion
-
-            #region CategoryService
-            builder.Services.AddScoped<ICategoryService, CategoryService>();
-            builder.Services.AddAutoMapper(typeof(CategoryProfile));
-            #endregion
-
-            #region BrandService
-            builder.Services.AddScoped<IBrandService, BrandService>();
-            builder.Services.AddAutoMapper(typeof(BrandProfile));
-            #endregion
-
-            #region CartService
-            builder.Services.AddScoped<ICartService, CartService>();
-            builder.Services.AddAutoMapper(typeof(CartProfile));
-            #endregion
-
-            #region WishlistService
-            builder.Services.AddScoped<IWishlistService, WishlistService>();
-            builder.Services.AddAutoMapper(typeof(WishlistProfile));
-            #endregion
-
-            #endregion
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy", policy =>
-                {
-                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
-                });
-            });
+			builder.Services.AddCors(options =>
+			{
+				options.AddPolicy("CorsPolicy", policy =>
+				{
+					policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
+				});
+			});
 
 			builder.Services.AddControllers().AddJsonOptions(x =>
-            x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+			x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+			#endregion
 
+			var app = builder.Build();
+			#region Apply Migration
+			using var scope = app.Services.CreateScope();
+			var services = scope.ServiceProvider;
+			var _IdentityDbContext = services.GetRequiredService<AppIdentityDbContext>();
+			var _dbContext = services.GetRequiredService<AmazonDbContext>();
+			var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+			try
+			{
+                await _dbContext.Database.MigrateAsync(); //Update-Database
 
-            var app = builder.Build();
+                await _IdentityDbContext.Database.MigrateAsync();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                var roleService = services.GetRequiredService<RoleManager<IdentityRole>>();
+                await AppIdentityDbContextSeed.SeedRolesAsync(roleService);
+
+                var userService = services.GetRequiredService<UserManager<AppUser>>();
+                await AppIdentityDbContextSeed.SeedUsersAsync(userService);
             }
-            
-            app.UseStaticFiles();
+			catch (Exception ex)
+			{
+				var logger = loggerFactory.CreateLogger<Program>();
+				logger.LogError(ex, "An error has been occured during apply the migration");
+			}
+			#endregion
 
+			// Configure the HTTP request pipeline.
+			if (app.Environment.IsDevelopment())
+            {
+				app.UseSwaggerMiddlewares();
+			}
             app.UseCors("CorsPolicy");
-
             app.UseHttpsRedirection();
-
-            app.UseAuthentication();
-
-            app.UseAuthorization();
-
+			app.UseStaticFiles();
             app.MapControllers();
-
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.Run();
         }
     }

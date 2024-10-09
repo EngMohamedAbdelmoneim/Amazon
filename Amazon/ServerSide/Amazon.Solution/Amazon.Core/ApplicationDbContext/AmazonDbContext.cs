@@ -6,7 +6,7 @@ namespace Amazon.Core.DBContext
 {
     public class AmazonDbContext : DbContext
     {
-        public AmazonDbContext(DbContextOptions options) : base(options)
+        public AmazonDbContext(DbContextOptions<AmazonDbContext> options) : base(options)
         {
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
