@@ -11,7 +11,7 @@ namespace Amazon.Services.WishlistService
     public interface IWishlistService
     {
         Task<WishlistDto> GetWishlistByIdAsync(string wishlistId);
-        Task<WishlistDto> SetWishlistAsync(WishlistDto wishlistDto);
+        Task<WishlistDto> SetWishlistAsync(string wishlistId, WishlistDto wishlistDto);
         Task<bool> RemoveWishlistAsync(string wishlistId);
     }
 }

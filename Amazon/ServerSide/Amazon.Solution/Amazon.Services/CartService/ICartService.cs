@@ -11,7 +11,7 @@ namespace Amazon.Services.CartService
     public interface ICartService
     {
         Task<CartDto> GetCartByIdAsync(string cartId);
-        Task<CartDto> SetCartAsync(CartDto cartDto);
+        Task<CartDto> SetCartAsync(string cartId, CartDto cartDto);
         Task<bool> RemoveCartAsync(string cartId);
     }
 }

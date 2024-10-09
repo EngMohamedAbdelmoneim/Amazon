@@ -12,10 +12,10 @@ namespace Amazon.Services.CartService
 {
     public class CartService : ICartService
     {
-        private readonly ICartRepository _cartRepository;
+        private readonly IGenericCacheRepository<Cart> _cartRepository;
         private readonly IMapper _mapper;
 
-        public CartService(ICartRepository cartRepository, IMapper mapper)
+        public CartService(IGenericCacheRepository<Cart> cartRepository, IMapper mapper)
         {
             _cartRepository = cartRepository;
             _mapper = mapper;
@@ -23,20 +23,20 @@ namespace Amazon.Services.CartService
 
         public async Task<CartDto> GetCartByIdAsync(string cartId)
         {
-            var cart = await _cartRepository.GetCartAsync(cartId);
+            var cart = await _cartRepository.GetAsync(cartId);
             return cart == null ? null : _mapper.Map<CartDto>(cart);
         }
         
-        public async Task<CartDto> SetCartAsync(CartDto cartDto)
+        public async Task<CartDto> SetCartAsync(string cartId, CartDto cartDto)
         {
             var mappedCart = _mapper.Map<Cart>(cartDto);
-            var newCart = await _cartRepository.CreateOrUpdateCartAsync(mappedCart);
+            var newCart = await _cartRepository.CreateOrUpdateAsync(cartId, mappedCart);
             return newCart == null ? null : _mapper.Map<CartDto>(newCart);
         }
 
         public async Task<bool> RemoveCartAsync(string cartId)
         {
-            return await _cartRepository.DeleteCartAsync(cartId);
+            return await _cartRepository.DeleteAsync(cartId);
         }
     }
 }

@@ -29,9 +29,14 @@ namespace Amazon.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CartDto>> SetCart(CartDto cartDto)
+        public async Task<ActionResult<CartDto>> SetCart(string cartId, CartDto cartDto)
         {
-            var newCartDto = await _cartService.SetCartAsync(cartDto);
+            if (string.IsNullOrEmpty(cartId) || cartId != cartDto.Id)
+            {
+                return BadRequest("Invalid cart ID or cart data.");
+            }
+
+            var newCartDto = await _cartService.SetCartAsync(cartId, cartDto);
             if (newCartDto == null)
             {
                 return BadRequest("Failed to set cart.");

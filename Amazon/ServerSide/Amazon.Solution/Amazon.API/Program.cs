@@ -45,6 +45,7 @@ namespace Amazon.API
             #region Register Services
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            builder.Services.AddScoped(typeof(IGenericCacheRepository<>), typeof(GenericCacheRepository<>));
 
             #region ProductService
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -68,13 +69,11 @@ namespace Amazon.API
             #endregion
 
             #region CartService
-            builder.Services.AddScoped<ICartRepository, CartRepository>();
             builder.Services.AddScoped<ICartService, CartService>();
             builder.Services.AddAutoMapper(typeof(CartProfile));
             #endregion
 
             #region WishlistService
-            builder.Services.AddScoped<IWishlistRepository, WishlistRepository>();
             builder.Services.AddScoped<IWishlistService, WishlistService>();
             builder.Services.AddAutoMapper(typeof(WishlistProfile));
             #endregion
