@@ -10,7 +10,7 @@ namespace Amazon.API.Extentions
 			services.AddEndpointsApiExplorer();
 			services.AddSwaggerGen(c =>
 			{
-				c.SwaggerDoc("v1", new OpenApiInfo { Title = "AmazoneAPI", Version = "v1" });
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = "AmazonAPI", Version = "v1" });
 
 				var securityScheme = new OpenApiSecurityScheme
 				{

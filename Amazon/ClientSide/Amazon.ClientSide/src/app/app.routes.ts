@@ -14,7 +14,7 @@ export const routes: Routes =
         resolve: { layout: setLayout(PageLayout.Authorized)}
     },
     { 
-        path: 'auth',
+        path: '',
         loadChildren: () => import('./auth.routes').then(m => m.Auth_Routes), 
         resolve: { layout: setLayout(PageLayout.UnAuthorized)}
     },

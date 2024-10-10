@@ -1,18 +1,14 @@
-<nav class="p-2" id="nav">
+<nav id="nav">
 
-    <div class="nav">
+    <div class="nav p-1">
 
         <div>
-
-            <h1 class="">
-                <a [routerLink]="['/']">
-                    <img src="Amazon_logo.png" alt="">
-                </a>
-            </h1>
-
+            <a [routerLink]="['/']" class="p-3">
+                <img src="White-Amazon-Logo.png" alt="">
+            </a>
         </div>
 
-        <div>
+        <div class="input-container">
             <div>
 
                 <select name="" id="" #Category>
@@ -43,10 +39,8 @@
         </div>
 
         <div style="display: flex;">
-            <button style="background-color: #f1f1f1; border: none; border-radius: 0.3em;"
-                class="p-2 mx-1">WISHLIST</button>
-            <button style="background-color: #f1f1f1; border: none; border-radius: 0.3em;" class="p-2 mx-1">🛒</button>
-            <div class="dropdown">
+            <a style="display: flex; align-items: end;"class="p-2 mx-1">WISHLIST</a>
+            <!-- <div class="dropdown">
                 <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     My Account
                 </button>
@@ -59,24 +53,72 @@
                     <li><a class="dropdown-item" href="#">Profile</a></li>
                     <li><a class="dropdown-item" href="#">Sign Out</a></li>
                 </ul>
+            </div> -->
+            <div class="dropdown-container">
+                <button class="dropdown-btn">Account & Lists</button>
+                <div class="dropdown-content p-2">
+                    <div class="signin-btn">
+                        <a routerLink="/login">Sign In</a>
+                    </div>
+                    <div style="display: flex;">
+                        <div style="width: 50%;">
+                            <h5>Your Lists</h5>
+                            <a href="#">Create a List</a>
+                        </div>
+                        <div style="width: 50%;">
+                            <h5>Your Account</h5>
+                            <a href="#">Your Account</a>
+                            <a href="#">Your Orders</a>
+                            <a href="#">Your Addresses</a>
+                            <a href="#">Your Lists</a>
+                            <a href="#">Keep Shopping For</a>
+                            <a href="#">Your Recommendations</a>
+                            <a href="#">Recalls and Product Safety Alerts</a>
+                            <a href="#">Your Prime Membership</a>
+                            <a href="#">Memberships & Subscriptions</a>
+                            <a href="#">Your Seller Account</a>
+                            <a href="#">Switch Accounts</a>
+                            <a href="#">Sign Out</a>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <a href="" style="display: flex; align-items: end;" class="p-2">Orders</a>
+            <a href="" class="p-2 mx-1" style="display: flex; align-items: end;">
+                <div style="display: flex; flex-direction: column; align-items: center; height: 39px; position: relative;">
+                    <span style="position: absolute; color: #f08804;">0</span>
+                    <svg width="38" height="26" xmlns="http://www.w3.org/2000/svg" style="position: relative; top: 10px;">
+                        <path d="M1.25 1.25 L5 1.25 L11.25 20 L25 20 L35 5" stroke="white" stroke-width="4" fill="none" />
+                    </svg>
+                </div>
+                Cart 
+            </a>
         </div>
     </div>
 
     <div class="lower-nav">
 
-        <div class="burger-menu" (click)="toggleMenu()">
-            <div [ngClass]="['line1', open ? 'line1O' : '']"></div>
-            <div [ngClass]="['line2', open ? 'line2O' : '']"></div>
-            <div [ngClass]="['line3', open ? 'line3O' : '']"></div>
+        <div class="burger-menu-contianer">
+            <div class="burger-menu" (click)="toggleMenu()">
+                <div [ngClass]="['line1', open ? 'line1O' : '']"></div>
+                <div [ngClass]="['line2', open ? 'line2O' : '']"></div>
+                <div [ngClass]="['line3', open ? 'line3O' : '']"></div>
+            </div>
         </div>
 
-        <a href="">Men</a>
-        <a href="">Women</a>
-        <a href="">Kids</a>
-        <a href="">Home</a>
         <a href="">Elctronics</a>
+        <a href="">Home</a>
+        <a href="">Today's Deals</a>
+        <a href="">Apliances</a>
+        <a href="">Toys & Games</a>
+        <a href="">Help</a>
         <a href="">Mobile Phones</a>
+        <a href="">Perfumes</a>
+        <a href="">User's amazon</a>
+        <a href="">Sell</a>
+        <a href="">Prime</a>
+        <a href="">Fashion</a>
     </div>
 
 </nav>

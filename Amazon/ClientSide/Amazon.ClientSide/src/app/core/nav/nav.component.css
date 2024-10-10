@@ -1,22 +1,23 @@
 nav{
-    width: 90%;
+    width: 100%;
     margin-inline: auto; 
-    /* background-color: #131921; */
+    background-color: #131921;
   }
   .nav{
     display: flex;
     justify-content: space-between;
     align-items: center;
-      /* width: 90%; */
-      /* margin-inline: auto;  */
     a{
         text-decoration: none;
         color: black;
         img{
-            height: 30px;
+            width: 100px;
+        }
+        &:hover{
+          outline: 1px solid white;
         }
     }
-    div:nth-child(2){
+    .input-container{
         display: flex;
         align-items: center;
         width: 50%;
@@ -46,34 +47,104 @@ nav{
             }
         }
     }
-  }
-  
-  .dropdown{
-      border: 1px solid gray;
-      border-radius: 5px;
-      /* overflow: hidden; */
-      .dropdown-toggle{
-          border: none;
-          background: transparent;
+    div:nth-of-type(3)
+    {
+      font-size: 14px;
+      a
+      {
+        color: white;
+        font-weight: bold;
+        &:hover
+        {
+          outline: 1px solid white;
+        }
       }
-      .dropdown-menu{
-          text-align: center;
-      }
+    }
   }
+
+.dropdown-container{
+  position: relative;
+  .dropdown-btn{
+    padding-top: 26px;
+    font-size: 14px;
+    position: relative;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    &:hover{
+      outline: 1px solid white
+    }
+  }
+  .dropdown-content{
+    display: none;
+    width: 400px;
+    position: absolute;
+    right: 0px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    .signin-btn{
+      text-align: center;
+      margin-inline: auto;
+      background-color: #FFD814;
+      border-radius: 0.5em;
+      border: none;
+      width: 50%;
+      a{
+        color: black !important;
+        margin-bottom: 10px;
+      }
+      &:hover{
+        background-color: #f7ca00;
+        text-decoration: underline;
+      }
+    }
+    a{
+      color: black !important; 
+      font-size: 13px;
+      /* font-weight: 400; */
+      padding-bottom: 5px;
+      text-decoration: none;
+      display: block;
+      &:hover{
+        outline: none !important;
+        border: none;
+        color: orange !important;
+        text-decoration: underline;
+      }
+    }
+  }
+  &:hover .dropdown-content{
+    display: block;
+  }
+}
   
   
   .lower-nav{
       display: flex;
       justify-content: space-between;
       align-items: center;
+      background-color: #232f3e;
+      font-size: 14px;
       a{
-          text-decoration: none;
-          color: black;
-          font-weight: bold;
+        text-decoration: none;
+        color: white;
+        padding: 8px 9px;
+        &:hover{
+          outline: 1px solid white;
+        }
       }
   }
   
-  .burger-menu {
+
+  .burger-menu-contianer
+  {
+    height: 100%;
+    padding: 8px 9px;
+    .burger-menu 
+    {
       width: 20px;
       height: 15px;
       display: flex;
@@ -81,13 +152,18 @@ nav{
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
+    }
+    &:hover{
+      outline: 1px solid white;
+      cursor: pointer;
+    }
   }
   
   .burger-menu div {
       width: 100%;
       height: 2px;
       border-radius: 20px;
-      background-color: #333;
+      background-color: white;
       transition: all 0.3s ease;
     }
     

@@ -43,7 +43,6 @@ namespace Amazon.API.Extentions
 			services.AddAutoMapper(typeof(BrandProfile));
 			#endregion
 
-
 			#region CartService
 			services.AddScoped<ICartService, CartService>();
 			services.AddAutoMapper(typeof(CartProfile));

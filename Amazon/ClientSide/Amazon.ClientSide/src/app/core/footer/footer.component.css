@@ -1,5 +1,7 @@
 #navBackToTopbtn{
     background-color: #37475A;
+    border: none;
+    width: 100%;
     color: white;
     display: block;
     text-align: center;
