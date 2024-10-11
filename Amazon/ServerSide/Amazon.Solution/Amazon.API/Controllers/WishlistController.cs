@@ -35,7 +35,22 @@ namespace Amazon.API.Controllers
                 return BadRequest("Invalid wishlist ID or wishlist data.");
             }
 
-            var newWishlistDto = await _wishlistService.SetWishlistAsync(wishlistId ,wishlistDto);
+			foreach (var item in wishlistDto.Items.ToList())
+			{
+				if (item.Quantity == 0)
+				{
+					wishlistDto.Items.Remove(item);
+				}
+			}
+
+			if (wishlistDto.Items.Count() == 0)
+			{
+				await _wishlistService.RemoveWishlistAsync(wishlistId);
+				return Ok("WishList is Empty");
+
+			}
+
+			var newWishlistDto = await _wishlistService.SetWishlistAsync(wishlistId ,wishlistDto);
             if (newWishlistDto == null)
             {
                 return BadRequest("Failed to set wishlist.");

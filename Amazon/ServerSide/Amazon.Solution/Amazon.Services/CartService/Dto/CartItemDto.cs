@@ -16,11 +16,11 @@ namespace Amazon.Services.CartService.Dto
         [Required]
         public string Category { get; set; }
 
-        [Range(0, double.MaxValue)]
+        [Range(0.1, double.MaxValue)]
         public decimal Price { get; set; }
         public string PictureUrl { get; set; }
 
-        [Range(1, int.MaxValue)]
+        [Range(0, int.MaxValue)]
         public int Quantity { get; set; }
     }
 }

@@ -12,7 +12,6 @@ namespace Amazon.Services.WishlistService.Dto
     {
         [Required]
         public string Id { get; set; }
-        [MinLength(1)]
         public List<WishlistItemDto> Items { get; set; } = new List<WishlistItemDto>();
     }
 }

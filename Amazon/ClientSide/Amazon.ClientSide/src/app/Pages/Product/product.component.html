@@ -42,8 +42,8 @@
         <div>
             <span class="badge rounded-pill text-bg-dark"><i class="fa fa-amazon" aria-hidden="true">Editor's <span class="Choiceinyellow">choice</span></i></span>
         </div>
-        <h3> This item cannot be shipped to your selected delivery location. Please choose a different delivery location.
-        </h3>
+        <!-- <h3> This item cannot be shipped to your selected delivery location. Please choose a different delivery location. -->
+        <!-- </h3> -->
         <div class ="ColorResult"></div>
         <div class="PickColor"> 
             <div class="ProductColor" style="background-color: #ffffff;" data-color="#ffffff" color-name="White"> </div>
@@ -111,7 +111,7 @@
             <option value="9">9</option>
             <option value="10">10</option>
         </select>
-        <button class="p-1 mb-2">Add to Cart</button>
+        <button class="p-1 mb-2" (click)="AddToCart(product,'23')">Add to Cart</button>
         <button class="p-1 mb-2">Buy Now</button>
         <button class="p-1">Add to Wishlist</button>
     </section>

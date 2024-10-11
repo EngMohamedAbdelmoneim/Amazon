@@ -4,10 +4,10 @@ export class ParentCategory
 {
     id: number
     name: string;
-    categories: Category[];
+    categories: string[];
 
 
-    constructor(id:number, name: string,categories: Category[])
+    constructor(id:number, name: string,categories: string[])
     {
         this.id = id;
         this.name = name;

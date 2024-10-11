@@ -4,16 +4,15 @@
         @for (parentcategory of parentcategories; track parentcategory.id)
         {
         <li style="font-weight: 500;">
-            <button [routerLink]="['/category' , parentcategory.name]"
-                routerLinkActive="router-link-active" routerLinkActive="router-link-active" class="list-group-item">
+            <button [routerLink]="['/category' , parentcategory.name]" routerLinkActive="router-link-active"
+                routerLinkActive="router-link-active" class="list-group-item">
                 {{parentcategory.name}}</button>
             <ul class="list-group-numbered">
                 @for (category of parentcategory.categories; track $index) {
 
-                <li><a [routerLink]="['/category' , parentcategory.name,category.name]"
-                        routerLinkActive="router-link-active" routerLinkActive="router-link-active"
-                        class="list-group-item">&#x3c;
-                        {{category.name}}</a></li>
+                <li><a [routerLink]="['/category' , parentcategory.name,category]" routerLinkActive="router-link-active"
+                        routerLinkActive="router-link-active" class="list-group-item">&#x3c;
+                        {{category}}</a></li>
                 }
             </ul>
         </li>

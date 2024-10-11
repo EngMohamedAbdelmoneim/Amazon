@@ -12,7 +12,6 @@ namespace Amazon.Services.CartService.Dto
     {
         [Required]
         public string Id { get; set; }
-        [MinLength(1)]
         public List<CartItemDto> Items { get; set; } = new List<CartItemDto>();
     }
 }

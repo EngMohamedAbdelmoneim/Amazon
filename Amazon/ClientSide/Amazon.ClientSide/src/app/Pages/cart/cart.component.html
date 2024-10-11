@@ -1,0 +1,70 @@
+<div class="cart-container">.
+    @if(cartProduct == null || cartProduct.length == 0){
+    <main>
+        <div class="cart-section">
+            <div class="cart-info">
+                <img src="https://m.media-amazon.com/images/G/42/cart/empty/kettle-desaturated._CB659190457_.svg"
+                    alt="Coffee Image">
+                <div class="cart-details">
+                    <h1>Your Amazon cart is empty</h1>
+                    <a href="#" class="btn btn-light rounded-pill">Shop today's deals</a>
+                    <div class="buttons">
+                        <a href="#" class="sign-in-btn rounded-pill">Sign in to your account</a>
+                        <a href="#" class="sign-up-btn rounded-pill">Sign up now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-2">
+            <p>
+                The price and availability of items at amazon.eg are subject to change. The Cart is a temporary place to
+                store a list of your items and reflects each item's most recent price.
+                Do you have a gift card or promotional code? We'll ask you to enter your claim code when it's time to
+                pay.
+            </p>
+        </div>
+        
+    </main>
+    }
+    @else{
+        <main>
+            <div class="shopping-cart-container">
+                <h1>Shopping Cart</h1>
+                @for (cartItem of cartProduct.items; track $index) {
+                    <app-cart-card [prop]=cartItem (itemDeleted)="AddAndUpdateCart(cartItem,'23')"></app-cart-card>
+                }
+            </div>
+        </main>
+    }
+    <aside>
+        <div class="recently-viewed-section">
+            <h2>Your recently viewed items</h2>
+            <div class="item">
+                <img src="https://m.media-amazon.com/images/I/61Cqs9zzwGL._AC_SL1500_.jpg" alt="Samsung Refrigerator">
+                <div class="item-details">
+                    <p>Samsung Refrigerator RT40A3310SA/MR</p>
+                    <p class="price">EGP 31,999.00</p>
+                    <a href="#" class="add-to-cart-btn rounded-pill">Add to cart</a>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="https://m.media-amazon.com/images/I/51GvEUyJ6LL._AC_SL1142_.jpg" alt="Soundcore a3991h11">
+                <div class="item-details">
+                    <p>Soundcore a3991h11 by Anker</p>
+                    <p class="price">EGP 999.00</p>
+                    <a href="#" class="add-to-cart-btn rounded-pill">Add to cart</a>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="https://m.media-amazon.com/images/I/71GRA+ulKZL._AC_SL1500_.jpg" alt="UGREEN USB Hub">
+                <div class="item-details">
+                    <p>UGREEN USB 2.0 4-Port Hub</p>
+                    <p class="price">EGP 339.00</p>
+                    <a href="#" class="add-to-cart-btn rounded-pill">Add to cart</a>
+                </div>
+            </div>
+        </div>
+    </aside>
+</div>

@@ -36,7 +36,22 @@ namespace Amazon.API.Controllers
                 return BadRequest("Invalid cart ID or cart data.");
             }
 
-            var newCartDto = await _cartService.SetCartAsync(cartId, cartDto);
+			foreach (var item in cartDto.Items.ToList())
+			{
+				if (item.Quantity == 0)
+				{
+					cartDto.Items.Remove(item);
+				}
+			}
+
+			if (cartDto.Items.Count() == 0)
+			{
+				await _cartService.RemoveCartAsync(cartId);
+				return Ok("Cart is Empty");
+
+			}
+
+			var newCartDto = await _cartService.SetCartAsync(cartId, cartDto);
             if (newCartDto == null)
             {
                 return BadRequest("Failed to set cart.");
