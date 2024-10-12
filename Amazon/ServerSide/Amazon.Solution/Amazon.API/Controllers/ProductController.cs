@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Amazon.Core.Entities;
 using Amazon.Services.BrandService;
 using Amazon.Services.CategoryServices;
+using Amazon.Services.Utilities;
+using Amazone.Infrastructure.Specification.ProductSpecifications;
 
 namespace Amazon.API.Controllers
 {
@@ -38,6 +40,33 @@ namespace Amazon.API.Controllers
 			return Ok( await _productService.AddProduct(product));
 		}
 
+		[HttpGet("GetAll")]
+		public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts([FromQuery]ProductSpecParams specParams)
+		{
+			if (specParams.PageIndex < 0)
+				return NotFound("Page Not Found");
+
+
+			var products = await _productService.GetAllProductsAsync(specParams);
+
+			if (products is null)
+				return NotFound("Page Not Found");
+
+			return Ok(products);
+		}
+
+		[HttpGet("{id}")]
+		public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
+		{
+			var product = await _productService.GetProductByIdAsync(id);
+
+			if (product is null)
+				return NotFound(); 
+
+
+			return Ok(product); //Status Code 200
+		}
+
 
 		[HttpPut("id")]
 		public async Task<ActionResult<ProductToReturnDto>> UpdateProduct(int id,ProductDto product)
@@ -57,17 +86,6 @@ namespace Amazon.API.Controllers
 		[HttpGet]
 		public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetAllProducts()
 			=> Ok(await _productService.GetAllProductsAsync());
-
-		[HttpGet("{id}")]
-		public async Task<ActionResult<ProductToReturnDto>> GetProductById(int id)
-		{
-			var product = await _productService.GetProductByIdAsync(id);
-
-			if (product is null)
-				return NotFound();
-
-			return Ok(product);
-		}
 
 
 		[HttpDelete("{id}")]

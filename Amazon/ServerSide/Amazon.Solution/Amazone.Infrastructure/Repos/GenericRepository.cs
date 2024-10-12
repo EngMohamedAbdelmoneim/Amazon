@@ -1,6 +1,7 @@
 ﻿using Amazon.Core.DBContext;
 using Amazon.Core.Entities;
 using Amazone.Infrastructure.Interfaces;
+using Amazone.Infrastructure.Specification;
 using Microsoft.EntityFrameworkCore;
 
 namespace Amazone.Infrastructure.Repos
@@ -38,5 +39,20 @@ namespace Amazone.Infrastructure.Repos
 
 		public async Task<T> GetByIdAsync(int? id) 
 			=> await _context.Set<T>().FindAsync(id);
+
+
+		public async Task<IReadOnlyList<T>> GetAllWithSpecAsync(ISpecification<T> spec)
+			=> await ApplySpecification(spec).ToListAsync();
+
+		public async Task<T?> GetWithSpecAsync(ISpecification<T> spec)
+			=> await ApplySpecification(spec).FirstOrDefaultAsync();
+
+		private IQueryable<T> ApplySpecification(ISpecification<T> spec)
+			=> SpecificationEvaluator<T>.GetQuery(_context.Set<T>(), spec);
+
+		public async Task<int> GetCountAsync(ISpecification<T> spec)
+		{
+			return await ApplySpecification(spec).CountAsync();
+		}
 	}
 }

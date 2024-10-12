@@ -2,6 +2,7 @@ using Amazon.Core.Entities;
 using Amazon.Services.ProductService.Dto;
 using Amazon.Services.Utilities;
 using Amazone.Infrastructure.Interfaces;
+using Amazone.Infrastructure.Specification.ProductSpecifications;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 
@@ -36,7 +37,36 @@ namespace Amazon.Services.ProductService
 			return await GetProductByIdAsync(mappedProduct.Id);
 		
 		}
+		public async Task<ProductToReturnDto> UpdateProduct(int id, ProductDto productDto)
+		{
+			Product existintProduct = await _productRepo.GetByIdAsync(id);
+			if (existintProduct == null)
+				return null;
 
+			if (productDto.ImageFile != null)
+			{
+				DocumentSettings.DeleteFile("productImages", existintProduct.PictureUrl);
+				existintProduct.PictureUrl = await DocumentSettings.UploadFile(productDto.ImageFile, "productImages");
+			}
+
+			if (productDto.ImagesFiles != null && productDto.ImagesFiles.Count > 0)
+			{
+				foreach (var image in existintProduct.Images.ToList())
+				{
+					DocumentSettings.DeleteFile("productImages", image.ImagePath);
+					//existintProduct.Images.Remove(image);
+				}
+
+				await HandleProductImages(productDto.ImagesFiles, existintProduct);
+			}
+
+			_mapper.Map(productDto, existintProduct);
+
+			await _productRepo.Update(existintProduct);
+
+
+			return await GetProductByIdAsync(existintProduct.Id);
+		}
 		public async Task<IReadOnlyList<ProductToReturnDto>> DeleteProduct(int id)
 		{
 			var product = await _productRepo.GetByIdAsync(id);
@@ -65,16 +95,25 @@ namespace Amazon.Services.ProductService
 			return mappedProdcts;
 		}
 
-		public async Task<ProductToReturnDto> GetProductByIdAsync(int id)
+		// Helper method to add other product images
+		private async Task HandleProductImages(ICollection<IFormFile> imagesFiles, Product product)
 		{
-			var product = await _productRepo.GetByIdAsync(id);
-
-			if (product is null) 
-				return null;
-			var mappedProduct = _mapper.Map<ProductToReturnDto>(product);
-			return mappedProduct;
+			if (imagesFiles != null && imagesFiles.Count() > 0)
+			{
+				foreach (var image in imagesFiles)
+				{
+					var productImage = new ProductImages
+					{
+						ProductId = product.Id,
+						ImagePath = await DocumentSettings.UploadFile(image, "productImages")
+					};
+					product.Images.Add(productImage);
+				}
+			}
 		}
 
+
+		#region Search product
 		public async Task<IReadOnlyList<ProductToReturnDto>> GetProductsByBrandIdAsync(int id)
 		{
 			var products = await _productRepo.SearchByBrandAsync(id);
@@ -97,10 +136,10 @@ namespace Amazon.Services.ProductService
 
 		public async Task<IReadOnlyList<ProductToReturnDto>> GetProductsByCategoryIdAndNameAsync(string name, int? id)
 		{
-		
-			if(id == 0 || id == null)
+
+			if (id == 0 || id == null)
 			{
-				if (string.IsNullOrWhiteSpace(name)) 
+				if (string.IsNullOrWhiteSpace(name))
 				{
 					return await GetAllProductsAsync();
 				}
@@ -115,7 +154,7 @@ namespace Amazon.Services.ProductService
 					return await GetProductsByCategoryIdAsync(id.Value);
 				}
 			}
-			var products = await _productRepo.SearchByCategoryAndProductNameAsync(name,id);
+			var products = await _productRepo.SearchByCategoryAndProductNameAsync(name, id);
 			var mappedProdcts = _mapper.Map<IReadOnlyList<ProductToReturnDto>>(products);
 			return mappedProdcts;
 		}
@@ -143,7 +182,7 @@ namespace Amazon.Services.ProductService
 
 		public async Task<IReadOnlyList<ProductToReturnDto>> GetProductsByNameAsync(string name)
 		{
-			
+
 			if (string.IsNullOrWhiteSpace(name))
 			{
 				return await GetAllProductsAsync();
@@ -186,52 +225,45 @@ namespace Amazon.Services.ProductService
 			return mappedProdcts;
 		}
 
-		public async Task<ProductToReturnDto> UpdateProduct(int id, ProductDto productDto)
+
+		#endregion
+
+		public async Task<Pagination<ProductToReturnDto>> GetAllProductsAsync(ProductSpecParams specParams)
 		{
-			Product existintProduct = await _productRepo.GetByIdAsync(id);
-			if (existintProduct == null)
+			var spec = new ProductWithBrandAndCategorySpecifications(specParams);
+
+			var products = await _productRepo.GetAllWithSpecAsync(spec);
+
+			if (products.Count <= 0)
 				return null;
 
-			if (productDto.ImageFile != null)
-			{
-				DocumentSettings.DeleteFile("productImages", existintProduct.PictureUrl);
-				existintProduct.PictureUrl = await DocumentSettings.UploadFile(productDto.ImageFile, "productImages");
-			}
 
-			if (productDto.ImagesFiles != null && productDto.ImagesFiles.Count > 0)
-			{
-				foreach (var image in existintProduct.Images.ToList())
-				{
-					DocumentSettings.DeleteFile("productImages", image.ImagePath);
-					//existintProduct.Images.Remove(image);
-				}
+			var count = await GetCountAsync(specParams);
+			var data = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products);
 
-				await HandleProductImages(productDto.ImagesFiles, existintProduct);
-			}
-
-			_mapper.Map(productDto, existintProduct);
-
-			await _productRepo.Update(existintProduct);
-
-
-			return await GetProductByIdAsync(existintProduct.Id);
+			return new Pagination<ProductToReturnDto>(specParams.PageIndex,specParams.PageSize,count,data);
 		}
 
-		// Helper method to add other product images
-		private async Task HandleProductImages(ICollection<IFormFile> imagesFiles, Product product)
+		public async Task<ProductToReturnDto> GetProductByIdAsync(int id)
 		{
-			if (imagesFiles != null && imagesFiles.Count() > 0)
-			{
-				foreach (var image in imagesFiles)
-				{
-					var productImage = new ProductImages
-					{
-						ProductId = product.Id,
-						ImagePath = await DocumentSettings.UploadFile(image, "productImages")
-					};
-					product.Images.Add(productImage);
-				}
-			}
+			var spec = new ProductWithBrandAndCategorySpecifications(id);
+
+			var product = await _productRepo.GetWithSpecAsync(spec);
+
+			if (product == null)
+				return null;
+
+			var mappedProduct = _mapper.Map<ProductToReturnDto>(product);
+
+			return mappedProduct;
+		}
+		private async Task<int> GetCountAsync(ProductSpecParams specParams)
+		{
+			var counSpec = new ProductWithFilterationForCountSpecification(specParams);
+
+			var count = await _productRepo.GetCountAsync(counSpec);
+
+			return count;
 		}
 
 	}
