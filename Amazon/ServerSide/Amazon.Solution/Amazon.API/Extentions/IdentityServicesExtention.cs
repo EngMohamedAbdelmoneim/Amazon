@@ -2,6 +2,8 @@
 using Amazon.Core.IdentityDb;
 using Amazon.Services.AuthService.Token;
 using Amazon.Services.AuthService.User;
+using Amazon.Services.AuthService.User.Dto;
+using Amazon.Services.Utilities.EmailSettings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -13,9 +15,17 @@ namespace Amazon.API.Extentions
 	{
 		public static IServiceCollection AddIdentityServices(this IServiceCollection services,IConfiguration configuration)
 		{
-			services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppIdentityDbContext>();
+			services.AddIdentity<AppUser, IdentityRole>().AddRoles<IdentityRole>().AddDefaultTokenProviders().AddEntityFrameworkStores<AppIdentityDbContext>();
+			services.Configure<DataProtectionTokenProviderOptions>(options =>
+			{
+				options.TokenLifespan = TimeSpan.FromHours(1);
+			});
+
 			services.AddScoped<IUserService, UserService>();
 			services.AddScoped<ITokenService, TokenService>();
+			services.AddScoped<IEmailService, EmailService>();
+			services.AddAutoMapper(typeof(UserAdressProfile));
+
 
 			services.AddAuthentication(options =>
 			{

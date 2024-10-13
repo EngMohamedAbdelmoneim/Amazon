@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Amazon.Core.IdentityDb.Migrations
+namespace Amazon.Core.IdentityDb.migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20241009172836_IdentityInitialCreate")]
+    [Migration("20241012195721_IdentityInitialCreate")]
     partial class IdentityInitialCreate
     {
         /// <inheritdoc />
@@ -27,11 +27,8 @@ namespace Amazon.Core.IdentityDb.Migrations
 
             modelBuilder.Entity("Amazon.Core.Entities.Identity.Address", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AppUserId")
                         .HasColumnType("nvarchar(450)");
@@ -52,7 +49,7 @@ namespace Amazon.Core.IdentityDb.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FristName")
+                    b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -92,6 +89,9 @@ namespace Amazon.Core.IdentityDb.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DefaultAddressId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DisplayName")
