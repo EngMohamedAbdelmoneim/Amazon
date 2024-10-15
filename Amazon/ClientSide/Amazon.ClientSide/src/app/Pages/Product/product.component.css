@@ -36,9 +36,11 @@ main{
         .MainImageContainer
         {
             width: 90%;
+            height: 400px;
             text-align: center;
             cursor: pointer;
             overflow: hidden;
+            object-fit: cover;
             img
             {
                 height: 100%;

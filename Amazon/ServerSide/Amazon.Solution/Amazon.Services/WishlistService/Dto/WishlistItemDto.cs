@@ -15,8 +15,10 @@ namespace Amazon.Services.WishlistService.Dto
         public string ProductName { get; set; }
         [Required]
         public string Category { get; set; }
+		[Required]
+		public string Brand { get; set; }
 
-        [Range(0.1, double.MaxValue)]
+		[Range(0.1, double.MaxValue)]
         public decimal Price { get; set; }
         public string PictureUrl { get; set; }
 

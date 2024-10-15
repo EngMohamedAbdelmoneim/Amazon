@@ -3,11 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CartCardComponent } from "../../Components/cart-card/cart-card.component";
-import { Observable, Subscription } from 'rxjs';
+import { delay, Subscription } from 'rxjs';
 import { CartService } from '../../Services/cart.service';
-import { Product } from '../../Models/product';
-import { CartItems } from '../../Models/cart-items';
-import { start } from 'node:repl';
+import { CartItem } from '../../Models/cart-item';
+import { GuidService } from '../../Services/guid.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-cart',
@@ -19,73 +19,98 @@ import { start } from 'node:repl';
 
 export class CartComponent implements OnInit {
 
-  cartProduct: any | null;
+  cartItems: any | null;
+  Qnt:number=0;
   sub: Subscription | null = null;
-  constructor(public http: HttpClient, public activatedRoute: ActivatedRoute, private cartService: CartService) { }
+  loading: boolean = true;
+  constructor(public http: HttpClient, public activatedRoute: ActivatedRoute, private cartService: CartService , public guidServices: GuidService ,public cookieService:CookieService) { }
 
-  ngOnInit() {
-    this.sub = this.activatedRoute.params.subscribe(p => {
-        this.cartService.getAllFromCart(p['cartId']).subscribe({
-          next: async data => {
-            this.cartProduct = await data;
-            console.log(data);
-          }
-        })
-    })
-  }
 
-  AddAndUpdateCart(cartItem: CartItems, _id: string) {
-    const cartitem: CartItems =
-    {
-      id: cartItem.id,
-      productName: cartItem.productName,
-      category: "1",
-      price: cartItem.price,
-      pictureUrl: cartItem.pictureUrl,
-      quantity: 0,
-    };
-    console.log(cartItem);
-    this.cartService.getAllFromCart(_id).subscribe({
-      next: data => {
-        
-        this.cartProduct = data.items;
-        let index = this.cartProduct.findIndex(i => i.id == cartItem.id);
-        this.cartProduct.splice(index,1);
-        if (this.cartProduct) {
-          this.cartService.addToCart(_id, this.cartProduct).subscribe({
-            next: addedCart => {
-              console.log(addedCart);
-              this.sub = this.activatedRoute.params.subscribe(p => {
-                this.cartService.getAllFromCart(p['cartId']).subscribe({
-                  next: async data => {
-                    this.cartProduct = await data;
-                    console.log(data);
-                  }
-                })
-            })
-            },
-            error: err => console.error('Failed to add item to cart:', err)
-          });
-        
-      }
-    },
-      error: err => {
-        console.error('Failed to fetch cart data:', err);
-      }
+  ngOnInit(): void {
+    this.cartService.cartQnt.subscribe({
+      next: p => { this.Qnt = p; }
     });
+    if (this.cookieService.get('Qnt') != null) {
+      this.Qnt = Number(this.cookieService.get('Qnt'));
+    }
+    else{
+      this.Qnt = 0;
+    }
+
+    this.cartService.cartProduct$
+      .pipe(delay(100))
+      .subscribe({
+        next: products => {
+          if (products.length !== 0) {
+            console.log('from list');
+            this.cartItems = products; 
+            console.log('Updated cartProducts:', this.cartItems);
+            this.loading = false;
+            console.log('Cart data loaded:', products);
+          }
+          else {
+            console.log('from database');
+            this.sub = this.activatedRoute.
+              params.subscribe(params => {
+                this.loading = true;
+                this.cartService.getAllFromCart(params['cartId'])
+                  .subscribe({
+                    next: cart => {
+                      if (cart != null) {
+                        this.cartItems = cart.items;
+                        this.cartService.updateCart(cart.items);
+                        console.log('Updated cartProducts:', this.cartItems);
+                        this.loading = false;
+                        console.log('Cart data loaded:', cart);
+                      }
+                      else {
+                        this.cartItems = null;
+                        this.loading = false;
+                      }
+                    },
+                    error: err => {
+                      this.loading = false;
+                      console.error('Error fetching cart data:', err);
+                    }
+                  });
+              });
+          }
+        },
+        error: err => {
+          this.loading = false;
+          console.error('Error fetching cart data:', err);
+        }
+      });
   }
 
-  // async onItemDeleted(cartId: string, id: number) {
-  //   this.cartService.deleteCartItem(cartId, id).subscribe({
-  //     next: updatedCart => {
-  //       this.cartService.cartItems = updatedCart;
-  //       console.log('Cart updated after item deletion:', updatedCart);
-  //     },
-  //     error: err => {
-  //       console.error('Error deleting item:', err);
-  //     }
-  //   });
-  // }
+  ngOnDestroy(): void {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
+  }
+  getGuid():string{
+    return this.guidServices.getGUID();
+  }
 
+  RemoveFromCart(cartId: string, cartItamId: number): void {
+    this.cartService.removeFromCart(cartId, cartItamId);
+    this.loading = false;
+  }
+  UpdateQnt(cartId: string, item: CartItem): void {
+    console.log(item.quantity)
+    this.cartService.updateCartItemQnt(cartId,item);
+    this.loading = false;
+  }
+
+  TotalPrice(){
+    let TotalPrice = 0;
+    if(this.cartItems != null){
+      this.cartItems.forEach(item => {
+        TotalPrice += Number(item.price * item.quantity); 
+      });
+      return TotalPrice.toFixed(2);
+    }
+    return TotalPrice.toFixed(2);
+  }
 
 }

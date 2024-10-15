@@ -8,6 +8,7 @@ import { AuthorizedLayoutComponent } from './core/authorized-layout/authorized-l
 import { UnAuthorizedLayoutComponent } from './core/un-authorized-layout/un-authorized-layout.component';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { GuidService } from './Services/guid.service';
 
 @Component({
   selector: 'app-root',
@@ -18,13 +19,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class AppComponent implements OnInit{
   title = 'Amazon';
+  currentGuid: string;
   readonly PageLayout = PageLayout;
-  constructor(public pageLayoutService: PageLayoutService){}
+  constructor(public pageLayoutService: PageLayoutService,public guidService:GuidService){}
 
-  ngOnInit(): void 
-  {
+ ngOnInit(): void {
     // this.pageLayoutService.setLayout(PageLayout.Authorized)
-  }
-
+    this.currentGuid = this.guidService.initializeGUID();
+  
+ }
   
 }

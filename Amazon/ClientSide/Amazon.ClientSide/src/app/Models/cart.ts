@@ -1,12 +1,11 @@
-import { CartItems } from "./cart-items";
-import { Product } from "./product";
-
+import { CartItem } from "./cart-item";
+ 
 export class Cart 
 {
     id: string
-    items: CartItems[]
+    items: CartItem[]
 
-    constructor(id:string, items:CartItems[])
+    constructor(id:string, items:CartItem[])
     {
         this.id = id;
         this.items = items

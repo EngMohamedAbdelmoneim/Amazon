@@ -1,0 +1,139 @@
+.wish-list-card {
+    display: grid;
+    grid-template-columns: 20% 1fr auto;
+    max-height: 200px;
+    gap: 20px;
+    align-items: start ;
+    background-color: white;
+    border-radius: 8px;
+    margin: 10px;
+ }
+
+ .product-image{
+    height: 200px;
+ }
+.product-image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    object-fit: contain;
+}
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-details h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.product-details p {
+    color: #333;
+    margin-bottom: 5px;
+}
+.product-details :is(h2,.description):hover {
+    color: #CC0C39;
+    cursor: pointer;
+}
+
+.brand {
+    font-style: italic;
+    color: #555;
+}
+
+.ratings {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.ratings span {
+    margin-right: 5px;
+    color: #f0c14b;
+}
+
+.price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #b12704;
+    margin-bottom: 5px;
+}
+
+.free-shipping {
+    color: #008577;
+}
+
+
+.product-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: start;
+    gap: 10px;
+}
+
+.add-to-cart {
+    background-color: #FFD814;
+    border: none;
+    line-height: 29px;
+    font-size: 13px;
+    width: 100%;
+    height: 30px;
+    color: #111;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-to-cart:hover {
+    background-color: #F7CA00;
+}
+
+.move-options {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.item-added {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 0;
+}
+
+.move-options select {
+    padding: 3px 5px;
+    margin-right: 10px;
+    background-color: white;
+    border: solid gray 0.1px;
+    font-size: 11px;
+    text-align: center;
+ }
+
+.comment, .delete {
+    background-color: transparent;
+    width: 50px;
+    height: fit-content;
+    cursor: pointer;
+    font-size: 11px;
+    border: solid gray 0.1px;
+    
+}
+
+.comment img, .delete img{
+    background-color: transparent;
+    width: 20px;
+    height: 18px;
+}
+
+
+.comment-link {
+    font-size: 12px;
+    color: #007185;
+    text-decoration: none;
+}
+
+.comment-link:hover {
+    text-decoration: underline;
+}

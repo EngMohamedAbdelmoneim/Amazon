@@ -23,7 +23,7 @@ namespace Amazon.API.Controllers
             var cartDto = await _cartService.GetCartByIdAsync(cartId);
             if (cartDto == null)
             {
-                return NotFound();
+                return null;
             }
             return Ok(cartDto);
         }

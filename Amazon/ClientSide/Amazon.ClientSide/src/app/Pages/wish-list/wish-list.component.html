@@ -1,0 +1,65 @@
+@if(wishListItems == null || wishListItems.length == 0){
+<main>
+    <div class="wishList-section">
+        <div class="wishList-info">
+            <img src="https://m.media-amazon.com/images/G/01/wishlist/list_icon._CB458180717_.png"
+                style="width: 100px; height: 100px;" alt="Coffee Image">
+            <div class="wishList-details">
+                <h1>Your Amazon wishList is empty</h1>
+                <a href="#" class="btn btn-light rounded-pill">Shop today's deals</a>
+                <div class="buttons">
+                    <a routerLink="/login" class="sign-in-btn rounded-pill">Sign in to your account</a>
+                    <a routerLink="/register" class="sign-up-btn rounded-pill">Sign up now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-2">
+        <p>
+            The price and availability of items at amazon.eg are subject to change. The wishList is a temporary place to
+            store a list of your items and reflects each item's most recent price.
+            Do you have a gift card or promotional code? We'll ask you to enter your claim code when it's time to
+            pay.
+        </p>
+    </div>
+
+</main>
+}
+@else{
+<main>
+    <h3 class="wishList-title">Shopping wishList</h3>
+    <div class="shopping-wishList-container">
+        <div class="wishlist-nav">
+            <div class="search-container">
+                <input (keyup.enter)="searchArray($event)" type="text" placeholder="Search this list">
+                <span class="search-icon"><img style="width: 20px; height: 20px;"
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Search_Icon.svg/500px-Search_Icon.svg.png?20181016161702"
+                        alt=""></span>
+            </div>
+            <div class="filter-sort">
+                <a href="#" class="filter-sort-link">Filter & Sort ▼</a>
+            </div>
+        </div>
+
+        <div class="split-line">
+        </div>
+        <div id="no-result"></div>
+        @if (filteredProducts) {
+        @for (wishListItem of filteredProducts; track $index) {
+        <app-wishlist-card [prop]=wishListItem (addToCart)="AddToCart(wishListItem,(getGuid()))"
+            (itemListDeleted)="RemoveFromWishList(('wishlist-'+getGuid()),wishListItem.id)"></app-wishlist-card>
+        <div class="split-line">
+        </div>
+        }
+        }
+        @else {
+        @for (wishListItem of wishListItems; track $index) {
+        <app-wishlist-card [prop]=wishListItem (addToCart)="AddToCart(wishListItem,(getGuid()))"
+            (itemListDeleted)="RemoveFromWishList(('wishlist-'+getGuid()),wishListItem.id)"></app-wishlist-card>
+        <div class="split-line">
+        </div>
+        }
+        }
+    </div>
+</main>
+}

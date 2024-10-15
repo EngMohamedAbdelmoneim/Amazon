@@ -22,7 +22,7 @@ namespace Amazon.API.Controllers
             var wishlistDto = await _wishlistService.GetWishlistByIdAsync(wishlistId);
             if (wishlistDto == null)
             {
-                return NotFound();
+                return null;
             }
             return Ok(wishlistDto);
         }
@@ -60,7 +60,7 @@ namespace Amazon.API.Controllers
         }
 
         [HttpDelete("{wishlistId}")]
-        public async Task<IActionResult> DeleteCart(string wishlistId)
+        public async Task<IActionResult> DeleteWishlist(string wishlistId)
         {
             var result = await _wishlistService.RemoveWishlistAsync(wishlistId);
             if (!result)

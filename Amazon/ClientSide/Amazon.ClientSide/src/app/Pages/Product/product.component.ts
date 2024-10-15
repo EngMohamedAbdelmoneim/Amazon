@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../Services/product.service';
 import { Product } from '../../Models/product';
@@ -6,7 +6,10 @@ import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { CartService } from '../../Services/cart.service';
 import { Cart } from '../../Models/cart';
-import { CartItems } from '../../Models/cart-items';
+import { CartItem } from '../../Models/cart-item';
+import { GuidService } from '../../Services/guid.service';
+import { WishListService } from '../../Services/wish-list.service';
+import { WishListItem } from '../../Models/wish-list-item';
 
 @Component({
   selector: 'app-product',
@@ -17,9 +20,10 @@ import { CartItems } from '../../Models/cart-items';
 })
 export class ProductComponent implements OnInit {
   productImages: any;
-  product: Product | null = new Product(0, "", 0, "", "", [], "", 0);
-  cartItems: CartItems | null = new CartItems(0, "", "", 0, "", 0);
-  cart: Array<CartItems> | null;
+  product: Product | null = new Product(0, "", 0, "", "", [],"", "", 0);
+  cartItems: CartItem | null = new CartItem(0, "", "", 0, "", 0);
+  cart: Array<CartItem> | null;
+  @ViewChild( 'quantity') selectedQtn : ElementRef ;
   errorMessage: string | null = null;
   selectedColorName: string | null = null;
   selectedStar: number | null = null;
@@ -28,7 +32,7 @@ export class ProductComponent implements OnInit {
   hoveredStar: number | null = null;
   sub: Subscription | null = null;
 
-  constructor(private productService: ProductService, public cartService: CartService, private route: ActivatedRoute) { }
+  constructor(private productService: ProductService, public cartService: CartService, public wishListService: WishListService, private route: ActivatedRoute , public guidServices: GuidService) { }
 
   ngOnInit(): void {
     this.sub = this.route.params.subscribe(p => {
@@ -47,73 +51,29 @@ export class ProductComponent implements OnInit {
   }
 
   AddToCart(product: Product, _id: string) {
-    const cartitem: CartItems =
+    const cartitem: CartItem =
     {
       id: product.id,
       productName: product.name,
-      category: "1",
+      category: product.categoryName,
       price: product.price,
       pictureUrl: product.pictureUrl,
-      quantity: 1,
+      quantity: Number(this.selectedQtn.nativeElement.value),
     };
-    this.cartService.getAllFromCart(_id).subscribe(response => {
-      if (response !== null) {
-        console.log("id is here ///////////////////////////")
-        this.cartService.getAllFromCart(_id).subscribe({
-          next: data => {
-            this.cart = data.items;
-            if (this.cart) {
-              this.cart.push(cartitem);
-              this.cartService.addToCart(_id, this.cart).subscribe({
-                next: addedCart => {
-                  console.log(addedCart);
-                },
-                error: err => console.error('Failed to add item to cart:', err)
-              });
-            }
-          },
-          error: err => {
-            console.error('Failed to fetch cart data:', err);
-          }
-        });
-      } else {
-        console.log("id is not here ///////////////////////////")
-        this.cartService.addToCart(_id, [cartitem]).subscribe({
-          next: addedCart => {
-            console.log(addedCart);
-          },
-          error: err => console.error('Failed to add item to cart:', err)
-        });
-      }
-    });
-    // if(this.cart != null){
-    // console.log("id is here ///////////////////////////")
-    // this.cartService.getAllFromCart(_id).subscribe({
-    //   next: data => {
-    //     this.cart = data.items;
-    //     if (this.cart) {
-    //       this.cart.push(cartitem);
-    //       this.cartService.addToCart(_id, this.cart).subscribe({
-    //         next: addedCart => {
-    //           console.log(addedCart);
-    //         },
-    //         error: err => console.error('Failed to add item to cart:', err)
-    //       });
-    //     }
-    //   },
-    //   error: err => {
-    //     console.error('Failed to fetch cart data:', err);
-    //   }
-    // });}
-    // else{
-    //   console.log("id is not here ///////////////////////////")
-    //   this.cartService.addToCart(_id, cartitem).subscribe({
-    //     next: addedCart => {
-    //       console.log(addedCart);
-    //     },
-    //     error: err => console.error('Failed to add item to cart:', err)
-    //   });
-    // }
+    this.cartService.updateCartWithItem(("cart-"+_id),cartitem);
+  }
+  AddToWishList(product: Product, _id: string) {
+    const wishListItem: WishListItem =
+    {
+      id: product.id,
+      productName: product.name,
+      category: product.categoryName,
+      brand: product.brandName,
+      price: product.price,
+      pictureUrl: product.pictureUrl,
+      quantity: Number(this.selectedQtn.nativeElement.value),
+    };
+    this.wishListService.updateWishListWithItem(("wishlist-"+_id),wishListItem);
   }
   // Function to display side image
   DisplaySideImage(pictureUrl: string): void {
@@ -134,6 +94,10 @@ export class ProductComponent implements OnInit {
   resetRate(): void {
     this.selectedStar = null;
 
+  }
+
+  getGuid():string{
+    return this.guidServices.getGUID();
   }
 
   submitRate(starValue: number): void {

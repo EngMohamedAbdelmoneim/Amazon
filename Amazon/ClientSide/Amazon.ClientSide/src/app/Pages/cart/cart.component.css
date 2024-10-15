@@ -82,7 +82,6 @@ main {
 
 aside{
     width: 30%;
-    background-color: white;
     border-radius: 5px;
     padding: 0 20px;
     margin: 5px;
@@ -90,7 +89,11 @@ aside{
 }
 
 .recently-viewed-section {
+
     width: 100%;
+    background-color: white;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .recently-viewed-section h2 {
@@ -147,3 +150,142 @@ aside{
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+
+.subtotal-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.subtotal-card p {
+  margin-bottom: 10px;
+  color: #067d62;
+}
+
+
+.subtotal-card .aside-subtotal {
+  margin-bottom: 10px;
+  color: #000000;
+}
+.green-text {
+  color: #ffffff;
+  font-weight: bold;
+  width: 5px;
+  height: 5px;
+  padding: 0 2px;
+  background-color: #067d62;
+  border-radius: 50%;
+}
+
+
+.proceed-btn {
+  background-color: #FFD814;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #111;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+.proceed-btn:hover {
+  background-color: #F7CA00;
+}
+
+
+.main-subtotal {
+  font-size: 18px;
+  margin-top: 20px;
+  color: #333;
+}
+
+.main-subtotal span {
+  font-weight: bold;
+  color: #b12704;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* /////////////////// Loading Page //////////////////////////////// */
+  
+  .loading-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+  
+    position: relative;
+    margin: 100px auto;
+  }
+  
+  .double-bounce1, .double-bounce2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #333;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    -webkit-animation: bounce 2.0s infinite ease-in-out;
+    animation: bounce 2.0s infinite ease-in-out;
+  }
+  
+  .double-bounce2 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+  }
+  
+  @-webkit-keyframes bounce {
+    0%, 100% {
+      -webkit-transform: scale(0.0);
+    }
+    50% {
+      -webkit-transform: scale(1.0);
+    }
+  }
+  
+  @keyframes bounce {
+    0%, 100% {
+      transform: scale(0.0);
+    }
+    50% {
+      transform: scale(1.0);
+    }
+  }
+  
+
+
+
+  .split-line{
+    border: solid 0.1px rgba(167, 167, 167, 0.616);
+    border-radius: 50%;
+    width: 100%;
+  }

@@ -99,7 +99,7 @@
         {
             <p class="text-danger">Only {{product.quantityInStock}} left in stock - order soon.</p>
         }
-        <select name="" id="" class="form-select mb-2">
+        <select #quantity class="form-select mb-2">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -111,8 +111,8 @@
             <option value="9">9</option>
             <option value="10">10</option>
         </select>
-        <button class="p-1 mb-2" (click)="AddToCart(product,'23')">Add to Cart</button>
+        <button class="p-1 mb-2" (click)="AddToCart(product,getGuid())">Add to Cart</button>
         <button class="p-1 mb-2">Buy Now</button>
-        <button class="p-1">Add to Wishlist</button>
+        <button class="p-1" (click)="AddToWishList(product,getGuid())">Add to Wishlist</button>
     </section>
 </main>

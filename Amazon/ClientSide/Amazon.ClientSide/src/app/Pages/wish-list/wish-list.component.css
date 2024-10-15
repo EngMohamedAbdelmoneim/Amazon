@@ -1,0 +1,140 @@
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin: 5px auto;
+ 
+}
+.wishList-title{
+    align-self: start;
+}
+.shopping-wishList-container{
+    align-self: center;
+    padding: 20px;
+    border: #666 solid 0.1px;
+}
+
+.wishList-section {
+    width: 100%;
+    background-color: white;
+    padding: 20px;
+     
+}
+
+.wishList-info {
+    display: flex;
+    align-items: center;
+}
+
+.wishList-info img {
+    width: 300px;
+    margin-right: 20px;
+}
+
+.wishList-details {
+    text-align: left;
+}
+
+.wishList-details h1 {
+    font-size: 24px;
+    color: #333;
+    font-weight: bolder;
+    text-align: start;
+}
+
+.shop-btn {
+    display: inline-block;
+    background-color: #ffd814;
+    padding: 10px 20px;
+    margin: 10px 0;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.buttons a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-right: 10px;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+.sign-in-btn {
+    background-color: #f0c14b;
+    color: black;
+    font-weight: bold;
+}
+
+.sign-up-btn {
+    background-color: white;
+    color: #007185;
+    border: 1px solid #007185;
+}
+
+.wishList-footer {
+    margin-top: 20px;
+    color: #666;
+    font-size: 12px;
+}
+
+
+.split-line{
+    border: solid 0.1px rgba(167, 167, 167, 0.616);
+    border-radius: 50%;
+    width: 100%;
+  }
+
+
+
+
+
+  /* General styling for the wishlist-nav */
+.wishlist-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Search container styling */
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-container input[type="text"] {
+    padding: 8px;
+    padding-left: 30px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 150px; /* Default width */
+    transition: width 0.4s ease; 
+}
+.search-container input[type="text"]:focus {
+    width: 250px; /* Expanded width on focus */
+    transition: width 0.4s ease; /* Ensure transition is smooth */
+}
+.search-container .search-icon {
+    position: absolute;
+    left: 8px;
+    font-size: 16px;
+    color: #888;
+}
+
+/* Filter and Sort link styling */
+.filter-sort-link {
+    font-size: 14px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.filter-sort-link:hover {
+    text-decoration: underline;
+}

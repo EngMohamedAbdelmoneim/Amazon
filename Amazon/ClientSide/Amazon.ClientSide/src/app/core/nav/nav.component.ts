@@ -1,9 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, signal, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, OnInit, signal, ViewChild, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { SearchService } from '../../Services/search.service';
 import { CategoryListComponent } from "../category-list/category-list.component";
+import { GuidService } from '../../Services/guid.service';
+import { CartService } from '../../Services/cart.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-nav',
@@ -13,13 +16,27 @@ import { CategoryListComponent } from "../category-list/category-list.component"
   styleUrl: './nav.component.css',
   encapsulation: ViewEncapsulation.Emulated
 })
-export class NavComponent {
-  constructor(private router: Router, private searchService: SearchService) { }
+export class NavComponent implements OnInit {
+  constructor(private router: Router, private searchService: SearchService, public guidService: GuidService, public cartService: CartService, private cookieService: CookieService) { }
 
   @ViewChild('Category') Category: ElementRef;
   query: string;
   open: boolean = false;
+  cartQnt: number;
+  ngOnInit(): void {
+    this.cartService.cartQnt.subscribe({
+      next: p => { this.cartQnt = p; }
+    });
+    if (this.cookieService.get('Qnt') != null) {
+      this.cartQnt = Number(this.cookieService.get('Qnt'));
+      console.log('Retrieved Qnt:', this.cartQnt);
+    }
+    else {
+      this.cartQnt = 0;
+      console.log('Retrieved Qnt:', this.cartQnt);
+    }
 
+  }
   toggleMenu() {
     const body = document.body;
 
@@ -42,5 +59,10 @@ export class NavComponent {
     console.log(q);
     this.router.navigateByUrl(`/search/${q}`);
   }
+  getGuid(): string {
+    return this.guidService.getGUID();
+  }
+
+
 
 }

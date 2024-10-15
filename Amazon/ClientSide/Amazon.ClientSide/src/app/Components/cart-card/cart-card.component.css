@@ -1,5 +1,6 @@
 
 
+ 
 h1 {
     font-size: 24px;
     margin-bottom: 20px;
@@ -10,7 +11,7 @@ h1 {
 .cart-card { 
     width: 100%;   
     display: grid;
-    grid-template-columns: 180px 1fr 120px;
+    grid-template-columns:  25% 1fr 25%;
     gap: 20px;
     padding: 20px 0;
     border-bottom: 1px solid #e0e0e0;
@@ -28,6 +29,7 @@ h1 {
     margin-right: 10px;
     object-fit: contain;
     grid-row-start: 1 2;
+    align-self:center ;
 }
 
 .card-info {
@@ -64,7 +66,7 @@ h1 {
 }
 
 .discount-price {
-    color: #b12704;
+    color: #CC0C39;
 }
 
 .list-price {
@@ -73,9 +75,9 @@ h1 {
 }
 
 .limited-time {
-    color: #b12704;
+    color: #fffefe;
     font-weight: bold;
-    background-color: #fffae6;
+    background-color: #CC0C39;
     padding: 2px 4px;
     border-radius: 3px;
 }
@@ -91,3 +93,34 @@ h1 {
     font-weight: bold;
     color: #b12704;
 }
+
+
+
+.a-icon-text-separator, .a-text-separator {
+    display: inline-block;
+    margin: -2px .67375em 0;
+    width: 1px;
+    background-color: #ddd;
+    line-height: 0;
+    height: 14px;
+    vertical-align: middle;
+}
+
+.a-icon {
+    background-image: url(https://m.media-amazon.com/images/S/sash/McBZv0ZvnbehkIx.png);
+    -webkit-background-size: 400px 900px;
+    background-size: 400px 900px;
+    background-repeat: no-repeat;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
