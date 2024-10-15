@@ -57,7 +57,14 @@ export class NavComponent implements OnInit {
     let Category = this.Category.nativeElement.value;
     this.searchService.searchType = Category;
     console.log(q);
-    this.router.navigateByUrl(`/search/${q}`);
+    if(q == "")
+    {
+      return;
+    }
+    else
+    {
+      this.router.navigateByUrl(`/search/${q}`);
+    }
   }
   getGuid(): string {
     return this.guidService.getGUID();

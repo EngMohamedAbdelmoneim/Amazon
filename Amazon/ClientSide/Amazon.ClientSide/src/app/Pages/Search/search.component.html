@@ -1,55 +1,62 @@
 <div class="Container">
 
     <aside class="p-4" style="border-right: 1px solid gray; width: 300px;">
-        <div class="mb-2">
-            <h6>Fulfilled by Amazon</h6>
-            <input type="checkbox" id="FulfilledbyAmazon">
-            <label for="FulfilledbyAmazon" class="mx-1">Fulfilled by Amazon</label>
-        </div>
-        <div>
-            <h6>Eligible for Free Shipping</h6>
-            <input type="checkbox" id="FreeShipping">
-            <label for="FreeShipping" class="mx-1">Free Shipping</label>
-        </div>
-        <div>
-            <h6>Price</h6>
-            <div>
-                <input type="text" placeholder="Min Value" #minValue>
-                <input type="text" class="mt-2" placeholder="Max Value" #maxValue>
-            </div>
-            <!-- <input type="range" id="price" min="1" max="1000000"> -->
-        </div>
-        <button (click)="filterProducts()" class="btn btn-outline-primary mt-2">Filter</button>
-    </aside>
-
-    <main class="p-2">
-      <div>
-        <div class="dropdown">
-            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Sort By
-            </button>
-            <ul class="dropdown-menu">
-                <li><button class="dropdown-item" (click)="LowtoHighSort()">Price: Low to High</button></li>
-                <li><button class="dropdown-item" (click)="HightoLowSort()">Price: High to Low</button></li>
-            </ul>
-          </div>
-        </div>
-      <div class="products mt-4">
-        <a routerLink="/product/{{p.id}}" class="card" style="width: 16rem; height: 22rem;" *ngFor="let p of products">
-          <div style="height: 50%;">
-            <img src={{p.pictureUrl}} style="height: 100%; object-fit:cover;" class="card-img-top" alt="...">
-          </div>
-          <div class="card-body" style="height:50%">
-            <p class="card-text">{{p.name}}</p>
-            <p class="card-text">EGP  <b>{{p.price}}</b></p>
-            <!-- <div *ngIf="p.quantity < 10" style="font-weight: bold; color: #b02a37;">
-              Only {{p.quantity}} Remaining
-            </div> -->
-            <div>
-              <span class="badge text-bg-success">4.8</span>
-            </div>
-          </div>
-        </a>
+      <!-- <div class="mb-2">
+          <h6>Fulfilled by Amazon</h6>
+          <input type="checkbox" id="FulfilledbyAmazon">
+          <label for="FulfilledbyAmazon" class="mx-1">Fulfilled by Amazon</label>
       </div>
-    </main>
+      <div>
+          <h6>Eligible for Free Shipping</h6>
+          <input type="checkbox" id="FreeShipping">
+          <label for="FreeShipping" class="mx-1">Free Shipping</label>
+      </div> -->
+    <div>
+        <h6>Price</h6>
+        <div>
+            <input type="text" placeholder="Min Value" class="form-control" #minValue>
+            <input type="text" class="form-control mt-2" placeholder="Max Value" #maxValue>
+        </div>
+        <!-- <input type="range" id="price" min="1" max="1000000"> -->
+    </div>
+    <button (click)="filterProducts()" class="btn btn-outline-primary mt-2">Filter</button>
+  </aside>
+
+  <main class="p-2">
+    <div>
+      <div class="dropdown">
+          <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Sort By
+          </button>
+          <ul class="dropdown-menu">
+              <li><button class="dropdown-item" (click)="LowtoHighSort()">Price: Low to High</button></li>
+              <li><button class="dropdown-item" (click)="HightoLowSort()">Price: High to Low</button></li>
+          </ul>
+        </div>
+      </div>
+    <div class="products mt-4">
+      <a routerLink="/product/{{p.id}}" class="card" style="width: 16rem; height: 22rem;" *ngFor="let p of products">
+        <div style="height: 50%;">
+          <img src={{p.pictureUrl}} style="height: 100%; object-fit:cover;" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body" style="height:50%">
+          <p class="card-text">{{p.name}}</p>
+          <p class="card-text">EGP  <b>{{p.price}}</b></p>
+          <!-- <div *ngIf="p.quantity < 10" style="font-weight: bold; color: #b02a37;">
+            Only {{p.quantity}} Remaining
+          </div> -->
+          <div>
+            <span class="badge text-bg-success">4.8</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </main>
+
+</div>
+
+<div style="display: flex; margin-inline: auto; justify-content: center;">
+  <div *ngFor="let number of pageNo; let i = index">
+    <button [value]="i + 1" (click)="Paginate(i + 1)" class="btn btn-primary mx-1 mb-2">{{i + 1}}</button>
+  </div>
 </div>

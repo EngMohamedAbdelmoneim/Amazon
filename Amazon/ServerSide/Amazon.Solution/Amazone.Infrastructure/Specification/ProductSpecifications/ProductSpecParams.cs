@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace Amazone.Infrastructure.Specification.ProductSpecifications
+﻿namespace Amazone.Infrastructure.Specification.ProductSpecifications
 {
 	public class ProductSpecParams
 	{
@@ -11,9 +9,8 @@ namespace Amazone.Infrastructure.Specification.ProductSpecifications
 		public int? ParentCategoryId { get; set; }
 
 		private const int maxPageSize = 10;
-
 		
-		private int pageSize = 5;
+		private int pageSize = 8;
 		
 		public int PageSize
 		{

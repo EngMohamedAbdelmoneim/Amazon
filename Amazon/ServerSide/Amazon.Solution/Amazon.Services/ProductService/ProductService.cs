@@ -225,7 +225,6 @@ namespace Amazon.Services.ProductService
 			return mappedProdcts;
 		}
 
-
 		#endregion
 
 		public async Task<Pagination<ProductToReturnDto>> GetAllProductsAsync(ProductSpecParams specParams)

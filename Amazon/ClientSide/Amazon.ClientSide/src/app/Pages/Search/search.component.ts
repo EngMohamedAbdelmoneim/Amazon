@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { SearchService } from '../../Services/search.service';
 import { CommonModule } from '@angular/common';
+import { PaginatedProducts } from '../../Models/PaginatedProducts';
 
 @Component({
   selector: 'app-search',
@@ -16,7 +17,7 @@ import { CommonModule } from '@angular/common';
 })
 export class SearchComponent implements OnInit{
 
-  constructor(public http: HttpClient, public activatedRoute: ActivatedRoute, public SearchService: SearchService) { }
+  constructor(public http: HttpClient, public activatedRoute: ActivatedRoute, public SearchService: SearchService, public router: RouterModule) { }
 
   @ViewChild('Category') Category:ElementRef;
   @ViewChild('minValue') minValue:ElementRef;
@@ -24,20 +25,40 @@ export class SearchComponent implements OnInit{
 
   products: Array<Product> = [];
   orginalProducts: Array<Product> = [];
+  test: PaginatedProducts;
   sub: Subscription | null = null;
+  pageNo: Array<number>;
 
   ngOnInit(): void
   {
     this.sub = this.activatedRoute.params.subscribe(p => {
       this.SearchService.Search(p['productName']).subscribe({
         next: data => {
-          this.products = data;
-          this.orginalProducts = data;
+          console.log(data);
+          this.test = data;
+          this.products = data.data;
+          this.orginalProducts = data.data;
+          this.pageNo = new Array(Math.ceil(data.count / 8));
+          console.log(this.pageNo);
         }
       })
     })
   }
 
+  Paginate(pageIndex: number)
+  {
+    this.sub = this.activatedRoute.params.subscribe(p => {
+      this.SearchService.Search(p['productName'], pageIndex).subscribe({
+        next: data => {
+          console.log(data);
+          this.test = data;
+          this.products = data.data;
+          this.orginalProducts = data.data;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      })
+    })
+  }
 
   LowtoHighSort()
   {

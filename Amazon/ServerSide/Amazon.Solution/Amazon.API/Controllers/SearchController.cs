@@ -2,7 +2,6 @@
 using Amazon.Services.CategoryServices;
 using Amazon.Services.ProductService;
 using Amazon.Services.ProductService.Dto;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Amazon.API.Controllers
@@ -78,6 +77,11 @@ namespace Amazon.API.Controllers
 		/// <returns></returns>
 		[HttpGet]
 		public async Task<IReadOnlyList<ProductToReturnDto>> SearchByString(string? str)
+			=> await _productService.SearchByStringAsync(str);
+
+
+		[HttpGet]
+		public async Task<IReadOnlyList<ProductToReturnDto>> SearchByStringPagination(string? str)
 			=> await _productService.SearchByStringAsync(str);
 	}
 }

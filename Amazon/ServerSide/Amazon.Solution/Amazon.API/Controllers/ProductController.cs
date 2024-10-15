@@ -46,7 +46,6 @@ namespace Amazon.API.Controllers
 			if (specParams.PageIndex < 0)
 				return NotFound("Page Not Found");
 
-
 			var products = await _productService.GetAllProductsAsync(specParams);
 
 			if (products is null)

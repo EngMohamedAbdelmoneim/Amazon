@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from '../Models/product';
 import { hasUncaughtExceptionCaptureCallback } from 'process';
+import { PaginatedProducts } from '../Models/PaginatedProducts';
 
 @Injectable({
   providedIn: 'root'
@@ -12,26 +13,16 @@ export class SearchService {
 
   searchType: string = "All"; 
 
-  Search(query: string)
+  Search(query: string, page: number = 1)
   {
     if(this.searchType == "All")
     {
-      // console.log("all");
-      return this.http.get<Array<Product>>("https://localhost:7283/api/Search/SearchByString", {params: {str:`${query}`}});
+      return this.http.get<PaginatedProducts>(`https://localhost:7283/api/Product/GetProducts/GetAll?PageIndex=${page}`, {params: {Search:`${query}`}});
     }
     else
     {
-      // console.log("specific");
       console.log(this.searchType);
-      return this.http.get<Array<Product>>("https://localhost:7283/api/Search/SearchByProductNameAndCategoryId", {params: {productName:`${query}`, categoryId: this.searchType}});
-      // switch(this.searchType)
-      // {
-      //   case "ProductCategory":
-      //     return this.http.get<Array<Product>>("https://localhost:7283/api/Search/SearchByProductNameAndCategoryId", {params: {productName:`${query}`, categoryId: "1"}});
-      //   default:
-      //     console.log("Epic Fail")
-      //     return this.http.get<Array<Product>>("https://localhost:7283/api/Search/SearchByString", {params: {str:`${query}`}}); 
-      // }
+      return this.http.get<PaginatedProducts>("https://localhost:7283/api/Search/SearchByProductNameAndCategoryId", {params: {productName:`${query}`, categoryId: this.searchType}});
     }
   }
 }

@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amazone.Infrastructure", "A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amazon.Services", "Amazon.Services\Amazon.Services.csproj", "{10F8FAB6-2F19-4F4D-9764-93A5F0A85FD3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminWebApplication", "AdminWebApplication\AdminWebApplication.csproj", "{29ABC6CA-10C1-43EC-B03C-AEB5B2DBDF43}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{10F8FAB6-2F19-4F4D-9764-93A5F0A85FD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10F8FAB6-2F19-4F4D-9764-93A5F0A85FD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10F8FAB6-2F19-4F4D-9764-93A5F0A85FD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29ABC6CA-10C1-43EC-B03C-AEB5B2DBDF43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29ABC6CA-10C1-43EC-B03C-AEB5B2DBDF43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29ABC6CA-10C1-43EC-B03C-AEB5B2DBDF43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29ABC6CA-10C1-43EC-B03C-AEB5B2DBDF43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

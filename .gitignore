@@ -17,3 +17,5 @@ Amazon/ServerSide/Amazon.Solution/Amazon.API/Amazon.API.csproj.user
 Amazon/ServerSide/Amazon.Solution/Amazon.API/Amazon.API.csproj.user
 Amazon/ServerSide/Amazon.Solution/Amazon.API/wwwroot/Files/productImages/fe0c50cc-7e53-496c-a140-c38dbb3181a1-eg-galaxy-s24-s928-sm-s928bztcmea-thumb-539296180.webp
 /.history
+/Amazon/ServerSide/Amazon.Solution/AdminWebApplication/bin/
+/Amazon/ServerSide/Amazon.Solution/AdminWebApplication/obj/
