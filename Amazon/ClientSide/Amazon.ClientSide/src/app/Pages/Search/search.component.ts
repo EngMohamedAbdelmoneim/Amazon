@@ -7,17 +7,21 @@ import { Subscription } from 'rxjs';
 import { SearchService } from '../../Services/search.service';
 import { CommonModule } from '@angular/common';
 import { PaginatedProducts } from '../../Models/PaginatedProducts';
+import { CartService } from '../../Services/cart.service';
+import { ProductCardComponent } from "../../Components/product-card/product-card.component";
+import { CartItem } from '../../Models/cart-item';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [FormsModule, RouterModule, CommonModule, ProductCardComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
 export class SearchComponent implements OnInit{
 
-  constructor(public http: HttpClient, public activatedRoute: ActivatedRoute, public SearchService: SearchService, public router: RouterModule) { }
+  constructor(public http: HttpClient, public activatedRoute: ActivatedRoute, public SearchService: SearchService,public cartService:CartService, public router: RouterModule) { }
 
   @ViewChild('Category') Category:ElementRef;
   @ViewChild('minValue') minValue:ElementRef;
@@ -29,7 +33,7 @@ export class SearchComponent implements OnInit{
   sub: Subscription | null = null;
   pageNo: Array<number>;
 
-  ngOnInit(): void
+   ngOnInit(): void
   {
     this.sub = this.activatedRoute.params.subscribe(p => {
       this.SearchService.Search(p['productName']).subscribe({
@@ -58,6 +62,18 @@ export class SearchComponent implements OnInit{
         }
       })
     })
+  }
+  AddToCart(product: Product, _id: string) {
+    const cartitem: CartItem =
+    {
+      id: product.id,
+      productName: product.name,
+      category: product.categoryName,
+      price: product.price,
+      pictureUrl: product.pictureUrl,
+      quantity: 1,
+    };
+    this.cartService.updateCartWithItem(("cart-"+_id),cartitem);
   }
 
   LowtoHighSort()

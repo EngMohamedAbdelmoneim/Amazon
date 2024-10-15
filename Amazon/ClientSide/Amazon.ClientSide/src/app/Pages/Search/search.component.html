@@ -1,23 +1,23 @@
 <div class="Container">
 
-    <aside class="p-4" style="border-right: 1px solid gray; width: 300px;">
-      <!-- <div class="mb-2">
-          <h6>Fulfilled by Amazon</h6>
-          <input type="checkbox" id="FulfilledbyAmazon">
-          <label for="FulfilledbyAmazon" class="mx-1">Fulfilled by Amazon</label>
-      </div>
-      <div>
-          <h6>Eligible for Free Shipping</h6>
-          <input type="checkbox" id="FreeShipping">
-          <label for="FreeShipping" class="mx-1">Free Shipping</label>
-      </div> -->
+  <aside class="p-4" style="border-right: 1px solid gray; width: 300px;">
+    <div class="mb-2">
+      <h6>Fulfilled by Amazon</h6>
+      <input type="checkbox" id="FulfilledbyAmazon">
+      <label for="FulfilledbyAmazon" class="mx-1">Fulfilled by Amazon</label>
+    </div>
     <div>
-        <h6>Price</h6>
-        <div>
-            <input type="text" placeholder="Min Value" class="form-control" #minValue>
-            <input type="text" class="form-control mt-2" placeholder="Max Value" #maxValue>
-        </div>
-        <!-- <input type="range" id="price" min="1" max="1000000"> -->
+      <h6>Eligible for Free Shipping</h6>
+      <input type="checkbox" id="FreeShipping">
+      <label for="FreeShipping" class="mx-1">Free Shipping</label>
+    </div>
+    <div>
+      <h6>Price</h6>
+      <div>
+        <input type="text" placeholder="Min Value" #minValue>
+        <input type="text" class="mt-2" placeholder="Max Value" #maxValue>
+      </div>
+      <!-- <input type="range" id="price" min="1" max="1000000"> -->
     </div>
     <button (click)="filterProducts()" class="btn btn-outline-primary mt-2">Filter</button>
   </aside>
@@ -35,21 +35,9 @@
         </div>
       </div>
     <div class="products mt-4">
-      <a routerLink="/product/{{p.id}}" class="card" style="width: 16rem; height: 22rem;" *ngFor="let p of products">
-        <div style="height: 50%;">
-          <img src={{p.pictureUrl}} style="height: 100%; object-fit:cover;" class="card-img-top" alt="...">
-        </div>
-        <div class="card-body" style="height:50%">
-          <p class="card-text">{{p.name}}</p>
-          <p class="card-text">EGP  <b>{{p.price}}</b></p>
-          <!-- <div *ngIf="p.quantity < 10" style="font-weight: bold; color: #b02a37;">
-            Only {{p.quantity}} Remaining
-          </div> -->
-          <div>
-            <span class="badge text-bg-success">4.8</span>
-          </div>
-        </div>
-      </a>
+        @for (product of products ; track $index) {
+          <app-product-card [product] = product></app-product-card>
+        }
     </div>
   </main>
 

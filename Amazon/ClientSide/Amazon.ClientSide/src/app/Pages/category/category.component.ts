@@ -6,16 +6,20 @@ import { Product } from '../../Models/product';
 import { Subscription } from 'rxjs';
 import { CategoryService } from '../../Services/category.service';
 import { CategoryListComponent } from "../../core/category-list/category-list.component";
+import { CartService } from '../../Services/cart.service';
+import { CartItem } from '../../Models/cart-item';
+import { CartCardComponent } from "../../Components/cart-card/cart-card.component";
+import { ProductCardComponent } from "../../Components/product-card/product-card.component";
 
 @Component({
   selector: 'app-category',
   standalone: true,
-  imports: [RouterModule, CommonModule, CategoryListComponent],
+  imports: [RouterModule, CommonModule, CategoryListComponent, CartCardComponent, ProductCardComponent],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css'
 })
 export class CategoryComponent {
-  constructor(public http: HttpClient, public activatedRoute: ActivatedRoute, public categoryService: CategoryService) { }
+  constructor(public http: HttpClient, public activatedRoute: ActivatedRoute, public categoryService: CategoryService,public cartService:CartService) { }
   parentcategories: Array<any> = [];
   products: Array<Product> = [];
   sub: Subscription | null = null;
@@ -53,6 +57,19 @@ export class CategoryComponent {
     }
 
   }
+  AddToCart(product: Product, _id: string) {
+    const cartitem: CartItem =
+    {
+      id: product.id,
+      productName: product.name,
+      category: product.categoryName,
+      price: product.price,
+      pictureUrl: product.pictureUrl,
+      quantity: 1,
+    };
+    this.cartService.updateCartWithItem(("cart-"+_id),cartitem);
+  }
+
   LowtoHighSort() {
     let p = this.products.sort((a, b) => a.price - b.price);
     console.log(p);

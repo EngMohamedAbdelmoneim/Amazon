@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CartService } from '../../Services/cart.service';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CartItem } from '../../Models/cart-item';
 
 @Component({
   selector: 'app-cart-card',
@@ -14,14 +15,7 @@ import { FormsModule } from '@angular/forms';
 export class CartCardComponent {
   constructor(private cartService: CartService) { }
   @Input({ required: true })
-  prop: {
-    id: Number;
-    productName: string;
-    category: string;
-    price: Number;
-    pictureUrl: string;
-    quantity: Number;
-  }
+  prop: CartItem
   @Output() itemDeleted = new EventEmitter<void>();
   @Output() qntChanged = new EventEmitter<any>();
   Quantity(max: number) {

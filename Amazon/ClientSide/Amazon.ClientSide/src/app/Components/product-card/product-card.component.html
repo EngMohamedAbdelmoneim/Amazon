@@ -1,1 +1,44 @@
-<p>product-card works!</p>
+<div class="product-card" [ngClass]="{'show': cardVisible}">
+    <!-- Product Image -->
+    <div class="product-image">
+      <img src={{product.pictureUrl}} alt="Apple iPhone 13 - Pink" />
+    </div>
+  
+    <!-- Product Information -->
+    <div class="product-info">
+      <h3>{{product.description}}</h3>
+  
+      <!-- Ratings -->
+      <div class="product-rating">
+        <span class="stars">
+          <i *ngFor="let star of getRatingArray(3)" class="fa" [ngClass]="star ? 'fa-star' : 'fa-star-o'"></i>
+        </span>
+        <span class="reviews">({{11}})</span>
+      </div>
+  
+      <!-- Pricing Section -->
+      <div class="pricing">
+        <span class="current-price">{{ product.price.toFixed(2) | currency:'EGP' }}</span>
+        <span class="old-price">EGP 29,900</span>
+        <span class="discount">Save 4%</span>
+        <div class="price-note">Lowest price in 30 days</div>
+      </div>
+  
+      <!-- Availability Information -->
+      <div class="availability">
+        <p>Get it as soon as <strong>Thursday, 17 October</strong></p>
+        <p>Fulfilled by Amazon - FREE Shipping</p>
+        @if (product.quantityInStock < 10)
+        {
+          <p class="text-danger">Only {{product.quantityInStock}} left in stock - order soon.</p>
+        }
+      
+        </div>
+    </div>
+  
+    <!-- Actions Section -->
+    <div class="product-actions">
+      <button (click)="AddToCart()" class="add-to-cart-btn rounded-pill " >Add to Cart</button>
+    </div>
+  </div>
+  
