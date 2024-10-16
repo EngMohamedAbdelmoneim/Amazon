@@ -6,6 +6,9 @@ using Amazon.Core.Entities;
 using Amazon.Services.ProductService;
 using Amazon.Services.ProductService.Dto;
 using Amazon.Services.BrandService;
+using System.IO;
+using System.Security.AccessControl;
+using System.Security.Principal;
 
 namespace AdminWebApplication.Controllers
 {
@@ -56,13 +59,14 @@ namespace AdminWebApplication.Controllers
             {
 
                 var otherProjectPath = Path.Combine(Directory.GetCurrentDirectory(), "../Amazon.API/wwwroot/Files/productImages");
-                
+
                 //string FileExtension = productImg.FileName.Split('.').Last();
                 //string FilePath = $"~/Amazon.API/Files/productImages/{productImg.FileName}";
                 //Console.BackgroundColor = ConsoleColor.Green;
                 //Console.WriteLine(FilePath);
                 Console.WriteLine(otherProjectPath);
                 //Console.ResetColor();
+
                 using (FileStream st = new FileStream(otherProjectPath, FileMode.Create))
                 {
                     await productImg.CopyToAsync(st);

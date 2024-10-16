@@ -5,10 +5,10 @@
     max-width: 300px;
     height: 100%;
     font-family: Arial, sans-serif;
-    
+    cursor: pointer;
     opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 
     .product-image img {
       width: 100%;

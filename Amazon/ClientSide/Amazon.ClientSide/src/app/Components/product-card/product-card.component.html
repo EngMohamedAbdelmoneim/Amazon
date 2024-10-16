@@ -1,4 +1,4 @@
-<div class="product-card" [ngClass]="{'show': cardVisible}">
+<div class="product-card" [ngClass]="{'show': cardVisible}" routerLink="/product/{{product.id}}">
     <!-- Product Image -->
     <div class="product-image">
       <img src={{product.pictureUrl}} alt="Apple iPhone 13 - Pink" />
@@ -13,7 +13,7 @@
         <span class="stars">
           <i *ngFor="let star of getRatingArray(3)" class="fa" [ngClass]="star ? 'fa-star' : 'fa-star-o'"></i>
         </span>
-        <span class="reviews">({{11}})</span>
+        <!-- <span class="reviews">({{11}})</span> -->
       </div>
   
       <!-- Pricing Section -->
@@ -27,7 +27,7 @@
       <!-- Availability Information -->
       <div class="availability">
         <p>Get it as soon as <strong>Thursday, 17 October</strong></p>
-        <p>Fulfilled by Amazon - FREE Shipping</p>
+        <!-- <p>Fulfilled by Amazon - FREE Shipping</p> -->
         @if (product.quantityInStock < 10)
         {
           <p class="text-danger">Only {{product.quantityInStock}} left in stock - order soon.</p>
@@ -40,5 +40,5 @@
     <div class="product-actions">
       <button (click)="AddToCart()" class="add-to-cart-btn rounded-pill " >Add to Cart</button>
     </div>
-  </div>
+</div>
   
