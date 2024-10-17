@@ -17,12 +17,17 @@ export class SearchService {
   {
     if(this.searchType == "All")
     {
-      return this.http.get<PaginatedProducts>(`https://localhost:7283/api/Product/GetProducts/GetAll?PageIndex=${page}`, {params: {Search:`${query}`}});
+      return this.http.get<PaginatedProducts>(`https://localhost:7283/api/Product/GetProducts/GetAll?PageIndex=${page}`, {params: {Search:query}});
     }
     else
     {
       console.log(this.searchType);
       return this.http.get<PaginatedProducts>("https://localhost:7283/api/Search/SearchByProductNameAndCategoryId", {params: {productName:`${query}`, categoryId: this.searchType}});
     }
+  }
+
+  Filter(query: string, sort: string, page: number = 1)
+  {
+    return this.http.get<PaginatedProducts>(`https://localhost:7283/api/Product/GetProducts/GetAll?PageIndex=${page}`, {params: {Search: query, Sort: sort}});
   }
 }

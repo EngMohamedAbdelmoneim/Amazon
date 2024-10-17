@@ -29,9 +29,11 @@ export class SearchComponent implements OnInit{
 
   products: Array<Product> = [];
   orginalProducts: Array<Product> = [];
-  test: PaginatedProducts;
+  paginatedProducts: PaginatedProducts;
   sub: Subscription | null = null;
   pageNo: Array<number>;
+  pageIndex: number = 1;
+  spec: string;
 
    ngOnInit(): void
   {
@@ -39,7 +41,7 @@ export class SearchComponent implements OnInit{
       this.SearchService.Search(p['productName']).subscribe({
         next: data => {
           console.log(data);
-          this.test = data;
+          this.paginatedProducts = data;
           this.products = data.data;
           this.orginalProducts = data.data;
           this.pageNo = new Array(Math.ceil(data.count / 8));
@@ -51,18 +53,32 @@ export class SearchComponent implements OnInit{
 
   Paginate(pageIndex: number)
   {
-    this.sub = this.activatedRoute.params.subscribe(p => {
-      this.SearchService.Search(p['productName'], pageIndex).subscribe({
-        next: data => {
-          console.log(data);
-          this.test = data;
-          this.products = data.data;
-          this.orginalProducts = data.data;
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-      })
-    })
+    this.pageIndex = pageIndex;
+    switch (this.spec)
+    {
+      case "priceDesc":
+        this.HightoLowSort();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        break;
+      case "priceAsc":
+        this.LowtoHighSort();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        break;
+      default:
+        this.sub = this.activatedRoute.params.subscribe(p => {
+            this.SearchService.Search(p['productName'], pageIndex).subscribe({
+              next: data => {
+                console.log(data);
+                this.paginatedProducts = data;
+                this.products = data.data;
+                this.orginalProducts = data.data;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            })
+          })
+    }
   }
+
   AddToCart(product: Product, _id: string) {
     const cartitem: CartItem =
     {
@@ -78,12 +94,36 @@ export class SearchComponent implements OnInit{
 
   LowtoHighSort()
   {
-    this.products  = this.products.sort((a, b) => a.price - b.price);
+    this.spec = "priceAsc";
+    this.sub = this.activatedRoute.params.subscribe(p => {
+      this.SearchService.Filter(p['productName'], "priceAsc", this.pageIndex).subscribe({
+        next: data => {
+          console.log(data);
+          this.paginatedProducts = data;
+          this.products = data.data;
+          this.orginalProducts = data.data;
+          this.pageNo = new Array(Math.ceil(data.count / 8));
+          console.log(this.pageNo);
+        }
+      })
+    })
   }
 
   HightoLowSort()
   {
-    this.products = this.products.sort((a, b) => b.price - a.price);
+    this.spec = "priceDesc";
+    this.sub = this.activatedRoute.params.subscribe(p => {
+      this.SearchService.Filter(p['productName'], "priceDesc", this.pageIndex).subscribe({
+        next: data => {
+          console.log(data);
+          this.paginatedProducts = data;
+          this.products = data.data;
+          this.orginalProducts = data.data;
+          this.pageNo = new Array(Math.ceil(data.count / 8));
+          console.log(this.pageNo);
+        }
+      })
+    })
   }
 
   filterProducts()

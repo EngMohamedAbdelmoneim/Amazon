@@ -1,5 +1,5 @@
 <main class="p-4">
-    <section>
+    <section class="first-section">
         <div class = "SideImages">
             <img *ngFor = "let image of productImages"
                 [src] = image
@@ -12,24 +12,28 @@
         </div>
     </section>
 
-    <section>
+    <section class="p-2">
         <div>
             <h4>
                 {{ product.name }},<br>
                 {{ product.description }}<br>
                 <!-- Available:{{ products.quantityInStock }} -->
             </h4>
+            <p>{{product.brandName}}</p>
+            <hr />
+            <h4>{{product.price | currency: 'EGP'}}</h4>
+            
             <div>
               <span
-              *ngFor = "let star of [1,2,3,4,5]; let i =index"
-              (moushover)="setRate(i+1)"
-              (mouseleave)="resetRate()"
-              (click) = "submitRate(i+1)"
-              class="star"
-              [ngClass] = "{'selected':selectedStar>=(i+1)}"
-              [attr.data-value]="i+1"
-              [ngStyle]="{'color':(selectedStar && i < selectedStar)?'yellow':'black'}">
-              ★
+                *ngFor = "let star of [1,2,3,4,5]; let i =index"
+                (moushover)="setRate(i+1)"
+                (mouseleave)="resetRate()"
+                (click) = "submitRate(i+1)"
+                class="star"
+                [ngClass] = "{'selected':selectedStar>=(i+1)}"
+                [attr.data-value]="i+1"
+                [ngStyle]="{'color':(selectedStar && i < selectedStar)?'yellow':'black'}">
+                ★
               </span>
               
             <!-- </span> -->

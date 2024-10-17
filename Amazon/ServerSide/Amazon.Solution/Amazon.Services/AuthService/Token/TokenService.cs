@@ -21,14 +21,14 @@ namespace Amazon.Services.AuthService.Token
 			//Private Claims
 			var authClaims = new List<Claim>()
 			{
-				new Claim(ClaimTypes.Name,user.UserName),
-				new Claim(ClaimTypes.Sid,user.Id),
-				new Claim(ClaimTypes.Email,user.Email)
+				new Claim("Name",user.UserName),
+				new Claim("Sid",user.Id),
+				new Claim("Email",user.Email)
 			};
 			var userRoles = await userManager.GetRolesAsync(user);
 
 			foreach (var role in userRoles)
-				authClaims.Add(new Claim(ClaimTypes.Role, role));
+				authClaims.Add(new Claim("Role", role));
 
 
 			var authKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:SecretKey"]));

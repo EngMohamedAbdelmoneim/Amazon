@@ -7,6 +7,7 @@ import { CategoryListComponent } from "../category-list/category-list.component"
 import { GuidService } from '../../Services/guid.service';
 import { CartService } from '../../Services/cart.service';
 import { CookieService } from 'ngx-cookie-service';
+import { AccountService } from '../../Services/account.service';
 
 @Component({
   selector: 'app-nav',
@@ -17,7 +18,13 @@ import { CookieService } from 'ngx-cookie-service';
   encapsulation: ViewEncapsulation.Emulated
 })
 export class NavComponent implements OnInit {
-  constructor(private router: Router, private searchService: SearchService, public guidService: GuidService, public cartService: CartService, private cookieService: CookieService) { }
+  constructor(private router: Router,
+    private searchService: SearchService,
+    public guidService: GuidService, 
+    public cartService: CartService, 
+    private cookieService: CookieService,
+    private accountService: AccountService
+  ) { }
 
   @ViewChild('Category') Category: ElementRef;
   query: string;
@@ -70,6 +77,16 @@ export class NavComponent implements OnInit {
     return this.guidService.getGUID();
   }
 
-
+  OrdersPage()
+  {
+    if(this.accountService.isAuthenticated)
+    {
+      this.router.navigateByUrl('/cart');
+    }
+    else
+    {
+      this.router.navigateByUrl('/login');
+    }
+  }
 
 }

@@ -1,8 +1,11 @@
 <nav id="nav">
 
-    <div class="nav p-1">
+    <div class="nav p-1 navbar">
 
-        <div>
+        <div id="title">
+            <button class="navbar-toggler burger-menu-contianer-res" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" (click)="toggleMenu()"></span>
+            </button>
             <a [routerLink]="['/']" class="p-3">
                 <img src="White-Amazon-Logo.png" alt="">
             </a>
@@ -38,7 +41,7 @@
             </div>
         </div>
 
-        <div style="display: flex;">
+        <div style="display: flex;" class="links">
             <a [routerLink]="['/wishlist', ('wishlist-'+getGuid())]" style="display: flex; align-items: end;"class="p-2 mx-1">WISHLIST</a>
             <div class="dropdown-container">
                 <button class="dropdown-btn">Account & Lists</button>
@@ -70,7 +73,7 @@
                 </div>
             </div>
 
-            <a href="" style="display: flex; align-items: end;" class="p-2">Orders</a>
+            <a (click)="OrdersPage()" style="display: flex; align-items: end; cursor: pointer;" class="p-2">Orders</a>
             <a [routerLink]="['/cart', ('cart-'+getGuid()) ]" class="p-2 mx-1" style="display: flex; align-items: end;">
                 <div style="display: flex; flex-direction: column; align-items: center; height: 39px; position: relative;">
                     <span style="position: absolute; color: #f08804;">{{cartQnt}}</span>
@@ -118,3 +121,4 @@
 </div>
 
 <div class="overlay" [style.display]="open ?'block':'none'" (click)="toggleMenu()"></div>
+

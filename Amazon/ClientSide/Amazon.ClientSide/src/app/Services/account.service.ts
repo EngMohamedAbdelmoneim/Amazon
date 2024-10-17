@@ -9,6 +9,8 @@ export class AccountService {
 
   constructor(public http: HttpClient) { }
 
+  isAuthenticated: boolean = false;
+
   login(email: string, password: string)
   {
     return this.http.post("https://localhost:7283/api/Account/Login/", { 'email': email, 'password': password })

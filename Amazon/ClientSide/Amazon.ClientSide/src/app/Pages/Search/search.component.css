@@ -3,11 +3,13 @@
     aside{
         overflow-y: scroll;
     }
+
+    main{
+        flex-grow: 1;
+    }
 }
 
-main{
-    flex-grow: 1;
-}
+
 
 .products{
     
@@ -16,4 +18,11 @@ main{
     justify-content: center;
     justify-items: center;
     gap: 2rem;
+}
+
+@media (width < 850px)
+{
+    aside{
+        display: none;
+    }
 }

@@ -12,13 +12,8 @@ namespace Amazon.Core.Configurations
             builder.Property(p => p.Description).IsRequired();
             builder.Property(p => p.Price).IsRequired();
             builder.Property(p => p.PictureUrl).IsRequired();
-            builder.HasOne(p => p.Brand)
-                   .WithMany()
-                   .HasForeignKey(p => p.BrandId);
-
-            builder.HasOne(p => p.Category)
-                   .WithMany()
-                   .HasForeignKey(p => p.CategoryId);
+            builder.HasOne(p => p.Brand).WithMany().HasForeignKey(p => p.BrandId);
+            builder.HasOne(p => p.Category).WithMany().HasForeignKey(p => p.CategoryId);
         }
     }
 }

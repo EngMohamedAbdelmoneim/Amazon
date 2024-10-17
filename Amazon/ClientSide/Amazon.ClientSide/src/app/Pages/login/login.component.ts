@@ -5,6 +5,8 @@ import { Router, RouterModule } from '@angular/router';
 import { AccountService } from '../../Services/account.service';
 import { CategoryService } from '../../Services/category.service';
 import { Subscription } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
+import { loginData } from '../../Models/data';
 
 @Component({
   selector: 'app-login',
@@ -32,8 +34,17 @@ export class LoginComponent implements OnInit{
   {
     let { email, password } = this.loginForm.value;
     this.sub = this.accountService.login(email, password).subscribe({
-      next: r => {
+      next: (r: loginData) => {
         console.log(r);
+        let data: {Email: string, Name: string, Role: string, } = jwtDecode(r.token);
+        console.log(data.Email);
+        console.log(data.Name);
+        console.log(data.Role);
+        let test: any = jwtDecode(r.token);
+        console.log(test);
+        localStorage.setItem("token", r.token)
+        localStorage.setItem("isAuthenticated", "true")
+        this.accountService.isAuthenticated = true;
         this.router.navigateByUrl('');
       },
       error: e => {

@@ -18,7 +18,7 @@
             {
             <li>
               <a [routerLink]="['/category' ,  ParentCategoryName,category]" routerLinkActive="router-link-active"
-                routerLinkActive="router-link-active" class="list-group-item" href="#">&#x3c;{{category}}
+                routerLinkActive="router-link-active" class="list-group-item" href="#">{{category}}
               </a>
             </li>
             }
@@ -29,7 +29,7 @@
 
       </ul>
     </div>
-    <div class="mb-2">
+    <!-- <div class="mb-2">
       <h6>Fulfilled by Amazon</h6>
       <input type="checkbox" id="FulfilledbyAmazon">
       <label for="FulfilledbyAmazon" class="mx-1">Fulfilled by Amazon</label>
@@ -38,16 +38,16 @@
       <h6>Eligible for Free Shipping</h6>
       <input type="checkbox" id="FreeShipping">
       <label for="FreeShipping" class="mx-1">Free Shipping</label>
-    </div>
+    </div> -->
     <div>
       <h6>Price</h6>
       <div>
-        <input type="text" placeholder="Min Value" id="minValue">
-        <input type="text" placeholder="Max Value" id="maxValue">
+        <input type="text" class="form-control" placeholder="Min Value" id="minValue">
+        <input type="text" class="form-control mt-2" placeholder="Max Value" id="maxValue">
       </div>
       <!-- <input type="range" id="price" min="1" max="1000000"> -->
     </div>
-    <button (click)="filterProducts()">filter</button>
+    <button class="btn btn-outline-primary mt-2" (click)="filterProducts()">filter</button>
   </aside>
 
   <main>
