@@ -6,6 +6,8 @@ using Amazon.Core.IdentityDb;
 using Microsoft.AspNetCore.Identity;
 using Amazon.Core.Entities.Identity;
 using Amazon.API.Extentions;
+using Amazon.Core.ApplicationDbContext;
+using Newtonsoft.Json;
 
 namespace Amazon.API
 {
@@ -16,7 +18,10 @@ namespace Amazon.API
             var builder = WebApplication.CreateBuilder(args);
             // Add services to the container
             #region Configure Services
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddNewtonsoftJson(opt => 
+            {
+                opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
             builder.Services.AddSwaggerServices();
             builder.Services.AddApplicationServices();
             builder.Services.AddIdentityServices(builder.Configuration);
@@ -45,8 +50,8 @@ namespace Amazon.API
 				});
 			});
 
-			builder.Services.AddControllers().AddJsonOptions(x =>
-			x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+			//builder.Services.AddControllers().AddJsonOptions(x =>
+			//x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 			#endregion
 
 			var app = builder.Build();
@@ -59,6 +64,7 @@ namespace Amazon.API
 			try
 			{
                 await _dbContext.Database.MigrateAsync(); //Update-Database
+                await AmazonDbContextSeed.SeedAsync(_dbContext);
 
                 await _IdentityDbContext.Database.MigrateAsync();
 

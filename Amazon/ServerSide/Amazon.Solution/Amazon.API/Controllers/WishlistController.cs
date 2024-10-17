@@ -1,13 +1,10 @@
 ﻿using Amazon.Services.WishlistService.Dto;
 using Amazon.Services.WishlistService;
 using Microsoft.AspNetCore.Mvc;
-using Amazon.Services.WishlistService;
-using Amazon.Core.Entities;
-using Amazon.Services.CartService.Dto;
 
 namespace Amazon.API.Controllers
 {
-    public class WishlistController : BaseController
+	public class WishlistController : BaseController
     {
         private readonly IWishlistService _wishlistService;
 

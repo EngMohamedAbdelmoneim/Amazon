@@ -1,10 +1,9 @@
 ﻿using Amazon.Services.CategoryServices;
 using Amazon.Services.CategoryServices.Dto;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 namespace Amazon.API.Controllers
 {
-    public class CategoryController : BaseController
+	public class CategoryController : BaseController
     {
         private readonly ICategoryService _categoryService;
 

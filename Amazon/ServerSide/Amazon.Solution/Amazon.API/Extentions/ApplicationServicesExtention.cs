@@ -12,6 +12,12 @@ using Amazon.Services.WishlistService.Dto;
 using Amazon.Services.WishlistService;
 using Amazone.Infrastructure.Interfaces;
 using Amazone.Infrastructure.Repos;
+using Amazon.Services.OrderService;
+using Amazon.Services.OrderService.OrderDto;
+using Amazon.Services.DeliveryMethodService;
+using Amazon.Services.DeliveryMethodService.Dto;
+using Amazon.Services.PaymentMethodService;
+using Amazon.Services.PaymentMethodService.Dto;
 
 namespace Amazon.API.Extentions
 {
@@ -51,6 +57,22 @@ namespace Amazon.API.Extentions
 			#region WishlistService
 			services.AddScoped<IWishlistService, WishlistService>();
 			services.AddAutoMapper(typeof(WishlistProfile));
+			#endregion
+
+			#region OrderService
+			services.AddScoped<IOrderService, OrderService>();
+			services.AddAutoMapper(typeof(OrderProfile));
+
+			#endregion
+
+			#region DeliveryMethodService
+			services.AddScoped<IDeliveryMethodService, DeliveryMethodService>();
+			services.AddAutoMapper(typeof(DeliveryMethodProfile));
+			#endregion
+
+			#region PaymentMethodService
+			services.AddScoped<IPaymentMethodService, PaymentMethodService>();
+			services.AddAutoMapper(typeof(PaymentMethodProfile));
 			#endregion
 
 			return services;

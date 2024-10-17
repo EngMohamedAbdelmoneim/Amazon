@@ -12,7 +12,7 @@ namespace Amazone.Infrastructure.Interfaces
 		Task<T?> GetWithSpecAsync(ISpecification<T> spec);
 		Task<int> GetCountAsync(ISpecification<T> spec);
 
-		Task<T> Add(T entity);
+		Task<int> Add(T entity);
 		Task<T> Update(T entity);
 		Task Delete(T entity);
 	}

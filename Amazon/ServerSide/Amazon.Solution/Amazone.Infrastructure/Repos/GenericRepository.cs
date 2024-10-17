@@ -15,11 +15,11 @@ namespace Amazone.Infrastructure.Repos
 			_context = context;
 		}
 
-		public async Task<T> Add(T entity)
+		public async Task<int> Add(T entity)
 		{
 			await _context.Set<T>().AddAsync(entity);
-			await _context.SaveChangesAsync();
-			return entity;
+			var result = await _context.SaveChangesAsync();
+			return result;
 		}
 		public async Task<T> Update(T entity)
 		{

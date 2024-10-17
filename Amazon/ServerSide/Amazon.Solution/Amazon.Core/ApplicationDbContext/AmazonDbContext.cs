@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Amazon.Core.Entities;
+using Amazon.Core.Entities.OrderAggregate;
 using Microsoft.EntityFrameworkCore;
 
 namespace Amazon.Core.DBContext
@@ -251,5 +252,10 @@ namespace Amazon.Core.DBContext
         public DbSet<ParentCategory> ParentCategories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImages> ProductImages { get; set; }
-    }
+
+		public DbSet<Order> Orders { get; set; }
+		public DbSet<OrderItem> OrderItems { get; set; }
+		public DbSet<DeliveryMethod> DeliveryMethods { get; set; }
+		public DbSet<PaymentMethod> PaymentMethods { get; set; }
+	}
 }

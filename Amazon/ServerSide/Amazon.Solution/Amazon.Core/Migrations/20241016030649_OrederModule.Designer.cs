@@ -4,6 +4,7 @@ using Amazon.Core.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Amazon.Core.Migrations
 {
     [DbContext(typeof(AmazonDbContext))]
-    partial class AmazonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241016030649_OrederModule")]
+    partial class OrederModule
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -171,8 +174,9 @@ namespace Amazon.Core.Migrations
                     b.Property<string>("PaymentIntetId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PaymentMethodId")
-                        .HasColumnType("int");
+                    b.Property<string>("PaymentMethod")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PaymentStatus")
                         .IsRequired()
@@ -187,8 +191,6 @@ namespace Amazon.Core.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DeliveryMethodId");
-
-                    b.HasIndex("PaymentMethodId");
 
                     b.ToTable("Orders");
                 });
@@ -215,22 +217,6 @@ namespace Amazon.Core.Migrations
                     b.HasIndex("OrderId");
 
                     b.ToTable("OrderItems");
-                });
-
-            modelBuilder.Entity("Amazon.Core.Entities.OrderAggregate.PaymentMethod", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PaymentMethods");
                 });
 
             modelBuilder.Entity("Amazon.Core.Entities.ParentCategory", b =>
@@ -660,14 +646,7 @@ namespace Amazon.Core.Migrations
                         .HasForeignKey("DeliveryMethodId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("Amazon.Core.Entities.OrderAggregate.PaymentMethod", "PaymentMethod")
-                        .WithMany()
-                        .HasForeignKey("PaymentMethodId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
                     b.Navigation("DeliveryMethod");
-
-                    b.Navigation("PaymentMethod");
                 });
 
             modelBuilder.Entity("Amazon.Core.Entities.OrderAggregate.OrderItem", b =>
@@ -680,12 +659,6 @@ namespace Amazon.Core.Migrations
                         {
                             b1.Property<int>("OrderItemId")
                                 .HasColumnType("int");
-
-                            b1.Property<string>("Brand")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("Category")
-                                .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("PictureUrl")
                                 .HasColumnType("nvarchar(max)");

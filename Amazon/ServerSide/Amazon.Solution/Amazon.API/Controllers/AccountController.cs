@@ -244,7 +244,7 @@ namespace Amazon.API.Controllers
 		
 		
 		[Authorize]
-		[HttpPost("setDefaultAddress/{id}")]
+		[HttpPost("setDefaultAddress")]
 		public async Task<IActionResult> SetDefaultAddress(string id)
 		{
 			var user = await _userManager.FindUserWithAddressAsync(User);

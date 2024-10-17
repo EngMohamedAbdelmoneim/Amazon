@@ -1,0 +1,26 @@
+[
+  {
+    "Name": "UPS1",
+    "Description": "Fastest delivery time",
+    "DeliveryTime": "Today",
+    "Cost": 30
+  },
+  {
+    "Name": "UPS2",
+    "Description": "Get it within 1-2 Days",
+    "DeliveryTime": "1-2 Days",
+    "Cost": 20
+  },
+  {
+    "Name": "UPS3",
+    "Description": "Slower but cheap",
+    "DeliveryTime": "3-4 Days",
+    "Cost": 10
+  },
+  {
+    "Name": "FREE",
+    "Description": "Free! You get what you pay for",
+    "DeliveryTime": "1 Weeks",
+    "Cost": 0
+  }
+]
