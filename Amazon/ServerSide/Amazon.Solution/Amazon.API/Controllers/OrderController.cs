@@ -28,7 +28,7 @@ namespace Amazon.API.Controllers
 		[HttpPost]
 		public async Task<ActionResult<Order>> CreateOrder(OrderDto orderDto)
 		{
-			var buyerEmail = User.FindFirstValue(ClaimTypes.Email);
+			var buyerEmail = User.FindFirstValue("Email");
 			var order = await _orderService.CreateOrderAsync(buyerEmail, orderDto.CartId,orderDto.PaymentMethodId,orderDto.DeliveryMethodId,orderDto.ShippingAddressId);
 			if (order == null)
 				return BadRequest();

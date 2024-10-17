@@ -185,7 +185,7 @@ namespace Amazon.API.Controllers
 		[HttpGet]
 		public async Task<ActionResult<UserDto>> GetCurrentUser()
 		{
-			var email = User.FindFirstValue(ClaimTypes.Email);
+			var email = User.FindFirstValue("Email");
 
 			var user = await _userManager.FindByEmailAsync(email);
 			

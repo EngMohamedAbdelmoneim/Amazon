@@ -9,7 +9,7 @@ namespace Amazon.API.Extentions
 	{
 		public static async Task<AppUser?> FindUserWithAddressAsync(this UserManager<AppUser> userManager,ClaimsPrincipal User)
 		{
-			var email = User.FindFirstValue(ClaimTypes.Email);
+			var email = User.FindFirstValue("Email");
 
 			var user = await userManager.Users.Include(u => u.Addresses).SingleOrDefaultAsync(u => u.Email == email);
 			
