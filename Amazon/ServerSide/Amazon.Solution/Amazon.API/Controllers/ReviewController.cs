@@ -39,7 +39,6 @@ public class ReviewController : BaseController
 	}
 	
 	[HttpPost]
-	[Authorize]
 	public async Task<IActionResult> AddReview([FromBody] ReviewDto reviewDto)
 	{
 		var userEmail = User.FindFirstValue("Email"); 

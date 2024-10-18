@@ -77,7 +77,7 @@ namespace Amazon.API.Extentions
 			services.AddAutoMapper(typeof(PaymentMethodProfile));
 			#endregion
 
-			#region PaymentMethodService
+			#region ReviewService
 			services.AddScoped<IReviewService, ReviewService>();
 			services.AddAutoMapper(typeof(ReviewProfile));
 			#endregion
