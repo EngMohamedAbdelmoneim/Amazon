@@ -1,7 +1,11 @@
 using Amazon.Core.DBContext;
 using Amazon.Core.Entities;
+using Amazon.Core.IdentityDb;
 using Amazon.Services.BrandService;
 using Amazon.Services.BrandService.Dto;
+using Amazon.Services.CategoryServices;
+using Amazon.Services.CategoryServices.Dto;
+using Amazon.Services.ParentCategoryService;
 using Amazon.Services.ProductService;
 using Amazon.Services.ProductService.Dto;
 using Amazone.Infrastructure.Interfaces;
@@ -21,17 +25,28 @@ namespace AdminWebApplication
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddScoped<IGenericRepository<Brand>, GenericRepository<Brand>>();
+            builder.Services.AddScoped<IGenericRepository<Category>, GenericRepository<Category>>();
+            builder.Services.AddScoped<IGenericRepository<ParentCategory>, GenericRepository<ParentCategory>>();
+
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IBrandService, BrandService>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<IParentCategoryService, ParentCategoryService>();
+
             builder.Services.AddAutoMapper(typeof(ProductProfile));
             builder.Services.AddAutoMapper(typeof(BrandProfile));
+            builder.Services.AddAutoMapper(typeof(CategoryProfile));
 
             builder.Services.AddDbContext<AmazonDbContext>(options =>
             {
                 options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
-
+            builder.Services.AddDbContext<AppIdentityDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection"));
+            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

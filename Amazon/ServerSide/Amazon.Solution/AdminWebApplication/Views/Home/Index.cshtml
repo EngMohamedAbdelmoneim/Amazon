@@ -8,29 +8,9 @@
 </div>
 
 <div class="row gx-5 gx-xl-8 mb-2">
-    <!--begin::Col-->
-    <div class="col-xxl-6">
-        <!--begin::Tiles Widget 5-->
-        <a class="card bg-primary card-xxl-stretch" asp-controller="Products" asp-action="Index">
-            <!--begin::Body-->
-            <div class="card-body">
-                <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                <span class="svg-icon svg-icon-white svg-icon-2hx ms-n1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <rect x="2" y="2" width="9" height="9" rx="2" fill="black"></rect>
-                        <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black"></rect>
-                        <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black"></rect>
-                        <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black"></rect>
-                    </svg>
-                </span>
-                <!--end::Svg Icon-->
-                <div class="text-inverse-primary fw-bolder fs-1 mb-2 mt-5">@Model.ProductsNo</div>
-                <div class="fw-bold text-inverse-primary fs-6">Products</div>
-            </div>
-            <!--end::Body-->
+        <a class="card card-xxl-stretch" asp-controller="Products" asp-action="Index">
+        <div class="fw-bolder fs-1 mb-2 mt-5">@Model.ProductsNo Products</div>
         </a>
-        <!--end::Tiles Widget 5-->
-    </div>
     <!--end::Col-->
     <!--begin::Col-->
     <div class="col-xxl-6">
@@ -64,34 +44,69 @@
 </div>
 
 
-<div class="bg-white p-4">
+<div class="row">
 
-    <div>
-        <h1 class="display-4">Low Quantity Products</h1>
+    <div class="bg-white p-4 col-6">
+
+        <div>
+            <h1 class="display-4">Low Quantity Products</h1>
+        </div>
+
+
+        <table class="table table-striped gy-7 gs-7">
+            <thead>
+                <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+                    <th>Name</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Products)
+                {
+                    <tr>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @item.QuantityInStock
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
     </div>
 
 
-    <table class="table table-striped gy-7 gs-7">
-        <thead>
-            <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
-                <th>Name</th>
-                <th>Quantity</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Products)
-            {
-                <tr>
-                    <td>
-                        @item.Name
-                    </td>
-                    <td>
-                        @item.QuantityInStock
-                    </td>
+    <div class="bg-white p-4 col-6">
+
+        <div>
+            <h1 class="display-4">Low Quantity Products</h1>
+        </div>
+
+
+        <table class="table table-striped gy-7 gs-7">
+            <thead>
+                <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+                    <th>Name</th>
+                    <th>Quantity</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.TopOrders)
+                {
+                    <tr>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @item.TotalQuantity
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
 
 </div>
-

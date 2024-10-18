@@ -1,4 +1,6 @@
 using AdminWebApplication.Models;
+using Amazon.Core.DBContext;
+using Amazon.Core.Entities.OrderAggregate;
 using Amazon.Services.BrandService;
 using Amazon.Services.ProductService;
 using Amazon.Services.ProductService.Dto;
@@ -11,11 +13,13 @@ namespace AdminWebApplication.Controllers
     {
         private readonly IProductService productService;
         private readonly IBrandService brandService;
+        private readonly AmazonDbContext amazonDbContext;
 
-        public HomeController(IProductService productService, IBrandService brandService)
+        public HomeController(IProductService productService, IBrandService brandService, AmazonDbContext amazonDbContext)
         {
             this.productService = productService;
             this.brandService = brandService;
+            this.amazonDbContext = amazonDbContext;
         }
 
         public async Task<IActionResult> Index()
@@ -23,8 +27,27 @@ namespace AdminWebApplication.Controllers
             var products = await productService.GetAllProductsAsync();
             var brands = await brandService.GetAllBrandsAsync();
             var lowQuantityProducts = products.Where(p => p.QuantityInStock < 10).ToList();
-            DashboardData data = new() 
-            { 
+
+            var orderItems = amazonDbContext.OrderItems.GroupBy(o => o.Product.ProductId)
+                .Select(g => new 
+                {
+                    Id = g.Key, 
+                    Name = g.First().Product.ProductName, 
+                    TotalQuantity = g.Sum(s => s.Quantity)
+                }).OrderByDescending(o => o.TotalQuantity).ToList();
+
+
+            //var test = (from OrderItem in amazonDbContext.OrderItems
+            //            select OrderItem.Id, OrderItem.Product.ProductName, OrderIt.Quantity)
+
+            //var test2 = amazonDbContext.OrderItems.Select(o => new { o.Id, o.Product.ProductName, o.Quantity})
+            //    .GroupBy(o => o.Id).Aggregate((x, y) => x + y);
+
+                       ;
+            ViewBag.TopOrders = orderItems;
+
+            DashboardData data = new()
+            {
                 ProductsNo = products.Count,
                 BrandsNo = brands.Count,
                 Products = lowQuantityProducts
@@ -51,5 +74,11 @@ namespace AdminWebApplication.Controllers
         public int UsersNo { get; set; }
         public int BrandsNo { get; set; }
         public List<ProductToReturnDto> Products { get; set; }
+        public List<object> TopOrders { get; set; }
+    }
+
+    public class TopOrders
+    {
+
     }
 }

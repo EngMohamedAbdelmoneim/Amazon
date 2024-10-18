@@ -38,7 +38,6 @@ namespace Amazon.API.Controllers
 		}
 
 
-
 		[HttpPost("register")]
 		public async Task<ActionResult> Register(RegisterDto registerDto)
 		{
@@ -59,7 +58,6 @@ namespace Amazon.API.Controllers
 		}
 
 		
-
 		[HttpPost("Login")]
 		public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
 		{
@@ -68,7 +66,6 @@ namespace Amazon.API.Controllers
 				return Unauthorized();
 			return Ok(user);
 		}
-
 
 
 		[ApiExplorerSettings(IgnoreApi = true)]
@@ -87,7 +84,6 @@ namespace Amazon.API.Controllers
 			await _emailService.SendEmail(email);
 			return Ok("Confirmation Email send");
 		}
-
 
 
 		[HttpGet("confirmemail")]
@@ -123,7 +119,6 @@ namespace Amazon.API.Controllers
 		}
 
 		
-		
 		[HttpPost("ForgotPassword")]
 		public async Task<IActionResult> ForgotPassword(ForgotPasswordDto model)
 		{
@@ -149,7 +144,6 @@ namespace Amazon.API.Controllers
 			return Ok("Password reset link has been sent to your email.");
 		}
 
-		
 		
 		[HttpPost("ResetPassword")]
 		public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto model, [FromQuery] string userId, [FromQuery] string token)
@@ -180,7 +174,6 @@ namespace Amazon.API.Controllers
 		}
 
 
-
 		[Authorize]
 		[HttpGet]
 		public async Task<ActionResult<UserDto>> GetCurrentUser()
@@ -197,7 +190,6 @@ namespace Amazon.API.Controllers
 		}
 
 
-
 		[Authorize]
 		[HttpPost("addAddress")]
 		public async Task<ActionResult<IReadOnlyList<AddressDto>>> AddAddress([FromBody] AddressDto addressDto)
@@ -208,7 +200,6 @@ namespace Amazon.API.Controllers
 				return BadRequest();
 			return Ok(result);
 		}
-
 
 
 		[Authorize]
@@ -223,7 +214,6 @@ namespace Amazon.API.Controllers
 
 			return Ok(result);
 		}
-
 
 
 		[Authorize]
@@ -242,7 +232,6 @@ namespace Amazon.API.Controllers
 		}
 
 		
-		
 		[Authorize]
 		[HttpPost("setDefaultAddress")]
 		public async Task<IActionResult> SetDefaultAddress(string id)
@@ -258,7 +247,6 @@ namespace Amazon.API.Controllers
 		}
 
 		
-		
 		[Authorize]
 		[HttpGet("getAddresses")]
 		public async Task<IActionResult> GetAddresses()
@@ -273,7 +261,6 @@ namespace Amazon.API.Controllers
 			return Ok(result);
 		}
 
-		
 		
 		[Authorize]
 		[HttpGet("getAddress/{addressId}")]

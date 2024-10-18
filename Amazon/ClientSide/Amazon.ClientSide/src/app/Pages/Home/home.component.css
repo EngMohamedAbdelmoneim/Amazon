@@ -10,6 +10,7 @@ main
     justify-content: space-evenly;
     /* top: -400px; */
     .home-card{
+        z-index: 3;
         top: -20px;
         background: white;
         width: 340px;
