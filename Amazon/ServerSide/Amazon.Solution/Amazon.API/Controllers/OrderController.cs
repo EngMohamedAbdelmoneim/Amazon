@@ -26,7 +26,7 @@ namespace Amazon.API.Controllers
 
 		[Authorize]
 		[HttpPost]
-		public async Task<ActionResult<Order>> CreateOrder(OrderDto orderDto)
+		public async Task<ActionResult<OrderToReturnDto>> CreateOrder(OrderDto orderDto)
 		{
 			var buyerEmail = User.FindFirstValue("Email");
 			var order = await _orderService.CreateOrderAsync(buyerEmail, orderDto.CartId,orderDto.PaymentMethodId,orderDto.DeliveryMethodId,orderDto.ShippingAddressId);
@@ -38,7 +38,7 @@ namespace Amazon.API.Controllers
 
 		[Authorize]
 		[HttpGet]
-		public async Task<ActionResult<IReadOnlyList<Order>>> GetAllOrderesForUser()
+		public async Task<ActionResult<IReadOnlyList<OrderToReturnDto>>> GetAllOrderesForUser()
 		{
 
 			var user = await _userManager.FindUserWithAddressAsync(User);
@@ -50,7 +50,7 @@ namespace Amazon.API.Controllers
 
 		[Authorize]
 		[HttpGet("{id}")]
-		public async Task<ActionResult<Order>> GetOrderForUser(int id)
+		public async Task<ActionResult<OrderToReturnDto>> GetOrderForUser(int id)
 		{
 			var user = await _userManager.FindUserWithAddressAsync(User);
 			var buyerEmail = user.Email;
