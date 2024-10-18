@@ -18,7 +18,6 @@ namespace Amazon.Services.ProductService.Dto
 
 		[Column(TypeName = "money")]
 		public decimal Price { get; set; }
-
 		public string PictureUrl { get; set; }
 
 		public int QuantityInStock { get; set; }
@@ -28,6 +27,6 @@ namespace Amazon.Services.ProductService.Dto
 		public int BrandId { get; set; }
 		public string BrandName { get; set; }
 		public ICollection<string> ProductImages { get; set; } = [];
-      
+		public DiscountDto Discount { get; set; }
     }
 }

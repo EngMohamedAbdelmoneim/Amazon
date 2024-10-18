@@ -18,6 +18,8 @@ using Amazon.Services.DeliveryMethodService;
 using Amazon.Services.DeliveryMethodService.Dto;
 using Amazon.Services.PaymentMethodService;
 using Amazon.Services.PaymentMethodService.Dto;
+using Amazon.Services.ReviewServices;
+using Amazon.Services.ReviewServices.Dto;
 
 namespace Amazon.API.Extentions
 {
@@ -73,6 +75,11 @@ namespace Amazon.API.Extentions
 			#region PaymentMethodService
 			services.AddScoped<IPaymentMethodService, PaymentMethodService>();
 			services.AddAutoMapper(typeof(PaymentMethodProfile));
+			#endregion
+
+			#region PaymentMethodService
+			services.AddScoped<IReviewService, ReviewService>();
+			services.AddAutoMapper(typeof(ReviewProfile));
 			#endregion
 
 			return services;

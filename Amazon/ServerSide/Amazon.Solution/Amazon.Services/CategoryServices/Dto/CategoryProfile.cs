@@ -12,7 +12,7 @@ namespace Amazon.Services.CategoryServices.Dto
     {
         public CategoryProfile()
         {
-            CreateMap<CategoryDto,Category>().ReverseMap();
+            CreateMap<CategoryDto, Category>().ReverseMap();
             CreateMap<Category, CategoryToReturnDto>()
                 .ForMember(dest => dest.ParentCategoryName, options => options.MapFrom(src => src.ParentCategory.Name));
         }

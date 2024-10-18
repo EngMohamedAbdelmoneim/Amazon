@@ -257,5 +257,7 @@ namespace Amazon.Core.DBContext
 		public DbSet<OrderItem> OrderItems { get; set; }
 		public DbSet<DeliveryMethod> DeliveryMethods { get; set; }
 		public DbSet<PaymentMethod> PaymentMethods { get; set; }
+		public DbSet<Review> Reviews { get; set; }
+
 	}
 }

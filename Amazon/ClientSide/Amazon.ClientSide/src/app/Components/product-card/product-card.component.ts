@@ -20,11 +20,28 @@ export class ProductCardComponent {
       this.cardVisible = true;
     }, 200); 
   }
-  getRatingArray(rating: number): boolean[] {
-    return Array.from({ length: 5 }, (_, i) => i < rating);
+  GetRatingArray(rating: number): boolean[] {
+    const maxStars = 5; // Total number of stars
+    return Array.from({ length: maxStars }, (_, index) => index < rating);
   }
    AddToCart() {
     this.addToCart.emit();
     console.log("on item adding");
+  }
+  Discount(){
+    console.log(this.product.discount.discountPercentage);
+    return Number(this.product.discount.discountPercentage *100);
+  }
+  DiscountEndDate(){
+    let EndDate:any =new Date(this.product.discount.endDate).getTime();
+    return EndDate;
+  }
+  DiscountTimeOut(){
+    let StartDate:any =new Date(this.product.discount.startDate).getTime();
+    let EndDate:any =new Date(this.product.discount.endDate).getTime();
+    let Days = EndDate - StartDate;
+    const DaysOut = Math.floor(Days / (1000 * 60 * 60 * 24));
+    console.log(DaysOut);
+    return DaysOut;
   }
 }

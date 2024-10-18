@@ -32,12 +32,14 @@ export class CategoryComponent {
           next: data => {
             console.log(data);
             this.products = data;
+            console.log(this.products);
+
           }
         })
       }
       else {
         this.ParentCategoryName = p['ParentCategoryName'];
-        this.categoryService.getPaarentCategoryProducts(p['ParentCategoryName']).subscribe({
+        this.categoryService.getParentCategoryProducts(p['ParentCategoryName']).subscribe({
           next: data => {
             console.log(data);
             this.products = data;

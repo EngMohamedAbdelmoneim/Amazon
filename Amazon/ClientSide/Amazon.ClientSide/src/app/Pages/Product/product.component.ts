@@ -20,7 +20,7 @@ import { WishListItem } from '../../Models/wish-list-item';
 })
 export class ProductComponent implements OnInit {
   productImages: any;
-  product: Product | null = new Product(0, "", 0, "", "", [],"", "", 0);
+  product: Product | null = new Product(0, "", 0, "", "", [],"", "", 0,null);
   cartItems: CartItem | null = new CartItem(0, "", "", 0, "", 0);
   cart: Array<CartItem> | null;
   @ViewChild( 'quantity') selectedQtn : ElementRef ;
@@ -48,6 +48,18 @@ export class ProductComponent implements OnInit {
         }
       })
     })
+  }
+  Discount(){
+    console.log(this.product.discount.discountPercentage);
+    return Number(this.product.discount.discountPercentage *100);
+  }
+  DiscountTimeOut(){
+    let StartDate:any =new Date(this.product.discount.startDate).getTime();
+    let EndDate:any =new Date(this.product.discount.endDate).getTime();
+    let Days = EndDate - StartDate;
+    const DaysOut = Math.floor(Days / (1000 * 60 * 60 * 24));
+    console.log(DaysOut);
+    return DaysOut;
   }
 
   AddToCart(product: Product, _id: string) {

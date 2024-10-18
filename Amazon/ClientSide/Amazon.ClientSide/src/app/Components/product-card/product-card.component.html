@@ -1,5 +1,6 @@
-<div class="product-card" [ngClass]="{'show': cardVisible}" routerLink="/product/{{product.id}}">
-    <!-- Product Image -->
+
+<div routerLink="/product/{{product.id}}"   class="product-card"  [ngClass]="{'show': cardVisible}">
+      <!-- Product Image -->
     <div class="product-image">
       <img src={{product.pictureUrl}} alt="Apple iPhone 13 - Pink" />
     </div>
@@ -7,27 +8,51 @@
     <!-- Product Information -->
     <div class="product-info">
       <h3>{{product.name}}</h3>
-  
+      <h3>{{product.description}}</h3>
       <!-- Ratings -->
       <div class="product-rating">
         <span class="stars">
-          <i *ngFor="let star of getRatingArray(3)" class="fa" [ngClass]="star ? 'fa-star' : 'fa-star-o'"></i>
+          @for(star of GetRatingArray(1);track $index){
+            @if(star){
+              <i class="fa-solid fa-star" style="color: orange;"></i>
+            }
+            @else{
+              <i class="fa-regular fa-star" style="color: orange;"></i>
+            }
+          }
         </span>
-        <!-- <span class="reviews">({{11}})</span> -->
+        <span class="reviews">({{ 11 }})</span>
       </div>
+      
   
       <!-- Pricing Section -->
       <div class="pricing">
-        <span class="current-price">{{ product.price.toFixed(2) | currency:'EGP' }}</span>
-        <span class="old-price">EGP 29,900</span>
-        <span class="discount">Save 4%</span>
-        <div class="price-note">Lowest price in 30 days</div>
+        @if(product.discount !=null){
+          <div class="discount-info">
+            <span class="discount">
+            <span class="discount-percentage">-{{Discount()}}% off</span>
+            </span>
+            <span class="discount-text">
+            <span >Limited Time Deal</span>
+            </span>
+          </div>
+          <span class="current-price">{{ product.discount.priceAfterDiscount.toFixed(2) | currency:'EGP' }}</span>
+          <br/>
+          <span class="old-price">List:{{ product.price.toFixed(2) | currency:'EGP' }}</span>
+          <br/>
+          <div class="price-note text-danger">Lowest Price in {{DiscountTimeOut().toString()}} days</div>
+        }
+        @else{
+          <span class="current-price">{{ product.price.toFixed(2) | currency:'EGP' }}</span>
+        }
       </div>
   
       <!-- Availability Information -->
       <div class="availability">
-        <p>Get it as soon as <strong>Thursday, 17 October</strong></p>
-        <!-- <p>Fulfilled by Amazon - FREE Shipping</p> -->
+        @if(product.discount !=null){
+        <p>Get it as soon as <strong>{{ DiscountEndDate() | date: 'EEEE, d MMMM' }}</strong></p>
+      }
+        <p>Fulfilled by Amazon - FREE Shipping</p>
         @if (product.quantityInStock < 10)
         {
           <p class="text-danger">Only {{product.quantityInStock}} left in stock - order soon.</p>

@@ -23,7 +23,14 @@ namespace Amazon.Services.ProductService
 
 		public async Task<ProductToReturnDto> AddProduct(ProductDto productDto)
 		{
-
+			if (productDto.Discount != null)
+			{
+				if (productDto.Discount.StartDate.Date == DateTime.Now.Date)
+				{
+					productDto.Discount.DiscountStarted = true;
+				}
+				productDto.Discount.PriceAfterDiscount = productDto.Price * (1 - productDto.Discount.DiscountPercentage);
+			}
 			var mappedProduct = _mapper.Map<Product>(productDto);
 			mappedProduct.PictureUrl = await DocumentSettings.UploadFile(productDto.ImageFile, "productImages");
 				
@@ -59,7 +66,14 @@ namespace Amazon.Services.ProductService
 
 				await HandleProductImages(productDto.ImagesFiles, existintProduct);
 			}
-
+			if (productDto.Discount != null)
+			{
+				if (productDto.Discount.StartDate.Date == DateTime.Now.Date)
+				{
+					productDto.Discount.DiscountStarted = true;
+				}
+				productDto.Discount.PriceAfterDiscount = productDto.Price * (1 - productDto.Discount.DiscountPercentage);
+			}
 			_mapper.Map(productDto, existintProduct);
 
 			await _productRepo.Update(existintProduct);

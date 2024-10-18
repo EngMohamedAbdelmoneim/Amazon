@@ -1,3 +1,5 @@
+import { Discount } from "./Discount";
+
 export class Product {
     id: number
     name: string;
@@ -8,6 +10,7 @@ export class Product {
     categoryName: string;
     brandName: string;
     quantityInStock: number;
+    discount:Discount;
 
     constructor
         (
@@ -19,7 +22,8 @@ export class Product {
             productImages: string[],
             categoryName: string,
             brandName: string,
-            quantityInStock: number
+            quantityInStock: number,
+            discount:Discount
         ) {
         this.id = id;
         this.name = name;
@@ -30,5 +34,6 @@ export class Product {
         this.categoryName = categoryName;
         this.brandName = brandName;
         this.quantityInStock = quantityInStock;
+        this.discount = discount;
     }
 }

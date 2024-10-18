@@ -1,17 +1,17 @@
-main{
+main {
     width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    section:nth-of-type(1)
-    {
-    
+
+    section:nth-of-type(1) {
+
         align-self: self-start;
         display: flex;
         align-items: center;
         width: 40%;
-        .SideImages
-        {
+
+        .SideImages {
             width: 10%;
             display: flex;
             flex-direction: column;
@@ -19,114 +19,124 @@ main{
             padding: 20px;
             height: 300px;
             cursor: pointer;
-            img
-            {
+
+            img {
                 position: relative;
-                margin-bottom:40px;
-                width:40px;
-                top:15px;
+                margin-bottom: 40px;
+                width: 40px;
+                top: 15px;
                 height: 40px;
                 transition: transform 0.5s ease;
-                &:hover
-                {
+
+                &:hover {
                     transform: scale(1.4);
                 }
             }
         }
-        .MainImageContainer
-        {
+
+        .MainImageContainer {
             width: 90%;
             height: 400px;
             text-align: center;
             cursor: pointer;
             overflow: hidden;
             object-fit: cover;
-            img
-            {
+
+            img {
                 height: 100%;
                 max-width: 100%;
             }
         }
     }
-    section:nth-of-type(2){
-      width: 40%;
-      font-weight: 3rem;
+
+    section:nth-of-type(2) {
+        width: 40%;
+        font-weight: 3rem;
     }
-    section:nth-of-type(3){
+
+    section:nth-of-type(3) {
         align-self: self-start;
         width: 15%;
         border: 1px solid #ddd;
         border-radius: 0.5em;
         min-width: 200px;
-        p{
+        p {
             font-size: 0.9em;
             font-weight: 600;
         }
-        button
-        {
+
+        button {
             width: 100%;
             border: none;
             border-radius: 1em;
         }
-        button:nth-of-type(1)
-        {
+
+        button:nth-of-type(1) {
             background-color: #ffd814;
-            &:hover{
+
+            &:hover {
                 background-color: #f7ca00;
             }
         }
-        button:nth-of-type(2)
-        {
+
+        button:nth-of-type(2) {
             background-color: #ffa41c;
-            &:hover{
+
+            &:hover {
                 background-color: #fa8900;
             }
         }
     }
 }
 
-.star{
+.star {
     font-size: 4vh;
     cursor: pointer;
 }
-.star:hover,.star:hover ~ .star{
+
+.star:hover,
+.star:hover~.star {
     color: yellow;
     transform: scale();
 }
-.star.selected{
+
+.star.selected {
     color: yellow;
 }
-.Choiceinyellow{
- color: rgb(241, 132, 7);
+
+.Choiceinyellow {
+    color: rgb(241, 132, 7);
 }
-h3{
+
+h3 {
     color: rgb(33, 80, 33);
     font-size: 25px;
     width: 700px;
-    
+
 }
-.PickColor{
+
+.PickColor {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
 
 }
 
-.ProductColor{
+.ProductColor {
     width: 50px;
     height: 50px;
     border-radius: 15px;
     border: 2px rgb(216, 196, 196) solid;
     cursor: pointer;
     position: relative;
-    
+
 }
 
-.ProductColor:hover ~ .ColorResult
-   {
-    
+.ProductColor:hover~.ColorResult {
+
     display: block;
-   }
+}
+
 .ProductColor:hover::after {
     content: attr(color-name);
     /* color: attr(style); */
@@ -144,15 +154,16 @@ h3{
     transition: opacity 0.3s ease;
 } */
 
- .MainImageContainer:hover #Product-Full-Size{
-    
-     /* width: 180%;
+.MainImageContainer:hover #Product-Full-Size {
+
+    /* width: 180%;
     height: 100%; 
      object-fit:cover; 
     transition: transform 2s ease;
     position: relative; */
-    background-size:300% ;
-} 
+    background-size: 300%;
+}
+
 /* .MainImageContainer{
     --mouse-x:50%;
     --mouse-y:50%;
@@ -171,9 +182,10 @@ h3{
 /* .MainImageContainer:hover #Product-Full-Size{
     background-position: calc(100%*var(--mouse-x)) calc(100%*var(--mouse-y));
 } */
-.MainImageContainer:hover img{
+.MainImageContainer:hover img {
     transform: scale(1.2);
 }
+
 /* .Physical-Details{
     
     position: relative;
@@ -183,123 +195,133 @@ h3{
     font-weight:100;
     margin-top: 10px;
 } */
-.Physical-Details{
+.Physical-Details {
     grid-column: 3;
     /* width: 100%; */
     margin-top: 20px;
-    
+
 }
- /* .Name, .Physical-Details,.Side{
+
+/* .Name, .Physical-Details,.Side{
     grid-column: span 2;
     margin-top: 20px;
  } */
- .Side{
+.Side {
     position: relative;
     display: flex;
-    bottom:400px;
+    bottom: 400px;
     flex-direction: column;
     grid-column: 4;
     gap: 50px;
     /* grid-template-rows: 1 1 1;
     flex-wrap: wrap;
     height: 100vh; */
-    
-    
-} 
-.LearnMore .arrow{
+
+
+}
+
+.LearnMore .arrow {
     width: 0;
     height: 0;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
     border-top: 8px solid rgb(145, 146, 127);
-    
+
     display: inline-block;
-    margin-left:5px ;
+    margin-left: 5px;
     cursor: pointer;
-    
+
 }
-.LearnMore{
-    
+
+.LearnMore {
+
     border: 1px solid rgb(230, 209, 209);
     /* grid-row: 1; */
     width: 200px;
 }
-.Shipping{
+
+.Shipping {
     border: 1px solid rgb(230, 209, 209);
-    
+
     /* grid-row: 2; */
 }
-.Delivertoyou{
+
+.Delivertoyou {
     margin-top: 10px;
-    
+
 }
-.btn-warning{
+
+.btn-warning {
     border-radius: 20px;
     width: 280px;
 }
-.btn{
-    width:300px;
+
+.btn {
+    width: 300px;
     margin-top: 10px;
 }
 
-.Latest{
+.Latest {
     display: flex;
     flex-direction: column;
     padding: 5px;
     border: 1px solid rgb(230, 209, 209);
     /* grid-row: 3; */
-}  
+}
 
-.LatestProductImage{
+.LatestProductImage {
     width: 50%;
 }
-.Discount-Details{
+
+.Discount-Details {
     color: red;
 }
 
 
-.Old-Price{
+.Old-Price {
     color: rgb(83, 85, 85);
     /* text-decoration: line-through; */
     position: relative;
     display: inline-block;
 }
-.Old-Price::after{
+
+.Old-Price::after {
     content: '';
     position: absolute;
     left: 0;
     top: 50%;
     width: 110%;
     height: 2px;
-    background-color:rgb(83, 85, 85);
+    background-color: rgb(83, 85, 85);
     border-radius: 10px;
-    transform: translate(-5%,-30%) rotate(-30deg);
+    transform: translate(-5%, -30%) rotate(-30deg);
     z-index: 1;
 }
 
 .rating-message {
-    position: absolute; 
-    bottom: 350px; 
-    right: 550px; 
-    background-color: #fff; 
-    border: 1px solid #ddd; 
-    border-radius: 10px; 
-    padding: 10px; 
+    position: absolute;
+    bottom: 350px;
+    right: 550px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     /* animation: fadeIn 1s; */
-  }
-  
-  .ratingMessage {
-    color: #333; 
-    font-size: 1rem; 
-  }
-  
-  @keyframes fadeIn {
+}
+
+.ratingMessage {
+    color: #333;
+    font-size: 1rem;
+}
+
+@keyframes fadeIn {
     from {
-      opacity: 0;
+        opacity: 0;
     }
+
     to {
-      opacity: 1;
+        opacity: 1;
     }
   }
 
@@ -344,4 +366,63 @@ h3{
             width: 100% !important;
         }
     }
+}
+
+
+
+.discount-info h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+.current-price {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #000000;
+}
+
+.old-price {
+    text-decoration: line-through;
+    font-size: 0.9rem;
+}
+
+.discount-info {
+    display: flex;
+}
+
+.discount {
+    background-color: #CC0C39;
+    border-radius: 2px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-right: 6px;
+    padding: 4px 6px;
+}
+
+.discount-percentage {
+    color: #FFFFFF;
+    font-size: 12px !important;
+    font-weight: bold;
+    line-height: 16px !important;
+}
+
+.discount-text {
+    background-color: #FFFFFF;
+    border-radius: 2px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-right: 6px;
+    padding: 4px 6px;
+}
+
+.discount-text span {
+    color: #CC0C39;
+    font-size: 12px !important;
+    font-weight: bold;
+    line-height: 16px !important;
+}
+
+.price-note {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 4px;
 }

@@ -19,10 +19,24 @@
                 {{ product.description }}<br>
                 <!-- Available:{{ products.quantityInStock }} -->
             </h4>
-            <p>{{product.brandName}}</p>
-            <hr />
-            <h4>{{product.price | currency: 'EGP'}}</h4>
-            
+            @if(product.discount !=null){
+                <div class="discount-info">
+                <span class="discount">
+                  <span class="discount-percentage">-{{Discount()}}% off</span>
+                  </span>
+                  <span class="discount-text">
+                  <span >Limited Time Deal</span>
+                  </span>
+                </div>
+                <span class="current-price">{{ product.discount.priceAfterDiscount.toFixed(2) | currency:'EGP' }}</span>
+                <br/>
+                <span class="old-price">List:{{ product.price.toFixed(2) | currency:'EGP' }}</span>
+                <br/>
+                <div class="price-note text-danger">Lowest Price in {{DiscountTimeOut().toString()}} days</div>
+              }
+              @else{
+                <span class="current-price">{{ product.price.toFixed(2) | currency:'EGP' }}</span>
+              }
             <div>
               <span
                 *ngFor = "let star of [1,2,3,4,5]; let i =index"
@@ -94,7 +108,16 @@
     </section>
 
     <section class="p-4">
-        <h2>{{product.price}}</h2>
+        @if(product.discount !=null){
+            <span class="current-price">{{ product.discount.priceAfterDiscount.toFixed(2) | currency:'EGP' }}</span>
+            <br/>
+            <span class="old-price">List:{{ product.price.toFixed(2) | currency:'EGP' }}</span>
+            <br/>
+            <div class="price-note text-danger">Lowest Price in {{DiscountTimeOut().toString()}} days</div>
+          }
+          @else {
+            <span class="current-price">List:{{ product.price.toFixed(2) | currency:'EGP' }}</span>
+          }
         @if (product.quantityInStock > 10)
         {
             <h5 class="text-success">In Stock</h5>

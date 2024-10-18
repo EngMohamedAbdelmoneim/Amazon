@@ -25,18 +25,17 @@
         margin-bottom: 8px;
       }
   
-      .ratings {
+      .product-rating {
         margin-bottom: 8px;
-        .stars {
-          color: #f4b400;
-        }
-        .reviews {
-          margin-left: 4px;
-          font-size: 0.9rem;
-          color: #666;
-        }
       }
-  
+      
+      .reviews {
+        margin-left: 4px;
+        font-size: 0.9rem;
+        color: #666;
+      }
+      
+      
       .pricing {
         .current-price {
           font-size: 1.3rem;
@@ -47,14 +46,41 @@
         .old-price {
           text-decoration: line-through;
           font-size: 0.9rem;
-          margin-left: 8px;
+        }
+
+        .discount-info{
+          display: flex;
+        }
+        .discount{
+          background-color: #CC0C39;
+          border-radius: 2px;
+          font-size: 12px;
+          font-weight: bold;
+          margin-right: 6px;
+          padding: 4px 6px;
         }
   
-        .discount {
-          color: #b12704;
-          margin-left: 8px;
+        .discount-percentage{
+          color: #FFFFFF;
+          font-size: 12px !important;
+          font-weight: bold;
+          line-height: 16px !important;
         }
-  
+
+        .discount-text{
+          background-color: #FFFFFF;
+          border-radius: 2px;
+          font-size: 12px;
+          font-weight: bold;
+          margin-right: 6px;
+          padding: 4px 6px;
+        }
+        .discount-text span{
+          color: #CC0C39;
+          font-size: 12px !important;
+          font-weight: bold;
+          line-height: 16px !important;
+        }
         .price-note {
           font-size: 0.9rem;
           color: #555;
