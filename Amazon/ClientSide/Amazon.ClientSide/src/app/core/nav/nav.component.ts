@@ -79,9 +79,9 @@ export class NavComponent implements OnInit {
 
   OrdersPage()
   {
-    if(this.accountService.isAuthenticated)
+    if(this.accountService.isAuthenticated == true)
     {
-      this.router.navigateByUrl('/cart');
+      this.router.navigateByUrl('/order');
     }
     else
     {

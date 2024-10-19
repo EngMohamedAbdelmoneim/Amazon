@@ -1,0 +1,50 @@
+﻿@model Amazon.Services.OrderService.OrderDto.OrderToReturnDto
+
+<h1>Update Order Status</h1>
+
+<div>
+    <hr />
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label for="OrderStatus" class="control-label">Order status</label>
+            <select name="orderStatus" class="form-control" asp-items="ViewBag.Status"></select>
+            <span asp-validation-for="OrderStatus" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="BuyerEmail" class="control-label">Email</label>
+            <input asp-for="BuyerEmail" class="form-control" disabled/>
+            <span asp-validation-for="BuyerEmail" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="OrderDate" class="control-label">Order Date</label>
+            <input asp-for="OrderDate" class="form-control" disabled/>
+            <span asp-validation-for="OrderDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PaymentStatus" class="control-label">Payment Status</label>
+            <input asp-for="PaymentStatus" class="form-control" disabled/>
+            <span asp-validation-for="PaymentStatus" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PaymentMethod.Name" class="control-label">Payment Method</label>
+            <input asp-for="PaymentMethod.Name" class="form-control" disabled />
+            <span asp-validation-for="PaymentMethod.Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-2">
+            <label asp-for="Total" class="control-label">Total</label>
+            <input asp-for="Total" class="form-control" disabled/>
+            <span asp-validation-for="Total" class="text-danger"></span>
+        </div>
+
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <input type="submit" value="Edit" class="btn btn-warning text-white" />
+        </div>
+    </form>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

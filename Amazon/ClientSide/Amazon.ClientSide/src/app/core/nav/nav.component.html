@@ -73,7 +73,7 @@
                 </div>
             </div>
 
-            <a (click)="OrdersPage()" style="display: flex; align-items: end; cursor: pointer;" class="p-2">Orders</a>
+            <a routerLink="/order" style="display: flex; align-items: end; cursor: pointer;" class="p-2">Orders</a>
             <a [routerLink]="['/cart', ('cart-'+getGuid()) ]" class="p-2 mx-1" style="display: flex; align-items: end;">
                 <div style="display: flex; flex-direction: column; align-items: center; height: 39px; position: relative;">
                     <span style="position: absolute; color: #f08804;">{{cartQnt}}</span>

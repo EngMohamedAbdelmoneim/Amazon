@@ -9,7 +9,7 @@ export class AccountService {
 
   constructor(public http: HttpClient) { }
 
-  isAuthenticated: boolean = false;
+  isAuthenticated: boolean = JSON.parse(localStorage.getItem("isAuthenticated"));
 
   login(email: string, password: string)
   {

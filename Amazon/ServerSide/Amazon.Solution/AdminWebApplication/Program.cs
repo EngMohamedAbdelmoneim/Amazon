@@ -1,10 +1,13 @@
 using Amazon.Core.DBContext;
 using Amazon.Core.Entities;
+using Amazon.Core.Entities.OrderAggregate;
 using Amazon.Core.IdentityDb;
 using Amazon.Services.BrandService;
 using Amazon.Services.BrandService.Dto;
 using Amazon.Services.CategoryServices;
 using Amazon.Services.CategoryServices.Dto;
+using Amazon.Services.OrderService;
+using Amazon.Services.OrderService.OrderDto;
 using Amazon.Services.ParentCategoryService;
 using Amazon.Services.ProductService;
 using Amazon.Services.ProductService.Dto;
@@ -27,6 +30,7 @@ namespace AdminWebApplication
             builder.Services.AddScoped<IGenericRepository<Brand>, GenericRepository<Brand>>();
             builder.Services.AddScoped<IGenericRepository<Category>, GenericRepository<Category>>();
             builder.Services.AddScoped<IGenericRepository<ParentCategory>, GenericRepository<ParentCategory>>();
+            builder.Services.AddScoped<IGenericRepository<Order>, GenericRepository<Order>>();
 
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
@@ -34,10 +38,12 @@ namespace AdminWebApplication
             builder.Services.AddScoped<IBrandService, BrandService>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IParentCategoryService, ParentCategoryService>();
+            //builder.Services.AddScoped<IOrderService, OrderService>();
 
             builder.Services.AddAutoMapper(typeof(ProductProfile));
             builder.Services.AddAutoMapper(typeof(BrandProfile));
             builder.Services.AddAutoMapper(typeof(CategoryProfile));
+            builder.Services.AddAutoMapper(typeof(OrderProfile));
 
             builder.Services.AddDbContext<AmazonDbContext>(options =>
             {

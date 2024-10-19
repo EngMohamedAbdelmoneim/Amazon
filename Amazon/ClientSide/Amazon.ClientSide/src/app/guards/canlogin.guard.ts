@@ -6,7 +6,7 @@ export const canloginGuard: CanActivateFn = (route, state) => {
   let accountService: AccountService = inject(AccountService);
   if(accountService.isAuthenticated)
     return true;
-  let router: Router;
-  router.navigateByUrl('/login')
+  let router:Router=inject(Router);
+  router.navigateByUrl("/login");
   return false;
 };

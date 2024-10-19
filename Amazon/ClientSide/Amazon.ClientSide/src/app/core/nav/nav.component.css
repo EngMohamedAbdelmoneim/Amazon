@@ -88,7 +88,7 @@ nav{
     right: 0px;
     background-color: #f9f9f9;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+    z-index: 10;
     .signin-btn{
       text-align: center;
       margin-inline: auto;
@@ -200,7 +200,7 @@ nav{
       flex-direction: column;
       position: absolute;
       top: 0;
-      z-index: 3;
+      z-index: 10;
       transition: all 0.2s linear;
       /* translate: -250px; */
       button{

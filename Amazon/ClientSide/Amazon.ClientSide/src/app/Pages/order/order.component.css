@@ -915,3 +915,19 @@ hr.EstimatedTaxDivider {
         width: 100%;
     }
 }
+
+.Containers{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    main{
+        width: clamp(600px, 70%, 1000px);
+    }
+    aside{
+        width: clamp(300px, 20%, 500px);
+        border: 1px solid #ddd;
+        border-radius: 0.5em;
+        height: fit-content;
+    }
+}

@@ -18,9 +18,9 @@ export class GuidService {
     if (!guid) {
       guid = uuidv4();
       this.cookieService.set(this.cookieName, guid, { expires: 7, path: '/' }); 
-      console.log('New GUID created and stored:', guid);
+      // console.log('New GUID created and stored:', guid);
     } else {
-      console.log('Existing GUID found:', guid);
+      // console.log('Existing GUID found:', guid);
     }
 
     return guid;
@@ -28,12 +28,12 @@ export class GuidService {
 
   getGUID(): string {
     const guid = this.cookieService.get(this.cookieName);
-    console.log('Retrieved GUID:', guid);
+    // console.log('Retrieved GUID:', guid);
     return guid;
   }
 
   deleteGUID() {
     this.cookieService.delete(this.cookieName, '/');
-    console.log('GUID deleted from cookie');
+    // console.log('GUID deleted from cookie');
   }
 }

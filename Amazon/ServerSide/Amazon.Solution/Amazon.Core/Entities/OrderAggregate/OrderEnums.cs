@@ -7,7 +7,6 @@ namespace Amazon.Core.Entities.OrderAggregate
 		[EnumMember(Value ="Pending")]
 		Pending,
 
-
 		[EnumMember(Value ="Processing")]
 		Processing,
 

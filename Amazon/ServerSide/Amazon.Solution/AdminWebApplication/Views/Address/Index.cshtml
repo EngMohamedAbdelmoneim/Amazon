@@ -11,6 +11,30 @@
             <th>
                 Name
             </th>
+            <th>
+                Phone Number
+            </th>
+            <th>
+                Country
+            </th>
+            <th>
+                Street Address
+            </th>
+            <th>
+                Building Name
+            </th>
+            <th>
+                City
+            </th>
+            <th>
+                District
+            </th>
+            <th>
+                Governorate
+            </th>
+            <th>
+                Nearest LandMark
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -19,10 +43,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
+                    @item.FirstName @item.LastName
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.PhoneNumber)
@@ -47,9 +68,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NearestLandMark)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AppUserId)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

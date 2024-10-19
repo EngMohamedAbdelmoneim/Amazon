@@ -1,198 +1,121 @@
-<div class="Container">
-<div class="SecondContainer">
-    <h3 [ngClass]="{'activeTitle':!isAddressChanged,'inactiveTitle':isAddressChanged}" class="ChooseShippingTitle">1 Choose Shipping Address</h3>
-    <div class="ShippingAddress">
-        <h3 class="ShippingAddressTitle">Shpping address</h3>
-        <div class="AddressInfo">
-            {{order.UserName}} <br>
-            {{currentShippingAddress}}
-        </div>
-        <div>
-            <button class="ChangeAddress" (click)="showAddressOptions =! showAddressOptions ; this.isAddressChanged = !this.isAddressChanged;
-            this.isPaymentChanged = this.isPaymentChanged; this.isAddressChanged = true;this.isPaymentChanged = false;this.updateButton();" >Change</button>
-        </div>
-    </div>
-    <div class="PickAddress" *ngIf="showAddressOptions">
-        <form>
-            <h4 class="AddressTitle">Your Addresses</h4>
-            <div class="TitleLine"></div>
-        <div *ngFor = "let address of order.UserAddress; let i= index" class="AddressOption" [ngClass]="{'first-option': i === 0}">
-            <input type = "radio" id="AddressChosen-{{address}}" name="UserAddress" [value]="address" [(ngModel)]="selectedShippingAddress">
-            <label for="AddressChosen-{{address}}" class="AddressLabel">{{address}}</label>
-            
-        </div>
-            <!-- <button class="UserAddressesRegistered" (click)="SelectAddress(address)">{{address}}</button> -->
-            <!-- <div class="UserAddressesRegistered"> -->
-            </form>
-             <!-- </div> -->
-              <button class="AddNewAddressButton" (click)="openAddressForm()">+ Add Another Address</button>
-              <div class="SelectAddressButtonDiv">
-              <button class="SelectAddressButton" type ="submit"  (click)="SelectAddress()">Use this Address</button>
+<div class="Containers p-4">
+    <main>
+        <h3 [ngClass]="{'activeTitle':!isAddressChanged,'inactiveTitle':isAddressChanged}" class="ChooseShippingTitle">1 Choose Shipping Address</h3>
+        <div class="ShippingAddress">
+            <h3 class="ShippingAddressTitle">Shpping address</h3>
+            <div class="AddressInfo">
+                <!-- {{order.UserName}} <br> -->
+                {{currentShippingAddress.governorate}}, {{currentShippingAddress.city}}, {{currentShippingAddress.district}}
+            </div>
+            <div>
+                <button class="ChangeAddress" (click)="showAddressOptions =! showAddressOptions ; this.isAddressChanged = !this.isAddressChanged;
+                this.isPaymentChanged = this.isPaymentChanged; this.isAddressChanged = true;this.isPaymentChanged = false; this.updateButton();">Change</button>
             </div>
         </div>
-        
-    <!-- </div> -->
-    <div class="popup-background" *ngIf="showAddressForm">
-        <div class="popup-box">
-            <form class="AddressForm" (ngSubmit)="AddNewAddress()">
-                <div class="FormData">
-                    <h2>Add a new address</h2>
-   
-                    <label for="country">Country/Region</label>
-                    
-                    <select id="country"  [(ngModel)]="country" name="country" required>
-                        <option value="disabled selected">Select your Country</option>
-                        
-                        <option *ngFor="let country of countriesList" [value]="country">{{country}}</option>
-                    </select>
-                    <!-- <input type="text" id="country" [(ngModel)]="country" name="country" required> -->
-                    <label for="countryCode">Phone Number</label>
-                    <div class="phone-input">
-                       
-                        <div class="dropdown">
-                            <div class="dropdown-selected" (click)="ToggleDropdown()">
-                                
-                                <img *ngIf="selectedCountry"  [src]="selectedCountry?.flag" alt="{{selectedCountry?.name}}  flag" class="flag-icon">
-                                <span *ngIf="selectedCountry?.callingCode">{{selectedCountry?.callingCode}} {{selectedCountry?.name}}</span>
-                                <span *ngIf="!selectedCountry">Select Country</span>
-                                <span class="arrow">&#9660;</span>
+
+        <div class="PickAddress" *ngIf="showAddressOptions">
+            <form>  
+                <h4 class="AddressTitle">Your Addresses</h4>
+                <div class="TitleLine"></div>
+
+                <div *ngFor = "let address of order.UserAddress; let i= index" class="AddressOption" [ngClass]="{'first-option': i === 0}">
+                    <input type = "radio" id="AddressChosen-{{address}}" name="UserAddress" [value]="address" [(ngModel)]="selectedShippingAddress">
+                    <label for="AddressChosen-{{address}}" class="AddressLabel">{{address.governorate}}, {{address.city}}, {{address.district}}</label>
+                </div>
+                <!-- <button class="UserAddressesRegistered" (click)="SelectAddress(address)">{{address}}</button> -->
+                <!-- <div class="UserAddressesRegistered"> -->
+            </form>
+                <!-- </div> -->
+            <button class="AddNewAddressButton" (click)="openAddressForm()">+ Add Another Address</button>
+
+            <div class="SelectAddressButtonDiv">
+                <button class="SelectAddressButton" type ="submit"  (click)="SelectAddress()">Use this Address</button>
+            </div>
+        </div>
+
+        <h3 [ngClass]="{'activeTitle':isPaymentChanged,'inactiveTitle':!isPaymentChanged}" class="choosetitle">2 Choose Payment Method</h3>
+        <button class="ChangePaymentButton" (click)="this.isPaymentChanged = true;this.isAddressChanged = false;this.updateButton();TogglePaymentChange()">
+            {{ isPaymentBoxOpen ? 'Change' : 'Open Payment Details' }}
+        </button>
+
+                
+
+        <div *ngIf="isPaymentBoxOpen" class="PaymentDetails">
+
+            <div class="CardDetails">
+                <h4 class="CardDetailsTitle">Your credit and debit card</h4>
+                <button class="AddCardButton" (click)="OpenCardInfo()" > 
+                    <img src="https://m.media-amazon.com/images/G/01/payments-portal/r1/PlusIcon._CB485933946_.gif" class="PlusAddCreditSign">
+                    <img alt src="https://m.media-amazon.com/images/G/01/payments-portal/r1/add-payment-method/card-logo-compact._CB478583243_.gif" 
+                    alt="Visa Icon" class="VisaImage" > Add a credit or debit card </button>
+                <div class="CardInfoInsertion" *ngIf="showCardForm">
+                    <div class="CardInfoData">
+                        <header class="CardHeader">
+                            <h4 class="HeadContent">Add credit or debit card</h4>
+                            <span class="close" (click)="OpenCardInfo()">&times;</span>
+                        </header>
+                        <div class="CardFormContainer">
+                            <div class="CardFormFields">
+                                <label for="cardNumber">Card Number</label>
+                                <input type="text" id="cardNumber" [(ngModel)]="cardNumber" name="cardNumber">
+                
+                                <label for="nameOnCard">Name on Card</label>
+                                <input type="text" id="nameOnCard" [(ngModel)]="nameOnCard" name="nameOnCard">
+                
+                                <label for="expirationDate">Expiry Date</label>
+                                <input type="date" id="expirationDate" [(ngModel)]="expirationDate" name="expirationDate">
+                
+                                <label for="securityCode">Security Code (CVC)</label>
+                                <input type="text" id="securityCode" [(ngModel)]="securityCode" name="securityCode">
+                
+                                <div class="CardButtons">
+                                    <button class="CancelCardInfoDetails" type="button" (click)="CancelAddCard()">Cancel</button>
+                                    <button class="SubmitCardInfoDetails" type="button" (click)="SubmitCardInfo()">Add Card</button>
+                                </div>
                             </div>
-                            
-                            <div class="dropdown-options" *ngIf="showDropDown">
-                                <div *ngFor="let country of countiresWithCodes" class="dropdown-option" (click)="SelectCountry(country)">
-                                    <img [src]="country.flag" alt="{{country.name}} flag" class="flag-icon">
-                                    <span>{{country.callingCode}} {{country.name}}</span>
+                            <div class="AcceptedCardIcons">
+                                <div>
+                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:0px;margin-right:6px;"></span>
+                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-45px;margin-right:6px;"></span>
+                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-90px;margin-right:6px;"></span>
+                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-135px;margin-right:6px;"></span>
+                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-180px;margin-right:6px;"></span>
+                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-225px;"></span>
+                                </div>
+                                <div>
+                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-270px;margin-right:6px;"></span>
+                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-585px;margin-right:6px;"></span>
+                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-630px;margin-right:6px;"></span>
+                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-675px;margin-right:6px;"></span>
+                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-720px;margin-right:6px;"></span>
+                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-765px;margin-right:6px;"></span>
                                 </div>
                             </div>
                         </div>
-                    
-                        <!-- Phone Number Input Field -->
-                        <input type="tel" id="phoneNumber" [(ngModel)]="phoneNumber" name="phoneNumber" required placeholder="Enter phone number">
-                    </div>
-                    
-                    <!-- <label for="phoneNumber">Phone Number</label>
-                    <input type="text" id="phoneNumber" [(ngModel)]="phoneNumber" name="phoneNumber" required> -->
-    
-                    <label for="streetNumber">Street Address</label>
-                    <input type="text" id="streetNumber" [(ngModel)]="streetNumber" name="streetNumber" required>
-    
-                    <label for="unit">Apt, Suite, Unit, Building</label>
-                    <input type="text" id="unit" [(ngModel)]="unit" name="unit" required>
-    
-                    <label for="city">City</label>
-                    <input type="text" id="city" [(ngModel)]="city" name="city" required>
-    
-                    <div class="halfWidth">
-                        <label for="state">State</label>
-                        <input type="text" id="state" [(ngModel)]="state" name="state" required>
-                    </div>
-                    <div class="halfWidth">
-                        <label for="zipCode">ZIP Code</label>
-                        <input type="text" id="zipCode" [(ngModel)]="zipCode" name="zipCode" required>
-                    </div>
-    
-                    <div class="AddAddressButtons">
-                        <button type="submit" class="SubmitNewAddress">Submit</button>
-                        <button type="button" (click)="CancelAddress()" class="CancelNewAddress">Cancel</button>
                     </div>
                 </div>
-            </form>
+                <div class="PaymentPlans">
+                <h3>Delivery Methods</h3>
+                <div *ngFor="let item of DeliveryMethods">
+                    <input type="radio" name="DeliveryMethods" id="{{item.id}}" value="{{item.id}}" [(ngModel)]="DeliveryValue">
+                    <label for="{{item.id}}">{{item.name}} <span>{{item.description}}</span></label>
+                </div>
+                <div class="Line"></div> 
+            </div>
+            <div class="GiftCardContainter">
+                <h3>Payment Methods</h3>
+                <div *ngFor="let item of PaymentMethods">
+                    <input type="radio" name="paymentMethod" id="{{item.id}}" value="{{item.id}}" [(ngModel)]="PaymentValue">
+                    <label for="{{item.id}}">{{item.name}}</label>
+                </div>
+            </div>
         </div>
-    </div>
-      
-    <!-- <form> -->
-        <h3 [ngClass]="{'activeTitle':isPaymentChanged,'inactiveTitle':!isPaymentChanged}" class="choosetitle">2 Choose Payment Method</h3>
-        <button class="ChangePaymentButton" (click)="this.isPaymentChanged = true;this.isAddressChanged = false;this.updateButton();TogglePaymentChange()">
-            {{ isPaymentBoxOpen ? 'Change' : 'Open Payment Details' }}</button>
+    
+        </div>
+        <button (click)="onSubmit()" class="btn btn-outline-primary">Proceed</button>
+    </main>
 
-    <div *ngIf="isPaymentBoxOpen" class="PaymentDetails">
-        
-        <div class="CardDetails">
-            <h4 class="CardDetailsTitle">Your credit and debit card</h4>
-            <button class="AddCardButton" (click)="OpenCardInfo()" > 
-                <img src="https://m.media-amazon.com/images/G/01/payments-portal/r1/PlusIcon._CB485933946_.gif" class="PlusAddCreditSign">
-                 <img alt src="https://m.media-amazon.com/images/G/01/payments-portal/r1/add-payment-method/card-logo-compact._CB478583243_.gif" 
-                alt="Visa Icon" class="VisaImage" > Add a credit or debit card </button>
-            <div class="CardInfoInsertion" *ngIf="showCardForm">
-                <div class="CardInfoData">
-                    <header class="CardHeader">
-                        <h4 class="HeadContent">Add credit or debit card</h4>
-                        <span class="close" (click)="OpenCardInfo()">&times;</span>
-                    </header>
-                    <div class="CardFormContainer">
-                        <div class="CardFormFields">
-                            <label for="cardNumber">Card Number</label>
-                            <input type="text" id="cardNumber" [(ngModel)]="cardNumber" name="cardNumber">
-            
-                            <label for="nameOnCard">Name on Card</label>
-                            <input type="text" id="nameOnCard" [(ngModel)]="nameOnCard" name="nameOnCard">
-            
-                            <label for="expirationDate">Expiry Date</label>
-                            <input type="date" id="expirationDate" [(ngModel)]="expirationDate" name="expirationDate">
-            
-                            <label for="securityCode">Security Code (CVC)</label>
-                            <input type="text" id="securityCode" [(ngModel)]="securityCode" name="securityCode">
-            
-                            <div class="CardButtons">
-                                <button class="CancelCardInfoDetails" type="button" (click)="CancelAddCard()">Cancel</button>
-                                <button class="SubmitCardInfoDetails" type="button" (click)="SubmitCardInfo()">Add Card</button>
-                            </div>
-                        </div>
-                        <div class="AcceptedCardIcons">
-                            <div>
-                                <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:0px;margin-right:6px;"></span>
-                                <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-45px;margin-right:6px;"></span>
-                                <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-90px;margin-right:6px;"></span>
-                                <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-135px;margin-right:6px;"></span>
-                                <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-180px;margin-right:6px;"></span>
-                                <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-225px;"></span>
-                            </div>
-                            <div>
-                                <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-270px;margin-right:6px;"></span>
-                                <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-585px;margin-right:6px;"></span>
-                                <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-630px;margin-right:6px;"></span>
-                                <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-675px;margin-right:6px;"></span>
-                                <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-720px;margin-right:6px;"></span>
-                                <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-765px;margin-right:6px;"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="PaymentPlans">
-            <h3>Payment Plans</h3>
-            <div class="Line"></div> 
-        </div>
-        <div class="GiftCardContainter">
-            <h3>Your available balance</h3>
-            <div class="Line"></div> 
-        <div class="GiftCard">
-            <div class="GiftCardData">
-            <label for="GiftCard"  class="GiftCardLabel"> Enter a gift card, promotion or a voucher</label>
-            <div class="GiftCardInputContainer">
-                <img src="https://m.media-amazon.com/images/G/01/payments-portal/r1/PlusIcon._CB485933946_.gif" class="PlusAddCreditSigninGiftCard"> <input type="text" id="GiftCard" name="GiftCard" class="GiftCardInput">
-            <button class="ApplyGiftCardButton" type="submit">Apply</button>
-        </div>
-        </div>
-            <!-- <div class="ApplyGiftCardButtonContainer"> -->
-            
-            <!-- </div> -->
-            </div>
-        </div>
-            <h3>Other Payment Methods</h3>
-            +
-        </div>
-    </div>
-    <!-- </form> -->
-</div>
-     <div class="Summary">
-        <button [ngStyle]="{'background-color': buttonColor}" class="SelectButton">
-            {{ buttonLabel }}
-          </button>
-        <p class="PaymentMethodInfo">
-            Choose a payment method to continue checking out. You'll still have a chance to review and edit your order before it's final.
-        </p>
-        <hr class="PaymentMethodDivider">
+    <aside class="p-4">
         <h3 class="OrderSummary">Order Summary</h3>
         <div class="SummaryDetails">
             <div class="SummaryRow">
@@ -217,10 +140,5 @@
                 <span class="OrderTotalValue">  $135.00</span>
             </div>
         </div>
-        <div class="InfoBox">
-            Products that originate from abroad, will be imported. If applicable, these products could be subject to an import declaration, import duties and or taxes that are already included, at no extra cost to you. Learn more.
-            <br>
-            How are shipping costs calculated?
-        </div>
-     </div>
+    </aside>
 </div>
