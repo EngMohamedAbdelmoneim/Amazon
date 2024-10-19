@@ -23,6 +23,6 @@ namespace Amazon.Services.OrderService.OrderDto
 		public decimal Total { get; set; }
 		public string DeliveredAt { get; set; }
 
-		public string PaymentIntetId { get; set; } = "";
+		public string PaymentIntentId { get; set; }
 	}
 }

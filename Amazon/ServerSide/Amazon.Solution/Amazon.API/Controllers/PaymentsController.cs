@@ -7,18 +7,20 @@ using Stripe;
 
 namespace Amazon.API.Controllers
 {
-    public class PaymentsController : BaseController
-    {
-        private const string WhSecret = "";
-        private readonly IPaymentService _paymentService;
+	[Route("api/[controller]")]
+	[ApiController]
+	public class PaymentsController : ControllerBase
+	{
+		private const string _whSecret = "";
+		private readonly IPaymentService _paymentService;
         public PaymentsController(IPaymentService paymentService)
         {
             _paymentService = paymentService;
         }
 
         [Authorize]
-        [HttpPost("{cartId}")]
-        public async Task<ActionResult<CartDto>> SetPaymentIntent(string cartId)
+		[HttpPost("{cartId}")] //  api/payments/cartId
+		public async Task<ActionResult<CartDto>> SetPaymentIntent(string cartId)
         {
             var cartDto = await _paymentService.SetPaymentIntent(cartId);
             if (cartDto == null)
@@ -32,26 +34,25 @@ namespace Amazon.API.Controllers
         [HttpPost("webhook")]
         public async Task<ActionResult> StripeWebHook()
         {
-            var json = await new StreamReader(Request.Body).ReadToEndAsync();
+			var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+			const string endpointSecret = _whSecret;
 
-            var stripeEvent = EventUtility.ConstructEvent(json, 
-                Request.Headers["Stripe-Signature"], WhSecret);
+			var stripeEvent = EventUtility.ParseEvent(json);
+			var signatureHeader = Request.Headers["Stripe-Signature"];
 
-            PaymentIntent intent;
-            Order order;
-            switch(stripeEvent.Type)
-            {
-                case "payment_intent.succeeded":
-                    intent = (PaymentIntent)stripeEvent.Data.Object;
-                    order = await _paymentService.UpdateOrderPaymentSucceeded(intent.Id);
-                    break;
-                case "payment_intent.failed":
-                    intent = (PaymentIntent)stripeEvent.Data.Object;
-                    order = await _paymentService.UpdateOrderPaymentFailed(intent.Id);
-                    break;
-            }
+			stripeEvent = EventUtility.ConstructEvent(json,
+					signatureHeader, endpointSecret);
 
-            return new EmptyResult();
-        }
+			var paymentIntent = stripeEvent.Data.Object as PaymentIntent;
+
+			Order order;
+            if (stripeEvent.Type == EventTypes.PaymentIntentSucceeded)
+                order = await _paymentService.UpdatePaymentIntentToSucceededOrFailed(paymentIntent.Id, true);
+            else
+                order = await _paymentService.UpdatePaymentIntentToSucceededOrFailed(paymentIntent.Id, false);
+            
+
+			return Ok();
+		}
     }
 }

@@ -2,6 +2,7 @@
 using Amazon.Core.Entities.OrderAggregate;
 using Amazon.Services.CartService.Dto;
 using Amazone.Infrastructure.Interfaces;
+using Amazone.Infrastructure.Repos;
 using Amazone.Infrastructure.Specification.OrderSpecefifcations;
 using AutoMapper;
 using Microsoft.Extensions.Configuration;
@@ -45,10 +46,11 @@ namespace Amazon.Services.PaymentService
             var shippingCost = 0m;
             if (cart.DeliveryMethodId.HasValue)
             {
-                var deliveryMethod = await _deliveryMethodRepo.GetByIdAsync(cart.DeliveryMethodId);
+                var deliveryMethod = await _deliveryMethodRepo.GetByIdAsync(cart.DeliveryMethodId.Value);
                 if (deliveryMethod != null)
                 {
                     shippingCost = deliveryMethod.Cost;
+                    cart.ShippingPrice = deliveryMethod.Cost;
                 }
             }
 
@@ -107,30 +109,22 @@ namespace Amazon.Services.PaymentService
             return _mapper.Map<CartDto>(cart);
         }
 
-        public async Task<Order> UpdateOrderPaymentSucceeded(string paymentIntentId)
-        {
-            var spec = new OrderByPaymentIntentIdSpecification(paymentIntentId);
-            var order = await _orderRepo.GetWithSpecAsync(spec);
 
-            if (order == null) return null;
+		public async Task<Order> UpdatePaymentIntentToSucceededOrFailed(string paymentIntentId, bool isSusseeded)
+		{
+			var spec = new OrderWithPaymentIntentSpecification(paymentIntentId);
 
-            order.PaymentStatus = PaymentStatus.PaymentRecieved;
-            await _orderRepo.Update(order);
+			var order = await _orderRepo.GetWithSpecAsync(spec);
 
-            return order;
-        }
+			if (isSusseeded)
+				order.PaymentStatus = PaymentStatus.PaymentRecieved;
+			else
+				order.PaymentStatus = PaymentStatus.PaymentFailed;
 
-        public async Task<Order> UpdateOrderPaymentFailed(string paymentIntentId)
-        {
-            var spec = new OrderByPaymentIntentIdSpecification(paymentIntentId);
-            var order = await _orderRepo.GetWithSpecAsync(spec);
+			await _orderRepo.Update(order);
 
-            if (order == null) return null;
+			return order;
 
-            order.PaymentStatus = PaymentStatus.PaymentFailed;
-            await _orderRepo.Update(order);
-
-            return order;
-        }
-    }
+		}
+	}
 }

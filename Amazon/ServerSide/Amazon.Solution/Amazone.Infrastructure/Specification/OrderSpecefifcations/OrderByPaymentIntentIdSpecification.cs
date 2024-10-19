@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Amazone.Infrastructure.Specification.OrderSpecefifcations
 {
-    public class OrderByPaymentIntentIdSpecification : BaseSpecification<Order>
+    public class OrderWithPaymentIntentSpecification : BaseSpecification<Order>
     {
-        public OrderByPaymentIntentIdSpecification(string paymentIntentId)
-            : base(o => o.PaymentIntetId == paymentIntentId)
+        public OrderWithPaymentIntentSpecification(string paymentIntentId)
+            : base(o => o.PaymentIntentId == paymentIntentId)
         {
         }
     }

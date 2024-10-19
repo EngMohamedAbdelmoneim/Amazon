@@ -20,6 +20,18 @@ namespace Amazon.Core.Entities.OrderAggregate
 			SubTotal = subTotal;
 			ShippingAddress = shippingAddress;
 		}
+		public Order(string buyerEmail, string shippingAddressId,ShippingAddress shippingAddress, PaymentMethod paymentMethod, DeliveryMethod deliveryMethod, ICollection<OrderItem> items, decimal subTotal,string paymentIntentId)
+		{
+			BuyerEmail = buyerEmail;
+			ShippingAddressId = shippingAddressId;
+			PaymentMethod = paymentMethod;
+			DeliveryMethod = deliveryMethod;
+			Items = items;
+			SubTotal = subTotal;
+			ShippingAddress = shippingAddress;
+			PaymentIntentId = paymentIntentId;
+		}
+
 
 		public string BuyerEmail { get; set; }
         public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.UtcNow;
@@ -41,6 +53,6 @@ namespace Amazon.Core.Entities.OrderAggregate
 
 		public decimal GetTotal() => SubTotal + DeliveryMethod.Cost;
 
-		public string PaymentIntetId { get; set; } = "";
+		public string PaymentIntentId { get; set; }
     }
 }

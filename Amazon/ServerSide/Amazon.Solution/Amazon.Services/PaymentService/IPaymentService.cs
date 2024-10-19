@@ -12,7 +12,10 @@ namespace Amazon.Services.PaymentService
     public interface IPaymentService
     {
         Task<CartDto> SetPaymentIntent(string cartId);
-        Task<Order> UpdateOrderPaymentSucceeded(string paymentIntentId);
-        Task<Order> UpdateOrderPaymentFailed(string paymentIntentId);
-    }
+		//Task<Order> UpdateOrderPaymentSucceeded(string paymentIntentId);
+		//Task<Order> UpdateOrderPaymentFailed(string paymentIntentId);
+
+		Task<Order> UpdatePaymentIntentToSucceededOrFailed(string paymentIntentId, bool isSusseeded);
+
+	}
 }

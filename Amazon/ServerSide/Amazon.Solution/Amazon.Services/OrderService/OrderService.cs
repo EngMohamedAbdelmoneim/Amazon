@@ -2,6 +2,7 @@
 using Amazon.Core.Entities.Identity;
 using Amazon.Core.Entities.OrderAggregate;
 using Amazon.Services.OrderService.OrderDto;
+using Amazon.Services.PaymentService;
 using Amazone.Infrastructure.Interfaces;
 using Amazone.Infrastructure.Specification.OrderSpecefifcations;
 using AutoMapper;
@@ -19,6 +20,7 @@ namespace Amazon.Services.OrderService
 		private readonly IGenericRepository<Order> _orderRepo;
 		private readonly UserManager<AppUser> _userManager;
 		private readonly IMapper _mapper;
+		private readonly IPaymentService _paymentService;
 
 		public OrderService(IGenericCacheRepository<Cart> cartRepo,
 			IGenericRepository<Product> productRepo,
@@ -26,7 +28,8 @@ namespace Amazon.Services.OrderService
 			IGenericRepository<PaymentMethod> paymentMethodRepo,
 			IGenericRepository<Order> orderRepo,
 			UserManager<AppUser> userManager,
-			IMapper mapper)
+			IMapper mapper,
+			IPaymentService paymentService)
         {
 			_cartRepo = cartRepo;
 			_productRepo = productRepo;
@@ -35,6 +38,7 @@ namespace Amazon.Services.OrderService
 			_orderRepo = orderRepo;
 			_userManager = userManager;
 			_mapper = mapper;
+			_paymentService = paymentService;
 		}
         public async Task<OrderToReturnDto> CreateOrderAsync(string buyerEmail, string cartId,int paymentMethodId ,int deliveryMethodId, string shippingAddressId)
 		{
@@ -64,9 +68,16 @@ namespace Amazon.Services.OrderService
 
 					product.QuantityInStock -= item.Quantity;
 					await _productRepo.Update(product);
-					
+
+					if (product.Discount != null && product.Discount.DiscountStarted &&
+					product.Discount.StartDate <= DateTime.UtcNow &&
+					product.Discount.EndDate >= DateTime.UtcNow)
+						item.Price = product.Discount.PriceAfterDiscount.Value;
+					else
+						item.Price = product.Price;
+
 					var productItemOrder = new ProductItemOrdered(item.Id, product.Name,product.PictureUrl,product.Category.Name,product.Brand.Name);
-					var orderItem = new OrderItem(productItemOrder, product.Price, item.Quantity);
+					var orderItem = new OrderItem(productItemOrder, item.Price, item.Quantity);
 
 					orderItems.Add(orderItem);
 				}
@@ -79,6 +90,26 @@ namespace Amazon.Services.OrderService
 			if (paymentMethod.Id == 1)
 			{
 				var order = new Order(buyerEmail,shippingAddressId,shippingAddress ,paymentMethod,deliveryMethod,orderItems,subtotal);
+				var result = await _orderRepo.Add(order);
+
+				if (result <= 0)
+					return null;
+				return _mapper.Map<OrderToReturnDto>(order);
+			}
+			else if (paymentMethod.Id == 2)
+			{
+				var orderSpec = new OrderWithPaymentIntentSpecification(cart.PaymentIntentId);
+
+				var existingOrder = await _orderRepo.GetWithSpecAsync(orderSpec);
+
+				if (existingOrder != null)
+				{
+					await _orderRepo.Delete(existingOrder);
+
+					await _paymentService.SetPaymentIntent(cartId);
+
+				}
+				var order = new Order(buyerEmail,shippingAddressId,shippingAddress ,paymentMethod,deliveryMethod,orderItems,subtotal,cart.PaymentIntentId);
 				var result = await _orderRepo.Add(order);
 
 				if (result <= 0)
