@@ -1,0 +1,103 @@
+.reviews-list-conteiner{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+
+    h3{
+        margin: 8px;
+        font-size: 25px;   
+     }
+}
+.split-line {
+    border-top: solid 0.1px rgba(167, 167, 167, 0.616);
+    width: 100%;
+    margin: 15px 0px;
+}
+.reviewer{
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.reviewer img{
+    width: 34px;
+    height: 34px;
+}
+
+.reviewer p {
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+
+.product-rating{
+    align-self: start;
+}
+
+.review-headline{
+    margin: 0 10px;
+}
+
+.review-text p{
+    margin: 0;
+}
+
+
+.review-date{
+    color:gray;
+}
+
+/* /////////////////////// drop menu ////////////////////////////// */
+
+.three-dots {
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 1;
+    user-select: none;
+  }
+  
+  .dropdown-container {
+    position: relative;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 30px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+  }
+  
+  .dropdown-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .dropdown-menu li {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .dropdown-menu li:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .dropdown-menu li:last-child {
+    border-bottom: none;
+  }
+
+
+
+
+
+
+

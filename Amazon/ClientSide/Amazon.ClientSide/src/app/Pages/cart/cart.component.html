@@ -1,12 +1,17 @@
-<div *ngIf="loading" class="loading-screen">
-    <div class="d-flex justify-content-center">
-        <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
+<div *ngIf="isLoading$ | async" class="loading-screen">
+    <img src="Amazon_logo.svg" alt="Amazon logo" class="amazon-logo" />
+    <div class="loading-text">
+      <span>L</span>
+      <span>O</span>
+      <span>A</span>
+      <span>D</span>
+      <span>I</span>
+      <span>N</span>
+      <span>G</span>
     </div>
 </div>
-
-<div *ngIf="!loading" class="cart-container">
+@if(isAuthenticated){
+<div *ngIf="!(isLoading$ | async)" class="cart-container">
     @if(cartItems == null || cartItems.length == 0){
     <main>
         <div class="cart-section">
@@ -16,10 +21,6 @@
                 <div class="cart-details">
                     <h1>Your Amazon cart is empty</h1>
                     <a href="#" class="btn btn-light rounded-pill">Shop today's deals</a>
-                    <div class="buttons">
-                        <a routerLink="/login" class="sign-in-btn rounded-pill">Sign in to your account</a>
-                        <a routerLink="/register" class="sign-up-btn rounded-pill">Sign up now</a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -41,14 +42,13 @@
             <div class="split-line">
             </div>
             @for (cartItem of cartItems; track $index) {
-            <app-cart-card [prop]=cartItem
-                (itemDeleted)="RemoveFromCart(('cart-'+getGuid()),cartItem.id)"
+            <app-cart-card [prop]=cartItem (itemDeleted)="RemoveFromCart(('cart-'+getGuid()),cartItem.id)"
                 (qntChanged)="UpdateQnt(('cart-'+getGuid()),cartItem)"></app-cart-card>
             <div class="split-line">
             </div>
             }
             <div class="main-subtotal" style="text-align: right;">
-                <p>Subtotal ({{Qnt}} items): <span>{{ TotalPrice()  | currency:'EGP' }}</span></p>
+                <p>Subtotal ({{Qnt}} items): <span>{{ TotalPrice() | currency:'EGP' }}</span></p>
             </div>
         </div>
     </main>
@@ -57,10 +57,11 @@
         <div class="subtotal-card">
             <p><span class="green-text">&#10004;</span> Part of your order qualifies for FREE Shipping. Choose the FREE
                 Shipping option at checkout.</p>
-            <p class="aside-subtotal" style="text-align: left ;">Subtotal ({{Qnt}} items): <span class="price">{{ TotalPrice()  | currency:'EGP' }}</span></p>
+            <p class="aside-subtotal" style="text-align: left ;">Subtotal ({{Qnt}} items): <span class="price">{{
+                    TotalPrice() | currency:'EGP' }}</span></p>
             <button class="proceed-btn">Proceed to Buy</button>
         </div>
-        <div class="recently-viewed-section">
+        <!-- <div class="recently-viewed-section">
             <h2>Your recently viewed items</h2>
             <div class="item">
                 <img src="https://m.media-amazon.com/images/I/61Cqs9zzwGL._AC_SL1500_.jpg" alt="Samsung Refrigerator">
@@ -88,6 +89,34 @@
                     <a href="#" class="add-to-cart-btn rounded-pill">Add to cart</a>
                 </div>
             </div>
-        </div>
+        </div> -->
     </aside>
 </div>
+}
+@else {
+    <main>
+        <div class="cart-section">
+            <div class="cart-info">
+                <img src="https://m.media-amazon.com/images/G/42/cart/empty/kettle-desaturated._CB659190457_.svg"
+                    alt="Coffee Image">
+                <div class="cart-details">
+                    <h1>Your Amazon cart is empty</h1>
+                    <a href="#" class="btn btn-light rounded-pill">Shop today's deals</a>
+                    <div class="buttons">
+                        <a routerLink="/login" class="sign-in-btn rounded-pill">Sign in to your account</a>
+                        <a routerLink="/register" class="sign-up-btn rounded-pill">Sign up now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-2">
+            <p>
+                The price and availability of items at amazon.eg are subject to change. The Cart is a temporary place to
+                store a list of your items and reflects each item's most recent price.
+                Do you have a gift card or promotional code? We'll ask you to enter your claim code when it's time to
+                pay.
+            </p>
+        </div>
+
+    </main>
+}

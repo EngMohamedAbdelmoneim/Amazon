@@ -41,11 +41,14 @@ namespace AdminWebApplication
             //builder.Services.AddScoped<IOrderService, OrderService>();
 
             builder.Services.AddAutoMapper(typeof(ProductProfile));
+
+			builder.Services.AddAutoMapper(typeof(ProductProfile));
             builder.Services.AddAutoMapper(typeof(BrandProfile));
             builder.Services.AddAutoMapper(typeof(CategoryProfile));
             builder.Services.AddAutoMapper(typeof(OrderProfile));
 
-            builder.Services.AddDbContext<AmazonDbContext>(options =>
+
+			builder.Services.AddDbContext<AmazonDbContext>(options =>
             {
                 options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });

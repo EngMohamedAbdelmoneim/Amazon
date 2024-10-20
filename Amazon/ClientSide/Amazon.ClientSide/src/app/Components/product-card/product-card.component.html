@@ -1,18 +1,18 @@
 
-<div routerLink="/product/{{product.id}}"   class="product-card"  [ngClass]="{'show': cardVisible}">
+<div class="product-card"  [ngClass]="{'show': cardVisible}">
       <!-- Product Image -->
-    <div class="product-image">
+    <div routerLink="/product/{{product.id}}" class="product-image">
       <img src={{product.pictureUrl}} alt="Apple iPhone 13 - Pink" />
     </div>
   
     <!-- Product Information -->
     <div class="product-info">
-      <h3>{{product.name}}</h3>
-      <h3>{{product.description}}</h3>
+      <h3 routerLink="/product/{{product.id}}" >{{product.name}}</h3>
+      <h3 routerLink="/product/{{product.id}}" >{{product.description}}</h3>
       <!-- Ratings -->
       <div class="product-rating">
         <span class="stars">
-          @for(star of GetRatingArray(1);track $index){
+          @for(star of GetRatingArray(avgRatiing);track $index){
             @if(star){
               <i class="fa-solid fa-star" style="color: orange;"></i>
             }
@@ -21,13 +21,13 @@
             }
           }
         </span>
-        <span class="reviews">({{ 11 }})</span>
+        <span class="reviews">({{ numberOfReviews }})</span>
       </div>
       
   
       <!-- Pricing Section -->
       <div class="pricing">
-        @if(product.discount !=null){
+        @if(product.discount !=null && product.discount.discountStarted != false){
           <div class="discount-info">
             <span class="discount">
             <span class="discount-percentage">-{{Discount()}}% off</span>
@@ -40,7 +40,7 @@
           <br/>
           <span class="old-price">List:{{ product.price.toFixed(2) | currency:'EGP' }}</span>
           <br/>
-          <div class="price-note text-danger">Lowest Price in {{DiscountTimeOut().toString()}} days</div>
+          <div class="price-note text-danger">Lowest Price in <strong>{{DiscountTimeOut().toString()}}</strong></div>
         }
         @else{
           <span class="current-price">{{ product.price.toFixed(2) | currency:'EGP' }}</span>
@@ -52,7 +52,7 @@
         @if(product.discount !=null){
         <p>Get it as soon as <strong>{{ DiscountEndDate() | date: 'EEEE, d MMMM' }}</strong></p>
       }
-        <p>Fulfilled by Amazon - FREE Shipping</p>
+        <p>Fulfilled by Amazon</p>
         @if (product.quantityInStock < 10)
         {
           <p class="text-danger">Only {{product.quantityInStock}} left in stock - order soon.</p>

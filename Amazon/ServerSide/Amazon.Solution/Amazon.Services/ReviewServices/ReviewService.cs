@@ -23,12 +23,20 @@ public class ReviewService : IReviewService
 		return mappedReviews;
 	}
 
+	public async Task<IReadOnlyList<ReviewToReturnDto>> GetAllReviewsByProductIdAsync(int productId)
+	{
+		var reviews = await _reviewRepo.GetAllAsync();
+		var productReviews = reviews.Where(r => r.ProductId == productId);
+		
+		var mappedReviews = _mapper.Map<IReadOnlyList<ReviewToReturnDto>>(productReviews);
+		return mappedReviews;
+	}
 	public async Task<ReviewToReturnDto> GetReviewByIdAsync(int id)
 	{
 		var review = await _reviewRepo.GetByIdAsync(id);
 		if (review is null)
 		{
-			return null;
+			throw new Exception("Review not found");
 		}
 		var mappedReview = _mapper.Map<ReviewToReturnDto>(review);
 		return mappedReview;
@@ -72,4 +80,5 @@ public class ReviewService : IReviewService
 		var reviews = await GetAllReviewsAsync();
 		return reviews;
 	}
+
 }

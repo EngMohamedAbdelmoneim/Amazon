@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { WishListService } from '../../Services/wish-list.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ReviewService } from '../../Services/review.service';
 
 @Component({
   selector: 'app-wishlist-card',
@@ -11,11 +12,15 @@ import { RouterModule } from '@angular/router';
   templateUrl: './wish-list-card.component.html',
   styleUrl: './wish-list-card.component.css'
 })
-export class WishlistCardComponent {
-  constructor(private wishListService: WishListService) { }
+export class WishlistCardComponent implements OnInit {
+  constructor(private reviewService: ReviewService) { }
+  ngOnInit(){
+    this.AverageRating();
+    this.NumberOfReviews();
+  }
   @Input({ required: true })
   prop: {
-    id: Number;
+    id: number;
     productName: string;
     category: string;
     brand: string;
@@ -25,6 +30,8 @@ export class WishlistCardComponent {
   }
   @Output() itemListDeleted = new EventEmitter<void>();
   @Output() addToCart = new EventEmitter<void>();
+  avgRatiing: number;
+  numberOfReviews: number;
 
   Delete() {
     this.itemListDeleted.emit();
@@ -36,9 +43,33 @@ export class WishlistCardComponent {
   }
 
   FormatDate(): string {
-    const addedTime:Date = new Date();
+    const addedTime: Date = new Date();
     const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' };
     return new Intl.DateTimeFormat('en-GB', options).format(addedTime);
   }
 
+  GetRatingArray(rating: number): boolean[] {
+    console.log('kkkkkkkkkkkkkkkkkkkkkkkkkk',rating);
+    const maxStars = 5; // Total number of stars
+    return Array.from({ length: maxStars }, (_, index) => index < rating);
+  }
+
+  AverageRating() {
+    let fullRate = 0;
+    this.reviewService.getAllProductReviewsById(this.prop.id).subscribe({
+      next: async data => {
+        data.forEach(rev => {
+          fullRate += rev.rating;
+        });
+        this.avgRatiing = fullRate / 5;
+      }
+    })
+  }
+  NumberOfReviews() {
+    this.reviewService.getAllProductReviewsById(this.prop.id).subscribe({
+      next: data =>{
+       this.numberOfReviews = data.length;
+      }
+    })
+  }
 }

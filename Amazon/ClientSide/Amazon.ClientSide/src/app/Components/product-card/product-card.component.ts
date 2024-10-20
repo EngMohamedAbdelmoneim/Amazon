@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product } from '../../Models/product';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ReviewService } from '../../Services/review.service';
 
 @Component({
   selector: 'app-product-card',
@@ -11,11 +12,19 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.css'
 })
-export class ProductCardComponent {
-   @Input({required:true}) product: Product;
+export class ProductCardComponent implements OnInit{
+   @Input() product: Product;
    @Output() addToCart = new EventEmitter<void>();
+   avgRatiing: number;
+   numberOfReviews: number;
    cardVisible = false;
-   ngAfterViewInit() {
+   constructor(public reviewService:ReviewService){}
+   ngOnInit() {
+    this.NumberOfReviews() ;
+    this.AverageRating() ;
+    if(this.product.discount != null  && this.IsDiscountEnded()){
+      this.product.discount.discountStarted = false;
+    }
     setTimeout(() => {
       this.cardVisible = true;
     }, 200); 
@@ -32,16 +41,47 @@ export class ProductCardComponent {
     console.log(this.product.discount.discountPercentage);
     return Number(this.product.discount.discountPercentage *100);
   }
+  CurrentDate(){
+    let EndDate:any =new Date().getTime();
+    return EndDate;
+  }
   DiscountEndDate(){
     let EndDate:any =new Date(this.product.discount.endDate).getTime();
     return EndDate;
   }
   DiscountTimeOut(){
-    let StartDate:any =new Date(this.product.discount.startDate).getTime();
+    let TodeyDate:any =new Date().getTime();
     let EndDate:any =new Date(this.product.discount.endDate).getTime();
-    let Days = EndDate - StartDate;
+    let Days = EndDate - TodeyDate;
     const DaysOut = Math.floor(Days / (1000 * 60 * 60 * 24));
-    console.log(DaysOut);
-    return DaysOut;
+    const HoursOut = Math.floor((Days % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    return DaysOut + " Days - " + HoursOut + " Hours";
   }
+
+  IsDiscountEnded(){
+    let TodeyDate:any =new Date().getTime();
+    let EndDate:any =new Date(this.product.discount.endDate).getTime();
+    let Days = EndDate - TodeyDate;
+    const HoursOut = Math.floor((Days % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    return HoursOut<0;
+  }
+  AverageRating() {
+    let fullRate = 0;
+    this.reviewService.getAllProductReviewsById(this.product.id).subscribe({
+      next: async data => {
+        data.forEach(rev => {
+          fullRate += rev.rating;
+        });
+        this.avgRatiing = fullRate / 5;
+      }
+    })
+  }
+  NumberOfReviews() {
+    this.reviewService.getAllProductReviewsById(this.product.id).subscribe({
+      next: data =>{
+       this.numberOfReviews = data.length;
+      }
+    })
+  }
+
 }

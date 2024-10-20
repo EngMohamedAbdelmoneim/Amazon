@@ -21,15 +21,14 @@ h1 {
     border-bottom: none;
 }
 
-.card-image {
-    min-width: 180px;
-    min-height: 180px;
-    max-width: 180px;
-    max-height: 180px;
-    margin-right: 10px;
+.product-image{
+    height: 180px;
+ }
+.product-image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
     object-fit: contain;
-    grid-row-start: 1 2;
-    align-self:center ;
 }
 
 .card-info {
@@ -63,11 +62,9 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: start;
+    align-items: end ;
 }
 
-.discount-price {
-    color: #CC0C39;
-}
 
 .list-price {
     color: #565959;
@@ -116,7 +113,64 @@ h1 {
 
 
 
+  .discount-info h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
 
+.current-price {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #000000;
+}
+
+.old-price {
+    text-decoration: line-through;
+    font-size: 0.9rem;
+}
+
+.discount-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.discount {
+    background-color: #CC0C39;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    width: fit-content;
+    align-self: end;
+    padding: 6px;
+}
+
+.discount-percentage {
+    color: #FFFFFF;
+    font-size: 12px !important;
+    font-weight: bold;
+    line-height: 16px !important;
+}
+
+.discount-text {
+    background-color: #FFFFFF;
+    border-radius: 2px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.discount-text span {
+    color: #CC0C39;
+    font-size: 12px !important;
+    font-weight: bold;
+    line-height: 16px !important;
+}
+
+.price-note {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 4px;
+}
 
 
 

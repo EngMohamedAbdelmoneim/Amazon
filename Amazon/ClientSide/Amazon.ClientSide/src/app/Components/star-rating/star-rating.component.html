@@ -1,0 +1,15 @@
+<div class="star-rating">
+    <ng-container *ngFor="let star of [].constructor(maxRating); let i = index">
+      <svg 
+        (click)="rate(i + 1)" 
+        (mouseover)="rating = i + 1" 
+        (mouseleave)="rating = rating" 
+        [ngClass]="{'filled': isFilled(i + 1)}" 
+        class="star" 
+        viewBox="0 0 24 24" 
+        xmlns="http://www.w3.org/2000/svg">
+        <polygon points="12,2 15,9 23,9 17,14 19,22 12,17 5,22 7,14 1,9 9,9" />
+      </svg>
+    </ng-container>
+  </div>
+  

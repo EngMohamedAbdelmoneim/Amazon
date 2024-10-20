@@ -1,5 +1,5 @@
 export class CartItem {
-    id:Number
+    id:number
     productName:string
     category:string
     price:Number
@@ -7,7 +7,7 @@ export class CartItem {
     quantity:Number
 
 
-    constructor(id: Number, ProductName: string, Category: string,Price:Number,PictureUrl:string,Quantity:Number
+    constructor(id: number, ProductName: string, Category: string,Price:Number,PictureUrl:string,Quantity:Number
     ){
         this.id = id;
         this.productName = ProductName;

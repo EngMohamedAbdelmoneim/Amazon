@@ -1,0 +1,37 @@
+<form (ngSubmit)="submitReview()" #reviewForm="ngForm">
+    <!-- Product Information -->
+    <h2>Your Review for Product</h2>
+    <div>
+      <p><strong>Product Name:</strong> {{productName}}</p>
+    </div>
+    <app-star-rating [(rating)]="productRating" (ratingChange)="onRatingChange($event)"></app-star-rating>
+    <p>Your rating: {{ productRating }}</p>      
+      
+    <div>
+      <label for="headline">Add a headline:</label>
+      <input
+        type="text"
+        id="headline"
+        name="reviewHeadLine"
+        [(ngModel)]="review.reviewHeadLine"
+        required
+      />
+    </div>
+    
+    <!-- Add Review Text -->
+    <div>
+      <label for="reviewText">Add a written review:</label>
+      <textarea
+        id="reviewText"
+        name="reviewText"
+        [(ngModel)]="review.reviewText"
+        required
+      ></textarea>
+    </div>
+  
+    <!-- Submit Button -->
+    <div>
+      <button type="submit" [disabled]="!reviewForm.valid">Submit</button>
+    </div>
+  </form>
+  

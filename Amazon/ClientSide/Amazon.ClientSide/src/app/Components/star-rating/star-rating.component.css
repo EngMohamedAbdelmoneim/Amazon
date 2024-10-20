@@ -1,0 +1,29 @@
+.star {
+    width: 40px; 
+    height: 40px;
+    cursor: pointer;
+    fill: lightgray;
+    transition: transform 0.2s, fill 0.2s;
+  }
+  
+  .star:hover {
+    transform: scale(1.2);
+  }
+  
+  .star.filled {
+    fill: gold; 
+    animation: pulse 0.3s ease-in-out;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  

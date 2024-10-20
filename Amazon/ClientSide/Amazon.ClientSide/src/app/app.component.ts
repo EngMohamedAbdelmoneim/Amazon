@@ -26,7 +26,6 @@ export class AppComponent implements OnInit{
  ngOnInit(): void {
     // this.pageLayoutService.setLayout(PageLayout.Authorized)
     this.currentGuid = this.guidService.initializeGUID();
-  
  }
   
 }

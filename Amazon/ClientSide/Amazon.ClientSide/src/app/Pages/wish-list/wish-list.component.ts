@@ -25,10 +25,17 @@ export class WishListComponent {
   Qnt: number = 0;
   sub: Subscription | null = null;
   loading: boolean = true;
+  isAuthenticated:boolean;
   constructor(public http: HttpClient, public activatedRoute: ActivatedRoute, private wishListService: WishListService, private cartService: CartService, public guidServices: GuidService, public cookieService: CookieService) { }
 
 
   ngOnInit(): void {
+    if(localStorage.getItem('isAuthenticated')){
+      this.isAuthenticated = true;
+    }
+    else{
+      this.isAuthenticated = false;
+    }
     if (this.cookieService.get('Qnt') != null) {
       this.Qnt = Number(this.cookieService.get('Qnt'));
     }

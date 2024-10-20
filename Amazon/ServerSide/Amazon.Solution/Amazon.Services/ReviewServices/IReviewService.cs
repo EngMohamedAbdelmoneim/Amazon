@@ -11,6 +11,7 @@ namespace Amazon.Services.ReviewServices
 	public interface IReviewService
 	{
 		Task<IReadOnlyList<ReviewToReturnDto>> GetAllReviewsAsync();
+		Task<IReadOnlyList<ReviewToReturnDto>> GetAllReviewsByProductIdAsync(int productId);
 		Task<ReviewToReturnDto> GetReviewByIdAsync(int id);
 		Task<ReviewToReturnDto> AddReviewAsync(ReviewDto reviewDto,AppUser user);
 		Task<ReviewToReturnDto> UpdateReviewAsync(ReviewDto reviewDto, AppUser user);

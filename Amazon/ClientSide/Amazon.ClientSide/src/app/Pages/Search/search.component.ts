@@ -11,6 +11,7 @@ import { CartService } from '../../Services/cart.service';
 import { ProductCardComponent } from "../../Components/product-card/product-card.component";
 import { CartItem } from '../../Models/cart-item';
 import { FormsModule } from '@angular/forms';
+import { GuidService } from '../../Services/guid.service';
 
 @Component({
   selector: 'app-search',
@@ -21,7 +22,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class SearchComponent implements OnInit{
 
-  constructor(public http: HttpClient, public activatedRoute: ActivatedRoute, public SearchService: SearchService,public cartService:CartService, public router: RouterModule) { }
+  constructor(public http: HttpClient, public activatedRoute: ActivatedRoute,public guidServices:GuidService,public SearchService: SearchService,public cartService:CartService, public router: RouterModule) { }
 
   @ViewChild('Category') Category:ElementRef;
   @ViewChild('minValue') minValue:ElementRef;
@@ -90,6 +91,9 @@ export class SearchComponent implements OnInit{
       quantity: 1,
     };
     this.cartService.updateCartWithItem(("cart-"+_id),cartitem);
+  }
+  getGuid(): string {
+    return this.guidServices.getGUID();
   }
 
   LowtoHighSort()

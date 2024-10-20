@@ -250,9 +250,8 @@ namespace Amazon.Services.ProductService
 			if (products.Count <= 0)
 				return null;
 
-
 			var count = await GetCountAsync(specParams);
-			var data = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products);
+			var data = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products);	
 
 			return new Pagination<ProductToReturnDto>(specParams.PageIndex,specParams.PageSize,count,data);
 		}
@@ -267,6 +266,7 @@ namespace Amazon.Services.ProductService
 				return null;
 
 			var mappedProduct = _mapper.Map<ProductToReturnDto>(product);
+			
 
 			return mappedProduct;
 		}

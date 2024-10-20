@@ -6,10 +6,19 @@
         <h2 routerLink="/product/{{prop.id}}">{{prop.productName}}</h2>
         <p routerLink="/product/{{prop.id}}" class="description">Fast Charging 12 W for iPhone 15 14 13 Pro, Huawei, iPad Pro/Air, Samsung Galaxy and Plus Encore (Black)</p>
         <p class="brand">by {{prop.brand}} ({{prop.category}})</p>
-        <div class="ratings">
-            <span>★★★★☆</span>
-            <span>(15)</span>
-        </div>
+        <div class="product-rating">
+            <span class="stars">
+              @for(star of GetRatingArray(avgRatiing);track $index){
+                @if(star){
+                  <i class="fa-solid fa-star" style="color: orange;"></i>
+                }
+                @else{
+                  <i class="fa-regular fa-star" style="color: orange;"></i>
+                }
+              }
+            </span>
+            <span class="reviews">({{ numberOfReviews }})</span>
+          </div>
         <p class="price">{{ prop.price.toFixed(2)| currency:'EGP' }} & <span class="free-shipping">FREE Shipping</span></p>
     </div>
     <div class="product-actions">
@@ -24,6 +33,5 @@
             <button class="comment rounded-pill"><img src="https://m.media-amazon.com/images/S/sash//cxfxW9mXeoKT4Ys.svg" alt=""></button>
             <button (click)="Delete()" class="delete rounded-pill"><img src="https://m.media-amazon.com/images/S/sash//bFO97FYm-PE-9j6.svg" alt=""></button>
         </div>
-        <a href="#" class="comment-link">Add comment, quantity & priority</a>
     </div>
 </div>

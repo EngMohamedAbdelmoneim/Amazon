@@ -3,11 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CartCardComponent } from "../../Components/cart-card/cart-card.component";
-import { delay, Subscription } from 'rxjs';
+import { delay, Observable, Subscription } from 'rxjs';
 import { CartService } from '../../Services/cart.service';
 import { CartItem } from '../../Models/cart-item';
 import { GuidService } from '../../Services/guid.service';
 import { CookieService } from 'ngx-cookie-service';
+import { LoadingService } from '../../Services/loading-service.service';
 
 @Component({
   selector: 'app-cart',
@@ -21,13 +22,24 @@ export class CartComponent implements OnInit {
 
   cartItems: any | null;
   Qnt:number=0;
-  sub: Subscription | null = null;
+  subCart: Subscription | null = null;
   loading: boolean = true;
-  constructor(public http: HttpClient, public activatedRoute: ActivatedRoute, private cartService: CartService , public guidServices: GuidService ,public cookieService:CookieService) { }
+  isLoading$ : Observable<boolean> | undefined;
+  isAuthenticated:boolean;
+
+  constructor(public http: HttpClient, public activatedRoute: ActivatedRoute, private cartService: CartService , public guidServices: GuidService ,public cookieService:CookieService, private loadingService: LoadingService) { }
 
 
   ngOnInit(): void {
-    this.cartService.cartQnt.subscribe({
+    if(localStorage.getItem('isAuthenticated')){
+      this.isAuthenticated = true;
+    }
+    else{
+      this.isAuthenticated = false;
+    }
+    this.isLoading$= this.loadingService.loading$
+    this.loadingService.show();
+    this.subCart  = this.cartService.cartQnt.subscribe({
       next: p => { this.Qnt = p; }
     });
     if (this.cookieService.get('Qnt') != null) {
@@ -37,22 +49,22 @@ export class CartComponent implements OnInit {
       this.Qnt = 0;
     }
 
-    this.cartService.cartProduct$
-      .pipe(delay(100))
+    this.subCart =this.cartService.cartProduct$
+      .pipe(delay(3000))
       .subscribe({
         next: products => {
           if (products.length !== 0) {
             console.log('from list');
             this.cartItems = products; 
             console.log('Updated cartProducts:', this.cartItems);
-            this.loading = false;
+            this.loadingService.hide();
             console.log('Cart data loaded:', products);
           }
           else {
             console.log('from database');
-            this.sub = this.activatedRoute.
+            this.subCart = this.activatedRoute.
               params.subscribe(params => {
-                this.loading = true;
+                this.loadingService.show();
                 this.cartService.getAllFromCart(params['cartId'])
                   .subscribe({
                     next: cart => {
@@ -60,16 +72,15 @@ export class CartComponent implements OnInit {
                         this.cartItems = cart.items;
                         this.cartService.updateCart(cart.items);
                         console.log('Updated cartProducts:', this.cartItems);
-                        this.loading = false;
+                        this.loadingService.hide();
                         console.log('Cart data loaded:', cart);
                       }
                       else {
                         this.cartItems = null;
-                        this.loading = false;
-                      }
+                        this.loadingService.hide();                      }
                     },
                     error: err => {
-                      this.loading = false;
+                      this.loadingService.show();
                       console.error('Error fetching cart data:', err);
                     }
                   });
@@ -77,15 +88,15 @@ export class CartComponent implements OnInit {
           }
         },
         error: err => {
-          this.loading = false;
+          this.loadingService.show();
           console.error('Error fetching cart data:', err);
         }
       });
   }
 
   ngOnDestroy(): void {
-    if (this.sub) {
-      this.sub.unsubscribe();
+    if (this.subCart) {
+      this.subCart.unsubscribe();
     }
   }
   getGuid():string{

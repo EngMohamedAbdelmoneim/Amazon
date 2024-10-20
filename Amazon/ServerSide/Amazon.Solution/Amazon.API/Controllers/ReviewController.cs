@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Amazon.Core.Entities.Identity;
+using Amazon.Core.Entities;
 
 [Authorize]
 public class ReviewController : BaseController
@@ -20,51 +21,61 @@ public class ReviewController : BaseController
 	}
 
 	[HttpGet]
-	public async Task<IActionResult> GetAllReviews()
+	public async Task<IReadOnlyList<ReviewToReturnDto>> GetAllReviews()
 	{
 		var reviews = await _reviewService.GetAllReviewsAsync();
-		return Ok(reviews);
+		return reviews;
 	}
 
+	[HttpGet("{productId}")]
+	public async Task<IReadOnlyList<ReviewToReturnDto>> GetAllProductReviewsById(int productId)
+	{
+		var reviews = await _reviewService.GetAllReviewsByProductIdAsync(productId);
+		if (reviews == null)
+		{
+			return null;
+		}
+		return reviews;
+	}
+
+
 	[HttpGet("{id}")]
-	public async Task<IActionResult> GetReviewById(int id)
+	public async Task<ReviewToReturnDto> GetReviewById(int id)
 	{
 
 		var review = await _reviewService.GetReviewByIdAsync(id);
 		if (review == null)
 		{
-			return NotFound();
+			return null;
 		}
-		return Ok(review);
+		return review;
 	}
 	
 	[HttpPost]
-	public async Task<IActionResult> AddReview([FromBody] ReviewDto reviewDto)
+	public async Task<ReviewToReturnDto> AddReview([FromBody] ReviewDto reviewDto)
 	{
 		var userEmail = User.FindFirstValue("Email"); 
 		var user = await _userManager.FindByEmailAsync(userEmail);
-		var returnValue = await _reviewService.AddReviewAsync(reviewDto, user);
-		return Ok(returnValue);
+		var returnResult = await _reviewService.AddReviewAsync(reviewDto, user);
+		return returnResult;
 	}
 		
 	[HttpPut("{id}")]
-	public async Task<IActionResult> UpdateReview(int id, [FromBody] ReviewDto reviewDto)
+	public async Task<ReviewToReturnDto> UpdateReview(int id, [FromBody] ReviewDto reviewDto)
 	{
 		if (id != reviewDto.Id)
 		{
-			return BadRequest();
+			return null;
 		}
 
 		var userEmail = User.FindFirstValue("Email");
 		var user = await _userManager.FindByEmailAsync(userEmail);
 		await _reviewService.UpdateReviewAsync(reviewDto,user);
-		return NoContent();
+		return await _reviewService.UpdateReviewAsync(reviewDto, user); ;
 	}
 
 	[HttpDelete("{id}")]
-	public async Task<IActionResult> DeleteReview(int id)
-	{
-		await _reviewService.DeleteReviewAsync(id);
-		return NoContent();
-	}
+	public async Task<IReadOnlyList<ReviewToReturnDto>> DeleteReview(int id)
+		 => await _reviewService.DeleteReviewAsync(id);
+
 }

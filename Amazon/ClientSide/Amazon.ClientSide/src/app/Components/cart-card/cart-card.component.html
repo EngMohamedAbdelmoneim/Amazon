@@ -1,26 +1,43 @@
 <div class="cart-card">
-    <img routerLink="/product/{{prop.id}}" src={{prop.pictureUrl}} alt="Soundcore a3991h11" class="card-image">
+    <div class="product-image">
+        <img routerLink="/product/{{prop.id}}" src={{prop.pictureUrl}} alt="Anker External Battery">
+    </div>
     <div class="card-info">
         <p>{{prop.productName}}</p>
         <p><strong>In Stock</strong></p>
         <p>Eligible for FREE delivery</p>
         <div class="card-actions">
             <label for="qty3">Qty:</label>
-            <select (change)="QNTChanged()" class="ms-2 form-select d-inline" style="width: fit-content;" id="qty3" [(ngModel)]="prop.quantity">
+            <select (change)="QNTChanged()" class="ms-2 form-select d-inline" style="width: fit-content;" id="qty3"
+                [(ngModel)]="prop.quantity">
                 <option *ngFor="let number of Quantity(10)">{{number}}</option>
-            </select> 
+            </select>
             <i class="a-icon a-icon-text-separator" role="presentation"></i>
-            <button (click)="Delete()" class="btn link-danger">Delete</button>  
+            <button (click)="Delete()" class="btn link-danger">Delete</button>
             <i class="a-icon a-icon-text-separator" role="presentation"></i>
-            <button class="btn link-primary" >Save for later</button> 
+            <button class="btn link-primary">Save for later</button>
             <i class="a-icon a-icon-text-separator" role="presentation"></i>
-            <button class="btn link-primary" >Share</button>
+            <button class="btn link-primary">Share</button>
         </div>
     </div>
     <div class="card-price">
-        <p><span class="limited-time">35% off</span> Limited time deal</p>
-        <p><span class="discount-price">{{ Discount().toFixed(2) | currency:'EGP' }}</span></p>
-        <p><span class="list-price">List Price: {{ Price().toFixed(2) | currency:'EGP' }}</span></p>
+        @if(product.discount !=null && product.discount.discountStarted != false){
+        <div class="discount-info">
+            <span class="discount">
+                <span class="discount-percentage">-{{Discount()}}% off</span>
+            </span>
+            <span class="discount-text">
+                <span>Limited Time Deal</span>
+            </span>
+        </div>
+        <span class="current-price">{{ product.discount.priceAfterDiscount.toFixed(2) | currency:'EGP' }}</span>
+        <br />
+        <span class="old-price">List:{{ product.price.toFixed(2) | currency:'EGP' }}</span>
+        <br />
+        }
+        @else{
+        <span class="current-price">{{ product.price.toFixed(2) | currency:'EGP' }}</span>
+        }
     </div>
-    
+
 </div>

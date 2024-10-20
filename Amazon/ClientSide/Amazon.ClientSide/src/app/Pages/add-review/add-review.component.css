@@ -1,0 +1,26 @@
+form {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+  }
+  div {
+    margin-bottom: 1rem;
+  }
+  label {
+    font-weight: bold;
+  }
+  input, textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  button {
+    background-color: #f0c14b;
+    border: 1px solid #a88734;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }

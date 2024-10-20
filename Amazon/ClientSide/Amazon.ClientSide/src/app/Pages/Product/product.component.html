@@ -1,145 +1,199 @@
-<main class="p-4">
+<main class="main">
+  <div class="product-main-sections">
     <section class="first-section">
-        <div class = "SideImages">
-            <img *ngFor = "let image of productImages"
-                [src] = image
-                id="Side-Image"
-                (click)="DisplaySideImage(image)">
-        </div>
+      <div class="SideImages">
+        <img *ngFor="let image of productImages" [src]=image id="Side-Image" (click)="DisplaySideImage(image)">
+      </div>
 
-        <div class="MainImageContainer">
-            <img [src]="product.pictureUrl" [alt]="product.name" id="Product-Full-Size" (mousemove)="zoomImage($event)" (mouseleave)="resetImage()">
-        </div>
+      <div class="MainImageContainer">
+        <img [src]="product.pictureUrl" [alt]="product.name" id="Product-Full-Size" (mousemove)="zoomImage($event)"
+          (mouseleave)="resetImage()">
+      </div>
     </section>
-
     <section class="p-2">
+      <div>
+        <h4>
+          {{ product.name }},<br>
+          {{ product.description }}<br>
+        </h4>
+        @if(product.discount !=null && product.discount.discountStarted == true){
+        <div class="discount-info">
+          <span class="discount">
+            <span class="discount-percentage">-{{Discount()}}% off</span>
+          </span>
+          <span class="discount-text">
+            <span>Limited Time Deal</span>
+          </span>
+        </div>
+        <span class="current-price">{{ product.discount.priceAfterDiscount.toFixed(2) | currency:'EGP' }}</span>
+        <br />
+        <span class="old-price">List:{{ product.price.toFixed(2) | currency:'EGP' }}</span>
+        <br />
+        <div class="price-note text-danger">Lowest Price in {{DiscountTimeOut().toString()}}</div>
+        }
+        @else{
+        <span class="current-price">{{ product.price.toFixed(2) | currency:'EGP' }}</span>
+        }
         <div>
-            <h4>
-                {{ product.name }},<br>
-                {{ product.description }}<br>
-                <!-- Available:{{ products.quantityInStock }} -->
-            </h4>
-            @if(product.discount !=null){
-                <div class="discount-info">
-                <span class="discount">
-                  <span class="discount-percentage">-{{Discount()}}% off</span>
-                  </span>
-                  <span class="discount-text">
-                  <span >Limited Time Deal</span>
-                  </span>
-                </div>
-                <span class="current-price">{{ product.discount.priceAfterDiscount.toFixed(2) | currency:'EGP' }}</span>
-                <br/>
-                <span class="old-price">List:{{ product.price.toFixed(2) | currency:'EGP' }}</span>
-                <br/>
-                <div class="price-note text-danger">Lowest Price in {{DiscountTimeOut().toString()}} days</div>
+          <div class="stars">
+            <span class="mx-1">{{ avgRatiing }}</span>
+            <span class="stars">
+              @for(star of GetRatingArray(avgRatiing);track $index){
+              @if(star){
+              <i class="fa-solid fa-star" style="color: orange;"></i>
               }
               @else{
-                <span class="current-price">{{ product.price.toFixed(2) | currency:'EGP' }}</span>
+              <i class="fa-regular fa-star" style="color: orange;"></i>
               }
-            <div>
-              <span
-                *ngFor = "let star of [1,2,3,4,5]; let i =index"
-                (moushover)="setRate(i+1)"
-                (mouseleave)="resetRate()"
-                (click) = "submitRate(i+1)"
-                class="star"
-                [ngClass] = "{'selected':selectedStar>=(i+1)}"
-                [attr.data-value]="i+1"
-                [ngStyle]="{'color':(selectedStar && i < selectedStar)?'yellow':'black'}">
-                ★
-              </span>
-              
-            <!-- </span> -->
+              }
+            </span>
+          </div>
+
+          <!-- </span> -->
         </div>
         <div *ngIf="selectedStar !=null" class="rating-message">
           <div class="ratingMessage">
-          {{ratingMessage}}
+            {{ratingMessage}}
           </div>
         </div>
         <div>
-            <span class="badge rounded-pill text-bg-dark"><i class="fa fa-amazon" aria-hidden="true">Editor's <span class="Choiceinyellow">choice</span></i></span>
+          <span class="badge rounded-pill text-bg-dark"><i class="fa fa-amazon" aria-hidden="true">Editor's <span
+                class="Choiceinyellow">choice</span></i></span>
         </div>
         <!-- <h3> This item cannot be shipped to your selected delivery location. Please choose a different delivery location. -->
         <!-- </h3> -->
-        <div class ="ColorResult"></div>
-        <div class="PickColor"> 
-            <div class="ProductColor" style="background-color: #ffffff;" data-color="#ffffff" color-name="White"> </div>
-            <div class="ProductColor" style="background-color: #ac9a9a;" data-color="#ac9a9a" color-name="Heliotrope Gray"> </div>
-            <div class="ProductColor" style="background-color: #36525f;" data-color="#36525f" color-name="grey"> </div>
-            <div class="ProductColor" style="background-color: #124055;" data-color="#124055" color-name="light-blue"> </div>
-            <div class="ProductColor" style="background-color: #000000;" data-color="#000000" color-name="Black"> </div>
+        <div class="ColorResult"></div>
+        <div class="PickColor">
+          <div class="ProductColor" style="background-color: #ffffff;" data-color="#ffffff" color-name="White"> </div>
+          <div class="ProductColor" style="background-color: #ac9a9a;" data-color="#ac9a9a"
+            color-name="Heliotrope Gray"> </div>
+          <div class="ProductColor" style="background-color: #36525f;" data-color="#36525f" color-name="grey"> </div>
+          <div class="ProductColor" style="background-color: #124055;" data-color="#124055" color-name="light-blue">
+          </div>
+          <div class="ProductColor" style="background-color: #000000;" data-color="#000000" color-name="Black"> </div>
         </div>
-        </div>
-        <div class = "Physical-Details">
-        
+      </div>
+      <div class="Physical-Details">
+
         <table>
-        <tbody>
-           <tr>
-            <td> Dimensions</td> 
-            <td>56D x 60W x 85H centimeters</td>
-            </tr>
-            <tr> 
-            <td>D x W x H</td> 
-            </tr>
-           <tr> 
-            <td>Brand Name </td>
-            <td>LG</td>
-            </tr>    
-           <tr>
-            <td>Capacity</td>
-            <td>9 Kilograms</td>
+          <tbody>
+            <tr>
+              <td> Dimensions</td>
+              <td>56D x 60W x 85H centimeters</td>
             </tr>
             <tr>
-            <td>Special Features </td>
-            <td>Inverter </td>
+              <td>D x W x H</td>
             </tr>
             <tr>
-            <td>Access Location</td>
-            <td>Front Load</td>
+              <td>Brand Name </td>
+              <td>LG</td>
             </tr>
             <tr>
-            <td>Color</td> 
-            <td>Black</td> 
+              <td>Capacity</td>
+              <td>9 Kilograms</td>
             </tr>
-        </tbody>
+            <tr>
+              <td>Special Features </td>
+              <td>Inverter </td>
+            </tr>
+            <tr>
+              <td>Access Location</td>
+              <td>Front Load</td>
+            </tr>
+            <tr>
+              <td>Color</td>
+              <td>Black</td>
+            </tr>
+          </tbody>
         </table>
-        </div>    
+      </div>
+
     </section>
 
     <section class="p-4">
-        @if(product.discount !=null){
-            <span class="current-price">{{ product.discount.priceAfterDiscount.toFixed(2) | currency:'EGP' }}</span>
-            <br/>
-            <span class="old-price">List:{{ product.price.toFixed(2) | currency:'EGP' }}</span>
-            <br/>
-            <div class="price-note text-danger">Lowest Price in {{DiscountTimeOut().toString()}} days</div>
-          }
-          @else {
-            <span class="current-price">List:{{ product.price.toFixed(2) | currency:'EGP' }}</span>
-          }
-        @if (product.quantityInStock > 10)
-        {
-            <h5 class="text-success">In Stock</h5>
-        }
-        @else
-        {
-            <p class="text-danger">Only {{product.quantityInStock}} left in stock - order soon.</p>
-        }
-        <select #quantity class="form-select mb-2">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-        </select>
-        <button class="p-1 mb-2" (click)="AddToCart(product,getGuid())">Add to Cart</button>
-        <button class="p-1 mb-2">Buy Now</button>
-        <button class="p-1" (click)="AddToWishList(product,getGuid())">Add to Wishlist</button>
+      @if(product.discount !=null){
+      <span class="current-price">{{ product.discount.priceAfterDiscount.toFixed(2) | currency:'EGP' }}</span>
+      <br />
+      <span class="old-price">List:{{ product.price.toFixed(2) | currency:'EGP' }}</span>
+      <br />
+      <div class="price-note text-danger">Lowest Price in {{DiscountTimeOut().toString()}} days</div>
+      }
+      @else {
+      <span class="current-price">List:{{ product.price.toFixed(2) | currency:'EGP' }}</span>
+      }
+      @if (product.quantityInStock > 10)
+      {
+      <h5 class="text-success">In Stock</h5>
+      }
+      @else
+      {
+      <p class="text-danger">Only {{product.quantityInStock}} left in stock - order soon.</p>
+      }
+      <select #quantity class="form-select mb-2">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select>
+      <button class="p-1 mb-2" (click)="AddToCart(product,getGuid())">Add to Cart</button>
+      <button class="p-1 mb-2">Buy Now</button>
+      <button class="p-1" (click)="AddToWishList(product,getGuid())">Add to Wishlist</button>
     </section>
+  </div>
+  <div class="review-section">
+    <div class="split-line">
+    </div>
+    <div class="review-section-main">
+      <div class="customer-reviews-rate">
+        <h3 class="review-title">Customer Reviews</h3>
+        <div class="average-rating">
+          <div class="stars">
+            <span class="stars">
+              @for(star of GetRatingArray(avgRatiing);track $index){
+              @if(star){
+              <i class="fa-solid fa-star" style="color: orange;"></i>
+              }
+              @else{
+              <i class="fa-regular fa-star" style="color: orange;"></i>
+              }
+              }
+            </span>
+          </div>
+          {{ avgRatiing }} out of 5
+        </div>
+        <div class="global-ratings">{{ productReviews.length }} global ratings</div>
+
+        <!-- Star Rating Bars -->
+        <div class="rating-breakdown">
+          <div *ngFor="let rating of ratings" class="rating-bar">
+            <span style=" white-space: nowrap ;">{{ rating.stars }} star</span>
+            <div class="rating-bar-container">
+              <div class="rating-bar-filled"   [style.width]="rating.rating + '%'"></div>
+            </div>
+            <span>{{ rating.rating }}%</span>
+          </div>
+        </div>
+
+        <!-- Review Form -->
+        <div class="review-form">
+          <div class="split-line">
+          </div>
+          <h4 class="mt-3">Review this product</h4>
+          <p>Share your thoughts with other customers</p>
+          <div class="add-review">
+            <button [routerLink]="['/review',product.id,product.name]" class="btn btn-outline-dark">Write a customer review</button>
+          </div>
+        </div>
+      </div>
+      <div class="customer-reviews">
+        <app-review-list [productId]=product.id [productName]=product.name (itemDeleted)="DeleteReveiw($event)" [productReviews]=productReviews></app-review-list>
+      </div>
+    </div>
+  </div>
 </main>

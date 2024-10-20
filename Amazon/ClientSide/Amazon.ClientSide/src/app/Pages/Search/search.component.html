@@ -36,7 +36,7 @@
       </div>
     <div class="products mt-4">
         @for (product of products ; track $index) {
-          <app-product-card [product] = product></app-product-card>
+          <app-product-card [product] = product  (addToCart)='AddToCart(product,getGuid())'></app-product-card>
         }
     </div>
   </main>

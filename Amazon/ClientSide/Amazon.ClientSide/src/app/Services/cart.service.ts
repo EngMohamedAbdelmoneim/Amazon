@@ -175,4 +175,12 @@ export class CartService {
       console.log("is/Empty");
     }
   }
+  removeCart(cartId: string){
+      this.deleteCart(cartId).subscribe(p => { });
+      const updatedProducts = [];
+      this.updateCart(updatedProducts);
+      this.cookieService.delete('Qnt', '/');
+      this.updateCartQnt(0); 
+      console.log("is/Empty");
+  }
 }
