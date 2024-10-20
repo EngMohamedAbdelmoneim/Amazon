@@ -1,0 +1,84 @@
+<div class="popub-overlay">
+    <div class="popub-box">
+        <div class="popup-header">
+            <h2>Choose your address</h2>
+          </div>
+        <button class="close-button" (click)="closeForm()">&times;</button>
+        <div *ngIf="!showAddressForm">
+            
+            <div class="saved-addresses">
+                <div 
+                    class="address-box" 
+                    *ngFor="let address of savedAddresses"
+                    [class.selected]="selectedAddress === address"
+                    (click)="onSelectAddress(address)">
+                    <input type="radio" id="{{address.id}}"
+                    id="{{address.id}}"
+                    name="selectedAddress" 
+                    (click)="onSelectAddress(address)"
+                     [checked]="selectedAddress === address">
+                     <p>{{ address.firstName }} {{ address.lastName }},</p>
+                     <p>{{address.governorate}}, {{address.city}}</p>
+                     <p>{{ address.city }}</p>
+                     <p>{{ address.country }}</p>
+                </div>
+            </div>
+
+        <div class="form-buttons">
+            <button class="use-address" (click)="onSubmit()">Use this Address</button>
+            <button class="use-address" (click)="toggleAddAddressForm()">Add New Address</button>
+        </div>
+        
+        <div class="manage-address-button">
+            <button (click)="goToAddressBook()">Manage Address Book</button>
+        </div>    
+    </div>
+
+        <div *ngIf="showAddAddressForm">
+            <form (ngSubmit)="onSubmitNewAddress()">
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <input type="text" id="country" [(ngModel)]="address.country" name="country" required/>
+                
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" [(ngModel)]="address.firstName" name="firstName" required/>
+
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" [(ngModel)]="address.lastName" name="lastName" required/>
+
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="text" id="phoneNumber" [(ngModel)]="address.phoneNumber" name="phoneNumber" required/>
+
+                    <label for="streetAddress">Street Address</label>
+                    <input type="text" id="streetAddress" [(ngModel)]="address.streetAddress" name="streetAddress" required/>
+
+                    <label for="buildingName">Building Name</label>
+                    <input type="text" id="buildingName" [(ngModel)]="address.buildingName" name="buildingName" required/>
+
+                    <label for="city">City</label>
+                    <input type="text" id="city" [(ngModel)]="address.city" name="city" required/>
+
+                    <label for="district">District</label>
+                    <input type="text" id="district" [(ngModel)]="address.district" name="district" required/>
+
+                    <label for="governorate">Governorate</label>
+                    <input type="text" id="governorate" [(ngModel)]="address.governorate" name="governorate" required/>
+
+                    <label for="nearestLandmark">Nearest Landmark</label>
+                    <input type="text" id="nearestLandmark" [(ngModel)]="address.nearestLandMark" name="nearestLandmark" required/>
+
+            <div class="form-add-buttons">
+                <button type="submit">Add Address</button>
+                <button type="button" (click)="closeForm()">Cancel</button>
+            </div>
+                </div>
+            </form>
+            <!-- This will appear once the required address to be default is selected -->
+        <div *ngIf="showConfirmation" class="">
+            <div class="popup-box">
+                <p>You picked this as the default address</p>
+                <button (click)="confirmAddress()">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

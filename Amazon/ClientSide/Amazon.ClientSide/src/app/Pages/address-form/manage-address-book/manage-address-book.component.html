@@ -1,0 +1,89 @@
+<div class="address-book-container">
+    <h1>Manage Address Book</h1>
+
+    <div class="my-3 mx-auto w-100 max-width-1200 address-list">
+        <div class="border p-4 m-2 text-center shadow-sm custom-box add-address-box">
+            <h3>Add New Address</h3>
+            <button class="use-address" (click)="toggleAddAddressForm()">Add New Address</button>
+        </div>
+        <div *ngIf="savedAddresses.length === 0" class="border p-4 m-2 text-center shadow-sm custom-box saved-addresses">
+            <h3 class="text-start mt-2 mb-2 address-name" style="font-family: 'Amazon Ember', Arial, sans-serif; font-size: 14px;">No Address Found</h3>
+        </div>
+        <div *ngFor="let address of savedAddresses" class="border p-4 m-2 text-center shadow-sm custom-box saved-addresses">
+            
+            <h3 class="fw-bold fs-5 text-left mt-2 mb-3 address-name" style="font-family: 'Amazon Ember', Arial, sans-serif; font-size: 14px;">{{address.firstName}}</h3>
+            <p class="text-start lh-lg mt-2 mb-2 address-info" style="font-family: 'Amazon Ember', Arial, sans-serif; font-size: 14px;">
+                {{address.streetAddress}}<br />
+                {{address.city}}<br />
+                {{address.governorate}}<br />
+                <strong>Phone Number:</strong> {{address.phoneNumber}}
+            </p>
+            <div class="d-flex justify-content-start gap-2 custom-margin-top address-buttons">
+                <button class="edit-btn" style="background-color: #4CAF50;" (click)="editAddress(address)">Edit</button>
+                <button class="delete-btn" style="background-color: #dc3545;" (click)="deleteAddress(address.id)">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="showAddAddressForm" class="d-flex justify-content-center align-items-start position-fixed top-0 start-0 w-100 h-100 overflow-auto popup" style="background-color: rgba(0, 0, 0, 0.7); z-index: 1000;">
+        <div class=" bg-white p-4 rounded shadow w-100 position-relative popup-content"style="max-width: 600px;">
+            <span class="position-absolute close-btn " style="top: 10px; right: 15px; font-size: 30px; color: #aaa; cursor: pointer;" (click)="closeForm()">&times;</span>
+            <form (ngSubmit)="onSubmitNewAddress()">
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <input type="text" id="country" [(ngModel)]="address.country" name="country" required/>
+                </div>
+
+                <div class="form-row">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" [(ngModel)]="address.firstName" name="firstName" required/>
+                </div>
+
+                <div class="form-row">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" [(ngModel)]="address.lastName" name="lastName" required/>
+                </div>
+
+                <div class="form-row">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="text" id="phoneNumber" [(ngModel)]="address.phoneNumber" name="phoneNumber" required/>
+                </div>
+
+                <div class="form-row">
+                    <label for="streetAddress">Street Address</label>
+                    <input type="text" id="streetAddress" [(ngModel)]="address.streetAddress" name="streetAddress" required/>
+                </div>
+
+                <div class="form-row">
+                    <label for="buildingName">Building Name</label>
+                    <input type="text" id="buildingName" [(ngModel)]="address.buildingName" name="buildingName" required/>
+                </div>
+
+                <div class="form-row">
+                    <label for="city">City</label>
+                    <input type="text" id="city" [(ngModel)]="address.city" name="city" required/>
+                </div>
+
+                <div class="form-row">
+                    <label for="district">District</label>
+                    <input type="text" id="district" [(ngModel)]="address.district" name="district" required/>
+                </div>
+
+                <div class="form-row">
+                    <label for="governorate">Governorate</label>
+                    <input type="text" id="governorate" [(ngModel)]="address.governorate" name="governorate" required/>
+                </div>
+
+                <div class="form-row">
+                    <label for="nearestLandmark">Nearest Landmark</label>
+                    <input type="text" id="nearestLandmark" [(ngModel)]="address.nearestLandMark" name="nearestLandmark" required/>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit">Add Address</button>
+                    <button type="button" (click)="closeForm()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

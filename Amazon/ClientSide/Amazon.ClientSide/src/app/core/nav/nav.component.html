@@ -9,6 +9,10 @@
             <a [routerLink]="['/']" class="p-3">
                 <img src="White-Amazon-Logo.png" alt="">
             </a>
+            <button class="Change-Address" (click)="toggleAddressForm()">Deliver to <i class="fas fa-map-marker-alt" style="color: black; background-color: white; padding: 10px; border-radius: 50%;"></i></button>
+            <div *ngIf="addressFormVisible">
+                <app-address-form (addressAdded)="addressFormVisible = false"></app-address-form>
+            </div>
         </div>
 
         <div class="input-container">

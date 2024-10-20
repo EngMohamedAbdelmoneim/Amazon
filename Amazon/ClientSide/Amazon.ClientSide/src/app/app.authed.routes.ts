@@ -8,6 +8,7 @@ import { WishListComponent } from './Pages/wish-list/wish-list.component';
 import { OrderComponent } from './Pages/order/order.component';
 import { canloginGuard } from './guards/canlogin.guard';
 import { AddReviewComponent } from './Pages/add-review/add-review.component';
+import { ManageAddressBookComponent } from './Pages/address-form/manage-address-book/manage-address-book.component';
 
 export const App_Routes: Routes = 
 [
@@ -20,5 +21,6 @@ export const App_Routes: Routes =
     { path: 'cart/:cartId',component:CartComponent},
     { path: 'wishlist/:wishlistId',component:WishListComponent},
     { path: 'review/:id/:pname',component:AddReviewComponent},
-    { path: 'review/:id/:pname/:edit',component:AddReviewComponent}
+    { path: 'review/:id/:pname/:edit',component:AddReviewComponent},
+    { path: 'manage-address-book', component: ManageAddressBookComponent }
 ];

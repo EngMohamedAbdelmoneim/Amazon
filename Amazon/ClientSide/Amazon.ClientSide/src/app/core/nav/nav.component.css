@@ -254,6 +254,11 @@ nav{
     font-weight: bolder;
   }
 
+  .Change-Address{
+    background-color: transparent;
+    border: none;
+    color: white;
+  }  
 @media (width < 820px) 
 {
   #title{

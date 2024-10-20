@@ -8,11 +8,12 @@ import { GuidService } from '../../Services/guid.service';
 import { CartService } from '../../Services/cart.service';
 import { CookieService } from 'ngx-cookie-service';
 import { AccountService } from '../../Services/account.service';
+import { AddressFormComponent } from '../../Pages/address-form/address-form.component';
 
 @Component({
   selector: 'app-nav',
   standalone: true,
-  imports: [RouterModule, CommonModule, CategoryListComponent],
+  imports: [RouterModule, CommonModule, CategoryListComponent,AddressFormComponent],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css',
   encapsulation: ViewEncapsulation.Emulated
@@ -25,6 +26,8 @@ export class NavComponent implements OnInit {
     private cookieService: CookieService,
     private accountService: AccountService
   ) { }
+
+  addressFormVisible: boolean = false;
 
   @ViewChild('Category') Category: ElementRef;
   query: string;
@@ -89,4 +92,8 @@ export class NavComponent implements OnInit {
     }
   }
 
+  toggleAddressForm(): void {
+    this.addressFormVisible = !this.addressFormVisible;
+    console.log('Address Form Visible:', this.addressFormVisible);
+  }
 }
