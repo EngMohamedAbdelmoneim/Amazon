@@ -9,6 +9,7 @@ import { OrderComponent } from './Pages/order/order.component';
 import { canloginGuard } from './guards/canlogin.guard';
 import { AddReviewComponent } from './Pages/add-review/add-review.component';
 import { ManageAddressBookComponent } from './Pages/address-form/manage-address-book/manage-address-book.component';
+import { PageNotFoundComponent } from './Pages/page-not-found/page-not-found.component';
 
 export const App_Routes: Routes = 
 [
@@ -22,5 +23,6 @@ export const App_Routes: Routes =
     { path: 'wishlist/:wishlistId',component:WishListComponent},
     { path: 'review/:id/:pname',component:AddReviewComponent},
     { path: 'review/:id/:pname/:edit',component:AddReviewComponent},
-    { path: 'manage-address-book', component: ManageAddressBookComponent }
+    { path: 'manage-address-book', component: ManageAddressBookComponent },
+    { path: '**',pathMatch:'full', component:PageNotFoundComponent}
 ];

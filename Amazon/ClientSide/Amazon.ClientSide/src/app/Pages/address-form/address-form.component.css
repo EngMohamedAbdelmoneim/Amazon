@@ -16,11 +16,13 @@
     /* top:50%;
     left:50%;
     transform:translate(-50%,-50%);*/
-    height: 500px; 
+    display: flex;                      /* Use flexbox for layout */
+    flex-direction: column;   
+    height: 600px; 
     width: 375px;
     background-color: white;
     border-radius: 8px;
-    padding: 30px;
+    /* padding: 10px; */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
     /* max-width: none; */
     max-height: 85vh;
@@ -29,9 +31,10 @@
 }
 .popup-header {
     background-color: #d5d9d9;
-    padding: 15px;
+    padding: 25px;
     border-radius: 8px 8px 0 0;
     text-align: center;
+    /* width: 345px; */
   }
 .popup-header h2 {
     margin: 0;
@@ -39,6 +42,20 @@
     font-size: 20px;
     font-weight: bold;
   }
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #000;
+}
+
+.close-button:hover {
+    color: #cebfbf;
+}
 h2{
     font-size: 24px;
     margin-bottom: 20px;
@@ -76,9 +93,8 @@ input[type="text"]:focus {
 }
 .form-buttons{
     display: flex;
-    justify-content: space-evenly;
-    position: absolute;
-    bottom: 20px;
+    justify-content: space-between;
+    padding: 10px; 
 }
 .form-add-buttons{
     display: flex;
@@ -86,20 +102,42 @@ input[type="text"]:focus {
     justify-content: space-around;
 }
 button.use-address {
-    padding: 10px 20px;
-    font-size: 14px;
     background-color: #ffd814;
-    color: #0f1111;
-    border: none;
-    border-radius: 50px;
+    color: black;
+    border-radius: 100px; 
+    padding: 8px 20px;
+    font-size: 14px;
+    border: 1px solid #ffd814; 
     cursor: pointer;
+    position: relative;
+    left: 10px; 
+    transition: background-color 0.3s ease;
 }
+.use-address:hover {
+    background-color: #ebae16;
+  }
+
+.addNew-address {
+    background: transparent;
+    color: rgb(76, 76, 185);
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    position: relative;
+    right: 10px; 
+    text-decoration: none;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+  }
+  
+  .addNew-address:hover {
+    background-color: transparent;
+    color: rgb(33, 29, 88);
+    text-decoration: underline;
+  }
 
 .manage-address-button {
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 5px;
-    
+    margin-top: 10px;
+     
   }
 button{
     padding: 12px 20px;
@@ -122,9 +160,9 @@ button[type="button"]:hover {
     background-color: #5a6268;
 } */
 .saved-addresses {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    flex-grow: 1;
+    overflow-y: auto;
+    
     
 }
 .address-box{
@@ -153,26 +191,14 @@ button[type="button"]:hover {
     text-align: center;
 }
 
-.close-button {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    font-size: 20px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #000;
-}
 
-.close-button:hover {
-    color: #cebfbf;
-}
 
-.manage-address-button button {
+.manage-address-button {
     background-color: transparent;
     color: #007185;
     /* width: 100%; */
     padding: 12px 20px;
+    text-decoration: none;
     font-size: 16px;
     border: none;
     border-radius: 4px;
@@ -180,8 +206,10 @@ button[type="button"]:hover {
     width: auto; 
     margin-top: 15px;
 }
-.manage-address-button button:hover {
-    color: #b33b1e;
+.manage-address-button:hover {
+    color: #2c0c77;
     text-decoration: underline;
+    background-color: transparent;
+    border: none;
 }
   

@@ -94,6 +94,5 @@ export class NavComponent implements OnInit {
 
   toggleAddressForm(): void {
     this.addressFormVisible = !this.addressFormVisible;
-    console.log('Address Form Visible:', this.addressFormVisible);
   }
 }

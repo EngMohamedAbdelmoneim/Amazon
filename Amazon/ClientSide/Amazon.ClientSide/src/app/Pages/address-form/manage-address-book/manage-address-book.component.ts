@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { response } from 'express';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { error } from 'console';
 
 @Component({
   selector: 'app-manage-address-book',
@@ -17,7 +19,7 @@ export class ManageAddressBookComponent implements OnInit{
   savedAddresses: Address[] = [];
   @Output() addressAdded = new EventEmitter<void>();
 
-  constructor(private addressService: AddressService) {}
+  constructor(private addressService: AddressService, private router: Router) {}
   address:Address = new Address('','','','','','','','','','','');
   showAddAddressForm = false;
   isEditMode = false;
@@ -37,11 +39,19 @@ export class ManageAddressBookComponent implements OnInit{
     );
   }
 
-  editAddress(address: Address): void {
-    this.isEditMode = true;
-    this.address = { ...address };
-    this.showAddAddressForm = true;
-}
+  editAddress(){
+    if(this.address){
+      this.addressService.updateAddress(this.address).subscribe({
+        next:(response) =>{
+          this.router.navigate(['/manage-address-book'])
+        },
+        error:(error) => {
+          console.log('Error updating address',error);
+        }
+      });
+    }
+  }
+
 loadAddresses() {
   this.addressService.getSavedAddresses().subscribe(
     (data) => {
@@ -53,12 +63,15 @@ loadAddresses() {
   );
 }
 
-deleteAddress(id) {
-  if (confirm('Are you sure you want to delete this address?')) {
-      this.addressService.deleteAddress(id).subscribe(() => {
-          this.loadAddresses();
-      });
-  }
+deleteAddress(addressId: string) {
+  this.addressService.deleteAddress(addressId).subscribe({
+    next:(response) =>{
+      this.loadAddresses();
+    },
+    error:(error) =>{
+      console.error('Error deleting address', error);
+    }
+  });
 }
 //attached with cancel button to close the form
 closeForm(){
@@ -82,4 +95,5 @@ onSubmitNewAddress():void{
     }
   );
 }
+
 }

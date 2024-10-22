@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
   styleUrl: './address-form.component.css'
 })
 export class AddressFormComponent implements OnInit{
-  @Output() addressAdded = new EventEmitter<void>();
+  // @Output() addressAdded = new EventEmitter<void>();
 
   savedAddresses:Address[] = [];
   selectedAddress:Address|null=null;
@@ -48,56 +48,89 @@ export class AddressFormComponent implements OnInit{
     this.showAddAddressForm = !this.showAddAddressForm;
   }
   closeForm(){
-    this.showAddressForm = false;
-    this.showAddAddressForm = false;
-    this.addressAdded.emit();
+    this.showAddressForm = !this.showAddressForm;
+    
+    // this.addressAdded.emit();
   }
   onSelectAddress(address:Address):void{
     this.selectedAddress = address;
-    this.moveSelectedAddressToTop();
-    this.showConfirmation = true;
   }
-  moveSelectedAddressToTop():void{
+
+  onSetDefaultAddress():void{
     if(this.selectedAddress){
-      const index = this.savedAddresses.indexOf(this.selectedAddress);
-      if(index > -1){
-        this.savedAddresses.splice(index,1);
-        this.savedAddresses.unshift(this.selectedAddress);
+      this.addressService.setDefaultAddress(this.selectedAddress.id)
+        .subscribe(
+          response => {
+            this.showConfirmation = true;
+          },
+          error =>{
+            console.log('Error setting default address',error);
+          }
+        );
+      }else{
+        console.log('No address Selected');
       }
     }
-  }
-  onSubmit():void{
-    if(this.selectedAddress){  
-    this.moveSelectedAddressToTop();
-    this.addressService.addAddresses(this.selectedAddress).subscribe(
-      (response)=>{
-        console.log('selected',response);
-        this.fetchSavedAddresses();
-        this.closeForm();
-      },
-      (error)=>{
-          console.log('error',error);
-        // this.closeForm();
-      }
-    );
-  }
-}
+    
+  // moveSelectedAddressToTop():void{
+  //   if(this.selectedAddress){
+  //     const index = this.savedAddresses.indexOf(this.selectedAddress);
+  //     if(index > -1){
+  //       this.savedAddresses.splice(index,1);
+  //       this.savedAddresses.unshift(this.selectedAddress);
+  //     }
+  //   }
+  // }
+  
+//   onSubmit():void{
+//     if(this.selectedAddress){  
+//       this.addressService.setDefaultAddress(this.selectedAddress.id);
+//       this.addressService.addAddresses(this.selectedAddress).subscribe(
+//       (response)=>{
+//         console.log('selected',response);
+//         this.fetchSavedAddresses();
+//         this.closeForm();
+//       },
+//       (error)=>{
+//           console.log('error',error);
+//         // this.closeForm();
+//       }
+//     );
+//   }
+// }
 confirmAddress(): void {
   this.showConfirmation = false;
   console.log('Address confirmed');
 }
 
-  onSubmitNewAddress():void{
-    this.addressService.addAddresses(this.address).subscribe(
-    (response)=>{
-      this.fetchSavedAddresses();
-      this.toggleAddAddressForm();
-      this.addressAdded.emit();
-    },
-    (error)=>{
-      console.error('Error adding address:', error);
-      }
-    );
+  // onSubmitNewAddress():void{
+  //   this.addressService.addAddresses(this.address).subscribe(
+  //   (response)=>{
+  //     this.fetchSavedAddresses();
+  //     this.toggleAddAddressForm();
+  //     this.addressAdded.emit();
+  //     this.resetAddressForm(); 
+  //   },
+  //   (error)=>{
+  //     console.error('Error adding address:', error);
+  //     }
+  //   );
+  // }
+
+  resetAddressForm(): void {
+    this.address = {
+      id:'',
+      country: '',
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      streetAddress: '',
+      buildingName: '',
+      city: '',
+      district: '',
+      governorate: '',
+      nearestLandMark: ''
+    };
   }
 
   goToAddressBook(): void {

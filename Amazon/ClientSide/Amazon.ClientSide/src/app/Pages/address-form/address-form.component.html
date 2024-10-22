@@ -1,41 +1,41 @@
-<div class="popub-overlay">
+<div class="popub-overlay" *ngIf="!showAddressForm">
     <div class="popub-box">
         <div class="popup-header">
             <h2>Choose your address</h2>
+            <button class="close-button" (click)="closeForm()">&times;</button>
           </div>
-        <button class="close-button" (click)="closeForm()">&times;</button>
-        <div *ngIf="!showAddressForm">
-            
+        
+        <div >
+
             <div class="saved-addresses">
                 <div 
                     class="address-box" 
-                    *ngFor="let address of savedAddresses"
-                    [class.selected]="selectedAddress === address"
-                    (click)="onSelectAddress(address)">
-                    <input type="radio" id="{{address.id}}"
+                    *ngFor="let address of savedAddresses">
+
+                    <input type="radio"
                     id="{{address.id}}"
                     name="selectedAddress" 
                     (click)="onSelectAddress(address)"
                      [checked]="selectedAddress === address">
-                     <p>{{ address.firstName }} {{ address.lastName }},</p>
-                     <p>{{address.governorate}}, {{address.city}}</p>
-                     <p>{{ address.city }}</p>
-                     <p>{{ address.country }}</p>
-                </div>
-            </div>
 
+                     <label for="{{address.id}}">
+                     <p>{{ address.firstName }} {{ address.lastName }},{{address.governorate}},
+                        {{address.city}},{{ address.country }}
+                     </p>
+                    </label>
+                </div>
+            <!-- </div>
+                
+            </div>    -->
         <div class="form-buttons">
-            <button class="use-address" (click)="onSubmit()">Use this Address</button>
-            <button class="use-address" (click)="toggleAddAddressForm()">Add New Address</button>
+            <button class="use-address" (click)="onSetDefaultAddress()">Use this Address</button>
+            <!-- <button class="addNew-address" (click)="toggleAddAddressForm()">Add New Address</button> -->
+            <button class="manage-address-button" (click)="goToAddressBook()">Manage Address Book</button>
         </div>
-        
-        <div class="manage-address-button">
-            <button (click)="goToAddressBook()">Manage Address Book</button>
-        </div>    
     </div>
 
         <div *ngIf="showAddAddressForm">
-            <form (ngSubmit)="onSubmitNewAddress()">
+            <!-- <form (ngSubmit)="onSubmitNewAddress()"> -->
                 <div class="form-group">
                     <label for="country">Country</label>
                     <input type="text" id="country" [(ngModel)]="address.country" name="country" required/>
@@ -72,7 +72,7 @@
                 <button type="button" (click)="closeForm()">Cancel</button>
             </div>
                 </div>
-            </form>
+            <!-- </form> -->
             <!-- This will appear once the required address to be default is selected -->
         <div *ngIf="showConfirmation" class="">
             <div class="popup-box">
@@ -81,4 +81,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>
