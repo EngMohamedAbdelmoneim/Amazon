@@ -18,4 +18,9 @@ export const routes: Routes =
         loadChildren: () => import('./auth.routes').then(m => m.Auth_Routes), 
         resolve: { layout: setLayout(PageLayout.UnAuthorized)}
     },
+    { 
+        path: 'seller',
+        loadChildren: () => import('./seller.routes').then(m => m.Seller_Routes), 
+        resolve: { layout: setLayout(PageLayout.Seller)}
+    },
 ];

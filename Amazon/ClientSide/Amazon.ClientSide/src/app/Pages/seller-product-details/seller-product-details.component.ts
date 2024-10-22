@@ -53,8 +53,9 @@ export class SellerProductDetailsComponent {
     });
     return fullRate / 5;
   }
-  goBack(){
-    this.router.navigate(['/seller-product-list'])
-
+  
+  goBack()
+  {
+    this.router.navigate(['seller/product-list'])
   }
 }

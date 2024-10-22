@@ -25,8 +25,8 @@
                 <!-- <button class="UserAddressesRegistered" (click)="SelectAddress(address)">{{address}}</button> -->
                 <!-- <div class="UserAddressesRegistered"> -->
             </form>
-                <!-- </div> -->
-            <button class="AddNewAddressButton" (click)="openAddressForm()">+ Add Another Address</button>
+
+            <!-- <button class="AddNewAddressButton" (click)="openAddressForm()">+ Add Another Address</button> -->
 
             <div class="SelectAddressButtonDiv">
                 <button class="SelectAddressButton" type ="submit"  (click)="SelectAddress()">Use this Address</button>
@@ -43,71 +43,67 @@
         <div *ngIf="isPaymentBoxOpen" class="PaymentDetails">
 
             <div class="CardDetails">
-                <h4 class="CardDetailsTitle">Your credit and debit card</h4>
-                <button class="AddCardButton" (click)="OpenCardInfo()" > 
-                    <img src="https://m.media-amazon.com/images/G/01/payments-portal/r1/PlusIcon._CB485933946_.gif" class="PlusAddCreditSign">
-                    <img alt src="https://m.media-amazon.com/images/G/01/payments-portal/r1/add-payment-method/card-logo-compact._CB478583243_.gif" 
-                    alt="Visa Icon" class="VisaImage" > Add a credit or debit card </button>
-                <div class="CardInfoInsertion" *ngIf="showCardForm">
-                    <div class="CardInfoData">
-                        <header class="CardHeader">
-                            <h4 class="HeadContent">Add credit or debit card</h4>
-                            <span class="close" (click)="OpenCardInfo()">&times;</span>
-                        </header>
-                        <div class="CardFormContainer">
-                            <div class="CardFormFields">
-                                <label for="cardNumber">Card Number</label>
-                                <input type="text" id="cardNumber" [(ngModel)]="cardNumber" name="cardNumber">
-                
-                                <label for="nameOnCard">Name on Card</label>
-                                <input type="text" id="nameOnCard" [(ngModel)]="nameOnCard" name="nameOnCard">
-                
-                                <label for="expirationDate">Expiry Date</label>
-                                <input type="date" id="expirationDate" [(ngModel)]="expirationDate" name="expirationDate">
-                
-                                <label for="securityCode">Security Code (CVC)</label>
-                                <input type="text" id="securityCode" [(ngModel)]="securityCode" name="securityCode">
-                
-                                <div class="CardButtons">
-                                    <button class="CancelCardInfoDetails" type="button" (click)="CancelAddCard()">Cancel</button>
-                                    <button class="SubmitCardInfoDetails" type="button" (click)="SubmitCardInfo()">Add Card</button>
-                                </div>
-                            </div>
-                            <div class="AcceptedCardIcons">
-                                <div>
-                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:0px;margin-right:6px;"></span>
-                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-45px;margin-right:6px;"></span>
-                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-90px;margin-right:6px;"></span>
-                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-135px;margin-right:6px;"></span>
-                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-180px;margin-right:6px;"></span>
-                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-225px;"></span>
-                                </div>
-                                <div>
-                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-270px;margin-right:6px;"></span>
-                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-585px;margin-right:6px;"></span>
-                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-630px;margin-right:6px;"></span>
-                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-675px;margin-right:6px;"></span>
-                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-720px;margin-right:6px;"></span>
-                                    <span class="CardsIcon" style="background-image: url('https://m.media-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png');background-position:-765px;margin-right:6px;"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
                 <div class="PaymentPlans">
                 <h3>Delivery Methods</h3>
                 <div *ngFor="let item of DeliveryMethods">
-                    <input type="radio" name="DeliveryMethods" id="{{item.id}}" value="{{item.id}}" [(ngModel)]="DeliveryValue">
-                    <label for="{{item.id}}">{{item.name}} <span>{{item.description}}</span></label>
+                    <input type="radio" name="DeliveryMethods" id="{{item.name}}" value="{{item.id}}" [(ngModel)]="DeliveryValue" (change)="shippingMethodChoice(item.id)">
+                    <label for="{{item.name}}">{{item.name}} <span>{{item.description}}</span></label>
                 </div>
+
+                
+
                 <div class="Line"></div> 
             </div>
+            
             <div class="GiftCardContainter">
                 <h3>Payment Methods</h3>
                 <div *ngFor="let item of PaymentMethods">
-                    <input type="radio" name="paymentMethod" id="{{item.id}}" value="{{item.id}}" [(ngModel)]="PaymentValue">
-                    <label for="{{item.id}}">{{item.name}}</label>
+                    <input type="radio" name="paymentMethod" id="{{item.name}}" value="{{item.id}}" [(ngModel)]="PaymentValue" (change)="paymentMethodChoice(item.id)">
+                    <label for="{{item.name}}">{{item.name}}</label>
                 </div>
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          Online Payment
+                        </button>
+                      </h2>
+                      <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          
+                            <div class="mt-4" [formGroup]="OnlinePaymentForm">
+                                <!-- <div class="row">
+                                    <div class="form-group col-12" formGroupName="paymentForm">
+                                        
+                                    </div>
+                                </div> -->
+                                <div class="row mb-3">
+                                    <div class="col-6">
+                                        <div class="form-floating">
+                                            <div class="form-control" #cardNumber></div>
+                                            <label>Card Number</label>
+                                            <span class="text-danger">{{cardErrors}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-floating">
+                                            <div class="form-control" #cardExpiry></div>
+                                            <label>Card Expiry</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-floating">
+                                            <div class="form-control" #cardCvc></div>
+                                            <label>Card CVC</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
             </div>
         </div>
     
@@ -137,7 +133,7 @@
             <hr class="EstimatedTaxDivider">
             <div class="SummaryRow">
                 <span class="OrderTotalLabel">  Order total:</span>
-                <span class="OrderTotalValue">  $135.00</span>
+                <span class="OrderTotalValue">  {{Total | currency: 'EGP'}}</span>
             </div>
         </div>
     </aside>

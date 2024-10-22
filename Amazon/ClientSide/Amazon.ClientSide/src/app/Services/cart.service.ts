@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { CartItem } from '../Models/cart-item';
 import { CookieService } from 'ngx-cookie-service';
+import { Cart } from '../Models/cart';
 
 @Injectable({
   providedIn: 'root'
@@ -15,21 +16,27 @@ export class CartService {
   private cartQntSource = new BehaviorSubject<any>(0);
   cartQnt = this.cartQntSource.asObservable();
 
+  private basketSource = new BehaviorSubject<Cart | null>(null);
+
 
   sub: Subscription | null = null;
+  ClientSecret: string;
 
   constructor(private http: HttpClient, public cookieService: CookieService) { }
 
-  updateCart(cartProducts: any[]) {
+  updateCart(cartProducts: any[]) 
+  {
     this.cartProductSource.next(cartProducts);
     this.CartQnt();
   }
 
-  updateCartQnt(cartQnt: number) {
+  updateCartQnt(cartQnt: number) 
+  {
     this.cartQntSource.next(cartQnt);
   }
 
-  addToCart(cartId: string, cartItam: any) {
+  addToCart(cartId: string, cartItam: any) 
+  {
     this.sub = this.getAllFromCart(cartId).subscribe({
       next: data => {
         if (data != null) {
@@ -46,7 +53,9 @@ export class CartService {
       }
     });
   }
-  updateCartWithItem(cartId: string, newItem: CartItem): void {
+
+  updateCartWithItem(cartId: string, newItem: CartItem): void 
+  {
     this.getAllFromCart(cartId).subscribe(cartData => {
       if (cartData != null) {
         let cart = cartData.items;
@@ -76,7 +85,8 @@ export class CartService {
     });
   }
 
-  updateCartItemQnt(cartId: string, newItem: CartItem): void {
+  updateCartItemQnt(cartId: string, newItem: CartItem): void 
+  {
     if (newItem.quantity != 0) {
       this.getAllFromCart(cartId).subscribe(cartData => {
         let cart = cartData.items;
@@ -97,7 +107,8 @@ export class CartService {
     }
   }
 
-  CartQnt() {
+  CartQnt() 
+  {
     console.log("cart qtn loaded");
     this.cartProduct$.subscribe({
       next: data => {
@@ -117,7 +128,7 @@ export class CartService {
   }
 
 
-  ///////////////////////////// API Methods ////////////////////////////////////////////
+  // #region API Methods 
 
   setToCart(cartId: string, cartItems: any) {
     console.log(this.cartProductSource.getValue());
@@ -175,12 +186,39 @@ export class CartService {
       console.log("is/Empty");
     }
   }
-  removeCart(cartId: string){
-      this.deleteCart(cartId).subscribe(p => { });
-      const updatedProducts = [];
-      this.updateCart(updatedProducts);
-      this.cookieService.delete('Qnt', '/');
-      this.updateCartQnt(0); 
-      console.log("is/Empty");
+
+  removeCart(cartId: string)
+  {
+    this.deleteCart(cartId).subscribe(p => { });
+    const updatedProducts = [];
+    this.updateCart(updatedProducts);
+    this.cookieService.delete('Qnt', '/');
+    this.updateCartQnt(0); 
+    console.log("is/Empty");
+  }
+
+  
+  // #endregion
+  
+  calculateSubtotal(cart: Cart)
+  {
+    let Total = 0;
+    Total = cart.items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+  }
+
+  
+  ///////////////////////// Payment Methods /////////////////////////
+
+
+  createPaymentIntent(cartId: string)
+  {
+    return this.http.post<Cart>('https://localhost:7283/api/Payments/' + cartId, {})
+    .pipe(
+      map(cart => {
+        this.basketSource.next(cart);
+        this.ClientSecret = cart.clientSecret;
+        console.log(cart)
+      })
+    )
   }
 }

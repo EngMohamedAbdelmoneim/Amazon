@@ -28,12 +28,5 @@ export const App_Routes: Routes =
     { path: 'review/:id/:pname',component:AddReviewComponent},
     { path: 'review/:id/:pname/:edit',component:AddReviewComponent},
     { path: 'manage-address-book', component: ManageAddressBookComponent },
-    { path: '**',pathMatch:'full', component:PageNotFoundComponent},
-
-    { path: 'seller-product-list', component: SellerProductListComponent },
-    { path: 'seller-add-product', component: SellerAddProductComponent },
-    { path: 'seller-edit-product/:product', component: SellerEditProductComponent },
-    { path: 'seller-product-details/:id', component: SellerProductDetailsComponent },
-
-
+    // { path: '**',pathMatch:'full', component:PageNotFoundComponent},
 ];

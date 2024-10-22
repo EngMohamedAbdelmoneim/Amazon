@@ -1,4 +1,3 @@
-
 .Container {
     display: flex;
     justify-content: space-between;
@@ -32,22 +31,6 @@
     margin-bottom: 40px;
 }
 
-.CardDetailsTitle{
-    font-size: 16px;
-    font-family: "Amazon Ember", Arial, sans-serif;
-    color: #0f1111;
-    margin-bottom: 5px;
-    position: relative;
-}
-
-.CardDetailsTitle::after {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 1px;
-    background-color: #ccc;
-    margin-top: 5px;
-}
 
 .ShippingAddressTitle{
     font-family: 'Times New Roman', Times, serif;
@@ -319,67 +302,8 @@ h4{
     text-align: center; 
 }
 
-
-.CardInfoInsertion {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-.CardInfoData{
-    grid-area: InfoData;
-}
-
 .AcceptedCardIcons{
     grid-area: AcceptedIcons;
-}
-.CardInfoData {
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    padding: 15px;
-    border-radius: 5px;
-    width: 60%;
-    max-width: 900px; 
-    max-height: 70%; 
-    overflow:hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    box-sizing: border-box; 
-    position: relative;
-}
-.CardFormContainer {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    flex-wrap: wrap;
-    height: auto;
-    flex-grow: 1;
-}
-
-.CardFormFields {
-    display: flex;
-    flex-direction: column;
-    width: 55%;
-    max-width: 100%;
-}
-.CardFormFields label, .CardFormFields input {
-    margin-bottom: 6px; 
-    font-size: 14px;
-}
-
-.CardFormFields input {
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    width: 100%; 
 }
 
 .CancelCardInfoDetails, .SubmitCardInfoDetails {
@@ -402,25 +326,6 @@ h4{
     background-color:rgba(255, 238, 0, 0.842);
 }
 
-.CardButtons {
-    background-color:#e3e6e6; 
-    padding: 10px;
-    display: flex;
-    justify-content: flex-end;
-    position: relative;
-    border-radius: 0 0 5px 5px;
-    margin-top: 62px;
-    margin-left: -15px;
-    width: 900px;
-}
-.CardButtons button {
-    padding: 8px 16px;
-    margin-left: 10px;
-    
-    border-radius: 20px;
-    cursor: pointer;
-    
-}
 .close{
     display: block;
     zoom: 2;
@@ -663,69 +568,13 @@ option {
     width: 200px;
     font-size: 16px;
 }
-.PlusAddCreditSign{
-    cursor: pointer;
-    width: 16px;
-}
-.VisaImage{
-    width: 30px;
-    height: auto;
-    margin: 0 10px;
-}
 
-
-/* .choosetitle{
-    font-family: 'Times New Roman', Times, serif;
-} */
-.PaymentDetails{
-    margin-left: 20px;
-}
 .AddCreditOrDebit{
     border: 1px rgb(136, 121, 121) solid;
     border-radius: 10px;
     margin-bottom: 20px;
 }
 
-/* .Header{
-    width: 1px;
-    
-} */
-.CardHeader {
-    background-color: #f0f2f2;
-    padding: 12px;
-    border-radius: 5px 5px 0 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 900px;
-    
-    margin-left: -15px;
-    margin-top: -15px;
-}
-.HeadContent {
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.AddCardButton{
-    display: flex;
-    align-items: center;
-    border: none;
-    color:#007185;
-    background-color: transparent;
-    font-size: 15px;
-    padding: 10px 20px;
-    cursor: pointer;
-}
-.AddCardButton:hover{
-    color:#b4251b;
-    text-decoration: underline;
-}
-.PlusAddCreditSign {
-    width: 20px;
-    height: auto;
-    margin-right: 8px;
-}
 .AcceptedCardIcons {
     display: flex;
     flex-direction: column;

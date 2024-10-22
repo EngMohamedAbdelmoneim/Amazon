@@ -1,21 +1,20 @@
-import { Component,ElementRef,OnInit, ViewChild } from '@angular/core';
+import { Component,ElementRef,Input,OnInit, ViewChild } from '@angular/core';
 import { Order } from '../../Models/order';
-import { FormsModule } from '@angular/forms';
-// import { library } from '@fortawesome/fontawesome-svg-core'
-// import { faCcVisa, faCcMastercard, faPaypal, faCcAmex} from '@fortawesome/free-brands-svg-icons';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {HttpClient} from '@angular/common/http';
-import { response } from 'express';
 import { OrderService } from '../../Services/order.service';
 import { Subscription } from 'rxjs';
 import { Address } from '../../Models/address';
 import { CookieService } from 'ngx-cookie-service';
+import { CartService } from '../../Services/cart.service';
+import { Router } from '@angular/router';
+import { loadStripe, Stripe, StripeCardCvcElement, StripeCardExpiryElement, StripeCardNumberElement } from '@stripe/stripe-js'
+import { Cart } from '../../Models/cart';
 
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule,CommonModule, ReactiveFormsModule],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
 })
@@ -26,7 +25,7 @@ export class OrderComponent  implements OnInit {
 
 
   showCardForm:boolean = false;
-  cardNumber:string = '';
+  cardNumberr:string = '';
   nameOnCard:string = '';
   expirationDate:string = '';
   securityCode:string = '';
@@ -38,13 +37,13 @@ export class OrderComponent  implements OnInit {
 
   showAddressOptions:boolean = false;
   showAddressForm:boolean = false;
-  country:string = '';
-  phoneNumber:number = 0;
-  streetNumber:number = 0;
-  unit:string = '';
-  city:string = '';
-  state:string = '';
-  zipCode:number = 0;
+  // country:string = '';
+  // phoneNumber:number = 0;
+  // streetNumber:number = 0;
+  // unit:string = '';
+  // city:string = '';
+  // state:string = '';
+  // zipCode:number = 0;
   currentShippingAddress:Address;
   selectedShippingAddress:Address;
   // selectedShippingAddress:Address = this.order.UserAddress[0];
@@ -59,192 +58,292 @@ export class OrderComponent  implements OnInit {
   buttonLabel: string = 'Use This Payment Method';
   buttonColor: string = '';
 
+  Total: number;
+
   DeliveryTest: any;
 
 
   Addresssub: Subscription;
   DeliverySub: Subscription;
+  cartSub: Subscription;
+  deleteCartSub: Subscription;
 
-  PaymentValue: string = '';
-  DeliveryValue: string = '';
+  PaymentValue: number;
+  DeliveryValue: number;
+  DeliveryMethodId: number;
 
+  cart: Cart;
+  // OrderTest: {AddresId: string, PaymentId: string, DeliveryId: string, CartId} = {AddresId: "", PaymentId: "", DeliveryId: "", CartId:""}
+  
+  @Input() OnlinePaymentForm?: FormGroup;
 
-  OrderTest: {AddresId: string, PaymentId: string, DeliveryId: string, CartId} = {AddresId: "", PaymentId: "", DeliveryId: "", CartId:""}
+  @ViewChild('cardNumber') cardNumberElement?: ElementRef;
+  @ViewChild('cardExpiry') cardExpiryElement?: ElementRef;
+  @ViewChild('cardCvc') cardCvcElement?: ElementRef;
 
-constructor(private orderService:OrderService, private cookieService: CookieService) {}
+  stripe: Stripe | null = null;
+
+  cardNumber?: StripeCardNumberElement;
+  cardExpiry?: StripeCardExpiryElement;
+  cardCvc?: StripeCardCvcElement
+  cardErrors: any;
+
+  ClinetSecret: string;
+
+constructor(private orderService:OrderService, private cookieService: CookieService, private cartService: CartService, private router: Router) {}
 
 ngOnInit() {
-  this.fetchCountries();
-  this.getCountriesWithCodes();
 
+  this.cartId = this.cookieService.get('guid');
+  // console.log(this.cartId)
+  this.cartSub = this.cartService.getAllFromCart(`cart-${this.cartId}`).subscribe({
+    next: d => {
+      this.cart = d;
+      console.log('this is the cart', this.cart);
+      this.Total = d.items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+      console.log(this.Total)
+    },
+    error: e => {
+      console.log(e)
+    }
+  })
+  
   this.Addresssub = this.orderService.getAddresses().subscribe({
     next: d => {
+      // console.log('adresses',d)
       this.order.UserAddress = d;
       this.currentShippingAddress = d[0];
       this.selectedShippingAddress = d[0];
-      this.OrderTest.AddresId = this.selectedShippingAddress.id;
-
+      // this.OrderTest.AddresId = this.selectedShippingAddress.id;
     }
   })
   
   this.DeliverySub = this.orderService.getDeliveryMethods().subscribe({
     next: d => {
+      console.log(d);
       this.DeliveryMethods = d;
-      this.OrderTest.DeliveryId = this.DeliveryMethods[0].id;
+      // this.OrderTest.DeliveryId = this.DeliveryMethods[0].id;
     }
   })  
 
   this.PaymentMethods = this.orderService.getPaymentMethods().subscribe({
     next: d => {
       this.PaymentMethods = d;
-      this.OrderTest.PaymentId = this.PaymentMethods[0].id;
+      // this.OrderTest.PaymentId = this.PaymentMethods[0].id;
     }
   })
-
-  this.cartId = this.cookieService.get('guid');
-  this.OrderTest.CartId = this.cartId;
-
-   console.log(this.OrderTest)
-
+   
 }
 
+  // #region Payment Methods
 
-onSubmit()
-{
-  // console.log(this.PaymentValue.nativeElement.value);
-  // console.log(this.PaymentValue);
-  // console.log(this.DeliveryValue);
-  // console.log(this.currentShippingAddress.id);
-  // console.log(this.cookieService.get('guid'));
-  this.OrderTest = {AddresId: this.currentShippingAddress.id, CartId: `cart-${this.cookieService.get('guid')}`, DeliveryId: this.DeliveryValue, PaymentId: this.PaymentValue}
-  console.log(this.OrderTest)
-  this.orderService.placeOrder(`cart-${this.cookieService.get('guid')}`, Number(this.DeliveryValue), Number(this.PaymentValue), this.currentShippingAddress.id).subscribe({
-    next: d => {
-      console.log(d);
-    },
-    error: e => {
-      console.log(e)
-    }
-  })
-}
+  async onSubmit()
+  {
 
-fetchCountries(): void {
-  this.orderService.fetchCountries().subscribe(
-    (response) => {
-      this.countriesList = response.map(country => country.name.common);
-    },
-    (error) => {
-      console.error('error fetching', error);
-    }
-  );
-}
+    this.cartSub = this.cartService.getAllFromCart(`cart-${this.cartId}`).subscribe({
+      next: d => {
+        this.cart = d;
+        this.cart.shippingPrice = this.DeliveryValue;
+        this.cart.deliveryMethodId = this.DeliveryMethodId;
+        
+        console.log('this is the cart', this.cart);
+        this.stripe?.confirmCardPayment(this.cart.clientSecret, {
+          payment_method: {
+                card: this.cardNumber,
+                // billing_details: {
+                //   name: this.OnlinePaymentForm?.get('paymentForm')?.get('nameOnCard')?.value
+                // }
+          }
+        })
+        .then(res => {
+          if(res.paymentIntent)
+              {
+                this.orderService.placeOrder(`cart-${this.cookieService.get('guid')}`, 2, Number(this.PaymentValue), this.currentShippingAddress.id).subscribe({
+                  next: d => {
+                    console.log(d);
+                    this.cartService.removeCart(`cart-${this.cookieService.get('guid')}`)
+                    window.location.href = 'http://localhost:4200';
+                  },
+                  error: e => {
+                    console.log(e)
+                  }
+                })
+              }
+        })
 
-  getCountriesWithCodes(): void {
-    // console.log('Fetching countries with codes...');
-    this.orderService.getCountriesWithCodes().subscribe(
-      (countries) => {
-        // console.log('Countries fetched:', countries);
-        this.countiresWithCodes = countries.map(country => ({
-          name: country.name.common,
-          flag: country.flags.png,
-          callingCode: country.idd.root ? `${country.idd.root}${country.idd.suffixes ? country.idd.suffixes[0] : ''}` : ''
-        })).filter(country => country.callingCode !== '');
-        // console.log(this.countiresWithCodes);
       },
-      (error) => {
-        console.error('Error fetching countries:', error);
+      error: e => {
+        console.log(e)
       }
-    );
+    })
   }
-  
-ToggleDropdown():void{
-  this.showDropDown = !this.showDropDown;
-}
 
-SelectCountry(country:any):void{
-  this.selectedCountry = this.country;
-  this.showDropDown=false;
-}
-
-OpenCardInfo():void{
-  this.showCardForm = !this.showCardForm;
-
-}
-
-updateButton() {
-  if (this.isAddressChanged) {
-    this.buttonLabel = 'Use This Address';
-    this.buttonColor = 'yellow'; 
-  } else if (this.isPaymentChanged) {
-    this.buttonLabel = 'Use This Payment Method';
-    this.buttonColor = 'yellow'; 
-  } else {
-    this.buttonLabel = 'Use This Payment Method';
-    this.buttonColor = ''; 
-  }
-}
-
-
-OpenAddressInfo():void{
-  this.showAddressOptions = !this.showAddressOptions;
-
-  // this.isAddressChanged = !this.isAddressChanged;
-  // this.isPaymentChanged = false;
-}
-TogglePaymentChange(): void {
-  this.isPaymentChanged = !this.isPaymentChanged;
-  this.isPaymentBoxOpen = !this.isPaymentBoxOpen;
-  this.isAddressChanged = false;
-}
-
-// TogglePaymentBox(): void {
-  
-// }
-
-SubmitCardInfo():void{
-console.log('Card Number:',this.cardNumber)
-console.log('Name On Card:',this.nameOnCard)
-console.log('Expiration Date',this.expirationDate)
-console.log('Security Code:',this.securityCode)
-this.showCardForm = false;
-}
-
-SelectAddress():void{
-  this.currentShippingAddress = this.selectedShippingAddress;
-  // if(this.selectedShippingAddress){
-  console.log('Selected Address:',this.selectedShippingAddress)
-  //this.selectedShippingAddress = address;
-  // this.selectedShippingAddress = this.selectedShippingAddress;
-  //this.order.UserAddress[0] = this.selectedShippingAddress;
-  this.showAddressOptions = false;
-  //}
-}
-
-openAddressForm():void{
-  this.showAddressForm = true;
-  this.showAddressOptions = false;
-}
-
-AddNewAddress ():void{
-  if(this.country && this.city && this.streetNumber && this.unit)
+  paymentMethodChoice(paymentMethodId: number)
+  {
+   
+    if(paymentMethodId == 2)
     {
-    // const fullAddress = `${this.country},${this.city},${this.state},${this.streetNumber},${this.unit}`
-    const fullAddress = new Address("", "", this.city, this.state, this.country, "", "", "", "", "", "")
-    this.order?.UserAddress.push(fullAddress);
-    this.currentShippingAddress = fullAddress;
-    this.country = '';
-    this.phoneNumber = 0;
-    this.streetNumber = 0;
-    this.unit = '';
-    this.city = '';
-    this.state = '';
-    this.CancelAddress();
+      let cartId = this.cookieService.get('guid');
+
+      this.cartService.createPaymentIntent(`cart-${cartId}`).subscribe({
+        next: (res) => {
+          console.log('success');
+        },
+        error: (e) => console.log(e)
+      })
+      
+      loadStripe("pk_test_51QBxlsGxfUlD5tIRm7qqPS3KLHioihsPUsHSOxHy5pbXi4tdXhrdneN8z9epNWHNczPjc10Jyt20GIgQLJhjmg9X001nO7NxRt")
+      .then(stripe => {
+        this.stripe = stripe;
+        const elements = stripe?.elements();
+        if(elements)
+        {
+          this.cardNumber = elements.create('cardNumber');
+          this.cardNumber.mount(this.cardNumberElement?.nativeElement);
+          this.cardNumber.on('change', e => {
+            if(e.error) this.cardErrors = e.error.message;
+            else this.cardErrors = null;
+          })
+
+          this.cardExpiry = elements.create('cardExpiry');
+          this.cardExpiry.mount(this.cardExpiryElement?.nativeElement);
+          this.cardExpiry.on('change', e => {
+            if(e.error) this.cardErrors = e.error.message;
+            else this.cardErrors = null;
+          })
+
+          this.cardCvc = elements.create('cardCvc');
+          this.cardCvc.mount(this.cardCvcElement?.nativeElement);
+          this.cardCvc.on('change', e => {
+            if(e.error) this.cardErrors = e.error.message;
+            else this.cardErrors = null;
+          })
+
+        }
+      })
+    }
   }
-}
-CancelAddress():void{
-  this.showAddressForm = false ;
-}
-CancelAddCard():void{
-  this.showCardForm = false;
-}
+
+  shippingMethodChoice(shippingMethodId)
+  {
+    let TempTotal = this.Total;
+    switch (shippingMethodId)
+    {
+      case 1:
+        this.DeliveryValue = 30;
+        this.DeliveryMethodId = 1;
+        this.cart.deliveryMethodId = 1;
+        this.cart.shippingPrice = 30;
+        console.log(this.cart)
+        this.Total = TempTotal + 30;
+        break;
+      case 2:
+        this.DeliveryValue = 20;
+        this.DeliveryMethodId = 2;
+        this.PaymentValue = 20;
+        this.cart.shippingPrice = 20;
+        this.Total = TempTotal + 20;
+        break;
+      case 3:
+        this.DeliveryValue = 10;
+        this.DeliveryMethodId = 3;
+        this.PaymentValue = 10;
+        this.cart.shippingPrice = 10;
+        this.Total = TempTotal + 10;
+        break;
+      case 4:
+        this.DeliveryValue = 0;
+        this.DeliveryMethodId = 4;
+        this.PaymentValue = 0;
+        this.cart.shippingPrice = 0;
+        this.Total = TempTotal + 0;
+        break;
+    }
+  }
+
+  // #endregion
+
+
+  ToggleDropdown(): void
+  {
+    this.showDropDown = !this.showDropDown;
+  }
+
+
+  OpenCardInfo(): void 
+  {
+    this.showCardForm = !this.showCardForm;
+  }
+
+  updateButton() 
+  {
+    if (this.isAddressChanged) 
+    {
+      this.buttonLabel = 'Use This Address';
+      this.buttonColor = 'yellow'; 
+    }
+    else if (this.isPaymentChanged) 
+    {
+      this.buttonLabel = 'Use This Payment Method';
+      this.buttonColor = 'yellow'; 
+    } 
+    else 
+    {
+      this.buttonLabel = 'Use This Payment Method';
+      this.buttonColor = ''; 
+    }
+  }
+
+
+  OpenAddressInfo(): void
+  {
+    this.showAddressOptions = !this.showAddressOptions;
+
+    // this.isAddressChanged = !this.isAddressChanged;
+    // this.isPaymentChanged = false;
+  }
+
+  TogglePaymentChange(): void 
+  {
+    this.isPaymentChanged = !this.isPaymentChanged;
+    this.isPaymentBoxOpen = !this.isPaymentBoxOpen;
+    this.isAddressChanged = false;
+  }
+
+  SubmitCardInfo():void
+  {
+    console.log('Card Number:',this.cardNumberr)
+    console.log('Name On Card:',this.nameOnCard)
+    console.log('Expiration Date',this.expirationDate)
+    console.log('Security Code:',this.securityCode)
+    this.showCardForm = false;
+  }
+
+  SelectAddress(): void
+  {
+    this.currentShippingAddress = this.selectedShippingAddress;
+    // if(this.selectedShippingAddress){
+    console.log('Selected Address:',this.selectedShippingAddress)
+    //this.selectedShippingAddress = address;
+    // this.selectedShippingAddress = this.selectedShippingAddress;
+    //this.order.UserAddress[0] = this.selectedShippingAddress;
+    this.showAddressOptions = false;
+    //}
+  }
+
+  openAddressForm(): void
+  {
+    this.showAddressForm = true;
+    this.showAddressOptions = false;
+  }
+
+  CancelAddress(): void 
+  {
+    this.showAddressForm = false ;
+  }
+
+  CancelAddCard(): void 
+  {
+    this.showCardForm = false;
+  }
 }

@@ -55,7 +55,7 @@
           </div>
     </aside> -->
     <div class="action-buttons d-flex">
-        <button  [routerLink]="['/seller-add-product']" class="btn btn-success mx-3 my-1">Add Product</button>
+        <a routerLink="/seller/add-product" class="btn btn-success mx-3 my-1">Add Product</a>
     </div>
     <section>
         <div class="table-container">
@@ -76,16 +76,18 @@
                 </thead>
                 <tbody>
                     <!-- Sample data loop - bind this to your product list in your component -->
-                    <tr  [routerLink]="['/seller-product-details',product.id]" *ngFor="let product of products">
+                    <tr  [routerLink]="['/seller/product-details',product.id]" *ngFor="let product of products">
                         <td>{{ product.name }}</td>
                         <td>{{ product.brandName }}</td>
                         <td>{{ product.price | currency }}</td>
                         <td>{{ product.categoryName }}</td>
                         <td>{{ product.brandName }}</td>
                         <td>sales</td>
-                        <td> <button  (click)="edit(product)" class="btn btn-success">Edit Product</button>
+                        <td> 
+                          <button  (click)="edit(product)" class="btn btn-success">Edit Product</button>
                         </td>
-                        <td> <button (click)="delete(product.id)" class="btn btn-danger">Delete</button>
+                        <td> 
+                          <button (click)="delete(product.id)" class="btn btn-danger">Delete</button>
                         </td>
                         <td>rating</td>
                         <td>seller</td>

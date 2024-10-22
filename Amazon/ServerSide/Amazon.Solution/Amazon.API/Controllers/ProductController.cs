@@ -38,7 +38,7 @@ namespace Amazon.API.Controllers
 			var sellerEmail = User.FindFirstValue("Email");
 
 			var brand = await _brandService.GetBrandByIdAsync(product.BrandId);
-			var category =await _categoryService.GetCategoryByIdAsync(product.CategoryId);
+			var category = await _categoryService.GetCategoryByIdAsync(product.CategoryId);
 
 			if (brand == null || category == null)
 				return BadRequest();
@@ -49,7 +49,8 @@ namespace Amazon.API.Controllers
 			{
 				product.Discount = JsonConvert.DeserializeObject<DiscountDto>(Discount);
 			}
-			return Ok( await _productService.AddProduct(product));
+			//return Ok(await _productService.AddProduct(product));
+			return Ok(result);
 		}
 
 		[HttpGet("GetAll")]

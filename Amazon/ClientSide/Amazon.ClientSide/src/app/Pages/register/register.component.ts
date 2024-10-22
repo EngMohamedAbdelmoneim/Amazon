@@ -42,7 +42,6 @@ export class RegisterComponent implements OnInit{
       this.sub = this.accountService.register(email, username, phonenumber, password, confirmpassword).subscribe({
         next: r => {
           console.log(r);
-          this.router.navigateByUrl("");
         },
         error: e => {
           console.log(e);

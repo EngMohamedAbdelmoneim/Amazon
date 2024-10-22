@@ -1,9 +1,3 @@
-<!-- <app-nav></app-nav>
-
-<router-outlet />
-
-<app-footer></app-footer> -->
-
 @switch (pageLayoutService.layout$ | async)
 {
   @case(PageLayout.Authorized)
@@ -13,5 +7,9 @@
   @case(PageLayout.UnAuthorized)
   {
     <app-un-authorized-layout><router-outlet /></app-un-authorized-layout>
+  }
+  @case(PageLayout.Seller)
+  {
+    <app-seller-layout><router-outlet /></app-seller-layout>
   }
 }

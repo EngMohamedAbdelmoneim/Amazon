@@ -2,13 +2,13 @@ export class CartItem {
     id:number
     productName:string
     category:string
-    price:Number
+    price:number
     pictureUrl:string
-    quantity:Number
+    quantity:number
 
 
-    constructor(id: number, ProductName: string, Category: string,Price:Number,PictureUrl:string,Quantity:Number
-    ){
+    constructor(id: number, ProductName: string, Category: string,Price:number,PictureUrl:string,Quantity:number)
+    {
         this.id = id;
         this.productName = ProductName;
         this.category = Category;

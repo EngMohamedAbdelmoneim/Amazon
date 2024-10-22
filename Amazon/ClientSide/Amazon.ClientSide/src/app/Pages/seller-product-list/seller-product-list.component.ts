@@ -24,12 +24,13 @@ export class SellerProductListComponent {
         this.products = data;
       }
     });
-
   }
+
   edit(product: Product) {
     const serializedObject = encodeURIComponent(JSON.stringify(product));
-    this.router.navigate(['/seller-edit-product', serializedObject]);
+    this.router.navigate(['/seller/edit-product', serializedObject]);
   }
+
   delete(id: number): void {
     this.productService.DeleteProduct(id).subscribe({
       next: data => {

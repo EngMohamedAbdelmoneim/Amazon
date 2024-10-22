@@ -11,7 +11,7 @@ namespace Amazon.API.Controllers
 	[ApiController]
 	public class PaymentsController : ControllerBase
 	{
-		private const string _whSecret = "";
+		private const string _whSecret = "whsec_9957ae1953e31fe975ca159e32c6589c33d5a36b9e38c462d3f02952aa5f8319";
 		private readonly IPaymentService _paymentService;
         public PaymentsController(IPaymentService paymentService)
         {

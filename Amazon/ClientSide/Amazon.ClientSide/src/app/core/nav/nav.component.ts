@@ -92,7 +92,15 @@ export class NavComponent implements OnInit {
     }
   }
 
-  toggleAddressForm(): void {
+  toggleAddressForm(): void 
+  {
     this.addressFormVisible = !this.addressFormVisible;
   }
+
+  SignOut()
+  {
+    localStorage.clear();
+    window.location.href = 'http://localhost:4200/login';
+  }
+
 }

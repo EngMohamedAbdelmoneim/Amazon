@@ -9,11 +9,12 @@ import { UnAuthorizedLayoutComponent } from './core/un-authorized-layout/un-auth
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GuidService } from './Services/guid.service';
+import { SellerLayoutComponent } from "./core/seller-layout/seller-layout.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterOutlet, NavComponent, FooterComponent, AuthorizedLayoutComponent, UnAuthorizedLayoutComponent],
+  imports: [ReactiveFormsModule, CommonModule, RouterOutlet, NavComponent, FooterComponent, AuthorizedLayoutComponent, UnAuthorizedLayoutComponent, SellerLayoutComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
