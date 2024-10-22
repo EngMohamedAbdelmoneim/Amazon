@@ -11,6 +11,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Amazon.Core.Entities.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
 
 namespace Amazon.API.Controllers
 {
@@ -32,7 +33,7 @@ namespace Amazon.API.Controllers
 		[Authorize(Roles = "Seller")]
 		[HttpPost]
 		[ActionName("AddProduct")]
-		public async Task<ActionResult<ProductToReturnDto>> AddProduct(ProductDto product)
+		public async Task<ActionResult<ProductToReturnDto>> AddProduct([FromForm] ProductDto product , [FromForm] string Discount)
 		{
 			var sellerEmail = User.FindFirstValue("Email");
 
@@ -44,7 +45,11 @@ namespace Amazon.API.Controllers
 			
 			var result = await _productService.AddProduct(product,sellerEmail);
 
-			return Ok(result);
+			if (!string.IsNullOrEmpty(Discount))
+			{
+				product.Discount = JsonConvert.DeserializeObject<DiscountDto>(Discount);
+			}
+			return Ok( await _productService.AddProduct(product));
 		}
 
 		[HttpGet("GetAll")]
@@ -76,7 +81,7 @@ namespace Amazon.API.Controllers
 
 		[Authorize(Roles = "Seller")]
 		[HttpPut("{id}")]
-		public async Task<ActionResult<ProductToReturnDto>> UpdateProduct(int id,ProductDto product)
+		public async Task<ActionResult<ProductToReturnDto>> UpdateProduct(int id, [FromForm] ProductDto product, [FromForm] string Discount)
 		{
 			var sellerEmail = User.FindFirstValue("Email");
 
@@ -92,7 +97,10 @@ namespace Amazon.API.Controllers
 			var category = _categoryService.GetCategoryByIdAsync(product.CategoryId);
 			if (brand == null || category == null)
 				return BadRequest();
-
+			if (!string.IsNullOrEmpty(Discount))
+			{
+				product.Discount = JsonConvert.DeserializeObject<DiscountDto>(Discount);
+			}
 			return Ok(await _productService.UpdateProduct(id, product));
 		}
 

@@ -1,4 +1,3 @@
-import { Category } from "./category";
 
 export class ParentCategory 
 {

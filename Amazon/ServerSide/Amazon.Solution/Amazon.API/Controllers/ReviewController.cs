@@ -27,6 +27,7 @@ public class ReviewController : BaseController
 		return reviews;
 	}
 
+
 	[HttpGet("{productId}")]
 	public async Task<IReadOnlyList<ReviewToReturnDto>> GetAllProductReviewsById(int productId)
 	{
@@ -37,7 +38,6 @@ public class ReviewController : BaseController
 		}
 		return reviews;
 	}
-
 
 	[HttpGet("{id}")]
 	public async Task<ReviewToReturnDto> GetReviewById(int id)

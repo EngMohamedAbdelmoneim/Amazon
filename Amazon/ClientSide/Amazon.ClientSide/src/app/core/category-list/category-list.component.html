@@ -1,4 +1,4 @@
-<div class="m-2 category-list-body">
+<!-- <div class="m-2 category-list-body">
     <h4 style="font-weight:bolder;">Shop by Category</h4>
     <ul class="list-unstyled">
         @for (parentcategory of parentcategories; track parentcategory.id)
@@ -24,4 +24,61 @@
         }
     </ul>
 
+</div> -->
+
+<div class="flex-shrink-0 p-3 bg-white" style="width: 280px;" bis_skin_checked="1">
+    <ul class="list-unstyled ps-0">
+        <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+                data-bs-target="#home-collapse" aria-expanded="false">
+                Categories
+            </button>
+            <div class="collapse" id="home-collapse" bis_skin_checked="1">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    @for (parentcategory of parentcategories; track parentcategory.id)
+                    {
+                    <li class="mb-1 mx-2">
+                        <button  [routerLink]="['/category' , parentcategory.name]" class="btn btn-toggle align-items-center rounded" data-bs-toggle="collapse"
+                            data-bs-target="#categ-collapse" aria-expanded="true">
+                            {{parentcategory.name}}
+                        </button>
+                        <div class="collapse show" id="categ-collapse" bis_skin_checked="1">
+                            <button [routerLink]="['/category' , parentcategory.name]"
+                                routerLinkActive="router-link-active" routerLinkActive="router-link-active"
+                                class="list-group-item">
+                            </button>
+                            <ul class="list-group-numbered">
+                                @for (category of parentcategory.categories; track $index) 
+                                {
+                                <li>
+                                    <a [routerLink]="['/category' , parentcategory.name,category]" routerLinkActive="router-link-active"
+                                        routerLinkActive="router-link-active" class="list-group-item">
+                                        {{category}}
+                                    </a>
+                                </li>
+                
+                                }
+                            </ul>
+                        </div>
+                    </li>
+                    }
+                </ul>
+            </div>
+        </li>
+        <li class="border-top my-3"></li>
+        <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+                data-bs-target="#account-collapse" aria-expanded="false">
+                Account
+            </button>
+            <div class="collapse" id="account-collapse" bis_skin_checked="1">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a href="#" class="list-group-item">New...</a></li>
+                    <li><a href="#" class="list-group-item">Profile</a></li>
+                    <li><a href="#" class="list-group-item">Settings</a></li>
+                    <li><a href="#" class="list-group-item">Sign out</a></li>
+                </ul>
+            </div>
+        </li>
+    </ul>
 </div>
