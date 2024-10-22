@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<Amazon.Services.ProductService.Dto.ProductToReturnDto>
 
-<h1>Index</h1>
+<h1>Products</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create</a>
 </p>
 
 <div class="bg-white p-4">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_1">
+    @* <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_1">
         Create
-    </button>
+    </button> *@
 
     <div class="modal fade" tabindex="-1" id="kt_modal_1">
         <div class="modal-dialog">

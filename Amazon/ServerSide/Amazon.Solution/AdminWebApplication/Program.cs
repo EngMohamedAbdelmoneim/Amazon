@@ -1,5 +1,6 @@
 using Amazon.Core.DBContext;
 using Amazon.Core.Entities;
+using Amazon.Core.Entities.Identity;
 using Amazon.Core.Entities.OrderAggregate;
 using Amazon.Core.IdentityDb;
 using Amazon.Services.BrandService;
@@ -13,6 +14,7 @@ using Amazon.Services.ProductService;
 using Amazon.Services.ProductService.Dto;
 using Amazone.Infrastructure.Interfaces;
 using Amazone.Infrastructure.Repos;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 
@@ -40,8 +42,6 @@ namespace AdminWebApplication
             builder.Services.AddScoped<IParentCategoryService, ParentCategoryService>();
             //builder.Services.AddScoped<IOrderService, OrderService>();
 
-            builder.Services.AddAutoMapper(typeof(ProductProfile));
-
 			builder.Services.AddAutoMapper(typeof(ProductProfile));
             builder.Services.AddAutoMapper(typeof(BrandProfile));
             builder.Services.AddAutoMapper(typeof(CategoryProfile));
@@ -56,6 +56,10 @@ namespace AdminWebApplication
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection"));
             });
+            builder.Services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppIdentityDbContext>()
+                .AddDefaultTokenProviders();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
