@@ -8,7 +8,8 @@ namespace Amazon.Services.ProductService.Dto
 	{
 		public ProductProfile()
 		{
-			CreateMap<ProductDto, Product>().ReverseMap();
+			CreateMap<ProductDto, Product>()
+				.ForMember(d => d.SellerName , o => o.Ignore()).ForMember(d =>d.SellerEmail , o=>o.Ignore());
 			CreateMap<Discount, DiscountDto>().ReverseMap();
 			CreateMap<Product, ProductToReturnDto>()
 				.ForMember(dest => dest.PictureUrl, options => options.MapFrom<ProductUrlImageResolver>())

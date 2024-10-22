@@ -7,6 +7,7 @@ using Amazon.Services.Utilities.EmailSettings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 using System.Text;
 
 namespace Amazon.API.Extentions
@@ -44,7 +45,8 @@ namespace Amazon.API.Extentions
 					ValidateIssuerSigningKey = true,
 					IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:SecretKey"])),
 					ValidateLifetime = true,
-					ClockSkew = TimeSpan.FromDays(double.Parse(configuration["JWT:DurationInDays"]))
+					ClockSkew = TimeSpan.FromDays(double.Parse(configuration["JWT:DurationInDays"])),
+					RoleClaimType = "Role", 
 				};
 			});
 

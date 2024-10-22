@@ -25,7 +25,10 @@ namespace Amazon.Core.Entities
         public virtual Brand Brand { get; set; }
         public int BrandId { get; set; }
 
-		public virtual ICollection<ProductImages> Images { get; set; } = [];
+        public string SellerName { get; set; }
+        public string SellerEmail { get; set; }
+
+        public virtual ICollection<ProductImages> Images { get; set; } = [];
         [NotMapped]
         public ICollection<IFormFile> ImagesFiles { get; set; }
 

@@ -7,6 +7,10 @@ using Amazon.Services.BrandService;
 using Amazon.Services.CategoryServices;
 using Amazon.Services.Utilities;
 using Amazone.Infrastructure.Specification.ProductSpecifications;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using Amazon.Core.Entities.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Amazon.API.Controllers
 {
@@ -18,26 +22,29 @@ namespace Amazon.API.Controllers
 		private readonly IBrandService _brandService;
 		private readonly ICategoryService _categoryService;
 
-		public ProductController(IProductService productService,IBrandService brandService , ICategoryService categoryService)
+		public ProductController(IProductService productService, IBrandService brandService, ICategoryService categoryService)
 		{
 			_productService = productService;
 			_brandService = brandService;
 			_categoryService = categoryService;
 		}
 
-
+		[Authorize(Roles = "Seller")]
 		[HttpPost]
 		[ActionName("AddProduct")]
 		public async Task<ActionResult<ProductToReturnDto>> AddProduct(ProductDto product)
 		{
+			var sellerEmail = User.FindFirstValue("Email");
+
 			var brand = await _brandService.GetBrandByIdAsync(product.BrandId);
 			var category =await _categoryService.GetCategoryByIdAsync(product.CategoryId);
 
 			if (brand == null || category == null)
 				return BadRequest();
+			
+			var result = await _productService.AddProduct(product,sellerEmail);
 
-
-			return Ok( await _productService.AddProduct(product));
+			return Ok(result);
 		}
 
 		[HttpGet("GetAll")]
@@ -63,16 +70,23 @@ namespace Amazon.API.Controllers
 				return NotFound(); 
 
 
-			return Ok(product); //Status Code 200
+			return Ok(product);
 		}
 
 
-		[HttpPut("id")]
+		[Authorize(Roles = "Seller")]
+		[HttpPut("{id}")]
 		public async Task<ActionResult<ProductToReturnDto>> UpdateProduct(int id,ProductDto product)
 		{
+			var sellerEmail = User.FindFirstValue("Email");
+
+
 			var Exsistproduct = await _productService.GetProductByIdAsync(id);
 			if (Exsistproduct == null)
-				return NotFound();
+				return Forbid();
+
+			if (Exsistproduct.SellerEmail != sellerEmail)
+				return Forbid();
 
 			var brand = _brandService.GetBrandByIdAsync(product.BrandId);
 			var category = _categoryService.GetCategoryByIdAsync(product.CategoryId);
@@ -82,18 +96,45 @@ namespace Amazon.API.Controllers
 			return Ok(await _productService.UpdateProduct(id, product));
 		}
 
+		[Authorize(Roles ="Seller")]
+		[HttpGet]
+		public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetSellerProducts()
+			=> Ok(await _productService.GetAllSellerProductsAsync(User.FindFirstValue("Email")));
+		
+		
+		[Authorize(Roles ="Seller")]
+		[HttpGet("{id}")]
+		public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetSellerProductById(int id)
+		{
+			var sellerEmail = User.FindFirstValue("Email");
+
+			var result = await _productService.GetSellerProductByIdAsync(sellerEmail, id);
+			if (result is null)
+				return Forbid();
+
+			 return Ok(result);
+		}
+		
+
+
+
 		[HttpGet]
 		public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetAllProducts()
 			=> Ok(await _productService.GetAllProductsAsync());
 
 
+		[Authorize(Roles = "Seller")]
 		[HttpDelete("{id}")]
 		public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> DeleteProduct(int id)
 		{
+			var sellerEmail = User.FindFirstValue("Email");
 
-			var proucts = await _productService.GetProductByIdAsync(id);
-			if (proucts is null)
+			var product = await _productService.GetProductByIdAsync(id);
+			if (product is null)
 				return NotFound();
+
+			if (product.SellerEmail != sellerEmail)
+				return Forbid();
 
 			return Ok(await _productService.DeleteProduct(id));
 

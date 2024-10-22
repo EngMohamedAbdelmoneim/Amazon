@@ -9,6 +9,7 @@ namespace Amazon.Services.AuthService.User
 	public interface IUserService
 	{
 		Task<IdentityResult> Register(RegisterDto registerDto);
+		Task<IdentityResult> RegisterSeller(RegisterDto registerDto, string sellerName);
 		Task<UserDto> Login(LoginDto logInDto);
 		Task<IReadOnlyList<AddressToReturnDto>> AddAddressAsync(string userEmail, AddressDto addressDto);
 		Task<AddressToReturnDto> EditAddressAsync(string userId, string addressId ,AddressDto addressDto);

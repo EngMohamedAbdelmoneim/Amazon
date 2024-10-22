@@ -1,10 +1,12 @@
 using Amazon.Core.Entities;
+using Amazon.Core.Entities.Identity;
 using Amazon.Services.ProductService.Dto;
 using Amazon.Services.Utilities;
 using Amazone.Infrastructure.Interfaces;
 using Amazone.Infrastructure.Specification.ProductSpecifications;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
 namespace Amazon.Services.ProductService
 {
@@ -12,36 +14,43 @@ namespace Amazon.Services.ProductService
 	{
 
 		private readonly IProductRepository _productRepo;
+		private readonly UserManager<AppUser> _userManager;
 		private readonly IMapper _mapper;
 
-		public ProductService(IMapper mapper, IProductRepository productRepo)
+		public ProductService(IMapper mapper, IProductRepository productRepo,UserManager<AppUser> userManager)
 		{
 			_mapper = mapper;
 			_productRepo = productRepo;
+			_userManager = userManager;
 		}
 
 
-		public async Task<ProductToReturnDto> AddProduct(ProductDto productDto)
+		public async Task<ProductToReturnDto> AddProduct(ProductDto productDto,string sellerEmail)
 		{
+
+			var seller = await _userManager.FindByEmailAsync(sellerEmail);
+					
 			if (productDto.Discount != null)
 			{
-				if (productDto.Discount.StartDate.Date == DateTime.Now.Date)
+				if (productDto.Discount.StartDate.Value.Date == DateTime.Now.Date)
 				{
 					productDto.Discount.DiscountStarted = true;
 				}
 				productDto.Discount.PriceAfterDiscount = productDto.Price * (1 - productDto.Discount.DiscountPercentage);
 			}
-			var mappedProduct = _mapper.Map<Product>(productDto);
-			mappedProduct.PictureUrl = await DocumentSettings.UploadFile(productDto.ImageFile, "productImages");
+			var product = _mapper.Map<Product>(productDto);
+			product.PictureUrl = await DocumentSettings.UploadFile(productDto.ImageFile, "productImages");
+			product.SellerEmail = seller.Email;
+			product.SellerName = seller.SellerName;
 				
-			await HandleProductImages(productDto.ImagesFiles, mappedProduct);
+			await HandleProductImages(productDto.ImagesFiles, product);
 
 
-			await _productRepo.Add(mappedProduct);
+			await _productRepo.Add(product);
 
-			//var productToReturn = _mapper.Map<ProductToReturnDto>(mappedProduct);
+			//var productToReturn = _mapper.Map<ProductToReturnDto>(product);
 
-			return await GetProductByIdAsync(mappedProduct.Id);
+			return await GetProductByIdAsync(product.Id);
 		
 		}
 		public async Task<ProductToReturnDto> UpdateProduct(int id, ProductDto productDto)
@@ -68,7 +77,7 @@ namespace Amazon.Services.ProductService
 			}
 			if (productDto.Discount != null)
 			{
-				if (productDto.Discount.StartDate.Date == DateTime.Now.Date)
+				if (productDto.Discount.StartDate.Value.Date == DateTime.Now.Date)
 				{
 					productDto.Discount.DiscountStarted = true;
 				}
@@ -254,6 +263,34 @@ namespace Amazon.Services.ProductService
 			var data = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products);	
 
 			return new Pagination<ProductToReturnDto>(specParams.PageIndex,specParams.PageSize,count,data);
+		}
+
+		public async Task<IReadOnlyList<ProductToReturnDto>> GetAllSellerProductsAsync(string sellerEmail)
+		{
+
+			var spec = new ProductWithBrandAndCategorySpecifications(sellerEmail);
+
+			var products = await _productRepo.GetAllWithSpecAsync(spec);
+
+			if (products.Count <= 0)
+				return null;
+			var sellerProducts = _mapper.Map<IReadOnlyList<ProductToReturnDto>>(products);
+
+			return sellerProducts;
+		}
+		public async Task<ProductToReturnDto> GetSellerProductByIdAsync(string sellerEmail,int productId)
+		{
+
+			var spec = new ProductWithBrandAndCategorySpecifications(sellerEmail,productId);
+
+			var product = await _productRepo.GetWithSpecAsync(spec);
+			
+			if (product == null)
+				return null;
+
+			var sellerProducts = _mapper.Map<ProductToReturnDto>(product);
+
+			return sellerProducts;
 		}
 
 		public async Task<ProductToReturnDto> GetProductByIdAsync(int id)

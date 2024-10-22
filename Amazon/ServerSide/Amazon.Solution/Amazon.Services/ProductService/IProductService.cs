@@ -10,6 +10,12 @@ namespace Amazon.Services.ProductService
 		Task<Pagination<ProductToReturnDto>> GetAllProductsAsync(ProductSpecParams specParams);
 		Task<ProductToReturnDto> GetProductByIdAsync(int productId);
 
+
+
+		Task<ProductToReturnDto> GetSellerProductByIdAsync(string sellerEmail, int productId);
+		Task<IReadOnlyList<ProductToReturnDto>> GetAllSellerProductsAsync(string sellerEmail);
+
+
 		Task<IReadOnlyList<ProductToReturnDto>> GetProductsByBrandIdAsync(int id);
 		Task<IReadOnlyList<ProductToReturnDto>> GetProductsByCategoryIdAsync(int id);
 		Task<IReadOnlyList<ProductToReturnDto>> GetProductsByParentCategoryIdAsync(int id);
@@ -24,7 +30,7 @@ namespace Amazon.Services.ProductService
 		Task<IReadOnlyList<ProductToReturnDto>> GetProductsByCategoryIdAndNameAsync(string name, int? id);
 
 
-		Task<ProductToReturnDto> AddProduct(ProductDto product);
+		Task<ProductToReturnDto> AddProduct(ProductDto product,string sellerEmail);
 		Task<ProductToReturnDto> UpdateProduct(int id, ProductDto product);
 		Task<IReadOnlyList<ProductToReturnDto>> DeleteProduct(int id);
 	}

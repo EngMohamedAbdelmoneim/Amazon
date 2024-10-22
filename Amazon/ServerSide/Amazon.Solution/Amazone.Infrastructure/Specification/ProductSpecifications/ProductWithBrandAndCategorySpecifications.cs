@@ -44,6 +44,18 @@ namespace Amazone.Infrastructure.Specification.ProductSpecifications
 		{
 			AddIncludes();
 		}
+		public ProductWithBrandAndCategorySpecifications(string sellerEmail)
+			: base(P => P.SellerEmail == sellerEmail)
+		{
+			AddIncludes();
+		}
+
+		
+		public ProductWithBrandAndCategorySpecifications(string sellerEmail,int id)
+			: base(P => P.SellerEmail == sellerEmail && P.Id == id)
+		{
+			AddIncludes();
+		}
 
 
 		private void AddIncludes()

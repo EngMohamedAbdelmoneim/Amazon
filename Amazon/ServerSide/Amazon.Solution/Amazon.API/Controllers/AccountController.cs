@@ -57,6 +57,25 @@ namespace Amazon.API.Controllers
 				return BadRequest("Register Failed");
 		}
 
+		[HttpPost("SellerRegister")]
+		public async Task<ActionResult> RegisterSeller(RegisterDto registerDto,[FromQuery]string sellerName)
+		{
+			var result = await _userService.RegisterSeller(registerDto,sellerName);
+			if (result is null)
+				return BadRequest("Already Registered");
+
+			if (result.Succeeded)
+			{
+				var user = await _userManager.FindByEmailAsync(registerDto.Email);
+				if (user is null)
+					return NotFound();
+
+				return Ok(await SendConfirmationEmail(user));
+			}
+			else
+				return BadRequest("Register Failed");
+		}
+
 		
 		[HttpPost("Login")]
 		public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
@@ -185,7 +204,8 @@ namespace Amazon.API.Controllers
 			return Ok(new UserDto()
 			{
 				DisplayName = user.DisplayName,
-				Email = user.Email
+				Email = user.Email,
+				Token = await _tokenService.CreateTokenAsync(user, _userManager)
 			});
 		}
 

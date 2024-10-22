@@ -33,8 +33,13 @@ namespace Amazon.Services.AuthService.User
 		public async Task<IdentityResult> Register(RegisterDto registerDto)
 		{
 			var user = await _userManager.FindByEmailAsync(registerDto.Email);
-			if (user != null)
+
+
+			if (user != null && await _userManager.IsInRoleAsync(user,"Customer"))
 				return null;
+			else if(user != null && !await _userManager.IsInRoleAsync(user, "Customer"))
+				return await _userManager.AddToRoleAsync(user, "Customer");
+			
 
 			var appUser = new AppUser
 			{
@@ -55,6 +60,43 @@ namespace Amazon.Services.AuthService.User
 
 			return  result;
 		}
+		public async Task<IdentityResult> RegisterSeller(RegisterDto registerDto,string sellerName)
+		{
+			var user = await _userManager.FindByEmailAsync(registerDto.Email);
+
+
+			if (user != null && await _userManager.IsInRoleAsync(user,"Seller"))
+				return null;
+			else if(user != null && !await _userManager.IsInRoleAsync(user, "Seller"))
+			{
+				user.SellerName = sellerName;
+				await _userManager.UpdateAsync(user);
+				return await _userManager.AddToRoleAsync(user, "Seller");
+			}
+			
+
+			var appUser = new AppUser
+			{
+				DisplayName = registerDto.DisplayName,
+				Email = registerDto.Email,
+				UserName = registerDto.Email.Split('@')[0],
+				PhoneNumber = registerDto.PhoneNumber,
+				SellerName = sellerName,
+			};
+
+			var result = await _userManager.CreateAsync(appUser, registerDto.Password);
+
+			if (!result.Succeeded)
+				return null;
+			result = await _userManager.AddToRoleAsync(appUser, "Seller");
+
+			if (!result.Succeeded)
+				return null;
+
+			return  result;
+		}
+
+
 
 		public async Task<UserDto> Login(LoginDto loginDto)
 		{

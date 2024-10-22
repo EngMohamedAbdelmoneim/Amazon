@@ -1,4 +1,5 @@
 ﻿using Amazon.Core.Entities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -26,6 +27,9 @@ namespace Amazon.Services.ProductService.Dto
 		public string CategoryName { get; set; }
 		public int BrandId { get; set; }
 		public string BrandName { get; set; }
+		public string SellerName { get; set; }
+		[JsonIgnore]
+		public string SellerEmail { get; set; }
 		public ICollection<string> ProductImages { get; set; } = [];
 		public DiscountDto Discount { get; set; }
     }
