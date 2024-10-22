@@ -20,15 +20,15 @@ export class AddressService {
     return this.http.post<Address>(`${this.apiUrl}/addAddress`,address);
   }
 
-  updateAddress(address:Address): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/editAddress/${address.id}`, address);
+  updateAddress(address:Address): Observable<Address> {
+    return this.http.put<Address>(`${this.apiUrl}/editAddress/${address.id}`, address);
   }
 
-  deleteAddress(addressId:string): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/deleteAddress/${addressId}`);
+  deleteAddress(addressId:string): Observable<Address> {
+    return this.http.delete<Address>(`${this.apiUrl}/deleteAddress/${addressId}`);
 }
 
-  setDefaultAddress(addressId:string):Observable<any>{
-    return this.http.post<any>(`${this.apiUrl}/setDefaultAddress?id=${addressId}`,null);
+  setDefaultAddress(addressId:string):Observable<Address>{
+    return this.http.post<Address>(`${this.apiUrl}/setDefaultAddress?id=${addressId}`,null);
   }
 }

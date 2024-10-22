@@ -23,9 +23,14 @@ export class ManageAddressBookComponent implements OnInit{
   address:Address = new Address('','','','','','','','','','','');
   showAddAddressForm = false;
   isEditMode = false;
+  selectedAddress: Address | null = null;
 
   ngOnInit(): void {
     this.fetchSavedAddresses();
+  }
+
+  onSelectAddress(address: Address): void {
+    this.selectedAddress = address;
   }
   //Fetch address saved in database and display them in the boxes
   fetchSavedAddresses(): void {
@@ -39,8 +44,9 @@ export class ManageAddressBookComponent implements OnInit{
     );
   }
 
-  editAddress(){
-    if(this.address){
+  editAddress(selectedAddress: Address){
+    if(this.selectedAddress){
+      this.address = selectedAddress;
       this.addressService.updateAddress(this.address).subscribe({
         next:(response) =>{
           this.router.navigate(['/manage-address-book'])
@@ -66,7 +72,7 @@ loadAddresses() {
 deleteAddress(addressId: string) {
   this.addressService.deleteAddress(addressId).subscribe({
     next:(response) =>{
-      this.loadAddresses();
+      this.router.navigate(['/manage-address-book'])
     },
     error:(error) =>{
       console.error('Error deleting address', error);
@@ -94,6 +100,20 @@ onSubmitNewAddress():void{
     console.error('Error adding address:', error);
     }
   );
+}
+
+onSetDefaultAddress(addressId: string):void{
+  if(addressId){
+    this.addressService.setDefaultAddress(addressId)
+      .subscribe({
+        next:(response) =>{
+          this.router.navigate(['/manage-address-book'])
+        },
+        error:(error) =>{
+          console.log('Error setting default address',error);
+      }
+    });
+  }
 }
 
 }

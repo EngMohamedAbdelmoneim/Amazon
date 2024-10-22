@@ -2,7 +2,7 @@
     <h1>Manage Address Book</h1>
 
     <div class="my-3 mx-auto w-100 max-width-1200 address-list">
-        <div class="border p-4 m-2 text-center shadow-sm custom-box add-address-box">
+        <div class="p-4 m-2 text-center shadow-sm custom-box add-address-box">
             <h3>Add New Address</h3>
             <button class="use-address" (click)="toggleAddAddressForm()">Add New Address</button>
         </div>
@@ -19,8 +19,9 @@
                 <strong>Phone Number:</strong> {{address.phoneNumber}}
             </p>
             <div class="d-flex justify-content-start gap-2 custom-margin-top address-buttons">
-                <button class="edit-btn" style="background-color: #4CAF50;" (click)="editAddress()">Edit</button>
+                <button class="edit-btn" style="background-color: #4CAF50;" (click)="editAddress(address)">Edit</button>
                 <button class="delete-btn" style="background-color: #dc3545;" (click)="deleteAddress(address.id)">Delete</button>
+                <button class="default-btn" style="background-color: #1f1574;" (click)="onSetDefaultAddress(address.id)">Set Default</button>
             </div>
         </div>
     </div>

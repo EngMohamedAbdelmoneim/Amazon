@@ -29,6 +29,7 @@
 .add-address-box {
     border-style: dashed;
     border-color: #C7C7C7;
+    border-width: 1px;
 }
 
 button {
