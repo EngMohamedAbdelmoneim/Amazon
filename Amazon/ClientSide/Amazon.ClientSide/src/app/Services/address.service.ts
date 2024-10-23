@@ -10,7 +10,7 @@ export class AddressService {
 
   private apiUrl = 'https://localhost:7283/api/Account';
  
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) {}
 
   getSavedAddresses():Observable<Address[]>{
     return this.http.get<Address[]>(`${this.apiUrl}/getAddresses`);

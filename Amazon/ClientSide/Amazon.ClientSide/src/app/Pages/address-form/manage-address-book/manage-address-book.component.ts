@@ -66,24 +66,24 @@ export class ManageAddressBookComponent implements OnInit{
   // }
 
   editAddress(selectedAddress: Address){
-    if(this.selectedAddress){
+    //if(this.selectedAddress){
       this.address = selectedAddress;
       this.addressService.updateAddress(this.address).subscribe({
         next:(response) =>{
-          console.log(this.address);
-          this.router.navigate(['/manage-address-book'])
+          window.location.reload();
         },
         error:(error) => {
           console.log('Error updating address',error);
         }
       });
-    }
+    //}
   }
 
 loadAddresses() {
   this.addressService.getSavedAddresses().subscribe(
     (data) => {
       this.savedAddresses = data;
+      window.location.reload();
     },
     (error) => {
       console.error('Error loading addresses', error);

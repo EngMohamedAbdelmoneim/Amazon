@@ -1,12 +1,18 @@
+html {
+    font-size: calc(16px + 0.5vw);
+}
+
 *{
     box-sizing: border-box;
 }
 .address-book-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    
 
     .address-list {
         display: flex;
@@ -15,11 +21,12 @@
 
         .add-address-box{
             background-color: transparent;
-            width: 400px;
-            height: 350px;
+            width: 300px;
+            height: 320px;
             border-style: dashed;
             border-color: #C7C7C7;
             border-width: 1px;
+            border-radius: 8px;
         }
 
         .saved-addresses {
@@ -29,18 +36,34 @@
             align-items: center;
             border:#ccc;
             background-color: transparent;
-            width: 400px;
-            height: 350px;
+            width: 300px;
+            height: 320px;
+            border-radius: 8px;
+            box-shadow: 0 2px 1px 0 rgba(0, 0, 0, .16);
+
+            .address-buttons{
+                width: 300px;
+            }
+            button{
+                width: 100%;
+                color: var(--N4QdChsbGN6j,#007185);
+                border: none;
+                background-color: transparent;
+                font-size: 14px;
+                font-family: "Amazon Ember",Arial,sans-serif;
+            }
+
+            button:hover{
+                text-decoration: underline;
+                color: #c82333;
+            }
         }
     }
 }
 
 button {
     padding: 10px;
-    margin-right: 10px;
     border: none;
-    border-radius: 4px;
-    color: white;
     cursor: pointer;
 }
 
@@ -103,28 +126,73 @@ input:focus {
 }
 
 @media (max-width: 576px) {
+    .address-list {
+        flex-direction: column;
+        align-items: center;
+    }
+
     .add-address-box,
     .saved-addresses {
         width: 100%; 
-        margin: 5px; 
+        margin: 10px 0; 
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
     }
     
-    button {
-        width: 100%; 
-        margin: 5px 0;
+    .address-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .form-row input, .form-group input {
+        font-size: 16px;
     }
 }
 
 @media (min-width: 577px) and (max-width: 768px) {
+    .address-list {
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
     .add-address-box,
     .saved-addresses {
         width: calc(50% - 20px);
+        margin: 10px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    .form-row input, .form-group input {
+        font-size: 18px;
     }
 }
 
 @media (min-width: 769px) {
+    .address-list {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
     .add-address-box,
     .saved-addresses {
-        width: 400px;
+        width: calc(33.33% - 20px);
+        margin: 10px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 14px;
+    }
+
+    .form-row input, .form-group input {
+        font-size: 18px;
     }
 }
