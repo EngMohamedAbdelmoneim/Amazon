@@ -9,7 +9,7 @@
 {
     <div class="Containers p-4">
         <main>
-            <h3 [ngClass]="{'activeTitle':!isAddressChanged,'inactiveTitle':isAddressChanged}" class="ChooseShippingTitle">1 Choose Shipping Address</h3>
+            <!-- <h3 [ngClass]="{'activeTitle':!isAddressChanged,'inactiveTitle':isAddressChanged}" class="ChooseShippingTitle">1 Choose Shipping Address</h3> -->
             <div class="ShippingAddress">
                 <h3 class="ShippingAddressTitle">Shpping address</h3>
                 <div class="AddressInfo">
@@ -24,7 +24,7 @@
 
             <div class="PickAddress" *ngIf="showAddressOptions">
                 <form>  
-                    <h4 class="AddressTitle">Your Addresses</h4>
+                    <h4 class="AddressTitle" style="display: flex; justify-content: space-between;">Your Addresses <a routerLink="/manage-address-book">Add Address</a></h4>
                     <div class="TitleLine"></div>
 
                     <div *ngFor = "let address of order.UserAddress; let i= index" class="AddressOption" [ngClass]="{'first-option': i === 0}">
@@ -42,10 +42,10 @@
                 </div>
             </div>
 
-            <h3 [ngClass]="{'activeTitle':isPaymentChanged,'inactiveTitle':!isPaymentChanged}" class="choosetitle">2 Choose Payment Method</h3>
+            <!-- <h3 [ngClass]="{'activeTitle':isPaymentChanged,'inactiveTitle':!isPaymentChanged}" class="choosetitle">2 Choose Payment Method</h3>
             <button class="ChangePaymentButton" (click)="this.isPaymentChanged = true;this.isAddressChanged = false;this.updateButton();TogglePaymentChange()">
                 {{ isPaymentBoxOpen ? 'Change' : 'Open Payment Details' }}
-            </button>
+            </button> -->
 
                     
 
@@ -123,7 +123,7 @@
             <h3 class="OrderSummary">Order Summary</h3>
             <div class="SummaryDetails">
                 <div class="SummaryRow">
-                    <span class="SummaryLabel"> Items({{cart.items.length}}):</span>
+                    <span class="SummaryLabel"> Items({{Items}}):</span>
                     <span class="SummaryValue"> {{TempTotal | currency: 'EGP'}}</span>
                 </div>
                 <div class="SummaryRow">

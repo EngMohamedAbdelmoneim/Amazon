@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { Address } from '../../Models/address';
 import { CookieService } from 'ngx-cookie-service';
 import { CartService } from '../../Services/cart.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { loadStripe, Stripe, StripeCardCvcElement, StripeCardExpiryElement, StripeCardNumberElement } from '@stripe/stripe-js'
 import { Cart } from '../../Models/cart';
 import { ToastrService } from 'ngx-toastr';
@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [FormsModule,CommonModule, ReactiveFormsModule],
+  imports: [FormsModule,CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
 })
@@ -75,7 +75,7 @@ export class OrderComponent  implements OnInit {
   cart: Cart;
   // OrderTest: {AddresId: string, PaymentId: string, DeliveryId: string, CartId} = {AddresId: "", PaymentId: "", DeliveryId: "", CartId:""}
   
-  @Input() OnlinePaymentForm?: FormGroup;
+  OnlinePaymentForm?: FormGroup;
 
   @ViewChild('cardNumber') cardNumberElement?: ElementRef;
   @ViewChild('cardExpiry') cardExpiryElement?: ElementRef;
@@ -91,50 +91,59 @@ export class OrderComponent  implements OnInit {
   ClinetSecret: string;
 
   TempTotal: number;
+  Items: number;
 
 constructor(private orderService:OrderService, private cookieService: CookieService, private cartService: CartService, private toastr: ToastrService) {}
 
 ngOnInit() {
 
-  this.cartId = this.cookieService.get('guid');
   // console.log(this.cartId)
-  this.cartSub = this.cartService.getAllFromCart(`cart-${this.cartId}`).subscribe({
-    next: d => {
-      this.cart = d;
-      console.log('this is the cart', this.cart);
-      this.Total = d.items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-      this.TempTotal = this.Total;
-      console.log(this.Total)
-    },
-    error: e => {
-      console.log(e)
-    }
-  })
   
+  this.cartId = this.cookieService.get('guid');
+          this.cartSub = this.cartService.getAllFromCart(`cart-${this.cartId}`).subscribe({
+            next: d => {
+              this.cart = d;
+              // console.log('this is the cart', this.cart);
+              this.Total = d.items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+              this.Items = d.items.reduce((sum, item) => sum + item.quantity, 0)
+              this.TempTotal = this.Total;
+              // console.log(this.Total)
+            },
+            error: e => {
+              console.log(e)
+            }
+          })
+
   this.Addresssub = this.orderService.getAddresses().subscribe({
     next: d => {
-      // console.log('adresses',d)
+      console.log('adresses',d)
       this.order.UserAddress = d;
       this.currentShippingAddress = d[0];
       this.selectedShippingAddress = d[0];
       // this.OrderTest.AddresId = this.selectedShippingAddress.id;
-    }
-  })
-  
-  this.DeliverySub = this.orderService.getDeliveryMethods().subscribe({
-    next: d => {
-      console.log(d);
-      this.DeliveryMethods = d;
-      // this.OrderTest.DeliveryId = this.DeliveryMethods[0].id;
-    }
-  })  
 
-  this.PaymentMethods = this.orderService.getPaymentMethods().subscribe({
-    next: d => {
-      this.PaymentMethods = d;
-      // this.OrderTest.PaymentId = this.PaymentMethods[0].id;
+      this.DeliverySub = this.orderService.getDeliveryMethods().subscribe({
+        next: d => {
+          this.DeliveryMethods = d;
+
+
+          this.PaymentMethods = this.orderService.getPaymentMethods().subscribe({
+            next: d => {
+              this.PaymentMethods = d;
+            }
+          })
+
+        }
+      }) 
+
+
     }
   })
+
+
+  
+  
+  
    
 }
 
