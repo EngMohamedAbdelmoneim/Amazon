@@ -12,6 +12,7 @@ import { WishListService } from '../../Services/wish-list.service';
 import { WishListItem } from '../../Models/wish-list-item';
 import { ReviewListComponent } from "../../Components/review-list/review-list.component";
 import { ReviewService } from '../../Services/review.service';
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
   selector: 'app-product',
@@ -21,6 +22,7 @@ import { ReviewService } from '../../Services/review.service';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
+
   productImages: any;
   product: Product | null = new Product(0, "", 0, "", "", [], "", "", 0, null);
   cartItems: CartItem | null = new CartItem(0, "", "", 0, "", 0);
@@ -46,7 +48,13 @@ export class ProductComponent implements OnInit {
   sub: Subscription | null = null;
   subReviews: Subscription | null = null;
 
-  constructor(public productService: ProductService, public reviewService: ReviewService, public cartService: CartService, public wishListService: WishListService, public route: ActivatedRoute, public guidServices: GuidService) { }
+  constructor(public productService: ProductService, public reviewService: ReviewService,
+    public cartService: CartService, 
+    public wishListService: WishListService, 
+    public route: ActivatedRoute, 
+    public guidServices: GuidService,
+    public toastr: ToastrService
+  ) { }
 
   ngOnInit(): void {
     this.sub = this.route.params.subscribe(p => {
@@ -127,6 +135,7 @@ export class ProductComponent implements OnInit {
       quantity: Number(this.selectedQtn.nativeElement.value),
     };
     this.cartService.updateCartWithItem(("cart-" + _id), cartitem);
+    this.toastr.success("Item Added To Cart", 'Added',{positionClass:'toast-bottom-right'})
   }
   AddToWishList(product: Product, _id: string) {
     const wishListItem: WishListItem =

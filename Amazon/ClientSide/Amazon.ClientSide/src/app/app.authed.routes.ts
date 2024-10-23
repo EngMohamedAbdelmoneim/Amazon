@@ -9,11 +9,6 @@ import { OrderComponent } from './Pages/order/order.component';
 import { canloginGuard } from './guards/canlogin.guard';
 import { AddReviewComponent } from './Pages/add-review/add-review.component';
 import { ManageAddressBookComponent } from './Pages/address-form/manage-address-book/manage-address-book.component';
-import { PageNotFoundComponent } from './Pages/page-not-found/page-not-found.component';
-import { SellerProductListComponent } from './Pages/seller-product-list/seller-product-list.component';
-import { SellerAddProductComponent } from './Pages/seller-add-product/seller-add-product.component';
-import { SellerEditProductComponent } from './Pages/seller-edit-product/seller-edit-product.component';
-import { SellerProductDetailsComponent } from './Pages/seller-product-details/seller-product-details.component';
 
 export const App_Routes: Routes = 
 [

@@ -33,7 +33,14 @@ export class NavComponent implements OnInit {
   query: string;
   open: boolean = false;
   cartQnt: number;
+  isAuthenticated: boolean;
+  userName: string | null;
+
   ngOnInit(): void {
+    this.isAuthenticated = JSON.parse(localStorage.getItem('isAuthenticated'));
+    this.userName = localStorage.getItem('userName');
+    
+
     this.cartService.cartQnt.subscribe({
       next: p => { this.cartQnt = p; }
     });
@@ -82,14 +89,14 @@ export class NavComponent implements OnInit {
 
   OrdersPage()
   {
-    if(this.accountService.isAuthenticated == true)
-    {
-      this.router.navigateByUrl('/order');
-    }
-    else
-    {
-      this.router.navigateByUrl('/login');
-    }
+    // if(this.accountService.isAuthenticated == true)
+    // {
+    //   this.router.navigateByUrl('/order');
+    // }
+    // else
+    // {
+    //   this.router.navigateByUrl('/login');
+    // }
   }
 
   toggleAddressForm(): void 

@@ -10,6 +10,7 @@ import { CartService } from '../../Services/cart.service';
 import { Router } from '@angular/router';
 import { loadStripe, Stripe, StripeCardCvcElement, StripeCardExpiryElement, StripeCardNumberElement } from '@stripe/stripe-js'
 import { Cart } from '../../Models/cart';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-order',
@@ -62,7 +63,6 @@ export class OrderComponent  implements OnInit {
 
   DeliveryTest: any;
 
-
   Addresssub: Subscription;
   DeliverySub: Subscription;
   cartSub: Subscription;
@@ -90,7 +90,9 @@ export class OrderComponent  implements OnInit {
 
   ClinetSecret: string;
 
-constructor(private orderService:OrderService, private cookieService: CookieService, private cartService: CartService, private router: Router) {}
+  TempTotal: number;
+
+constructor(private orderService:OrderService, private cookieService: CookieService, private cartService: CartService, private router: Router, private toastr: ToastrService) {}
 
 ngOnInit() {
 
@@ -101,6 +103,7 @@ ngOnInit() {
       this.cart = d;
       console.log('this is the cart', this.cart);
       this.Total = d.items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+      this.TempTotal = this.Total;
       console.log(this.Total)
     },
     error: e => {
@@ -161,11 +164,13 @@ ngOnInit() {
                 this.orderService.placeOrder(`cart-${this.cookieService.get('guid')}`, 2, Number(this.PaymentValue), this.currentShippingAddress.id).subscribe({
                   next: d => {
                     console.log(d);
-                    this.cartService.removeCart(`cart-${this.cookieService.get('guid')}`)
+                    this.cartService.removeCart(`cart-${this.cookieService.get('guid')}`);
+                    this.toastr.success("Payment Successful", "Success", {positionClass:'toast-bottom-right'})
                     window.location.href = 'http://localhost:4200';
                   },
                   error: e => {
-                    console.log(e)
+                    console.log(e);
+                    this.toastr.error("Pyament Failed", "Failed", {positionClass: 'toast-bottom-right'})
                   }
                 })
               }
@@ -226,7 +231,7 @@ ngOnInit() {
 
   shippingMethodChoice(shippingMethodId)
   {
-    let TempTotal = this.Total;
+    // const TempTotal = this.Total;
     switch (shippingMethodId)
     {
       case 1:
@@ -234,29 +239,26 @@ ngOnInit() {
         this.DeliveryMethodId = 1;
         this.cart.deliveryMethodId = 1;
         this.cart.shippingPrice = 30;
-        console.log(this.cart)
-        this.Total = TempTotal + 30;
+        // console.log(this.cart);
+        this.Total = this.TempTotal + 30;
         break;
       case 2:
         this.DeliveryValue = 20;
         this.DeliveryMethodId = 2;
-        this.PaymentValue = 20;
         this.cart.shippingPrice = 20;
-        this.Total = TempTotal + 20;
+        this.Total = this.TempTotal + 20;
         break;
       case 3:
         this.DeliveryValue = 10;
         this.DeliveryMethodId = 3;
-        this.PaymentValue = 10;
         this.cart.shippingPrice = 10;
-        this.Total = TempTotal + 10;
+        this.Total = this.TempTotal + 10;
         break;
       case 4:
         this.DeliveryValue = 0;
         this.DeliveryMethodId = 4;
-        this.PaymentValue = 0;
         this.cart.shippingPrice = 0;
-        this.Total = TempTotal + 0;
+        this.Total = this.TempTotal + 0;
         break;
     }
   }

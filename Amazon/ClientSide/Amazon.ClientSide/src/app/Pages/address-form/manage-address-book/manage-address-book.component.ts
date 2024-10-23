@@ -7,6 +7,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { error } from 'console';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-manage-address-book',
@@ -24,6 +25,8 @@ export class ManageAddressBookComponent implements OnInit{
   showAddAddressForm = false;
   isEditMode = false;
   selectedAddress: Address | null = null;
+
+  deleteSub: Subscription | null;
 
   ngOnInit(): void {
     this.fetchSavedAddresses();
@@ -69,51 +72,55 @@ loadAddresses() {
   );
 }
 
-deleteAddress(addressId: string) {
-  this.addressService.deleteAddress(addressId).subscribe({
-    next:(response) =>{
-      this.router.navigate(['/manage-address-book'])
-    },
-    error:(error) =>{
-      console.error('Error deleting address', error);
-    }
-  });
-}
-//attached with cancel button to close the form
-closeForm(){
-  this.showAddAddressForm = false;
-  this.addressAdded.emit();
-}
-toggleAddAddressForm():void{
-  this.showAddAddressForm = !this.showAddAddressForm;
-}
-
-//binded to the submit button that add the input of form into the database
-onSubmitNewAddress():void{
-  this.addressService.addAddresses(this.address).subscribe(
-  (response)=>{
-    this.fetchSavedAddresses();
-    this.toggleAddAddressForm();
-    this.addressAdded.emit();
-  },
-  (error)=>{
-    console.error('Error adding address:', error);
-    }
-  );
-}
-
-onSetDefaultAddress(addressId: string):void{
-  if(addressId){
-    this.addressService.setDefaultAddress(addressId)
-      .subscribe({
-        next:(response) =>{
-          this.router.navigate(['/manage-address-book'])
-        },
-        error:(error) =>{
-          console.log('Error setting default address',error);
+  deleteAddress(addressId: string) {
+    this.deleteSub = this.addressService.deleteAddress(addressId).subscribe({
+      next: () => {
+        console.log('deleted')
+        window.location.reload();
+        
+      },
+      error:(error) =>{
+        console.error('Error deleting address', error);
       }
     });
   }
-}
+
+  //attached with cancel button to close the form
+  closeForm(){
+    this.showAddAddressForm = false;
+    this.addressAdded.emit();
+  }
+  toggleAddAddressForm():void{
+    this.showAddAddressForm = !this.showAddAddressForm;
+  }
+
+  //binded to the submit button that add the input of form into the database
+  onSubmitNewAddress():void{
+    this.addressService.addAddresses(this.address).subscribe(
+    (response)=>{
+      this.fetchSavedAddresses();
+      this.toggleAddAddressForm();
+      this.addressAdded.emit();
+    },
+    (error)=>{
+      console.error('Error adding address:', error);
+      }
+    );
+  }
+
+  onSetDefaultAddress(addressId: string):void{
+    if(addressId){
+      this.addressService.setDefaultAddress(addressId)
+        .subscribe({
+          next:(response) =>{
+            // toastr.success('Changed Default Address')
+            this.router.navigate(['/manage-address-book']);
+          },
+          error:(error) =>{
+            console.log('Error setting default address',error);
+        }
+      });
+    }
+  }
 
 }

@@ -47,7 +47,7 @@
                 <div class="PaymentPlans">
                 <h3>Delivery Methods</h3>
                 <div *ngFor="let item of DeliveryMethods">
-                    <input type="radio" name="DeliveryMethods" id="{{item.name}}" value="{{item.id}}" [(ngModel)]="DeliveryValue" (change)="shippingMethodChoice(item.id)">
+                    <input type="radio" name="DeliveryMethods" id="{{item.name}}" value="{{item.id}}" (change)="shippingMethodChoice(item.id)">
                     <label for="{{item.name}}">{{item.name}} <span>{{item.description}}</span></label>
                 </div>
 
@@ -59,51 +59,52 @@
             <div class="GiftCardContainter">
                 <h3>Payment Methods</h3>
                 <div *ngFor="let item of PaymentMethods">
-                    <input type="radio" name="paymentMethod" id="{{item.name}}" value="{{item.id}}" [(ngModel)]="PaymentValue" (change)="paymentMethodChoice(item.id)">
+                    <input type="radio" name="paymentMethod" id="{{item.name}}" value="{{item.id}}" (change)="paymentMethodChoice(item.id)">
                     <label for="{{item.name}}">{{item.name}}</label>
                 </div>
                 <div class="accordion" id="accordionExample">
                     <div class="accordion-item">
-                      <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                          Online Payment
-                        </button>
-                      </h2>
-                      <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
+
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Online Payment
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
                           
-                            <div class="mt-4" [formGroup]="OnlinePaymentForm">
-                                <!-- <div class="row">
-                                    <div class="form-group col-12" formGroupName="paymentForm">
-                                        
-                                    </div>
-                                </div> -->
-                                <div class="row mb-3">
-                                    <div class="col-6">
-                                        <div class="form-floating">
-                                            <div class="form-control" #cardNumber></div>
-                                            <label>Card Number</label>
-                                            <span class="text-danger">{{cardErrors}}</span>
+                                <div class="mt-4" [formGroup]="OnlinePaymentForm">
+                                    <!-- <div class="row">
+                                        <div class="form-group col-12" formGroupName="paymentForm">
+                                            
                                         </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="form-floating">
-                                            <div class="form-control" #cardExpiry></div>
-                                            <label>Card Expiry</label>
+                                    </div> -->
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            <div class="form-floating">
+                                                <div class="form-control" #cardNumber></div>
+                                                <label>Card Number</label>
+                                                <span class="text-danger">{{cardErrors}}</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="form-floating">
-                                            <div class="form-control" #cardCvc></div>
-                                            <label>Card CVC</label>
+                                        <div class="col-3">
+                                            <div class="form-floating">
+                                                <div class="form-control" #cardExpiry></div>
+                                                <label>Card Expiry</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="form-floating">
+                                                <div class="form-control" #cardCvc></div>
+                                                <label>Card CVC</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                      </div>
                     </div>
-                  </div>
+                </div>
             </div>
         </div>
     
@@ -115,20 +116,12 @@
         <h3 class="OrderSummary">Order Summary</h3>
         <div class="SummaryDetails">
             <div class="SummaryRow">
-                <span class="SummaryLabel"> Items(2):</span>
-                <span class="SummaryValue"> $120.00</span>
+                <span class="SummaryLabel"> Items({{cart.items.length}}):</span>
+                <span class="SummaryValue"> {{TempTotal | currency: 'EGP'}}</span>
             </div>
             <div class="SummaryRow">
-                <span class="SummaryLabel">  Shiping & handling:</span>
-                <span class="SummaryValue">  $10.00</span>
-            </div>
-            <div class="SummaryRow">
-                <span class="SummaryLabel">  Total before tax:</span>
-                <span class="SummaryValue">  $125.00</span>
-            </div>
-            <div class="SummaryRow">
-                <span class="SummaryLabel">  Estimated tax to be collected:</span>
-                <span class="SummaryValue">  $10.00</span>
+                <span class="SummaryLabel">Shiping & handling:</span>
+                <span class="SummaryValue">{{DeliveryValue | currency: 'EGP'}}</span>
             </div>
             <hr class="EstimatedTaxDivider">
             <div class="SummaryRow">

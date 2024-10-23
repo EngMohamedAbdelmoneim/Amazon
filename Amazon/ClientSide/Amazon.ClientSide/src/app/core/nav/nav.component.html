@@ -9,10 +9,15 @@
             <a [routerLink]="['/']" class="p-3">
                 <img src="White-Amazon-Logo.png" alt="">
             </a>
-            <button class="Change-Address" (click)="toggleAddressForm()">Deliver to <i class="fas fa-map-marker-alt" style="color: black; background-color: white; padding: 10px; border-radius: 50%;"></i></button>
-            <div *ngIf="addressFormVisible">
-                <app-address-form (addressAdded)="addressFormVisible = false"></app-address-form>
-            </div>
+
+            @if(isAuthenticated) 
+            {
+                <button class="Change-Address" (click)="toggleAddressForm()">Deliver to <i class="fas fa-map-marker-alt" style="color: black; background-color: white; padding: 10px; border-radius: 50%;"></i></button>
+                <div *ngIf="addressFormVisible">
+                    <app-address-form (addressAdded)="addressFormVisible = false"></app-address-form>
+                </div>
+            }
+
         </div>
 
         <div class="input-container">
@@ -100,26 +105,28 @@
             </div>
         </div>
 
-        <a href="">Elctronics</a>
-        <a href="">Home</a>
+        <a routerLink="/">Home</a>
         <a href="">Today's Deals</a>
-        <a href="">Apliances</a>
-        <a href="">Toys & Games</a>
-        <a href="">Help</a>
-        <a href="">Mobile Phones</a>
-        <a href="">Perfumes</a>
-        <a href="">User's amazon</a>
-        <a href="">Sell</a>
-        <a href="">Prime</a>
-        <a href="">Fashion</a>
+        <a routerLink="/category/Electronics">Elctronics</a>
+        <a routerLink="/category/Electronics/Phones">Mobile Phones</a>
+        <a routerLink="/seller/product-list">Sell</a>
     </div>
 
 </nav>
 
-<div class="sidebar" [style.translate]="open ?'0px':'-300px'">
+<div class="sidebar" [style.translate]="open ?'0px':'-400px'">
     <div class="mb-3 authbar">
-            <img src="user.svg" alt="">
-            <h4 class="m-lg-2">Hello, sign in</h4>
+        <img src="user.svg" alt="">
+        <h4 class="m-lg-2">Hello, 
+            @if(userName)
+            {
+                {{userName}}
+            }
+            @else 
+            {
+                Sign In
+            }
+        </h4>
     </div>
     <app-category-list></app-category-list>
 </div>

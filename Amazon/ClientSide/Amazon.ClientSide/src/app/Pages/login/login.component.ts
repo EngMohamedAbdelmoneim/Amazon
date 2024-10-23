@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit{
     this.sub = this.accountService.login(email, password).subscribe({
       next: (r: loginData) => {
         console.log(r);
+        localStorage.setItem('userName', r.displayName);
         let data: {Email: string, Name: string, Role: string, } = jwtDecode(r.token);
         console.log(data.Email);
         console.log(data.Name);

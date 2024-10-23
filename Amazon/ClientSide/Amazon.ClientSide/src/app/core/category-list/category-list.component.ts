@@ -28,4 +28,10 @@ export class CategoryListComponent implements OnInit {
       console.error(error);
     }
   }
+
+  SignOut()
+  {
+    localStorage.clear();
+    window.location.href = 'http://localhost:4200/login'
+  }
 }

@@ -10,6 +10,8 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GuidService } from './Services/guid.service';
 import { SellerLayoutComponent } from "./core/seller-layout/seller-layout.component";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',
