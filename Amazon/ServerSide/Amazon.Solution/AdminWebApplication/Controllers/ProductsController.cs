@@ -9,6 +9,7 @@ using Amazon.Services.BrandService;
 using System.IO;
 using System.Security.AccessControl;
 using System.Security.Principal;
+using Microsoft.AspNetCore.Hosting;
 
 namespace AdminWebApplication.Controllers
 {
@@ -17,12 +18,15 @@ namespace AdminWebApplication.Controllers
         private readonly AmazonDbContext _context;
         private readonly IProductService productService;
         private readonly IBrandService brandService;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProductsController(AmazonDbContext context, IProductService productService, IBrandService brandService)
+        public ProductsController(AmazonDbContext context, IProductService productService, 
+            IBrandService brandService, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             this.productService = productService;
             this.brandService = brandService;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Products
@@ -50,45 +54,81 @@ namespace AdminWebApplication.Controllers
         }
 
 
+        // POST: Products/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormFile productImg, ProductToReturnDto product)
+        public async Task<IActionResult> Create([FromForm] ProductDto productDto)
         {
-
-            if(productImg != null)
+            if (ModelState.IsValid)
             {
-
-                var otherProjectPath = Path.Combine(Directory.GetCurrentDirectory(), "../Amazon.API/wwwroot/Files/productImages");
-
-                //string FileExtension = productImg.FileName.Split('.').Last();
-                //string FilePath = $"~/Amazon.API/Files/productImages/{productImg.FileName}";
-                //Console.BackgroundColor = ConsoleColor.Green;
-                //Console.WriteLine(FilePath);
-                Console.WriteLine(otherProjectPath);
-                //Console.ResetColor();
-
-                using (FileStream st = new FileStream(otherProjectPath, FileMode.Create))
+                var product = new Product
                 {
-                    await productImg.CopyToAsync(st);
+                    Name = productDto.Name,
+                    Description = productDto.Description,
+                    Price = productDto.Price,
+                    QuantityInStock = productDto.QuantityInStock,
+                    BrandId = productDto.BrandId,
+                    CategoryId = productDto.CategoryId,
+                    SellerEmail = "admin@amazon.com",
+                    SellerName = "Amazon"
+                };
+
+                // Define the main image folder path
+                var apiProjectDirectory = GetApiProjectDirectory();
+
+                string mainImageFolder = Path.Combine(apiProjectDirectory, "wwwroot", "Files", "productImages");
+                if (!Directory.Exists(mainImageFolder))
+                {
+                    Directory.CreateDirectory(mainImageFolder);
                 }
+
+                if (productDto.ImageFile != null)
+                {
+                    var mainImageFileName = $"{Guid.NewGuid()}-{Path.GetFileName(productDto.ImageFile.FileName)}";
+                    var mainImageFilePath = Path.Combine(mainImageFolder, mainImageFileName);
+                    using var mainImageFileStream = new FileStream(mainImageFilePath, FileMode.Create);
+                    await productDto.ImageFile.CopyToAsync(mainImageFileStream);
+                    product.PictureUrl = mainImageFileName;
+                }
+
+                if (productDto.ImagesFiles != null && productDto.ImagesFiles.Count > 0)
+                {
+                    foreach (var image in productDto.ImagesFiles)
+                    {
+                        var additionalImageFileName = $"{Guid.NewGuid()}-{Path.GetFileName(image.FileName)}";
+                        var additionalImageFilePath = Path.Combine(mainImageFolder, additionalImageFileName);
+                        using var additionalImageFileStream = new FileStream(additionalImageFilePath, FileMode.Create);
+                        await image.CopyToAsync(additionalImageFileStream);
+                        product.Images.Add(new ProductImages
+                        {
+                            ImagePath = additionalImageFileName
+                        });
+                    }
+                }
+
+                _context.Products.Add(product);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            else
+            var brands = _context.Brands.ToList();
+            var categories = _context.Categories.ToList();
+            ViewBag.Brands = new SelectList(brands, "Id", "Name");
+            ViewBag.Categories = new SelectList(categories, "Id", "Name");
+            return View(productDto);
+        }
+
+        private string GetApiProjectDirectory()
+        {
+            var currentDirectory = Directory.GetCurrentDirectory();
+            while (currentDirectory != null && !currentDirectory.EndsWith("Amazon.Solution"))
             {
-                Console.BackgroundColor = ConsoleColor.Green;
-                Console.WriteLine("Null");
-                Console.ResetColor();
+                currentDirectory = Directory.GetParent(currentDirectory)?.FullName;
             }
-
-
-            //if (ModelState.IsValid)
-            //{
-            //    _context.Add(product);
-            //    await _context.SaveChangesAsync();
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Id", product.BrandId);
-            //ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", product.CategoryId);
-            return View(product);
+            if (currentDirectory != null)
+            {
+                return Path.Combine(currentDirectory, "Amazon.API");
+            }
+            throw new InvalidOperationException("Could not find Amazon.Solution directory");
         }
 
         // GET: Products/Edit/5
@@ -99,7 +139,10 @@ namespace AdminWebApplication.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Products
+                .Include(p => p.Discount) // Include discount
+                .FirstOrDefaultAsync(p => p.Id == id);
+
             if (product == null)
             {
                 return NotFound();
@@ -115,7 +158,7 @@ namespace AdminWebApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Description,Price,PictureUrl,QuantityInStock,CategoryId,BrandId,Id")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Name,Description,Price,PictureUrl,QuantityInStock,CategoryId,BrandId,Id, Discount")] Product product)
         {
             if (id != product.Id)
             {
@@ -173,11 +216,33 @@ namespace AdminWebApplication.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var product = await _context.Products.FindAsync(id);
-            if (product != null)
+            if (product == null)
             {
-                _context.Products.Remove(product);
+                return NotFound();
             }
 
+            // Delete the product's images
+            var apiProjectDirectory = GetApiProjectDirectory();
+            string mainImageFolder = Path.Combine(apiProjectDirectory, "wwwroot", "Files", "productImages");
+
+            // Delete the main product image
+            var mainImagePath = Path.Combine(mainImageFolder, product.PictureUrl);
+            if (System.IO.File.Exists(mainImagePath))
+            {
+                System.IO.File.Delete(mainImagePath);
+            }
+
+            // Delete the additional product images
+            foreach (var image in product.Images)
+            {
+                var additionalImagePath = Path.Combine(mainImageFolder, image.ImagePath);
+                if (System.IO.File.Exists(additionalImagePath))
+                {
+                    System.IO.File.Delete(additionalImagePath);
+                }
+            }
+
+            _context.Products.Remove(product);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
