@@ -1,85 +1,46 @@
 <div class="popub-overlay" *ngIf="!showAddressForm">
-
     <div class="popub-box">
-
         <div class="popup-header">
             <h2>Choose your address</h2>
             <button class="close-button" (click)="closeForm()">&times;</button>
         </div>
-        
-        <div >
-            <div>
-    
-                <div class="saved-addresses" style="display: flex; flex-direction: column; justify-content: space-between;">
-    
-                    <div class="address-box" *ngFor="let address of savedAddresses">
-    
-                        <input type="radio" id="{{address.id}}" name="selectedAddress" (click)="onSelectAddress(address)" [checked]="selectedAddress === address" />
-    
-                         <label for="{{address.id}}">
-                         {{ address.firstName }} {{ address.lastName }},{{address.governorate}},{{address.city}},{{ address.country }}
-                        </label>
-                    </div>
-    
+
+        <div class="saved-addresses">
+            <div class="container">
+                <div 
+                    class="address-box" 
+                    *ngFor="let address of savedAddresses">
+                    <input type="radio"
+                    id="{{address.id}}"
+                    name="selectedAddress" 
+                    (click)="onSelectAddress(address)"
+                    [checked]="selectedAddress === address">
+
+                    <label for="{{address.id}}">
+                        <p>{{ address.firstName }} {{ address.lastName }},
+                            {{address.governorate}},
+                            {{address.city}},
+                            {{ address.country }}
+                        </p>
+                    </label>
                 </div>
-                    
             </div>
-    
-            <div class="form-buttons">
-                <button class="use-address" (click)="onSetDefaultAddress()">Use this Address</button>
-                <!-- <button class="addNew-address" (click)="toggleAddAddressForm()">Add New Address</button> -->
-                <button class="manage-address-button" (click)="goToAddressBook()">Manage Address Book</button>
+            <button class="manage-address-button" (click)="goToAddressBook()">Manage Address Book</button>
+            <div class="containerbutton">
+                <div class="form-buttons">
+                    <button class="use-address" (click)="onSetDefaultAddress()">Done</button>
+                </div>
             </div>
         </div>
 
     </div>
+</div>
 
-        <div *ngIf="showAddAddressForm">
-            <!-- <form (ngSubmit)="onSubmitNewAddress()"> -->
-                <div class="form-group">
-                    <label for="country">Country</label>
-                    <input type="text" id="country" [(ngModel)]="address.country" name="country" required/>
-                
-                    <label for="firstName">First Name</label>
-                    <input type="text" id="firstName" [(ngModel)]="address.firstName" name="firstName" required/>
+<!-- This will only appear once selection is confirmed -->
 
-                    <label for="lastName">Last Name</label>
-                    <input type="text" id="lastName" [(ngModel)]="address.lastName" name="lastName" required/>
-
-                    <label for="phoneNumber">Phone Number</label>
-                    <input type="text" id="phoneNumber" [(ngModel)]="address.phoneNumber" name="phoneNumber" required/>
-
-                    <label for="streetAddress">Street Address</label>
-                    <input type="text" id="streetAddress" [(ngModel)]="address.streetAddress" name="streetAddress" required/>
-
-                    <label for="buildingName">Building Name</label>
-                    <input type="text" id="buildingName" [(ngModel)]="address.buildingName" name="buildingName" required/>
-
-                    <label for="city">City</label>
-                    <input type="text" id="city" [(ngModel)]="address.city" name="city" required/>
-
-                    <label for="district">District</label>
-                    <input type="text" id="district" [(ngModel)]="address.district" name="district" required/>
-
-                    <label for="governorate">Governorate</label>
-                    <input type="text" id="governorate" [(ngModel)]="address.governorate" name="governorate" required/>
-
-                    <label for="nearestLandmark">Nearest Landmark</label>
-                    <input type="text" id="nearestLandmark" [(ngModel)]="address.nearestLandMark" name="nearestLandmark" required/>
-
-                    <div class="form-add-buttons">
-                        <button type="submit">Add Address</button>
-                        <button type="button" (click)="closeForm()">Cancel</button>
-                    </div>
-
-                </div>
-            <!-- </form> -->
-            <!-- This will appear once the required address to be default is selected -->
-        <div *ngIf="showConfirmation" class="">
-            <div class="popup-box">
-                <p>You picked this as the default address</p>
-                <button (click)="confirmAddress()">OK</button>
-            </div>
-        </div>
+<div *ngIf="showConfirmation" class="">
+    <div class="Confirmation-message">
+        <p>You picked this as the default address</p>
+        <button (click)="confirmAddress()">OK</button>
     </div>
 </div>
