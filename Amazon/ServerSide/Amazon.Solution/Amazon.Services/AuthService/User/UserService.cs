@@ -75,11 +75,12 @@ namespace Amazon.Services.AuthService.User
 			}
 			
 
+			Random random = new Random();	
 			var appUser = new AppUser
 			{
 				DisplayName = registerDto.DisplayName,
 				Email = registerDto.Email,
-				UserName = registerDto.Email.Split('@')[0],
+				UserName = registerDto.Email.Split('@')[0] + $"{random.Next(1000)}",
 				PhoneNumber = registerDto.PhoneNumber,
 				SellerName = sellerName,
 			};

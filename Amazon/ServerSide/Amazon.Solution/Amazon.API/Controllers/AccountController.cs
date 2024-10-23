@@ -124,18 +124,15 @@ namespace Amazon.API.Controllers
 
 				if (result.Succeeded)
 				{
-					var userDto = new UserDto
-					{
-						DisplayName = user.DisplayName,
-						Email = user.Email,
-						Token = await _tokenService.CreateTokenAsync(user, _userManager)
-					};
-
-					return Redirect($"http://localhost:4200/?displayName={userDto.DisplayName}&email={userDto.Email}&token={userDto.Token}");
+					var currentUser = await GetCurrentUser(userId);
+					return Redirect($"http://localhost:4200/?token={currentUser.Token}");
 				}
 			}
 			else
-				return Ok("Email Already Confirmed");
+			{
+				var currentUser = await GetCurrentUser(userId);
+				return Redirect($"http://localhost:4200/?token={currentUser.Token}"); ;
+			}
 
 			return BadRequest(new ApiResponse(400,"Invalid or expired confirmation link."));
 		}
@@ -198,18 +195,18 @@ namespace Amazon.API.Controllers
 
 		[Authorize]
 		[HttpGet]
-		public async Task<ActionResult<UserDto>> GetCurrentUser()
+		public async Task<UserDto> GetCurrentUser(string userId)
 		{
-			var email = User.FindFirstValue("Email");
+			//var email = User.FindFirstValue("Email");
 
-			var user = await _userManager.FindByEmailAsync(email);
+			var user = await _userManager.FindByIdAsync(userId);
 			
-			return Ok(new UserDto()
+			return new UserDto()
 			{
 				DisplayName = user.DisplayName,
 				Email = user.Email,
 				Token = await _tokenService.CreateTokenAsync(user, _userManager)
-			});
+			};
 		}
 
 
