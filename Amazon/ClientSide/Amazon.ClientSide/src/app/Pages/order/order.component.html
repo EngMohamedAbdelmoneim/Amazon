@@ -1,100 +1,110 @@
-<div class="Containers p-4">
-    <main>
-        <h3 [ngClass]="{'activeTitle':!isAddressChanged,'inactiveTitle':isAddressChanged}" class="ChooseShippingTitle">1 Choose Shipping Address</h3>
-        <div class="ShippingAddress">
-            <h3 class="ShippingAddressTitle">Shpping address</h3>
-            <div class="AddressInfo">
-                <!-- {{order.UserName}} <br> -->
-                {{currentShippingAddress.governorate}}, {{currentShippingAddress.city}}, {{currentShippingAddress.district}}
-            </div>
-            <div>
-                <button class="ChangeAddress" (click)="showAddressOptions =! showAddressOptions ; this.isAddressChanged = !this.isAddressChanged;
-                this.isPaymentChanged = this.isPaymentChanged; this.isAddressChanged = true;this.isPaymentChanged = false; this.updateButton();">Change</button>
-            </div>
-        </div>
-
-        <div class="PickAddress" *ngIf="showAddressOptions">
-            <form>  
-                <h4 class="AddressTitle">Your Addresses</h4>
-                <div class="TitleLine"></div>
-
-                <div *ngFor = "let address of order.UserAddress; let i= index" class="AddressOption" [ngClass]="{'first-option': i === 0}">
-                    <input type = "radio" id="AddressChosen-{{address}}" name="UserAddress" [value]="address" [(ngModel)]="selectedShippingAddress">
-                    <label for="AddressChosen-{{address}}" class="AddressLabel">{{address.governorate}}, {{address.city}}, {{address.district}}</label>
+@if (cart == null)
+{
+    <div style="margin-inline: auto; width: 500px;" class="p-4">
+        <h1>Cart Is Empty</h1>
+        <img src="../../../assets/EmptyCart.png" alt="">
+    </div>
+}
+@else 
+{
+    <div class="Containers p-4">
+        <main>
+            <h3 [ngClass]="{'activeTitle':!isAddressChanged,'inactiveTitle':isAddressChanged}" class="ChooseShippingTitle">1 Choose Shipping Address</h3>
+            <div class="ShippingAddress">
+                <h3 class="ShippingAddressTitle">Shpping address</h3>
+                <div class="AddressInfo">
+                    <!-- {{order.UserName}} <br> -->
+                    {{currentShippingAddress.governorate}}, {{currentShippingAddress.city}}, {{currentShippingAddress.district}}
                 </div>
-                <!-- <button class="UserAddressesRegistered" (click)="SelectAddress(address)">{{address}}</button> -->
-                <!-- <div class="UserAddressesRegistered"> -->
-            </form>
-
-            <!-- <button class="AddNewAddressButton" (click)="openAddressForm()">+ Add Another Address</button> -->
-
-            <div class="SelectAddressButtonDiv">
-                <button class="SelectAddressButton" type ="submit"  (click)="SelectAddress()">Use this Address</button>
+                <div>
+                    <button class="ChangeAddress" (click)="showAddressOptions =! showAddressOptions ; this.isAddressChanged = !this.isAddressChanged;
+                    this.isPaymentChanged = this.isPaymentChanged; this.isAddressChanged = true;this.isPaymentChanged = false; this.updateButton();">Change</button>
+                </div>
             </div>
-        </div>
 
-        <h3 [ngClass]="{'activeTitle':isPaymentChanged,'inactiveTitle':!isPaymentChanged}" class="choosetitle">2 Choose Payment Method</h3>
-        <button class="ChangePaymentButton" (click)="this.isPaymentChanged = true;this.isAddressChanged = false;this.updateButton();TogglePaymentChange()">
-            {{ isPaymentBoxOpen ? 'Change' : 'Open Payment Details' }}
-        </button>
+            <div class="PickAddress" *ngIf="showAddressOptions">
+                <form>  
+                    <h4 class="AddressTitle">Your Addresses</h4>
+                    <div class="TitleLine"></div>
 
+                    <div *ngFor = "let address of order.UserAddress; let i= index" class="AddressOption" [ngClass]="{'first-option': i === 0}">
+                        <input type = "radio" id="AddressChosen-{{address}}" name="UserAddress" [value]="address" [(ngModel)]="selectedShippingAddress">
+                        <label for="AddressChosen-{{address}}" class="AddressLabel">{{address.governorate}}, {{address.city}}, {{address.district}}</label>
+                    </div>
+                    <!-- <button class="UserAddressesRegistered" (click)="SelectAddress(address)">{{address}}</button> -->
+                    <!-- <div class="UserAddressesRegistered"> -->
+                </form>
+
+                <!-- <button class="AddNewAddressButton" (click)="openAddressForm()">+ Add Another Address</button> -->
+
+                <div class="SelectAddressButtonDiv">
+                    <button class="SelectAddressButton" type ="submit"  (click)="SelectAddress()">Use this Address</button>
+                </div>
+            </div>
+
+            <h3 [ngClass]="{'activeTitle':isPaymentChanged,'inactiveTitle':!isPaymentChanged}" class="choosetitle">2 Choose Payment Method</h3>
+            <button class="ChangePaymentButton" (click)="this.isPaymentChanged = true;this.isAddressChanged = false;this.updateButton();TogglePaymentChange()">
+                {{ isPaymentBoxOpen ? 'Change' : 'Open Payment Details' }}
+            </button>
+
+                    
+
+            <div *ngIf="isPaymentBoxOpen" class="PaymentDetails">
+
+                <div class="CardDetails">
+
+                    <div class="PaymentPlans">
+                    <h3>Delivery Methods</h3>
+                    <div *ngFor="let item of DeliveryMethods">
+                        <input type="radio" name="DeliveryMethods" id="{{item.name}}" value="{{item.id}}" (change)="shippingMethodChoice(item.id)">
+                        <label for="{{item.name}}"><span>{{item.description}}, {{item.cost | currency: 'EGP'}}</span></label>
+                    </div>
+
+                    <div class="Line"></div> 
+                </div>
                 
+                <div class="GiftCardContainter">
+                    <h3>Payment Methods</h3>
+                    <div *ngFor="let item of PaymentMethods">
+                        <input type="radio" name="paymentMethod" id="{{item.name}}" value="{{item.id}}" (change)="paymentMethodChoice(item.id)">
+                        <label for="{{item.name}}">{{item.name}}</label>
+                    </div>
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
 
-        <div *ngIf="isPaymentBoxOpen" class="PaymentDetails">
-
-            <div class="CardDetails">
-
-                <div class="PaymentPlans">
-                <h3>Delivery Methods</h3>
-                <div *ngFor="let item of DeliveryMethods">
-                    <input type="radio" name="DeliveryMethods" id="{{item.name}}" value="{{item.id}}" (change)="shippingMethodChoice(item.id)">
-                    <label for="{{item.name}}"><span>{{item.description}}, {{item.cost | currency: 'EGP'}}</span></label>
-                </div>
-
-                <div class="Line"></div> 
-            </div>
-            
-            <div class="GiftCardContainter">
-                <h3>Payment Methods</h3>
-                <div *ngFor="let item of PaymentMethods">
-                    <input type="radio" name="paymentMethod" id="{{item.name}}" value="{{item.id}}" (change)="paymentMethodChoice(item.id)">
-                    <label for="{{item.name}}">{{item.name}}</label>
-                </div>
-                <div class="accordion" id="accordionExample">
-                    <div class="accordion-item">
-
-                        <h2 class="accordion-header">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Online Payment
-                            </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                          
-                                <div class="mt-4" [formGroup]="OnlinePaymentForm">
-                                    <!-- <div class="row">
-                                        <div class="form-group col-12" formGroupName="paymentForm">
-                                            
-                                        </div>
-                                    </div> -->
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <div class="form-floating">
-                                                <div class="form-control" #cardNumber></div>
-                                                <label>Card Number</label>
-                                                <span class="text-danger">{{cardErrors}}</span>
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Online Payment
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                            
+                                    <div class="mt-4" [formGroup]="OnlinePaymentForm">
+                                        <!-- <div class="row">
+                                            <div class="form-group col-12" formGroupName="paymentForm">
+                                                
                                             </div>
-                                        </div>
-                                        <div class="col-3">
-                                            <div class="form-floating">
-                                                <div class="form-control" #cardExpiry></div>
-                                                <label>Card Expiry</label>
+                                        </div> -->
+                                        <div class="row mb-3">
+                                            <div class="col-6">
+                                                <div class="form-floating">
+                                                    <div class="form-control" #cardNumber></div>
+                                                    <label>Card Number</label>
+                                                    <span class="text-danger">{{cardErrors}}</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-3">
-                                            <div class="form-floating">
-                                                <div class="form-control" #cardCvc></div>
-                                                <label>Card CVC</label>
+                                            <div class="col-3">
+                                                <div class="form-floating">
+                                                    <div class="form-control" #cardExpiry></div>
+                                                    <label>Card Expiry</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="form-floating">
+                                                    <div class="form-control" #cardCvc></div>
+                                                    <label>Card CVC</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -104,28 +114,28 @@
                     </div>
                 </div>
             </div>
-        </div>
-    
-        </div>
-        <button (click)="onSubmit()" class="btn btn-outline-primary">Proceed</button>
-    </main>
+        
+            </div>
+            <button (click)="onSubmit()" class="btn btn-outline-primary">Proceed</button>
+        </main>
 
-    <aside class="p-4">
-        <h3 class="OrderSummary">Order Summary</h3>
-        <div class="SummaryDetails">
-            <div class="SummaryRow">
-                <span class="SummaryLabel"> Items({{cart.items.length}}):</span>
-                <span class="SummaryValue"> {{TempTotal | currency: 'EGP'}}</span>
+        <aside class="p-4">
+            <h3 class="OrderSummary">Order Summary</h3>
+            <div class="SummaryDetails">
+                <div class="SummaryRow">
+                    <span class="SummaryLabel"> Items({{cart.items.length}}):</span>
+                    <span class="SummaryValue"> {{TempTotal | currency: 'EGP'}}</span>
+                </div>
+                <div class="SummaryRow">
+                    <span class="SummaryLabel">Shiping & handling:</span>
+                    <span class="SummaryValue">{{DeliveryValue | currency: 'EGP'}}</span>
+                </div>
+                <hr class="EstimatedTaxDivider">
+                <div class="SummaryRow">
+                    <span class="OrderTotalLabel">  Order total:</span>
+                    <span class="OrderTotalValue">  {{Total | currency: 'EGP'}}</span>
+                </div>
             </div>
-            <div class="SummaryRow">
-                <span class="SummaryLabel">Shiping & handling:</span>
-                <span class="SummaryValue">{{DeliveryValue | currency: 'EGP'}}</span>
-            </div>
-            <hr class="EstimatedTaxDivider">
-            <div class="SummaryRow">
-                <span class="OrderTotalLabel">  Order total:</span>
-                <span class="OrderTotalValue">  {{Total | currency: 'EGP'}}</span>
-            </div>
-        </div>
-    </aside>
-</div>
+        </aside>
+    </div>
+}

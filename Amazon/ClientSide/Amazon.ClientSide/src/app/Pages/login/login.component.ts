@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit{
       next: (r: loginData) => {
         console.log(r);
         localStorage.setItem('userName', r.displayName);
-        let data: {Email: string, Name: string, Role: string, } = jwtDecode(r.token);
+        let data: {Email: string, Name: string, Role: string } = jwtDecode(r.token);
         console.log(data.Email);
         console.log(data.Name);
         console.log(data.Role);
