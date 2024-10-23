@@ -4,17 +4,17 @@
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
         <div>
             <label for="name">Product Name:</label>
-            <input id="name" formControlName="name" [(ngModel)]="product.name" />
+            <input id="name" formControlName="name" [(ngModel)]="product.Name" />
         </div>
 
         <div>
             <label for="description">Description:</label>
-            <textarea id="description" formControlName="description" [(ngModel)]="product.description"></textarea>
+            <textarea id="description" formControlName="description" [(ngModel)]="product.Description"></textarea>
         </div>
         <div class="price-discount">
             <div>
                 <label for="price">Price:</label>
-                <input id="price" type="number" formControlName="price" [(ngModel)]="product.price" />
+                <input id="price" type="number" formControlName="price" [(ngModel)]="product.Price" />
             </div>
             <div>
                 <button type="button" class="btn btn-danger btn-dicount" data-bs-toggle="modal"
@@ -24,12 +24,12 @@
         <div>
             <label for="quantityInStock">Quantity in Stock:</label>
             <input id="quantityInStock" type="number" formControlName="quantityInStock"
-                [(ngModel)]="product.quantityInStock" />
+                [(ngModel)]="product.QuantityInStock" />
         </div>
 
         <div>
             <label for="categoryId">Category:</label>
-            <select id="categoryId" formControlName="categoryId">
+            <select id="categoryId" formControlName="categoryId" [(ngModel)]="product.CategoryId">
                 @for (category of categories; track $index) {
                 <option [value]="category.id">{{ category.name }}</option>
                 }
@@ -38,7 +38,7 @@
 
         <div>
             <label for="brandId">Brand:</label>
-            <select id="brandId" formControlName="brandId">
+            <select id="brandId" formControlName="brandId" [(ngModel)]="product.BrandId">
                 @for (brand of brands; track $index) {
                 <option [value]="brand.id">{{ brand.name }}</option>
                 }
@@ -47,12 +47,12 @@
 
         <div>
             <label for="imageFile">Main Image:</label>
-            <input id="imageFile" type="file" (change)="onFileSelect($event, 'mainImage')" />
+            <input id="imageFile" type="file" formControlName="imageFile" (change)="onFileSelect($event, 'mainImage')" />
         </div>
 
         <div>
             <label for="imagesFiles">Additional Images:</label>
-            <input id="imagesFiles" type="file" multiple (change)="onFileSelect($event, 'additionalImages')" />
+            <input id="imagesFiles" type="file" formControlName="imagesFiles" multiple (change)="onFileSelect($event, 'additionalImages')" />
         </div>
 
 
@@ -62,7 +62,7 @@
 
 
 <!-- ////////////////////////////// Discount ///////////////////////////////////////// -->
-
+@if (discount !=null) {
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -75,18 +75,18 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="discountPercentage" class="col-form-label">Discount Percentage</label>
-                        <input type="number" id="discountPercentage" min="0.1" max="0.99" step="0.01" required
+                        <input type="number" id="discountPercentage" min="0.1" max="0.99" step="0.01" 
                             class="form-control" name="discountPercentage" [(ngModel)]="discount.discountPercentage" />
                     </div>
                     <div class="mb-3">
                         <label for="startDate">Start Date</label>
                         <input id="startDate" class="form-control" type="date" name="startDate"
-                            [(ngModel)]="discount.startDate" required />
+                            [(ngModel)]="discount.startDate"  />
                     </div>
                     <div class="mb-3">
                         <label for="endDate">End Date</label>
                         <input id="endDate" class="form-control" type="date" name="endDate"
-                            [(ngModel)]="discount.endDate" required />
+                            [(ngModel)]="discount.endDate"  />
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="discountStarted" name="discountStarted"
@@ -105,3 +105,4 @@
         </div>
     </div>
 </div>
+}

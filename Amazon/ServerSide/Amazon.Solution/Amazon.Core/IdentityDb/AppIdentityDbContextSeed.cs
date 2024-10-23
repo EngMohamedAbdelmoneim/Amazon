@@ -46,6 +46,7 @@ namespace Amazon.Core.IdentityDb
 					EmailConfirmed = true,
 					UserName = "AbdelRahmanSaleh",
 					PhoneNumber = "01234567891",
+
 				};
 				await _userManager.CreateAsync(admin, "Admin123?");
 				await _userManager.AddToRoleAsync(admin, "Admin");

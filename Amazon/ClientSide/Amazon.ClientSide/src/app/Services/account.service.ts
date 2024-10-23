@@ -28,6 +28,18 @@ export class AccountService {
       }
     )
   }
+  sellerRegister(sellerName:string,email: string, displayName: string, phoneNumber: string, password: string, confirmPassword: string)
+  {
+    return this.http.post(`https://localhost:7283/api/Account/SellerRegister?sellerName=${sellerName}`, 
+      { 
+        'email': email,
+        'displayName': displayName, 
+        'phoneNumber': phoneNumber, 
+        'password': password, 
+        'confirmPassword': confirmPassword 
+      }
+    )
+  }
 
 
 }

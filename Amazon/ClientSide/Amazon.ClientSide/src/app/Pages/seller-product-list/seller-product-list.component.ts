@@ -19,7 +19,7 @@ export class SellerProductListComponent {
   constructor(public router: Router, private productService: ProductService, public reviewService: ReviewService) { }
 
   ngOnInit(): void {
-    this.productService.getProducts().subscribe({
+    this.productService.GetSellerProducts().subscribe({
       next: data => {
         this.products = data;
       }
@@ -34,7 +34,11 @@ export class SellerProductListComponent {
   delete(id: number): void {
     this.productService.DeleteProduct(id).subscribe({
       next: data => {
-        this.products = data;
+        this.productService.GetSellerProducts().subscribe({
+          next: data => {
+            this.products = data;
+          }
+        });
       }
     });
   }

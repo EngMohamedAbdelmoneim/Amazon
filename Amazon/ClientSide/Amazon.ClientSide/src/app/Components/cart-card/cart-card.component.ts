@@ -20,7 +20,7 @@ export class CartCardComponent implements OnInit {
   @Input({ required: true })prop: CartItem;
   @Output() itemDeleted = new EventEmitter<void>();
   @Output() qntChanged = new EventEmitter<any>();
-  product:Product;
+  product: Product | null = new Product(0, "", 0, "", "", [], "", "", 0, null);
   sub: Subscription | null;
   ngOnInit(){
     this.GetProduct();

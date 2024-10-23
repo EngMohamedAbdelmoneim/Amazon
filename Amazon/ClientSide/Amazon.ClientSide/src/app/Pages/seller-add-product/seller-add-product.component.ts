@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, model } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CategoryService } from '../../Services/category.service';
 import { BrandService } from '../../Services/brand.service';
 import { ProductService } from '../../Services/product.service';
-import { Product } from '../../Models/product';
 import { Discount } from '../../Models/Discount';
 import { CommonModule } from '@angular/common';
+import { ProductDto } from '../../Models/productDto';
 @Component({
   selector: 'app-seller-add-product',
   standalone: true,
@@ -18,15 +18,15 @@ import { CommonModule } from '@angular/common';
 export class SellerAddProductComponent {
 
   productForm: FormGroup;
-  product: Product | null = new Product(0, "", 0, "", "", [], "", "", 0, null);
+  product: ProductDto | null =  new ProductDto('',0,null,null,0,0,0,null,[]);
   discount: Discount | null = new Discount(0, 0, false, null, null);
 
-  categories = [];  // Load these from API
-  brands = [];      // Load these from API
+  categories = [];  
+  brands = [];     
   mainImage: File = null;
   additionalImages: File[] = [];
 
-  constructor(private fb: FormBuilder, public productService: ProductService, private http: HttpClient, public categoryService: CategoryService, public brandService: BrandService) { }
+  constructor(private fb: FormBuilder,private router: Router, public productService: ProductService, private http: HttpClient, public categoryService: CategoryService, public brandService: BrandService) { }
 
   ngOnInit(): void {
     this.productForm = this.fb.group({
@@ -36,41 +36,31 @@ export class SellerAddProductComponent {
       quantityInStock: [0, Validators.required],
       brandId: ['', Validators.required],
       categoryId: ['', Validators.required],
-      imageFile: [null],
+      imageFile: [null, Validators.required],
       imagesFiles: [null],
       discount: null
     });
 
-    // Load categories and brands from the backend
     this.loadCategories();
     this.loadBrands();
   }
 
 
   addDiscount() {
-    // Ensure discount percentage is within valid range
     if (this.discount.discountPercentage < 0 || this.discount.discountPercentage > 1) {
       alert('Discount percentage must be between 0 and 1.');
       return;
     }
 
-    // Ensure start date and end date are valid
     if (new Date(this.discount.startDate) > new Date(this.discount.endDate)) {
       alert('Start date cannot be later than end date.');
       return;
     }
 
 
-    this.product!.discount = this.productForm.get('discount')?.value || this.product!.discount;
-
-    // Here you can call the backend service to save the discount
-    // Example: this.discountService.addDiscount(this.discount).subscribe(...)
+    this.discount = this.productForm.get('discount')?.value || this.discount;
 
     console.log('Discount added:', this.discount);
-
-
-
-    // Reset the form after successful submission
   }
 
   // Method to reset the form values
@@ -106,10 +96,8 @@ export class SellerAddProductComponent {
   }
 
   onSubmit() {
-    if (this.productForm.valid) {
       const formData = new FormData();
       
-      // Append form data
       formData.append('Name', this.productForm.get('name')?.value);
       formData.append('Description', this.productForm.get('description')?.value);
       formData.append('Price', this.productForm.get('price')?.value);
@@ -117,39 +105,43 @@ export class SellerAddProductComponent {
       formData.append('CategoryId', this.productForm.get('categoryId')?.value);
       formData.append('BrandId', this.productForm.get('brandId')?.value);
   
-      // Append the main image if available
       if (this.mainImage) {
         formData.append('ImageFile', this.mainImage);
       }
   
-      // Append additional images
       if (this.additionalImages.length > 0) {
         for (let i = 0; i < this.additionalImages.length; i++) {
           formData.append('ImagesFiles', this.additionalImages[i]);
         }
       }
-  
-      // Append discount if available
+      this.discount = this.productForm.get('discount')?.value;
       if (this.discount) {
-        formData.append('Discount', JSON.stringify(this.discount));
-      }
+        formData.append('Discount.discountPercentage', this.discount.discountPercentage.toString());
+        formData.append('Discount.discountStarted', this.discount.discountStarted.toString());
+        formData.append('Discount.priceAfterDiscount', this.discount.priceAfterDiscount.toString());
+        formData.append('Discount.startDate', this.discount.startDate.toString());
+        formData.append('Discount.endDate', this.discount.endDate.toString());
+      }     
+
+    this.product.BrandId = Number(this.product.BrandId);
+    this.product.CategoryId = Number(this.product.CategoryId);
+
+      this.product.ImageFile = this.mainImage;
+      this.product.ImagesFiles = this.additionalImages;
   
-      // Log for debugging purposes
       console.log('Discount:', this.discount);
-      console.log('FormData:', formData);
+      console.log('FormData:', this.product);
   
-      // Call the service to submit the form data
       this.productService.AddProduct(formData).subscribe({
         next: data => {
           console.log('Product added successfully:', data);
-          // Handle success (e.g., reset form, navigate to another page)
         },
         error: error => {
           console.error('Error adding product:', error);
-          // Handle error (e.g., show error message to the user)
         }
       });
+      this.router.navigate(['seller/product-list'])
     }
-  }
+  
   
 }

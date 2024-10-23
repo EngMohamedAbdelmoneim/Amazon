@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ReviewService } from '../../Services/review.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-card',
@@ -18,7 +19,7 @@ export class ProductCardComponent implements OnInit{
    avgRatiing: number;
    numberOfReviews: number;
    cardVisible = false;
-   constructor(public reviewService:ReviewService){}
+   constructor(public reviewService:ReviewService,private toastr: ToastrService){}
    ngOnInit() {
     this.NumberOfReviews() ;
     this.AverageRating() ;

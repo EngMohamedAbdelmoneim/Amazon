@@ -5,6 +5,7 @@ import { catchError, map } from 'rxjs/operators';
 import { CartItem } from '../Models/cart-item';
 import { CookieService } from 'ngx-cookie-service';
 import { Cart } from '../Models/cart';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class CartService {
   sub: Subscription | null = null;
   ClientSecret: string;
 
-  constructor(private http: HttpClient, public cookieService: CookieService) { }
+  constructor(private http: HttpClient, public cookieService: CookieService,public toastr:ToastrService) { }
 
   updateCart(cartProducts: any[]) 
   {
@@ -136,11 +137,13 @@ export class CartService {
       .pipe(
         catchError((error) => {
           console.error('Error setting cart:', error);
+          this.toastr.error("Failed", "Error", {positionClass:'toast-bottom-right'})
           return of(null);
         })
       ).subscribe(response => {
         if (response) {
           console.log('Cart updated successfully:', response);
+          this.toastr.success("Success", "Success", {positionClass:'toast-bottom-right'})
         }
       });
   }
@@ -164,6 +167,7 @@ export class CartService {
       .pipe(
         catchError((error) => {
           console.error('Error deleting cart:', error);
+          this.toastr.success("Failed", "Failed", {positionClass:'toast-bottom-right'})
           return of(null); // Handle error
         })
       );
@@ -178,7 +182,9 @@ export class CartService {
       this.setToCart(cartId, updatedProducts);
     }
     else {
-      this.deleteCart(cartId).subscribe(p => { });
+      this.deleteCart(cartId).subscribe(p => {
+        this.toastr.success("Deleted Successfully", "Success", {positionClass:'toast-bottom-right'})
+       });
       const updatedProducts = [];
       this.updateCart(updatedProducts);
       this.cookieService.delete('Qnt', '/');

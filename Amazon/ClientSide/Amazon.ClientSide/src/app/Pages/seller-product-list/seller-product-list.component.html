@@ -1,5 +1,5 @@
 <main>
-    <!-- <aside>
+  <!-- <aside>
         <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;" bis_skin_checked="1">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
               <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
@@ -54,46 +54,95 @@
             </div>
           </div>
     </aside> -->
-    <div class="action-buttons d-flex">
-        <a routerLink="/seller/add-product" class="btn btn-success mx-3 my-1">Add Product</a>
+  <div class="action-buttons d-flex">
+    <a routerLink="/seller/add-product" class="btn btn-success mx-3 my-1">Add Product</a>
+  </div>
+  <section>
+    <div *ngIf="products.length >0" class="table-container">
+      <table class="product-table">
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Brand</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Brand</th>
+            <th>Sales</th>
+            <th>Action</th>
+            <th>Action</th>
+            <th>Seller</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Sample data loop - bind this to your product list in your component -->
+          <tr *ngFor="let product of products">
+            <td [routerLink]="['/seller/product-details',product.id]">{{ product.name }}</td>
+            <td>{{ product.brandName }}</td>
+            <td>{{ product.price | currency }}</td>
+            <td>{{ product.categoryName }}</td>
+            <td>{{ product.brandName }}</td>
+            <td>
+              @if (product.discount) {
+                <p>{{product.discount.discountPercentage*100}}%</p>
+              }
+              @else {
+                <p>No sale</p>
+              }
+            </td>
+            <td>
+              <button (click)="edit(product)" class="btn btn-success">Edit Product</button>
+            </td>
+            <td>
+              <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
+                Delete
+              </button>
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header" style="background-color: #CC0C39;">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: white;">Warning</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <h5>Do you want to delete : {{product.name}}</h5>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" (click)="delete(product.id)" class="btn" data-bs-dismiss="modal" style="background-color: #CC0C39; color: white;">Save
+                        changes</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <p>{{product.sellerName}}</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <section>
-        <div class="table-container">
-            <table class="product-table">
-                <thead>
-                    <tr>
-                        <th>Product Name</th>
-                        <th>Brand</th>
-                        <th>Price</th>
-                        <th>Category</th>
-                        <th>Brand</th>
-                        <th>Sales</th>
-                        <th>Action</th>
-                        <th>Action</th>
-                        <th>Reviews</th>
-                        <th>Seller</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Sample data loop - bind this to your product list in your component -->
-                    <tr  [routerLink]="['/seller/product-details',product.id]" *ngFor="let product of products">
-                        <td>{{ product.name }}</td>
-                        <td>{{ product.brandName }}</td>
-                        <td>{{ product.price | currency }}</td>
-                        <td>{{ product.categoryName }}</td>
-                        <td>{{ product.brandName }}</td>
-                        <td>sales</td>
-                        <td> 
-                          <button  (click)="edit(product)" class="btn btn-success">Edit Product</button>
-                        </td>
-                        <td> 
-                          <button (click)="delete(product.id)" class="btn btn-danger">Delete</button>
-                        </td>
-                        <td>rating</td>
-                        <td>seller</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
+    <div class="d-flex flex-column justify-content-center align-items-center" *ngIf="products.length == 0">
+      <table class="product-table">
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Brand</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Brand</th>
+            <th>Sales</th>
+            <th>Action</th>
+            <th>Action</th>
+            <th>Reviews</th>
+            <th>Seller</th>
+          </tr>
+        </thead>
+      </table>
+      <img src="No_Product_Found.png" style="text-align: center;" alt="">
+    </div>
+
+  </section>
 </main>

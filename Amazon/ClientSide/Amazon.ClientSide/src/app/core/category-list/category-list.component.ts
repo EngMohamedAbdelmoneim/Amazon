@@ -13,10 +13,13 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class CategoryListComponent implements OnInit {
   parentcategories: Array<any> = [];
+  isAuthenticated: boolean;
+
   sub: Subscription | null = null;
   constructor(private router: Router, public categoryService: CategoryService) { }
 
   ngOnInit() {
+    this.isAuthenticated = JSON.parse(localStorage.getItem('isAuthenticated'));
     try {
       this.sub = this.categoryService.getParentCategories().subscribe({
         next: data => {

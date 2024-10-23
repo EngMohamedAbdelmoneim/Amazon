@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, of, Subscription } from 'rxjs';
 import { WishListItem } from '../Models/wish-list-item';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class WishListService {
  
   sub: Subscription | null = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,public toastr:ToastrService) { }
 
   updateWishList(wishListProducts: any[]) {
     this.wishListProductSource.next(wishListProducts);
@@ -75,10 +76,12 @@ export class WishListService {
       .pipe(
         catchError((error) => {
           console.error('Error setting wishList:', error);
+          this.toastr.error("Failed", "Error", {positionClass:'toast-bottom-right'})
           return of(null);
         })
       ).subscribe(response => {
         if (response) {
+          this.toastr.success("Success", "Success", {positionClass:'toast-bottom-right'})
           console.log('wishList updated successfully:', response);
         }
       });

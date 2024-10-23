@@ -38,7 +38,7 @@ namespace Amazon.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brands");
+                    b.ToTable("Brands", (string)null);
 
                     b.HasData(
                         new
@@ -81,7 +81,7 @@ namespace Amazon.Core.Migrations
 
                     b.HasIndex("ParentCategoryId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
 
                     b.HasData(
                         new
@@ -144,7 +144,7 @@ namespace Amazon.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DeliveryMethods");
+                    b.ToTable("DeliveryMethods", (string)null);
                 });
 
             modelBuilder.Entity("Amazon.Core.Entities.OrderAggregate.Order", b =>
@@ -190,7 +190,7 @@ namespace Amazon.Core.Migrations
 
                     b.HasIndex("PaymentMethodId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("Amazon.Core.Entities.OrderAggregate.OrderItem", b =>
@@ -214,7 +214,7 @@ namespace Amazon.Core.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItems", (string)null);
                 });
 
             modelBuilder.Entity("Amazon.Core.Entities.OrderAggregate.PaymentMethod", b =>
@@ -230,7 +230,7 @@ namespace Amazon.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PaymentMethods");
+                    b.ToTable("PaymentMethods", (string)null);
                 });
 
             modelBuilder.Entity("Amazon.Core.Entities.ParentCategory", b =>
@@ -246,7 +246,7 @@ namespace Amazon.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ParentCategories");
+                    b.ToTable("ParentCategories", (string)null);
 
                     b.HasData(
                         new
@@ -302,7 +302,7 @@ namespace Amazon.Core.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
 
                     b.HasData(
                         new
@@ -457,7 +457,7 @@ namespace Amazon.Core.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductImages");
+                    b.ToTable("ProductImages", (string)null);
 
                     b.HasData(
                         new
@@ -683,7 +683,7 @@ namespace Amazon.Core.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Reviews", (string)null);
                 });
 
             modelBuilder.Entity("Amazon.Core.Entities.Category", b =>
@@ -720,7 +720,7 @@ namespace Amazon.Core.Migrations
                         .WithMany("Items")
                         .HasForeignKey("OrderId");
 
-                    b.OwnsOne("Amazon.Core.Entities.OrderAggregate.ProductItemOrdered", "Product", b1 =>
+                    b.OwnsOne("Amazon.Core.Entities.OrderAggregate.OrderItem.Product#Amazon.Core.Entities.OrderAggregate.ProductItemOrdered", "Product", b1 =>
                         {
                             b1.Property<int>("OrderItemId")
                                 .HasColumnType("int");
@@ -742,7 +742,7 @@ namespace Amazon.Core.Migrations
 
                             b1.HasKey("OrderItemId");
 
-                            b1.ToTable("OrderItems");
+                            b1.ToTable("OrderItems", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("OrderItemId");
@@ -765,7 +765,7 @@ namespace Amazon.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("Amazon.Core.Entities.Discount", "Discount", b1 =>
+                    b.OwnsOne("Amazon.Core.Entities.Product.Discount#Amazon.Core.Entities.Discount", "Discount", b1 =>
                         {
                             b1.Property<int>("ProductId")
                                 .HasColumnType("int");
@@ -787,7 +787,7 @@ namespace Amazon.Core.Migrations
 
                             b1.HasKey("ProductId");
 
-                            b1.ToTable("Products");
+                            b1.ToTable("Products", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("ProductId");

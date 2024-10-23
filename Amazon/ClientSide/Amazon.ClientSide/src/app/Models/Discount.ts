@@ -1,16 +1,16 @@
 export class Discount {
-    discountPercentage: number;
-    priceAfterDiscount: number;
-    discountStarted: boolean;
-    startDate: Date;
-    endDate: Date;
+    discountPercentage: number | null;
+    priceAfterDiscount: number | null;
+    discountStarted: boolean | null;
+    startDate: Date | null;
+    endDate: Date | null;
 
     constructor(
-        discountPercentage: number,
-        priceAfterDiscount: number,
-        discountStarted: boolean,
-        startDate: Date,
-        endDate: Date
+        discountPercentage: number  | null,
+        priceAfterDiscount: number  | null,
+        discountStarted: boolean  | null,
+        startDate: Date  | null,
+        endDate: Date | null
     ) {
         this.discountPercentage = discountPercentage;
         this.priceAfterDiscount = priceAfterDiscount;

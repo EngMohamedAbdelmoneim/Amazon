@@ -50,7 +50,7 @@ export class CartComponent implements OnInit {
     }
 
     this.subCart =this.cartService.cartProduct$
-      .pipe(delay(3000))
+      .pipe()
       .subscribe({
         next: products => {
           if (products.length !== 0) {

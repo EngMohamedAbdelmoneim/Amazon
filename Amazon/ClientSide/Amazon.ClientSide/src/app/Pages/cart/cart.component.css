@@ -260,7 +260,7 @@ aside{
   
   .loading-text span {
     opacity: 0;
-    animation: fadeIn 1s ease-in-out forwards;
+    animation: fadeIn 0s ease-in-out forwards;
   }
   
   .loading-text span:nth-child(1) {
@@ -280,16 +280,32 @@ aside{
   }
   
   .loading-text span:nth-child(5) {
-    animation-delay: 0.8s;
+    animation-delay: 0.7s;
   }
   
   .loading-text span:nth-child(6) {
+    animation-delay: 0.7s;
+  }
+  .loading-text span:nth-child(7) {
+    animation-delay: 0.7s;
+  }
+  .loading-text span:nth-child(8) {
+    animation-delay: 0.9s;
+  }
+  .loading-text span:nth-child(9) {
     animation-delay: 1s;
   }
-  
-  .loading-text span:nth-child(7) {
+  .loading-text span:nth-child(10) {
     animation-delay: 1.2s;
   }
+  .loading-text span:nth-child(11) {
+    animation-delay: 1.5s;
+  }
+  .loading-text span:nth-child(12) {
+    animation-delay: 1.5s;
+  }
+  
+  
   
   @keyframes fadeIn {
     0% {

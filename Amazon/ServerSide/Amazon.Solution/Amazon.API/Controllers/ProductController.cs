@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Identity;
 using Amazon.Core.Entities.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
-using Amazon.API.Errors;
 
 namespace Amazon.API.Controllers
 {
@@ -34,7 +33,7 @@ namespace Amazon.API.Controllers
 		[Authorize(Roles = "Seller")]
 		[HttpPost]
 		[ActionName("AddProduct")]
-		public async Task<ActionResult<ProductToReturnDto>> AddProduct(ProductDto product)
+		public async Task<ActionResult<ProductToReturnDto>> AddProduct( ProductDto product)
 		{
 			var sellerEmail = User.FindFirstValue("Email");
 
@@ -42,10 +41,9 @@ namespace Amazon.API.Controllers
 			var category = await _categoryService.GetCategoryByIdAsync(product.CategoryId);
 
 			if (brand == null || category == null)
-				return BadRequest(new ApiResponse(400));
+				return BadRequest();
 			
 			var result = await _productService.AddProduct(product,sellerEmail);
-
 			return Ok(result);
 		}
 
@@ -53,12 +51,12 @@ namespace Amazon.API.Controllers
 		public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts([FromQuery]ProductSpecParams specParams)
 		{
 			if (specParams.PageIndex < 0)
-				return NotFound(new ApiResponse(404,"Page Not Found"));
+				return NotFound("Page Not Found");
 
 			var products = await _productService.GetAllProductsAsync(specParams);
 
 			if (products is null)
-				return NotFound(new ApiResponse(404,"Page Not Found"));
+				return NotFound("Page Not Found");
 
 			return Ok(products);
 		}
@@ -69,7 +67,7 @@ namespace Amazon.API.Controllers
 			var product = await _productService.GetProductByIdAsync(id);
 
 			if (product is null)
-				return NotFound(new ApiResponse(404)); 
+				return NotFound(); 
 
 
 			return Ok(product);
@@ -78,27 +76,23 @@ namespace Amazon.API.Controllers
 
 		[Authorize(Roles = "Seller")]
 		[HttpPut("{id}")]
-		public async Task<ActionResult<ProductToReturnDto>> UpdateProduct(int id, ProductDto product)
+		public async Task<ActionResult<ProductToReturnDto>> UpdateProduct(int id,ProductDto product)
 		{
 			var sellerEmail = User.FindFirstValue("Email");
 
 
 			var Exsistproduct = await _productService.GetProductByIdAsync(id);
 			if (Exsistproduct == null)
-				return NotFound(new ApiResponse(404));
+				return Forbid();
 
 			if (Exsistproduct.SellerEmail != sellerEmail)
-				return BadRequest(new ApiResponse(400));
+				return Forbid();
 
 			var brand = _brandService.GetBrandByIdAsync(product.BrandId);
 			var category = _categoryService.GetCategoryByIdAsync(product.CategoryId);
 			if (brand == null || category == null)
-				return BadRequest(new ApiResponse(400));
-
-			var result = await _productService.UpdateProduct(id, product);
-			if (result is null)
-				return BadRequest(new ApiResponse(400));
-			return Ok();
+				return BadRequest();
+			return Ok(await _productService.UpdateProduct(id, product));
 		}
 
 		[Authorize(Roles ="Seller")]
@@ -115,7 +109,7 @@ namespace Amazon.API.Controllers
 
 			var result = await _productService.GetSellerProductByIdAsync(sellerEmail, id);
 			if (result is null)
-				return BadRequest(new ApiResponse(400));
+				return Forbid();
 
 			 return Ok(result);
 		}
@@ -136,10 +130,10 @@ namespace Amazon.API.Controllers
 
 			var product = await _productService.GetProductByIdAsync(id);
 			if (product is null)
-				return NotFound(new ApiResponse(404));
+				return NotFound();
 
 			if (product.SellerEmail != sellerEmail)
-				return BadRequest(new ApiResponse(400));
+				return Forbid();
 
 			return Ok(await _productService.DeleteProduct(id));
 

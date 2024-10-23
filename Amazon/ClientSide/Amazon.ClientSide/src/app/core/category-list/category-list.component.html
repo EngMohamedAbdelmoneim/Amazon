@@ -73,10 +73,13 @@
             </button>
             <div class="collapse" id="account-collapse" bis_skin_checked="1">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="#" class="list-group-item">New...</a></li>
-                    <li><a href="#" class="list-group-item">Profile</a></li>
-                    <li><a href="#" class="list-group-item">Settings</a></li>
-                    <li><a href="#" class="list-group-item" (click)="SignOut()">Sign out</a></li>
+                    @if(isAuthenticated)
+                    {
+                        <li><a href="#" class="list-group-item" (click)="SignOut()">Sign out</a></li>
+                    }
+                    @else 
+                    {
+                    }
                 </ul>
             </div>
         </li>

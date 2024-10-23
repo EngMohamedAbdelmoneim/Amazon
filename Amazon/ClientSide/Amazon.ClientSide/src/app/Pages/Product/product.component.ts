@@ -1,11 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProductService } from '../../Services/product.service';
 import { Product } from '../../Models/product';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { CartService } from '../../Services/cart.service';
-import { Cart } from '../../Models/cart';
 import { CartItem } from '../../Models/cart-item';
 import { GuidService } from '../../Services/guid.service';
 import { WishListService } from '../../Services/wish-list.service';
@@ -13,6 +12,7 @@ import { WishListItem } from '../../Models/wish-list-item';
 import { ReviewListComponent } from "../../Components/review-list/review-list.component";
 import { ReviewService } from '../../Services/review.service';
 import { ToastrService } from 'ngx-toastr'
+import { Review } from '../../Models/review';
 
 @Component({
   selector: 'app-product',
@@ -22,7 +22,8 @@ import { ToastrService } from 'ngx-toastr'
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-
+  userName: string | null =null
+  reviewed:boolean=false;
   productImages: any;
   product: Product | null = new Product(0, "", 0, "", "", [], "", "", 0, null);
   cartItems: CartItem | null = new CartItem(0, "", "", 0, "", 0);
@@ -53,7 +54,8 @@ export class ProductComponent implements OnInit {
     public wishListService: WishListService, 
     public route: ActivatedRoute, 
     public guidServices: GuidService,
-    public toastr: ToastrService
+    public toastr: ToastrService,
+    private router:Router
   ) { }
 
   ngOnInit(): void {
@@ -87,6 +89,12 @@ export class ProductComponent implements OnInit {
           this.AverageRating();
           if (this.avgRatiing > 0) {
             this.updateRatings();
+          }
+          if(this.productReviews){
+            this.userName = localStorage.getItem('userName');
+            if (this.productReviews.find(e => e.appUserName ===  this.userName)) {
+              this.reviewed = true;
+            }
           }
           console.log(this.ratings);
         },
@@ -239,6 +247,7 @@ export class ProductComponent implements OnInit {
     let EndDate:any =new Date(this.product.discount.endDate).getTime();
     return EndDate;
   }
+
   DeleteReveiw(revId:number){
     this.reviewService.deleteReview(revId).subscribe({
       next: data =>{
