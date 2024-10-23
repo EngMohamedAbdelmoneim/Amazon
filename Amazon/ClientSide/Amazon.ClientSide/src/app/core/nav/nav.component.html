@@ -56,26 +56,32 @@
                 <button class="dropdown-btn">Account & Lists</button>
                 <div class="dropdown-content p-2">
                     <div class="signin-btn">
-                        <a routerLink="/login">Sign In</a>
+                        @if(isAuthenticated)
+                        {
+                            <a routerLink="/login">Sign In</a>
+                        }
+                        @else 
+                        {
+                        }
                     </div>
                     <div style="display: flex;">
-                        <div style="width: 50%;">
+                        <!-- <div style="width: 50%;">
                             <h5>Your Lists</h5>
                             <a href="#">Create a List</a>
-                        </div>
-                        <div style="width: 50%;">
+                        </div> -->
+                        <div>
                             <h5>Your Account</h5>
                             <a href="#">Your Account</a>
                             <a href="#">Your Orders</a>
                             <a href="#">Your Addresses</a>
                             <a href="#">Your Lists</a>
-                            <a href="#">Keep Shopping For</a>
+                            <!-- <a href="#">Keep Shopping For</a>
                             <a href="#">Your Recommendations</a>
-                            <a href="#">Recalls and Product Safety Alerts</a>
-                            <a href="#">Your Prime Membership</a>
-                            <a href="#">Memberships & Subscriptions</a>
+                            <a href="#">Recalls and Product Safety Alerts</a> -->
+                            <!-- <a href="#">Your Prime Membership</a>
+                            <a href="#">Memberships & Subscriptions</a> -->
                             <a [routerLink]="['seller-product-list']">Your Seller Account</a>
-                            <a href="#">Switch Accounts</a>
+                            <!-- <a href="#">Switch Accounts</a> -->
                             <a (click)="SignOut()">Sign Out</a>
                         </div>
                     </div>

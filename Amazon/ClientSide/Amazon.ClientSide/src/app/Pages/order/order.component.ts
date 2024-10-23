@@ -69,7 +69,7 @@ export class OrderComponent  implements OnInit {
   deleteCartSub: Subscription;
 
   PaymentValue: number;
-  DeliveryValue: number;
+  DeliveryValue: number = 0;
   DeliveryMethodId: number;
 
   cart: Cart;
@@ -92,7 +92,7 @@ export class OrderComponent  implements OnInit {
 
   TempTotal: number;
 
-constructor(private orderService:OrderService, private cookieService: CookieService, private cartService: CartService, private router: Router, private toastr: ToastrService) {}
+constructor(private orderService:OrderService, private cookieService: CookieService, private cartService: CartService, private toastr: ToastrService) {}
 
 ngOnInit() {
 

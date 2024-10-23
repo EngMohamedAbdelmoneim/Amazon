@@ -62,4 +62,8 @@ export class RegisterComponent implements OnInit{
       this.isMatched = false;
     }
   }
+  validateNumberInput(input)
+  {
+
+  }
 }

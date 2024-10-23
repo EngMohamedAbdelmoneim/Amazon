@@ -78,31 +78,16 @@
         <table>
           <tbody>
             <tr>
-              <td> Dimensions</td>
-              <td>56D x 60W x 85H centimeters</td>
+              <td>Brand: </td>
+              <td>{{product.brandName}}</td>
             </tr>
             <tr>
-              <td>D x W x H</td>
-            </tr>
-            <tr>
-              <td>Brand Name </td>
-              <td>LG</td>
-            </tr>
-            <tr>
-              <td>Capacity</td>
-              <td>9 Kilograms</td>
-            </tr>
-            <tr>
-              <td>Special Features </td>
-              <td>Inverter </td>
-            </tr>
-            <tr>
-              <td>Access Location</td>
-              <td>Front Load</td>
-            </tr>
-            <tr>
-              <td>Color</td>
-              <td>Black</td>
+              <td>
+                Seller:
+              </td>
+              <td>
+                {{product.sellerName ?? 'Amazon'}}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -119,7 +104,7 @@
       <div class="price-note text-danger">Lowest Price in {{DiscountTimeOut().toString()}} days</div>
       }
       @else {
-      <span class="current-price">List:{{ product.price.toFixed(2) | currency:'EGP' }}</span>
+      <span class="current-price">{{ product.price.toFixed(2) | currency:'EGP' }}</span>
       }
       @if (product.quantityInStock > 10)
       {
@@ -145,6 +130,7 @@
       <button class="p-1 mb-2">Buy Now</button>
       <button class="p-1" (click)="AddToWishList(product,getGuid())">Add to Wishlist</button>
     </section>
+
   </div>
   <div class="review-section">
     <div class="split-line">

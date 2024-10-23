@@ -22,7 +22,7 @@ export class SearchService {
     else
     {
       console.log(this.searchType);
-      return this.http.get<PaginatedProducts>("https://localhost:7283/api/Search/SearchByProductNameAndCategoryId", {params: {productName:`${query}`, categoryId: this.searchType}});
+      return this.http.get<PaginatedProducts>(`https://localhost:7283/api/Product/GetProducts/GetAll?PageIndex=${page}`, {params: {Search: query, CategoryId: this.searchType}});
     }
   }
 

@@ -48,10 +48,8 @@
                 <h3>Delivery Methods</h3>
                 <div *ngFor="let item of DeliveryMethods">
                     <input type="radio" name="DeliveryMethods" id="{{item.name}}" value="{{item.id}}" (change)="shippingMethodChoice(item.id)">
-                    <label for="{{item.name}}">{{item.name}} <span>{{item.description}}</span></label>
+                    <label for="{{item.name}}"><span>{{item.description}}, {{item.cost | currency: 'EGP'}}</span></label>
                 </div>
-
-                
 
                 <div class="Line"></div> 
             </div>

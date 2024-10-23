@@ -11,6 +11,7 @@ export class Product {
     brandName: string;
     quantityInStock: number;
     discount:Discount;
+    sellerName?: string;
 
     constructor
         (

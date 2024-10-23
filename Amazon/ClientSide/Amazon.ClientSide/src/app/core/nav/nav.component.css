@@ -83,7 +83,7 @@ nav{
   }
   .dropdown-content{
     display: none;
-    width: 400px;
+    width: 200px;
     position: absolute;
     right: 0px;
     background-color: #f9f9f9;
