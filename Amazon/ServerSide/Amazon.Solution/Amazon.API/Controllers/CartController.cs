@@ -1,4 +1,5 @@
-﻿using Amazon.Core.Entities;
+﻿using Amazon.API.Errors;
+using Amazon.Core.Entities;
 using Amazon.Services.BrandService;
 using Amazon.Services.CartService;
 using Amazon.Services.CartService.Dto;
@@ -54,7 +55,7 @@ namespace Amazon.API.Controllers
 			var newCartDto = await _cartService.SetCartAsync(cartId, cartDto);
             if (newCartDto == null)
             {
-                return BadRequest("Failed to set cart.");
+                return BadRequest(new ApiResponse(400, "Failed to set cart."));
             }
 
             return Ok(newCartDto);
@@ -66,7 +67,7 @@ namespace Amazon.API.Controllers
             var result = await _cartService.RemoveCartAsync(cartId);
             if (!result)
             {
-                return NotFound();
+                return NotFound(new ApiResponse(404));
             }
 
             return NoContent();

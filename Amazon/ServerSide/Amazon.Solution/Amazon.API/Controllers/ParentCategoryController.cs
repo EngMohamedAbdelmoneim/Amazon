@@ -1,4 +1,5 @@
-﻿using Amazon.Services.ParentCategoryService;
+﻿using Amazon.API.Errors;
+using Amazon.Services.ParentCategoryService;
 using Amazon.Services.ParentCategoryService.Dto;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,26 +15,41 @@ namespace Amazon.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IReadOnlyList<ParentCategoryToReturnDto>> GetAllParentCategories()
-             => await _parentCategoryService.GetAllParentCategoriesAsync();
+        public async Task<ActionResult<IReadOnlyList<ParentCategoryToReturnDto>>> GetAllParentCategories()
+             => Ok(await _parentCategoryService.GetAllParentCategoriesAsync());
 
         [HttpPost]
-        public async Task<ParentCategoryToReturnDto> AddParentCategory(ParentCategoryDto parentCategory)
-            => await _parentCategoryService.AddParentCategory(parentCategory);
-
+        public async Task<ActionResult<ParentCategoryToReturnDto>> AddParentCategory(ParentCategoryDto parentCategory)
+        {
+            var result = await _parentCategoryService.AddParentCategory(parentCategory);
+            if (result is null)
+                return BadRequest(new ApiResponse(400));
+            return Ok(result);
+        }
         [HttpDelete("{Id}")]
-        public async Task<IReadOnlyList<ParentCategoryToReturnDto>> DeleteParentCategory(int Id)
-            =>await _parentCategoryService.DeleteParentCategory(Id);
+        public async Task<ActionResult<IReadOnlyList<ParentCategoryToReturnDto>>> DeleteParentCategory(int Id)
+        {
+            var result = await _parentCategoryService.DeleteParentCategory(Id);
+            if (result is null)
+                return NotFound(new ApiResponse(400));
+            return Ok(result);
+        }
 
         [HttpPut("id")]
-        public async Task<ParentCategoryToReturnDto> UpdateParentCategory(int Id, ParentCategoryDto parentCategory)
-            => await _parentCategoryService.UpdateParentCategory(Id, parentCategory);
-
+        public async Task<ActionResult<ParentCategoryToReturnDto>> UpdateParentCategory(int Id, ParentCategoryDto parentCategory)
+        {
+            var result = await _parentCategoryService.UpdateParentCategory(Id, parentCategory);
+            if (result is null)
+                return BadRequest(new ApiResponse(400));
+            return Ok(result);
+        }
         [HttpGet("{Id}")]
-        public async Task<ParentCategoryToReturnDto> GetParentCategoryById(int? Id)
-            => await _parentCategoryService.GetParentCategoryByIdAsync(Id);
-
-
-
+        public async Task<ActionResult<ParentCategoryToReturnDto>> GetParentCategoryById(int? Id)
+        {
+            var result = await _parentCategoryService.GetParentCategoryByIdAsync(Id);
+            if (result is null)
+                return NotFound(new ApiResponse(404));
+            return Ok(result);
+        }
     }
 }

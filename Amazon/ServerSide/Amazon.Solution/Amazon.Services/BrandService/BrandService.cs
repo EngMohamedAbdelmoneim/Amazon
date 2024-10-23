@@ -18,19 +18,14 @@ namespace Amazon.Services.BrandService
 
         public async Task<BrandDto> AddBrand(BrandDto brand)
         {
-            try
-            {
-                var mappedBrand = _mapper.Map<Brand>(brand);
 
-                await _brandRepo.Add(mappedBrand);
+            var mappedBrand = _mapper.Map<Brand>(brand);
 
-                var brandToReturn = _mapper.Map<BrandDto>(mappedBrand);
-                return brandToReturn;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            await _brandRepo.Add(mappedBrand);
+
+            var brandToReturn = _mapper.Map<BrandDto>(mappedBrand);
+            return brandToReturn;
+
         }
 
         public async Task<IReadOnlyList<BrandDto>> DeleteBrand(int id)

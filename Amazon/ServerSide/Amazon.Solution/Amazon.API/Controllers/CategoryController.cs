@@ -1,4 +1,5 @@
-﻿using Amazon.Services.CategoryServices;
+﻿using Amazon.API.Errors;
+using Amazon.Services.CategoryServices;
 using Amazon.Services.CategoryServices.Dto;
 using Microsoft.AspNetCore.Mvc;
 namespace Amazon.API.Controllers
@@ -13,23 +14,45 @@ namespace Amazon.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IReadOnlyList<CategoryToReturnDto>> GetAllCategories()
-            => await _categoryService.GetAllCategoriesAsync();
+        public async Task<ActionResult<IReadOnlyList<CategoryToReturnDto>>> GetAllCategories()
+            => Ok(await _categoryService.GetAllCategoriesAsync());
 
         [HttpPost]
-        public async Task<CategoryToReturnDto> AddCategory(CategoryDto categoryDto)
-            => await _categoryService.AddCategory(categoryDto);
+        public async Task<ActionResult<CategoryToReturnDto>> AddCategory(CategoryDto categoryDto)
+        {
+            var result = await _categoryService.AddCategory(categoryDto);
+            if (result is null)
+                return BadRequest(new ApiResponse(400));
+            return Ok(result);
+        }
 
         [HttpDelete]
-        public async Task<IReadOnlyList<CategoryToReturnDto>> DeleteCategory(int Id)
-            => await _categoryService.DeleteCategory(Id);
+        public async Task<ActionResult<IReadOnlyList<CategoryToReturnDto>>> DeleteCategory(int Id)
+        {
+
+            var result =  await _categoryService.DeleteCategory(Id);
+            if (result is null)
+                return BadRequest(new ApiResponse(400));
+            return Ok(result);
+        }
 
         [HttpPut("id")]
-        public async Task<CategoryToReturnDto> UpdateCategory(int Id, CategoryDto categoryDto)
-            => await _categoryService.UpdateCategory(Id, categoryDto);
+        public async Task<ActionResult<CategoryToReturnDto>> UpdateCategory(int Id, CategoryDto categoryDto)
+        {
+            var result = await _categoryService.UpdateCategory(Id, categoryDto);
+            if (result is null)
+                return BadRequest(new ApiResponse(400));
+
+            return Ok(result);
+        }
 
         [HttpGet("{Id}")]
-        public async Task <CategoryToReturnDto> GetCategoryById(int? Id)
-            =>await _categoryService.GetCategoryByIdAsync(Id);
+        public async Task <ActionResult<CategoryToReturnDto>> GetCategoryById(int? Id)
+        {
+            var result = await _categoryService.GetCategoryByIdAsync(Id);
+            if (result is null)
+                return NotFound(new ApiResponse(404));
+            return Ok(result);
+        }
     }
 }

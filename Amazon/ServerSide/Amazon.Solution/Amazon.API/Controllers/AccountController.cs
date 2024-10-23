@@ -1,4 +1,5 @@
-﻿using Amazon.API.Extentions;
+﻿using Amazon.API.Errors;
+using Amazon.API.Extentions;
 using Amazon.Core.Entities.Identity;
 using Amazon.Services.AuthService.Token;
 using Amazon.Services.AuthService.User;
@@ -43,18 +44,18 @@ namespace Amazon.API.Controllers
 		{
 			var result = await _userService.Register(registerDto);
 			if (result is null)
-				return BadRequest("Already Registered");
+				return BadRequest(new ApiResponse(400,"Already Registered"));
 
 			if (result.Succeeded)
 			{
 				var user = await _userManager.FindByEmailAsync(registerDto.Email);
 				if (user is null)
-					return NotFound();
+					return NotFound(new ApiResponse(404, "Already Registered"));
 
 				return Ok(await SendConfirmationEmail(user));
 			}
 			else
-				return BadRequest("Register Failed");
+				return BadRequest(new ApiResponse(400,"Register Failed"));
 		}
 
 		[HttpPost("SellerRegister")]
@@ -68,12 +69,12 @@ namespace Amazon.API.Controllers
 			{
 				var user = await _userManager.FindByEmailAsync(registerDto.Email);
 				if (user is null)
-					return NotFound();
+					return NotFound(new ApiResponse(404, "Email Not Found"));
 
 				return Ok(await SendConfirmationEmail(user));
 			}
 			else
-				return BadRequest("Register Failed");
+				return BadRequest(new ApiResponse(400,"Register Failed"));
 		}
 
 		
@@ -82,7 +83,7 @@ namespace Amazon.API.Controllers
 		{
 			var user = await _userService.Login(loginDto);
 			if (user == null)
-				return Unauthorized();
+				return Unauthorized(new ApiResponse(401));
 			return Ok(user);
 		}
 
@@ -110,12 +111,12 @@ namespace Amazon.API.Controllers
 		{
 			if (userId == null || token == null)
 			{
-				return BadRequest("Invalid confirmation link.");
+				return BadRequest(new ApiResponse(400,"Invalid confirmation link."));
 			}
 			var user = await _userManager.FindByIdAsync(userId);
 
 			if (user == null)
-				return BadRequest("Invalid User");
+				return BadRequest(new ApiResponse(400,"Invalid User"));
 
 			if (!user.EmailConfirmed)
 			{
@@ -123,18 +124,20 @@ namespace Amazon.API.Controllers
 
 				if (result.Succeeded)
 				{
-					return Ok(new UserDto
+					var userDto = new UserDto
 					{
 						DisplayName = user.DisplayName,
 						Email = user.Email,
 						Token = await _tokenService.CreateTokenAsync(user, _userManager)
-					});
+					};
+
+					return Redirect($"http://localhost:4200/?displayName={userDto.DisplayName}&email={userDto.Email}&token={userDto.Token}");
 				}
 			}
 			else
 				return Ok("Email Already Confirmed");
 
-			return BadRequest("Invalid or expired confirmation link.");
+			return BadRequest(new ApiResponse(400,"Invalid or expired confirmation link."));
 		}
 
 		
@@ -144,7 +147,7 @@ namespace Amazon.API.Controllers
 			var user = await _userManager.FindByEmailAsync(model.Email);
 			if (user is null)
 			{
-				return BadRequest("Invalid request.");
+				return BadRequest(new ApiResponse(400,"Invalid request."));
 			}
 
 			var token = await _userManager.GeneratePasswordResetTokenAsync(user);
@@ -167,15 +170,15 @@ namespace Amazon.API.Controllers
 		[HttpPost("ResetPassword")]
 		public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto model, [FromQuery] string userId, [FromQuery] string token)
 		{
-			if (!ModelState.IsValid)
-			{
-				return BadRequest(ModelState);
-			}
+			//if (!ModelState.IsValid)
+			//{
+			//	return BadRequest(ModelState);
+			//}
 
 			var user = await _userManager.FindByIdAsync(userId);
 			if (user == null)
 			{
-				return BadRequest("Invalid request.");
+				return BadRequest(new ApiResponse(400,"Invalid request."));
 			}
 
 			var result = await _userManager.ResetPasswordAsync(user, token, model.Password);
@@ -217,7 +220,7 @@ namespace Amazon.API.Controllers
 			var user = await _userManager.FindUserWithAddressAsync(User);
 			var result =  await _userService.AddAddressAsync(user.Id, addressDto);
 			if (result is null)
-				return BadRequest();
+				return BadRequest(new ApiResponse(400));
 			return Ok(result);
 		}
 
@@ -230,7 +233,7 @@ namespace Amazon.API.Controllers
 
 			var result = await _userService.EditAddressAsync(user.Id,addressId,addressDto);
 			if (result is null)
-				return NotFound("Address not found");
+				return NotFound(new ApiResponse(404,"Address not found"));
 
 			return Ok(result);
 		}
@@ -244,9 +247,9 @@ namespace Amazon.API.Controllers
 			
 			var result = await _userService.DeleteAddressAsync(user.Id, addressId);
 			if (result is null)
-				return NotFound("Address not found");
+				return NotFound(new ApiResponse(404,"Address not found"));
 			if (!result.Succeeded)
-				return BadRequest("Failed to delete the address");
+				return BadRequest(new ApiResponse(400,"Failed to delete the address"));
 
 			return Ok("Address Deleted Successfully");
 		}
@@ -261,7 +264,7 @@ namespace Amazon.API.Controllers
 			var result = await _userService.SetDefaultAddress(user.Id, id);
 
 			if (result is null)
-				return BadRequest();
+				return BadRequest(new ApiResponse(400));
 
 			return Ok(result);
 		}
@@ -291,7 +294,7 @@ namespace Amazon.API.Controllers
 			var result = await _userService.GetUserAddressById(user.Id, addressId);
 
 			if (result is null)
-				return NotFound("Address not found");
+				return NotFound(new ApiResponse(404,"Address not found"));
 
 			return Ok(result);
 		}

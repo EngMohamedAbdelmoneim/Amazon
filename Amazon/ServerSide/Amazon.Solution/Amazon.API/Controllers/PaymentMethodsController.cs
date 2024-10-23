@@ -1,4 +1,5 @@
-﻿using Amazon.Services.PaymentMethodService;
+﻿using Amazon.API.Errors;
+using Amazon.Services.PaymentMethodService;
 using Amazon.Services.PaymentMethodService.Dto;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +24,12 @@ namespace Amazon.API.Controllers
 
 		[HttpGet("{id}")]
 		public async Task<ActionResult<PaymentMethodDto>> GetPaymentMethodById(int id)
-			=> Ok(await _paymentMethodService.GetPaymentMethodByIdAsync(id));
+		{
+			var result = await _paymentMethodService.GetPaymentMethodByIdAsync(id);
+			if (result is null)
+				return NotFound(new ApiResponse(404));
+			return Ok();
+
+		}
 	}
 }

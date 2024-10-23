@@ -23,21 +23,17 @@ namespace Amazon.Services.CategoryServices
         }
         public async Task<CategoryToReturnDto> AddCategory(CategoryDto categoryDto)
         {
-            try
-            {
-                var mappedCategories = _mapper.Map<Category>(categoryDto);
 
-                await _categoryRepo.Add(mappedCategories);
+            var mappedCategories = _mapper.Map<Category>(categoryDto);
 
-                var categoryToReturn = _mapper.Map<CategoryToReturnDto>(mappedCategories);
+            if (mappedCategories is null)
+                return null;
+            await _categoryRepo.Add(mappedCategories);
 
-                return categoryToReturn;
-            }
-            catch(Exception ex)
-            {
-                throw new Exception($"Inner exception: {ex.InnerException?.Message}");
-                throw new Exception("An unexpected error occured while adding parent category: " + ex.Message);
-            }
+            var categoryToReturn = _mapper.Map<CategoryToReturnDto>(mappedCategories);
+
+            return categoryToReturn;
+            
         }
 
         public async Task<IReadOnlyList<CategoryToReturnDto>> DeleteCategory(int Id)
@@ -57,8 +53,7 @@ namespace Amazon.Services.CategoryServices
             var existingCategory = await _categoryRepo.GetByIdAsync(Id);
 
             if (existingCategory is null)
-               throw new Exception("An error occured while updating the parent category: Category doesn't exist");
-
+                return null;
             _mapper.Map(categoryDto, existingCategory);
             await _categoryRepo.Update(existingCategory);
 

@@ -8,6 +8,7 @@ using Amazon.Core.Entities.Identity;
 using Amazon.API.Extentions;
 using Amazon.Core.ApplicationDbContext;
 using Newtonsoft.Json;
+using Amazon.API.Middlewares;
 
 namespace Amazon.API
 {
@@ -40,6 +41,7 @@ namespace Amazon.API
                 var options = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"));
                 return ConnectionMultiplexer.Connect(options);
             });
+
 			#endregion
 
 			builder.Services.AddCors(options =>
@@ -81,11 +83,15 @@ namespace Amazon.API
 			}
 			#endregion
 
+			app.UseMiddleware<ExceptionMiddleware>();
+
 			// Configure the HTTP request pipeline.
 			if (app.Environment.IsDevelopment())
             {
 				app.UseSwaggerMiddlewares();
 			}
+            app.UseStatusCodePagesWithReExecute("/errors/{0}");
+
             app.UseCors("CorsPolicy");
             app.UseHttpsRedirection();
 			app.UseStaticFiles();

@@ -1,4 +1,5 @@
-﻿using Amazon.Core.Entities.OrderAggregate;
+﻿using Amazon.API.Errors;
+using Amazon.Core.Entities.OrderAggregate;
 using Amazon.Services.CartService.Dto;
 using Amazon.Services.PaymentService;
 using Microsoft.AspNetCore.Authorization;
@@ -25,7 +26,7 @@ namespace Amazon.API.Controllers
             var cartDto = await _paymentService.SetPaymentIntent(cartId);
             if (cartDto == null)
             {
-                return BadRequest("Problem with cart.");
+                return BadRequest(new ApiResponse(400,"Problem with cart."));
             }
 
             return Ok(cartDto);

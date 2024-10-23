@@ -1,6 +1,7 @@
 ﻿using Amazon.Services.WishlistService.Dto;
 using Amazon.Services.WishlistService;
 using Microsoft.AspNetCore.Mvc;
+using Amazon.API.Errors;
 
 namespace Amazon.API.Controllers
 {
@@ -29,7 +30,7 @@ namespace Amazon.API.Controllers
         {
             if (string.IsNullOrEmpty(wishlistId) || wishlistId != wishlistDto.Id)
             {
-                return BadRequest("Invalid wishlist ID or wishlist data.");
+                return BadRequest(new ApiResponse(400,"Invalid wishlist ID or wishlist data."));
             }
 
 			foreach (var item in wishlistDto.Items.ToList())
@@ -50,7 +51,7 @@ namespace Amazon.API.Controllers
 			var newWishlistDto = await _wishlistService.SetWishlistAsync(wishlistId ,wishlistDto);
             if (newWishlistDto == null)
             {
-                return BadRequest("Failed to set wishlist.");
+                return BadRequest(new ApiResponse(400,"Failed to set wishlist."));
             }
 
             return Ok(newWishlistDto);
@@ -62,7 +63,7 @@ namespace Amazon.API.Controllers
             var result = await _wishlistService.RemoveWishlistAsync(wishlistId);
             if (!result)
             {
-                return NotFound();
+                return NotFound(new ApiResponse(404));
             }
 
             return NoContent();

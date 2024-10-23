@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Amazon.Services.BrandService;
 using Amazon.Services.BrandService.Dto;
+using Amazon.API.Errors;
 
 namespace Amazon.API.Controllers
 {
@@ -16,25 +17,48 @@ namespace Amazon.API.Controllers
         [HttpPost]
         [ActionName("AddBrand")]
         public async Task<ActionResult<BrandDto>> AddBrand(BrandDto product)
-            => await _brandService.AddBrand(product);
+        { 
+            var result = await _brandService.AddBrand(product);
+            if (result is null)
+                return BadRequest(new ApiResponse(400));
+            return Ok(result);
+        }
 
-
-        [HttpPut("id")]
+        [HttpPut("{id}")]
         public async Task<ActionResult<BrandDto>> UpdateBrand(int id, BrandDto product)
-            => await _brandService.UpdateBrand(id, product);
+        {
+            var result = await _brandService.UpdateBrand(id, product);
+
+			if (result is null)
+				return BadRequest(new ApiResponse(400));
+			return Ok(result);
+		}
 
 
         [HttpGet]
-        public async Task<IReadOnlyList<BrandDto>> GetAllBrands()
-            => await _brandService.GetAllBrandsAsync();
+        public async Task<ActionResult<IReadOnlyList<BrandDto>>> GetAllBrands()
+            => Ok( await _brandService.GetAllBrandsAsync());
 
         [HttpGet("{id}")]
-        public async Task<BrandDto> GetBrandById(int id)
-          => await _brandService.GetBrandByIdAsync(id);
+        public async Task<ActionResult<BrandDto>> GetBrandById(int id)
+        {
+          var result =  await _brandService.GetBrandByIdAsync(id);
+
+            if (result is null)
+                return NotFound(new ApiResponse(404));
+            return Ok(result);
+        }
 
 
         [HttpDelete("{id}")]
-        public async Task<IReadOnlyList<BrandDto>> DeleteBrand(int id)
-           => await _brandService.DeleteBrand(id);
+        public async Task<ActionResult<IReadOnlyList<BrandDto>>> DeleteBrand(int id)
+        {
+            var result =  await _brandService.DeleteBrand(id);
+            if (result is null)
+                return NotFound(new ApiResponse(404));
+
+            return Ok(result);
+
+		}
     }
 }

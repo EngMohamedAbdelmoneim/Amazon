@@ -7,6 +7,7 @@ using Amazon.Core.Entities.OrderAggregate;
 using Microsoft.AspNetCore.Identity;
 using Amazon.Core.Entities.Identity;
 using Amazon.API.Extentions;
+using Amazon.API.Errors;
 
 namespace Amazon.API.Controllers
 {
@@ -31,7 +32,7 @@ namespace Amazon.API.Controllers
 			var buyerEmail = User.FindFirstValue("Email");
 			var order = await _orderService.CreateOrderAsync(buyerEmail, orderDto.CartId,orderDto.PaymentMethodId,orderDto.DeliveryMethodId,orderDto.ShippingAddressId);
 			if (order == null)
-				return BadRequest();
+				return BadRequest(new ApiResponse(400));
 
 			return Ok(order);
 		}
@@ -57,7 +58,7 @@ namespace Amazon.API.Controllers
 
 			var order = await _orderService.GetOrderByIdForUserAsync(id,buyerEmail);
 			if (order == null) 
-				return NotFound();
+				return NotFound(new ApiResponse(404));
 			return Ok(order);
 		}
 	}

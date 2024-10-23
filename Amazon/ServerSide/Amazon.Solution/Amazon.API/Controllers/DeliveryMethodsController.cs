@@ -1,4 +1,5 @@
-﻿using Amazon.Services.DeliveryMethodService;
+﻿using Amazon.API.Errors;
+using Amazon.Services.DeliveryMethodService;
 using Amazon.Services.DeliveryMethodService.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,13 @@ namespace Amazon.API.Controllers
 		
 		[HttpGet("{id}")]
 		public async Task<ActionResult<DeliveryMethodDto>> GetDeliveryMethodById(int id)
-			=> Ok(await _deliveryMethodService.GetDeliveryMethodByIdAsync(id));
+		{
+			var result = await _deliveryMethodService.GetDeliveryMethodByIdAsync(id);
+			if (result is null)
+				return NotFound(new ApiResponse(404));
+
+			return Ok();
+
+		}
 	}
 }

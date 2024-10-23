@@ -21,6 +21,8 @@ using Amazon.Services.PaymentMethodService.Dto;
 using Amazon.Services.ReviewServices;
 using Amazon.Services.ReviewServices.Dto;
 using Amazon.Services.PaymentService;
+using Microsoft.AspNetCore.Mvc;
+using Amazon.API.Errors;
 
 namespace Amazon.API.Extentions
 {
@@ -85,9 +87,26 @@ namespace Amazon.API.Extentions
 
             #region PaymentService
             services.AddScoped<IPaymentService, PaymentService>();
-            #endregion
+			#endregion
 
-            return services;
+			services.Configure<ApiBehaviorOptions>(Options =>
+			{
+				Options.InvalidModelStateResponseFactory = (actionContext) =>
+				{
+
+					var errors = actionContext.ModelState.Where(P => P.Value.Errors.Count() > 0)
+														 .SelectMany(P => P.Value.Errors)
+														 .Select(E => E.ErrorMessage)
+														 .ToArray();
+					var ValidationErrorResponse = new ApiValidationErrorResponse()
+					{
+						Errors = errors
+					};
+					return new BadRequestObjectResult(ValidationErrorResponse);
+				};
+			});
+
+			return services;
 		}
 	}
 }
