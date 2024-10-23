@@ -23,7 +23,7 @@ export class ManageAddressBookComponent implements OnInit{
   constructor(private addressService: AddressService, private router: Router) {}
   address:Address = new Address('','','','','','','','','','','');
   showAddAddressForm = false;
-  isEditMode = false;
+  isEditMode: boolean = false;
   selectedAddress: Address | null = null;
 
   deleteSub: Subscription | null;
@@ -36,6 +36,19 @@ export class ManageAddressBookComponent implements OnInit{
     this.selectedAddress = address;
   }
   //Fetch address saved in database and display them in the boxes
+
+  openAddForm() {
+    this.isEditMode = false;
+    this.address = this.address
+    this.showAddAddressForm = true;
+  }
+
+  openEditForm(selectedAddress: Address) {
+    this.isEditMode = true;
+    this.address = { ...selectedAddress };
+    this.showAddAddressForm = true;
+  }
+  
   fetchSavedAddresses(): void {
     this.addressService.getSavedAddresses().subscribe(
       (addresses) => {
@@ -47,11 +60,17 @@ export class ManageAddressBookComponent implements OnInit{
     );
   }
 
+  // editAddress(selectedAddress: Address) {
+  //   this.address = selectedAddress;
+  //   this.showEditForm = true;
+  // }
+
   editAddress(selectedAddress: Address){
     if(this.selectedAddress){
       this.address = selectedAddress;
       this.addressService.updateAddress(this.address).subscribe({
         next:(response) =>{
+          console.log(this.address);
           this.router.navigate(['/manage-address-book'])
         },
         error:(error) => {
@@ -88,12 +107,25 @@ loadAddresses() {
   //attached with cancel button to close the form
   closeForm(){
     this.showAddAddressForm = false;
+    this.address = this.address;
     this.addressAdded.emit();
   }
   toggleAddAddressForm():void{
     this.showAddAddressForm = !this.showAddAddressForm;
   }
 
+  loadAddressToEdit(selectedAddress: Address) {
+    this.address = selectedAddress;
+    this.isEditMode = true;
+  }
+
+  onSubmit() {
+    if (this.isEditMode) {
+      this.editAddress(this.address);
+    } else {
+      this.onSubmitNewAddress();
+    }
+  }
   //binded to the submit button that add the input of form into the database
   onSubmitNewAddress():void{
     this.addressService.addAddresses(this.address).subscribe(
