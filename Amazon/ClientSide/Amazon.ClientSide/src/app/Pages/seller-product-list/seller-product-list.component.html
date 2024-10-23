@@ -1,62 +1,46 @@
-<main>
-  <!-- <aside>
-        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;" bis_skin_checked="1">
-            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-              <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-              <span class="fs-4">Sidebar</span>
-            </a>
-            <hr>
-            <ul class="nav nav-pills flex-column mb-auto">
-              <li class="nav-item">
-                <a href="#" class="nav-link active" aria-current="page">
-                  <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link link-dark">
-                  <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-                  Dashboard
-                </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link link-dark">
-                  <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-                  Orders
-                </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link link-dark">
-                  <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-                  Products
-                </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link link-dark">
-                  <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-                  Customers
-                </a>
-              </li>
-            </ul>
-            <hr>
-            <div class="dropdown" bis_skin_checked="1">
-              <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                <strong>mdo</strong>
-              </a>
-              <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                <li><a class="dropdown-item" href="#">New project...</a></li>
-                <li><a class="dropdown-item" href="#">Settings</a></li>
-                <li><a class="dropdown-item" href="#">Profile</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Sign out</a></li>
-              </ul>
+
+<header>
+  <nav id="nav">
+    <div class="nav p-1 navbar">
+      <div id="title">
+        <a [routerLink]="['/']" class="p-3">
+          <img src="Amazon_Seller_Central_logo_White.svg" alt="">
+        </a>
+      </div>
+      <div class="input-container">
+        <div class="action-buttons d-flex">
+          <a routerLink="/seller/add-product"  class="btn btn-warning mx-3 my-1">Add Product +</a>
+        </div>
+      </div>
+      <div style="display: flex;" class="links">
+        <div class="dropdown-container">
+          <button class="dropdown-btn">Account & Lists</button>
+          <div class="dropdown-content p-2">
+            <div style="display: flex;">
+              <div>
+                <h5>Your Account</h5>
+                <a href="#">Your Account</a>
+                <a href="#">Your Orders</a>
+                <a href="#">Your Addresses</a>
+                <a href="#">Your Lists</a>
+                @if(isAuthenticated)
+                {
+                <a (click)="SignOut()">Sign Out</a>
+                }
+                @else
+                {
+                }
+              </div>
             </div>
           </div>
-    </aside> -->
-  <div class="action-buttons d-flex">
-    <a routerLink="/seller/add-product" class="btn btn-success mx-3 my-1">Add Product</a>
-  </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main>
+
   <section>
     <div *ngIf="products.length >0" class="table-container">
       <table class="product-table">
@@ -83,18 +67,17 @@
             <td>{{ product.brandName }}</td>
             <td>
               @if (product.discount) {
-                <p>{{product.discount.discountPercentage*100}}%</p>
+              <p>{{product.discount.discountPercentage*100}}%</p>
               }
               @else {
-                <p>No sale</p>
+              <p>No sale</p>
               }
             </td>
             <td>
               <button (click)="edit(product)" class="btn btn-success">Edit Product</button>
             </td>
             <td>
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">
+              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Delete
               </button>
               <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -110,7 +93,8 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="button" (click)="delete(product.id)" class="btn" data-bs-dismiss="modal" style="background-color: #CC0C39; color: white;">Save
+                      <button type="button" (click)="delete(product.id)" class="btn" data-bs-dismiss="modal"
+                        style="background-color: #CC0C39; color: white;">Save
                         changes</button>
                     </div>
                   </div>

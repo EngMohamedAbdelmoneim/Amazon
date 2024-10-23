@@ -167,7 +167,7 @@ export class CartService {
       .pipe(
         catchError((error) => {
           console.error('Error deleting cart:', error);
-          this.toastr.success("Failed", "Failed", {positionClass:'toast-bottom-right'})
+          this.toastr.error("Failed", "Failed", {positionClass:'toast-bottom-right'})
           return of(null); // Handle error
         })
       );

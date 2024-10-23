@@ -1,3 +1,162 @@
+/* nav bar */
+nav{
+  width: 100%;
+  margin-inline: auto; 
+  background-color: #51555a;
+}
+.nav{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .burger-menu-contianer-res
+  {
+    display: none;
+  }
+  a{
+      text-decoration: none;
+      color: black;
+      img{
+          width:160px;
+      }
+      &:hover{
+        outline: 1px solid white;
+      }
+  }
+  .input-container{
+      display: flex;
+      align-items: center;
+      width: 50%;
+      div{
+          /* border: 1px solid gray; */
+          border-radius: 5px;
+          display: flex;
+          width: 100%;
+          input{
+              border: none;
+              display: inline-block;
+              background: #f1f1f1;
+              border-radius: 0px 5px 5px 0px;
+          }
+          select{
+            background-color: #f1f1f1;
+            border-radius: 5px 0px 0 5px;
+            border: none;
+            text-align: center;
+            &:focus{
+              outline: 5px solid #c2dbfe;
+            }
+          }
+          div{
+              width: 50px;
+              border: none;
+          }
+      }
+  }
+  div:nth-of-type(3)
+  {
+    font-size: 14px;
+    a
+    {
+      color: white;
+      font-weight: bold;
+      &:hover
+      {
+        outline: 1px solid white;
+      }
+    }
+  }
+}
+
+.dropdown-container{
+position: relative;
+.dropdown-btn{
+  padding-top: 26px;
+  font-size: 14px;
+  position: relative;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  &:hover{
+    outline: 1px solid white
+  }
+}
+.dropdown-content{
+  display: none;
+  width: 200px;
+  position: absolute;
+  right: 0px;
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 10;
+  .signin-btn{
+    text-align: center;
+    margin-inline: auto;
+    background-color: #FFD814;
+    border-radius: 0.5em;
+    border: none;
+    width: 50%;
+    a{
+      color: black !important;
+      margin-bottom: 10px;
+    }
+    &:hover{
+      background-color: #f7ca00;
+      text-decoration: underline;
+    }
+  }
+  a{
+    color: black !important; 
+    font-size: 13px;
+    /* font-weight: 400; */
+    padding-bottom: 5px;
+    text-decoration: none;
+    display: block;
+    &:hover{
+      outline: none !important;
+      border: none;
+      color: orange !important;
+      text-decoration: underline;
+    }
+  }
+}
+&:hover .dropdown-content{
+  display: block;
+}
+}
+ 
+@media (width < 820px) 
+{
+#title{
+  display: flex;
+  align-items: center;
+}
+.burger-menu-contianer-res
+{
+  display: block !important;
+}
+
+.navbar-toggler-icon{
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.input-container
+{
+  flex-grow: 2;
+}
+.links{
+  display: none !important;
+}
+.lower-nav{
+  display: none;
+}  
+}
+
+
+
+
+
 /* Table container for responsiveness */
 .table-container {
     width: 100%;
@@ -8,7 +167,6 @@
   .product-table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
     font-size: 16px;
     text-align: left;
     min-width: 1000px; /* Ensures a minimum width for better viewing */

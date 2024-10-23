@@ -16,9 +16,14 @@ import { Review } from '../../Models/review';
 export class SellerProductListComponent {
 
   products: Product[] | null = [];
+  isAuthenticated: boolean;
+  userName: string | null;
+
   constructor(public router: Router, private productService: ProductService, public reviewService: ReviewService) { }
 
   ngOnInit(): void {
+    this.isAuthenticated = JSON.parse(localStorage.getItem('isAuthenticated'));
+    this.userName = localStorage.getItem('userName');
     this.productService.GetSellerProducts().subscribe({
       next: data => {
         this.products = data;
@@ -41,6 +46,11 @@ export class SellerProductListComponent {
         });
       }
     });
+  }
+  SignOut()
+  {
+    localStorage.clear();
+    window.location.href = 'http://localhost:4200/login';
   }
 
 }

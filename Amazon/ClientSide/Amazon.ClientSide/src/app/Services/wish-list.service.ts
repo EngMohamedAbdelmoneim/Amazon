@@ -95,6 +95,7 @@ export class WishListService {
             return of(null);
           } else {
             console.error('Error fetching wishList data:', error);
+            this.toastr.error("Failed", "Error", {positionClass:'toast-bottom-right'})
             return of(null);
           }
         })
@@ -106,6 +107,7 @@ export class WishListService {
       .pipe(
         catchError((error) => {
           console.error('Error deleting wishList:', error);
+          this.toastr.error("Failed", "Error", {positionClass:'toast-bottom-right'})
           return of(null); // Handle error
         })
       );
