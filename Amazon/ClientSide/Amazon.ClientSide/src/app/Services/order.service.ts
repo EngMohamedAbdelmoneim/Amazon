@@ -35,8 +35,8 @@ export class OrderService {
     return this.http.get("https://localhost:7283/api/PaymentMethods");
   }
 
-  placeOrder(cartId: string, deliveryMethodId: number, paymentMethodId: number, shippingAddressId: string)
+  placeOrder(cartId: string, deliveryMethodId: number, paymentMethodId: number = 2, shippingAddressId: string)
   {
-    return this.http.post("https://localhost:7283/api/Order", {cartId: cartId, deliveryMethodId: deliveryMethodId, paymentMethodId: paymentMethodId, shippingAddressId: shippingAddressId});
+    return this.http.post("https://localhost:7283/api/Order", {cartId: cartId, deliveryMethodId: deliveryMethodId, paymentMethodId: 2, shippingAddressId: shippingAddressId});
   }
 }

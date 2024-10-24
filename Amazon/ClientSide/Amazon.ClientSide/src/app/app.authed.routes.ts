@@ -10,6 +10,9 @@ import { canloginGuard } from './guards/canlogin.guard';
 import { AddReviewComponent } from './Pages/add-review/add-review.component';
 import { ManageAddressBookComponent } from './Pages/address-form/manage-address-book/manage-address-book.component';
 import { PageNotFoundComponent } from './Pages/page-not-found/page-not-found.component';
+import { DiscountsComponent } from './Pages/discounts/discounts.component';
+import { BrandsComponent } from './Pages/brands/brands.component';
+
 
 
 export const App_Routes: Routes = 
@@ -18,6 +21,7 @@ export const App_Routes: Routes =
     { path: 'search/:productName', component: SearchComponent },
     { path: 'category/:ParentCategoryName', component: CategoryComponent },
     { path: 'category/:ParentCategoryName/:categoryName', component: CategoryComponent },
+    { path: 'Brand/:brandId', component: BrandsComponent },
     { path: 'order', component: OrderComponent, canActivate:[canloginGuard]},
     { path: 'product/:id',component:ProductComponent},
     { path: 'cart/:cartId',component:CartComponent},
@@ -25,5 +29,6 @@ export const App_Routes: Routes =
     { path: 'review/:id/:pname',component:AddReviewComponent},
     { path: 'review/:id/:pname/:edit',component:AddReviewComponent},
     { path: 'manage-address-book', component: ManageAddressBookComponent },
+    { path: 'Discount', component: DiscountsComponent },
     // { path: '**',pathMatch:'full', component:PageNotFoundComponent},
 ];

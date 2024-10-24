@@ -155,35 +155,44 @@ ngOnInit() {
     this.cartSub = this.cartService.getAllFromCart(`cart-${this.cartId}`).subscribe({
       next: d => {
         this.cart = d;
+        console.log(this.cart)
         this.cart.shippingPrice = this.DeliveryValue;
         this.cart.deliveryMethodId = this.DeliveryMethodId;
         
         console.log('this is the cart', this.cart);
-        this.stripe?.confirmCardPayment(this.cart.clientSecret, {
-          payment_method: {
-                card: this.cardNumber,
-                // billing_details: {
-                //   name: this.OnlinePaymentForm?.get('paymentForm')?.get('nameOnCard')?.value
-                // }
+
+        this.orderService.placeOrder(`cart-${this.cookieService.get('guid')}`, this.DeliveryMethodId, 2, this.currentShippingAddress.id)
+        .subscribe({
+          next: () => {
+            this.stripe?.confirmCardPayment(this.cart.clientSecret, {
+              payment_method: {
+                    card: this.cardNumber,
+                    // billing_details: {
+                    //   name: this.OnlinePaymentForm?.get('paymentForm')?.get('nameOnCard')?.value
+                    // }
+              }
+            })
+            .then(res => {
+              if(res.paymentIntent)
+                  {
+                    this.orderService.placeOrder(`cart-${this.cookieService.get('guid')}`, 2, Number(this.PaymentValue), this.currentShippingAddress.id).subscribe({
+                      next: d => {
+                        console.log(d);
+                        // this.cartService.removeCart(`cart-${this.cookieService.get('guid')}`);
+                        this.toastr.success("Payment Successful", "Success", {positionClass:'toast-bottom-right'})
+                        window.location.href = 'http://localhost:4200';
+                      },
+                      error: e => {
+                        console.log(e);
+                        this.toastr.error("Pyament Failed", "Failed", {positionClass: 'toast-bottom-right'})
+                      }
+                    })
+                  }
+            })
+            
           }
         })
-        .then(res => {
-          if(res.paymentIntent)
-              {
-                this.orderService.placeOrder(`cart-${this.cookieService.get('guid')}`, 2, Number(this.PaymentValue), this.currentShippingAddress.id).subscribe({
-                  next: d => {
-                    console.log(d);
-                    this.cartService.removeCart(`cart-${this.cookieService.get('guid')}`);
-                    this.toastr.success("Payment Successful", "Success", {positionClass:'toast-bottom-right'})
-                    window.location.href = 'http://localhost:4200';
-                  },
-                  error: e => {
-                    console.log(e);
-                    this.toastr.error("Pyament Failed", "Failed", {positionClass: 'toast-bottom-right'})
-                  }
-                })
-              }
-        })
+
 
       },
       error: e => {
@@ -197,6 +206,7 @@ ngOnInit() {
    
     if(paymentMethodId == 2)
     {
+      console.log(this.cart)
       let cartId = this.cookieService.get('guid');
 
       this.cartService.createPaymentIntent(`cart-${cartId}`).subscribe({
@@ -254,18 +264,21 @@ ngOnInit() {
       case 2:
         this.DeliveryValue = 20;
         this.DeliveryMethodId = 2;
+        this.cart.deliveryMethodId = 2;
         this.cart.shippingPrice = 20;
         this.Total = this.TempTotal + 20;
         break;
       case 3:
         this.DeliveryValue = 10;
         this.DeliveryMethodId = 3;
+        this.cart.deliveryMethodId = 3;
         this.cart.shippingPrice = 10;
         this.Total = this.TempTotal + 10;
         break;
       case 4:
         this.DeliveryValue = 0;
         this.DeliveryMethodId = 4;
+        this.cart.deliveryMethodId = 4;
         this.cart.shippingPrice = 0;
         this.Total = this.TempTotal + 0;
         break;

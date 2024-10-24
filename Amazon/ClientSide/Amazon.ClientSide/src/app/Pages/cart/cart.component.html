@@ -1,4 +1,4 @@
-<div *ngIf="isLoading$ | async" class="loading-screen">
+<!-- <div *ngIf="isLoading$ | async" class="loading-screen">
     <img src="Amazon_logo.svg" alt="Amazon logo" class="amazon-logo" />
     <div class="loading-text">
       <span>L</span>
@@ -14,9 +14,10 @@
       <span>R</span>
       <span>T</span>
     </div>
-</div>
-@if(isAuthenticated){
-<div *ngIf="!(isLoading$ | async)" class="cart-container">
+</div> -->
+
+<!-- @if(isAuthenticated){ -->
+<div class="cart-container">
     @if(cartItems == null || cartItems.length == 0){
     <main>
         <div class="cart-section">
@@ -97,31 +98,3 @@
         </div> -->
     </aside>
 </div>
-}
-@else {
-    <main>
-        <div class="cart-section">
-            <div class="cart-info">
-                <img src="https://m.media-amazon.com/images/G/42/cart/empty/kettle-desaturated._CB659190457_.svg"
-                    alt="Coffee Image">
-                <div class="cart-details">
-                    <h1>Your Amazon cart is empty</h1>
-                    <a href="#" class="btn btn-light rounded-pill">Shop today's deals</a>
-                    <div class="buttons">
-                        <a routerLink="/login" class="sign-in-btn rounded-pill">Sign in to your account</a>
-                        <a routerLink="/register" class="sign-up-btn rounded-pill">Sign up now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="mt-2">
-            <p>
-                The price and availability of items at amazon.eg are subject to change. The Cart is a temporary place to
-                store a list of your items and reflects each item's most recent price.
-                Do you have a gift card or promotional code? We'll ask you to enter your claim code when it's time to
-                pay.
-            </p>
-        </div>
-
-    </main>
-}

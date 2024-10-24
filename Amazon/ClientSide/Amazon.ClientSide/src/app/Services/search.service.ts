@@ -26,6 +26,11 @@ export class SearchService {
     }
   }
 
+  SearchByBrand(brandId: number, page: number = 1)
+  {
+    return this.http.get<PaginatedProducts>(`https://localhost:7283/api/Product/GetProducts/GetAll?PageIndex=${page}`, {params: {BrandId: brandId}});
+  }
+
   Filter(query: string, sort: string, page: number = 1)
   {
     return this.http.get<PaginatedProducts>(`https://localhost:7283/api/Product/GetProducts/GetAll?PageIndex=${page}`, {params: {Search: query, Sort: sort}});

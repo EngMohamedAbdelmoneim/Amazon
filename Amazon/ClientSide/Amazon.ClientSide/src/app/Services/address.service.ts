@@ -20,10 +20,10 @@ export class AddressService {
     return this.http.post<Address>(`${this.apiUrl}/addAddress`,address);
   }
 
-  updateAddress(address:Address): Observable<Address> {
+  updateAddress(address:Address): Observable<Address> 
+  {
     return this.http.put<Address>(`${this.apiUrl}/editAddress/${address.id}`, address);
   }
-
 
   deleteAddress(addressId:string): Observable<Address> 
   {

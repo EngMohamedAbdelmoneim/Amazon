@@ -24,20 +24,21 @@ export class CartComponent implements OnInit {
   Qnt:number=0;
   subCart: Subscription | null = null;
   loading: boolean = true;
-  isLoading$ : Observable<boolean> | undefined;
-  isAuthenticated:boolean;
+  // isLoading$ : Observable<boolean> | undefined;
+  // isAuthenticated:boolean;
 
   constructor(public http: HttpClient, public activatedRoute: ActivatedRoute, private cartService: CartService , public guidServices: GuidService ,public cookieService:CookieService, private loadingService: LoadingService) { }
 
 
   ngOnInit(): void {
-    if(localStorage.getItem('isAuthenticated')){
-      this.isAuthenticated = true;
-    }
-    else{
-      this.isAuthenticated = false;
-    }
-    this.isLoading$= this.loadingService.loading$
+    // if(localStorage.getItem('isAuthenticated'))
+    // {
+    //   this.isAuthenticated = true;
+    // }
+    // else{
+    //   this.isAuthenticated = false;
+    // }
+    // this.isLoading$= this.loadingService.loading$
     this.loadingService.show();
     this.subCart  = this.cartService.cartQnt.subscribe({
       next: p => { this.Qnt = p; }
