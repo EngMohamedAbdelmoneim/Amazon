@@ -37,6 +37,6 @@ export class OrderService {
 
   placeOrder(cartId: string, deliveryMethodId: number, paymentMethodId: number = 2, shippingAddressId: string)
   {
-    return this.http.post("https://localhost:7283/api/Order", {cartId: cartId, deliveryMethodId: deliveryMethodId, paymentMethodId: 2, shippingAddressId: shippingAddressId});
+    return this.http.post("https://localhost:7283/api/Order", {cartId: cartId, deliveryMethodId: deliveryMethodId, paymentMethodId: paymentMethodId, shippingAddressId: shippingAddressId});
   }
 }

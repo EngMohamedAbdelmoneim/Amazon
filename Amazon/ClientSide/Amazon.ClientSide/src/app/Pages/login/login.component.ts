@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit{
         console.log(test);
         localStorage.setItem("token", r.token)
         localStorage.setItem("isAuthenticated", "true")
+        localStorage.setItem("Role", data.Role)
         this.accountService.isAuthenticated = true;
         this.router.navigateByUrl('');
       },

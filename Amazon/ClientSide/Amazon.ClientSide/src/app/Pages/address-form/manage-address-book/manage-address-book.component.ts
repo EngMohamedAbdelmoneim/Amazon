@@ -76,6 +76,7 @@ export class ManageAddressBookComponent implements OnInit
       this.address = selectedAddress;
       this.addressService.updateAddress(this.address).subscribe({
         next:(response) =>{
+          this.toastr.success('Address Modified');
           window.location.reload();
         },
         error:(error) => {
@@ -104,18 +105,18 @@ export class ManageAddressBookComponent implements OnInit
     
   // }
 
-loadAddresses() 
-{
-  this.addressService.getSavedAddresses().subscribe(
-    (data) => {
-      this.savedAddresses = data;
-      window.location.reload();
-    },
-    (error) => {
-      console.error('Error loading addresses', error);
-    }
-  );
-}
+  loadAddresses() 
+  {
+    this.addressService.getSavedAddresses().subscribe(
+      (data) => {
+        this.savedAddresses = data;
+        window.location.reload();
+      },
+      (error) => {
+        console.error('Error loading addresses', error);
+      }
+    );
+  }
 
   deleteAddress(addressId: string) 
   {
@@ -123,11 +124,15 @@ loadAddresses()
       next: () => {
         console.log('deleted');
         // const currentUrl = this.router.url;
-        this.savedAddresses.pop();
+        // this.savedAddresses.pop();
+        // this.loadAddresses();
+        this.fetchSavedAddresses();
+        // this.toastr.success('Address Deleted');
       },
       error:(error) =>{
         console.error('Error deleting address', error);
-        this.savedAddresses.pop();
+        this.fetchSavedAddresses();
+        // this.savedAddresses.pop();
       }
     });
   }
@@ -167,6 +172,7 @@ loadAddresses()
       this.fetchSavedAddresses();
       this.toggleAddAddressForm();
       this.addressAdded.emit();
+      this.resetAddressForm();
     },
     (error)=>{
       console.error('Error adding address:', error);
@@ -187,6 +193,22 @@ loadAddresses()
         }
       });
     }
+  }
+
+  resetAddressForm(): void {
+    this.address = {
+      id:'',
+      country: '',
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      streetAddress: '',
+      buildingName: '',
+      city: '',
+      district: '',
+      governorate: '',
+      nearestLandMark: ''
+    };
   }
 
 }

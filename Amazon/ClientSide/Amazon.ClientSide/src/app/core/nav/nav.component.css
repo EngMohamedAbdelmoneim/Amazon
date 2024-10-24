@@ -258,6 +258,10 @@ nav{
     background-color: transparent;
     border: none;
     color: white;
+    &:hover
+    {
+      outline: 1px solid white;
+    }
   }  
 @media (width < 820px) 
 {

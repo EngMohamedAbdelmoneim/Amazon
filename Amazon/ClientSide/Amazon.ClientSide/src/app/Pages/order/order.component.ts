@@ -161,38 +161,70 @@ ngOnInit() {
         
         console.log('this is the cart', this.cart);
 
-        this.orderService.placeOrder(`cart-${this.cookieService.get('guid')}`, this.DeliveryMethodId, 2, this.currentShippingAddress.id)
-        .subscribe({
-          next: () => {
-            this.stripe?.confirmCardPayment(this.cart.clientSecret, {
-              payment_method: {
-                    card: this.cardNumber,
-                    // billing_details: {
-                    //   name: this.OnlinePaymentForm?.get('paymentForm')?.get('nameOnCard')?.value
-                    // }
-              }
-            })
-            .then(res => {
-              if(res.paymentIntent)
-                  {
-                    this.orderService.placeOrder(`cart-${this.cookieService.get('guid')}`, 2, Number(this.PaymentValue), this.currentShippingAddress.id).subscribe({
-                      next: d => {
-                        console.log(d);
-                        // this.cartService.removeCart(`cart-${this.cookieService.get('guid')}`);
-                        this.toastr.success("Payment Successful", "Success", {positionClass:'toast-bottom-right'})
-                        window.location.href = 'http://localhost:4200';
-                      },
-                      error: e => {
-                        console.log(e);
-                        this.toastr.error("Pyament Failed", "Failed", {positionClass: 'toast-bottom-right'})
-                      }
-                    })
-                  }
-            })
-            
+        this.stripe.confirmCardPayment(this.cart.clientSecret, {
+          payment_method: {
+            card: this.cardNumber,
+            // billing_details: {
+            //   name: this.OnlinePaymentForm?.get('paymentForm')?.get('nameOnCard')?.value
+            // }
           }
+        }).then(res => {
+          if(res.paymentIntent)
+            {
+              this.orderService.placeOrder(`cart-${this.cookieService.get('guid')}`, this.cart.deliveryMethodId, 2, this.currentShippingAddress.id).subscribe({
+                next: d => {
+                  console.log(d);
+                  this.cartService.removeCart(`cart-${this.cookieService.get('guid')}`);
+                  this.cookieService.delete('Qnt')
+                  this.toastr.success("Payment Successful", "Success", {positionClass:'toast-bottom-right'})
+                  window.location.href = 'http://localhost:4200';
+                },
+                error: e => {
+                  console.log(e);
+                  this.toastr.error("Pyament Failed", "Failed", {positionClass: 'toast-bottom-right'})
+                  // this.cookieService.delete('Qnt')
+                  // this.toastr.success("Payment Successful", "Success", {positionClass:'toast-bottom-right'})
+                  // window.location.href = 'http://localhost:4200';
+                }
+              })
+            }
         })
 
+        // this.orderService.placeOrder(`cart-${this.cookieService.get('guid')}`, this.DeliveryMethodId, 2, this.currentShippingAddress.id)
+        // .subscribe({
+        //   next: () => {
+        //     this.stripe?.confirmCardPayment(this.cart.clientSecret, {
+        //       payment_method: {
+        //             card: this.cardNumber,
+        //             // billing_details: {
+        //             //   name: this.OnlinePaymentForm?.get('paymentForm')?.get('nameOnCard')?.value
+        //             // }
+        //       }
+        //     })
+        //     .then(res => {
+        //       if(res.paymentIntent)
+        //           {
+        //             this.orderService.placeOrder(`cart-${this.cookieService.get('guid')}`, 2, Number(this.PaymentValue), this.currentShippingAddress.id).subscribe({
+        //               next: d => {
+        //                 console.log(d);
+        //                 // this.cartService.removeCart(`cart-${this.cookieService.get('guid')}`);
+        //                 this.cookieService.delete('Qnt')
+        //                 this.toastr.success("Payment Successful", "Success", {positionClass:'toast-bottom-right'})
+        //                 window.location.href = 'http://localhost:4200';
+        //               },
+        //               error: e => {
+        //                 console.log(e);
+        //                 // this.toastr.error("Pyament Failed", "Failed", {positionClass: 'toast-bottom-right'})
+        //                 this.cookieService.delete('Qnt')
+        //                 this.toastr.success("Payment Successful", "Success", {positionClass:'toast-bottom-right'})
+        //                 window.location.href = 'http://localhost:4200';
+        //               }
+        //             })
+        //           }
+        //     })
+            
+        //   }
+        // })
 
       },
       error: e => {

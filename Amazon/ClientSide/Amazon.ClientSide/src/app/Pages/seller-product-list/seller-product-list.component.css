@@ -1,3 +1,8 @@
+*{
+  /* outline: 1px solid red; */
+}
+
+
 /* nav bar */
 nav{
   width: 100%;
@@ -169,11 +174,11 @@ position: relative;
     border-collapse: collapse;
     font-size: 16px;
     text-align: left;
-    min-width: 1000px; /* Ensures a minimum width for better viewing */
+    
   }
   
   .product-table th, .product-table td {
-    padding: 12px 15px;
+    /* padding: 12px 15px; */
     border-bottom: 1px solid #ddd;
   }
   

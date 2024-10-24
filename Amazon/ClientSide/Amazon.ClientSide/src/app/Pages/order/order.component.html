@@ -65,9 +65,14 @@
                 
                 <div class="GiftCardContainter">
                     <h3>Payment Methods</h3>
-                    <div *ngFor="let item of PaymentMethods">
+                    <!-- <div *ngFor="let item of PaymentMethods">
                         <input type="radio" name="paymentMethod" id="{{item.name}}" value="{{item.id}}" (change)="paymentMethodChoice(item.id)">
                         <label for="{{item.name}}">{{item.name}}</label>
+                    </div> -->
+
+                    <div>
+                        <input type="radio" name="paymentMethod" id="Online Payment" value="2" (change)="paymentMethodChoice(2)">
+                        <label for="Online Payment">Online Payment</label>
                     </div>
                     <div class="accordion" id="accordionExample">
                         <div class="accordion-item">

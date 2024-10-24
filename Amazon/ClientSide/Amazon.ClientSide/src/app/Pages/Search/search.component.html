@@ -34,11 +34,22 @@
           </ul>
         </div>
       </div>
-    <div class="products mt-4">
-        @for (product of products ; track $index) {
-          <app-product-card [product] = product  (addToCart)='AddToCart(product,getGuid())'></app-product-card>
-        }
-    </div>
+      @if(products.length != 0)
+      {
+        <div class="products mt-4">
+        @for (product of products ; track $index) 
+        {
+            <app-product-card [product] = product  (addToCart)='AddToCart(product,getGuid())'></app-product-card>
+          }
+        </div>
+      }
+      @else 
+      {
+        <div style="display: flex; flex-direction: column; width: 500px; margin-inline: auto;">
+          <h1>No Products Found</h1>
+          <img src="../../../assets/EmptyCart.png" alt="">
+        </div>
+      }
   </main>
 
 </div>

@@ -3,10 +3,11 @@ import { SellerProductListComponent } from './Pages/seller-product-list/seller-p
 import { SellerAddProductComponent } from './Pages/seller-add-product/seller-add-product.component';
 import { SellerEditProductComponent } from './Pages/seller-edit-product/seller-edit-product.component';
 import { SellerProductDetailsComponent } from './Pages/seller-product-details/seller-product-details.component';
+import { sellerGuard } from './guards/seller.guard';
 
 export const Seller_Routes: Routes = 
 [
-    { path: 'product-list', component: SellerProductListComponent },
+    { path: 'product-list', component: SellerProductListComponent , canActivate: [sellerGuard]},
     { path: 'add-product', component: SellerAddProductComponent },
     { path: 'edit-product/:product', component: SellerEditProductComponent },
     { path: 'product-details/:id', component: SellerProductDetailsComponent },

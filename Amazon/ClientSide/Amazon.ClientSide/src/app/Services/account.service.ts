@@ -11,6 +11,8 @@ export class AccountService {
 
   isAuthenticated: boolean = JSON.parse(localStorage.getItem("isAuthenticated"));
 
+  // Role: string = JSON.parse(localStorage.getItem("Role"));
+
   login(email: string, password: string)
   {
     return this.http.post("https://localhost:7283/api/Account/Login/", { 'email': email, 'password': password })

@@ -61,7 +61,8 @@ export class AddressFormComponent implements OnInit{
       this.addressService.setDefaultAddress(this.selectedAddress.id)
         .subscribe(
           response => {
-            this.showConfirmation = true;
+            // this.showConfirmation = true;
+            this.toggleAddAddressForm();
           },
           error =>{
             console.log('Error setting default address',error);
