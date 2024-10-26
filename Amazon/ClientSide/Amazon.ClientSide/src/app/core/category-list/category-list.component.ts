@@ -40,19 +40,6 @@ export class CategoryListComponent implements OnInit {
     }
   }
 
-  AddToCart(product: Product, _id: string) {
-    const cartitem: CartItem =
-    {
-      id: product.id,
-      productName: product.name,
-      category: product.categoryName,
-      price: product.price,
-      pictureUrl: product.pictureUrl,
-      quantity: Number(this.selectedQtn.nativeElement.value),
-    };
-    this.cartService.updateCartWithItem(("cart-" + _id), cartitem);
-    this.toastr.success("Item Added To Cart", 'Added',{positionClass:'toast-bottom-right'})
-  }
   SignOut()
   {
     localStorage.clear();

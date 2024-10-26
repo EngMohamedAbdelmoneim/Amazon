@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Product } from '../../Models/product';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../Services/product.service';
@@ -11,51 +11,54 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './seller-product-details.component.html',
-  styleUrl: './seller-product-details.component.css'
+  styleUrls: ['./seller-product-details.component.css']
 })
-export class SellerProductDetailsComponent {
-  product: Product | null = null;  // Hold the product details
-  productReviews: any[] | null = [];
-
-
+export class SellerProductDetailsComponent implements OnInit, OnDestroy {
+  product: Product | null = null;  // Holds product details
+  productReviews: any[] = [];  // Holds product reviews
   sub: Subscription | null = null;
+
   constructor(
-    private router:Router,
+    private router: Router,
     private route: ActivatedRoute,
     private productService: ProductService,
     private reviewService: ReviewService,
   ) {}
 
-  ngOnInit(): void {
-    const id = +this.route.snapshot.paramMap.get('id');  
-    this.sub = this.reviewService.getAllProductReviewsById(id).subscribe({
-      next: data => {
-        this.productReviews =data;
-        console.log(data);
-      }
-    })
-    this.AverageRating()
-    this.getProductDetails(id); 
+  async ngOnInit(): Promise<void> {
+    const id = +this.route.snapshot.paramMap.get('id')!;
+    await this.loadProductDetails(id);
+    await this.loadProductReviews(id);
   }
 
-  getProductDetails(id: number): void {
-    this.productService.getProductById(id).subscribe({
-      next: p =>{
-        this.product = p;
-      }
+  private async loadProductDetails(id: number): Promise<void> {
+    this.sub = this.productService.getProductById(id).subscribe({
+      next: (product) => this.product = product,
+      error: (err) => console.error('Error loading product details:', err)
     });
   }
-  AverageRating() {
-    let fullRate = 0;
-    
-     this.productReviews.forEach(rev => {
-      fullRate += rev.rating;
+
+  private async loadProductReviews(id: number): Promise<void> {
+    this.sub = this.reviewService.getAllProductReviewsById(id).subscribe({
+      next: (reviews) => this.productReviews = reviews,
+      error: (err) => console.error('Error loading reviews:', err)
     });
-    return fullRate / 5;
   }
-  
-  goBack()
-  {
-    this.router.navigate(['seller/product-list'])
+
+  // Calculates the average rating
+  get averageRating(): number {
+    if (!this.productReviews || this.productReviews.length === 0) {
+      return 0;
+    }
+    const totalRating = this.productReviews.reduce((sum, review) => sum + review.rating, 0);
+    return totalRating / this.productReviews.length;
+  }
+
+  goBack(): void {
+    this.router.navigate(['seller/product-list']);
+  }
+
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
   }
 }

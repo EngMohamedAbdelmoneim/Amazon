@@ -1,21 +1,40 @@
 <!-- add-product.component.html -->
 <div class="add-product-form">
-    <h2>Add New Product</h2>
+    <h2>Update Product</h2>
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
         <div>
             <label for="name">Product Name:</label>
             <input id="name" formControlName="name" [(ngModel)]="product.name" />
+            <div
+                *ngIf="productForm.get('name')?.invalid && (productForm.get('name')?.touched || productForm.get('name')?.dirty)">
+                <div style="color: red;" *ngIf="productForm.get('name')?.errors?.['required']">Name is required.
+                </div>
+            </div>
         </div>
 
         <div>
             <label for="description">Description:</label>
             <textarea id="description" formControlName="description" [(ngModel)]="product.description"></textarea>
+            <div
+                *ngIf="productForm.get('description')?.invalid && (productForm.get('description')?.touched || productForm.get('description')?.dirty)">
+                <div class="alert alert-danger border-0 mt-1" role="alert" style="color: red;" *ngIf="productForm.get('description')?.errors?.['required']">Description is
+                    required.
+                </div>
+            </div>
         </div>
 
         <div class="price-discount">
             <div>
                 <label for="price">Price:</label>
-                <input id="price" type="number" formControlName="price" [(ngModel)]="product.price" />
+                <input id="price" type="number" formControlName="price" [(ngModel)]="product.price" (keydown)="restrictInput($event)"    />
+                <div
+                    *ngIf="productForm.get('price')?.invalid && (productForm.get('price')?.touched || productForm.get('price')?.dirty)" >
+                    <div class="alert alert-danger border-0 mt-1" role="alert" style="color: red;" *ngIf="productForm.get('price')?.errors?.['required']">Price is required.
+                        <span style="color: gray;">(ex. 1252.22)</span>
+                    </div>
+                    <div class="alert alert-danger border-0 mt-1" role="alert" style="color: red;" *ngIf="productForm.get('price')?.errors?.['min']">Price can't
+                        be 0 </div>
+                </div>
             </div>
             <div>
                 <button type="button" class="btn btn-danger btn-dicount" data-bs-toggle="modal"
@@ -24,13 +43,22 @@
         </div>
         <div>
             <label for="quantityInStock">Quantity in Stock:</label>
-            <input id="quantityInStock" type="number" formControlName="quantityInStock"
+            <input id="quantityInStock" type="number" formControlName="quantityInStock" (keydown)="restrictInput($event)"
                 [(ngModel)]="product.quantityInStock" />
+            <div
+                *ngIf="productForm.get('quantityInStock')?.invalid && (productForm.get('quantityInStock')?.touched || productForm.get('quantityInStock')?.dirty)">
+                <div class="alert alert-danger border-0 mt-1" role="alert" style="color: red;" *ngIf="productForm.get('quantityInStock')?.errors?.['required']">Quantity is
+                    required.
+                    <span style="color: gray;">(ex. 1252.22)</span>
+                </div>
+                <div style="color: red;" *ngIf="productForm.get('quantityInStock')?.errors?.['min']">Quantity can't be 0
+                </div>
+            </div>
         </div>
 
         <div>
             <label for="categoryId">Category:</label>
-            <select class="form-select" id="categoryId" formControlName="categoryId">
+            <select class="form-select" id="categoryId" formControlName="categoryId" [(ngModel)]="product.categoryId">
                 <option value="" disabled selected>current category : {{product.categoryName}}</option>
                 @for (category of categories; track $index) {
                 <option [value]="category.id">{{ category.name }}</option>
@@ -40,7 +68,7 @@
 
         <div>
             <label for="brandId">Brand:</label>
-            <select class="form-select" id="brandId" formControlName="brandId">
+            <select class="form-select" id="brandId" formControlName="brandId" [(ngModel)]="product.brandId">
                 <option value="" disabled selected>current brand : {{product.brandName}}</option>
                 @for (brand of brands; track $index) {
                 <option [value]="brand.id">{{ brand.name }}</option>

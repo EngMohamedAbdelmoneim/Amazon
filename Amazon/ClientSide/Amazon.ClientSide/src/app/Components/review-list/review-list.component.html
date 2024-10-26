@@ -7,12 +7,13 @@
       data-src="https://m.media-amazon.com/images/S/amazon-avatars-global/default.png">
     <p> {{ review.appUserName }} </p>
     <div class="dropdown" style="width: fit-content; height: fit-content;">
-      <button type="button" class="btn btn-warning px-1 py-0 m-0" data-bs-toggle="dropdown"><i class="bi bi-three-dots m-0"></i></button>
+      <button [disabled]="!isAuthenticated" *ngIf="review.appUserName === userName" type="button" class="btn btn-warning px-1 py-0 m-0" data-bs-toggle="dropdown"><i
+          class="bi bi-three-dots m-0"></i></button>
       <ul class="dropdown-menu">
         <li (click)="navigateWithObject(productId,productName,review)">Edit</li>
         <li (click)="delete(review.id)">Delete</li>
       </ul>
-    </div> 
+    </div>
   </div>
   <div class="product-rating">
     <span class="stars">

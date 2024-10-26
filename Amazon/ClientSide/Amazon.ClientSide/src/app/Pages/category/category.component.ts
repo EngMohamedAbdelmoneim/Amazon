@@ -10,6 +10,7 @@ import { CartService } from '../../Services/cart.service';
 import { CartItem } from '../../Models/cart-item';
 import { CartCardComponent } from "../../Components/cart-card/cart-card.component";
 import { ProductCardComponent } from "../../Components/product-card/product-card.component";
+import { GuidService } from '../../Services/guid.service';
 
 @Component({
   selector: 'app-category',
@@ -19,10 +20,11 @@ import { ProductCardComponent } from "../../Components/product-card/product-card
   styleUrl: './category.component.css'
 })
 export class CategoryComponent {
-  constructor(public http: HttpClient, public activatedRoute: ActivatedRoute, public categoryService: CategoryService,public cartService:CartService) { }
+  constructor(public http: HttpClient, public activatedRoute: ActivatedRoute,public guidServices:GuidService ,public categoryService: CategoryService,public cartService:CartService) { }
   parentcategories: Array<any> = [];
   products: Array<Product> = [];
   sub: Subscription | null = null;
+  
   ParentCategoryName: string;
   ngOnInit(): void {
     this.sub = this.activatedRoute.params.subscribe(p => {
@@ -70,6 +72,9 @@ export class CategoryComponent {
       quantity: 1,
     };
     this.cartService.updateCartWithItem(("cart-"+_id),cartitem);
+  }
+  getGuid(): string {
+    return this.guidServices.getGUID();
   }
 
   LowtoHighSort() {

@@ -22,13 +22,15 @@ import { Review } from '../../Models/review';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  userName: string | null =null
-  reviewed:boolean=false;
+  userName: string | null = null
+  isAuthenticated:boolean;
+  reviewed: boolean = false;
+  reviewedText:string = "Write a customer review"
   productImages: any;
-  product: Product | null = new Product(0, "", 0, "", "", [], "", "", 0, null);
+  product: Product | null = new Product(0, "", 0, "", "", [], 0, "", 0, "", 0, null);
   cartItems: CartItem | null = new CartItem(0, "", "", 0, "", 0);
   cart: Array<CartItem> | null;
-  productReviews: any[] | null = [];
+  productReviews: any[] = [];
   @ViewChild('quantity') selectedQtn: ElementRef;
   errorMessage: string | null = null;
   selectedColorName: string | null = null;
@@ -37,7 +39,7 @@ export class ProductComponent implements OnInit {
   availableColors: string[] = ['#ffffff', '#ac9a9a', '#36525f', '#124055', '#000000'];
   hoveredStar: number | null = null;
 
-  avgRatiing:number;
+  avgRatiing: number | 0 = 0 ;
   ratings = [
     { stars: 5, rating: 0 },
     { stars: 4, rating: 0 },
@@ -50,27 +52,34 @@ export class ProductComponent implements OnInit {
   subReviews: Subscription | null = null;
 
   constructor(public productService: ProductService, public reviewService: ReviewService,
-    public cartService: CartService, 
-    public wishListService: WishListService, 
-    public route: ActivatedRoute, 
+    public cartService: CartService,
+    public wishListService: WishListService,
+    public route: ActivatedRoute,
     public guidServices: GuidService,
     public toastr: ToastrService,
-    private router:Router
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+    if(localStorage.getItem('isAuthenticated'))
+      {
+        this.isAuthenticated = true;
+      }
+      else{
+        this.isAuthenticated = false;
+      }
     this.sub = this.route.params.subscribe(p => {
       this.productService.getProductById(p['id']).subscribe({
         next: async data => {
           this.product = await data;
           this.productImages = [data.pictureUrl, ...data.productImages];
-  
+
           this.fetchReviews();
-  
+
           if (this.product.discount != null && this.IsDiscountEnded()) {
             this.product.discount.discountStarted = false;
           }
-          console.log(data);
+  
         },
         error: err => {
           console.error('Sorry, we couldn\'t fetch the data', err);
@@ -79,36 +88,48 @@ export class ProductComponent implements OnInit {
       });
     });
   }
-  
+
   private fetchReviews(): void {
-    // Ensure that the product id is available before fetching reviews
     if (this.product && this.product.id) {
       this.subReviews = this.reviewService.getAllProductReviewsById(this.product.id).subscribe({
-        next: async data => {
-          this.productReviews = await data;
+        next: data => {
+          this.productReviews = data;
           this.AverageRating();
           if (this.avgRatiing > 0) {
             this.updateRatings();
           }
-          if(this.productReviews){
+          if (this.productReviews && this.isAuthenticated) {
             this.userName = localStorage.getItem('userName');
-            if (this.productReviews.find(e => e.appUserName ===  this.userName)) {
+            let elemet = this.productReviews.find(e => e.appUserName === this.userName);
+            if (elemet) {
+              this.productReviews = [elemet,...data.filter(elm => elm !== elemet)]
               this.reviewed = true;
+              this.reviewedText= "You reviewed"
+            }
+            else{
+              this.reviewed = false;
+              this.reviewedText = "Write a customer review"
             }
           }
-          console.log(this.ratings);
+          else if(this.productReviews && this.isAuthenticated==false){
+            this.reviewed = true;
+           this.reviewedText= "You Should sing in to add review"
+         }
+          
         },
         error: err => {
+          this.reviewed = true;
+          this.reviewedText= "You Should sing in to add review"
           console.error('Sorry, we couldn\'t fetch the reviews', err);
         }
       });
     }
   }
-  
-  private updateRatings(): void {
+
+  updateRatings(): void {
     // Clear previous ratings
     this.ratings.forEach(r => r.rating = 0);
-  
+
     // Calculate ratings based on reviews
     this.ratings[4].rating = Math.round(this.productReviews.filter(rev => rev.rating === 1).length * 100 / this.productReviews.length);
     this.ratings[3].rating = Math.round(this.productReviews.filter(rev => rev.rating === 2).length * 100 / this.productReviews.length);
@@ -116,16 +137,15 @@ export class ProductComponent implements OnInit {
     this.ratings[1].rating = Math.round(this.productReviews.filter(rev => rev.rating === 4).length * 100 / this.productReviews.length);
     this.ratings[0].rating = Math.round(this.productReviews.filter(rev => rev.rating === 5).length * 100 / this.productReviews.length);
   }
-  
-  
-  
+
+
+
   Discount() {
-    console.log(this.product.discount.discountPercentage);
     return Number(this.product.discount.discountPercentage * 100);
   }
-  DiscountTimeOut(){
-    let TodeyDate:any =new Date().getTime();
-    let EndDate:any =new Date(this.product.discount.endDate).getTime();
+  DiscountTimeOut() {
+    let TodeyDate: any = new Date().getTime();
+    let EndDate: any = new Date(this.product.discount.endDate).getTime();
     let Days = EndDate - TodeyDate;
     const DaysOut = Math.floor(Days / (1000 * 60 * 60 * 24));
     const HoursOut = Math.floor((Days % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -145,6 +165,7 @@ export class ProductComponent implements OnInit {
     this.cartService.updateCartWithItem(("cart-" + _id), cartitem);
     // this.toastr.success("Item Added To Cart", 'Added',{positionClass:'toast-bottom-right'})
   }
+
 
   AddToWishList(product: Product, _id: string) {
     const wishListItem: WishListItem =
@@ -172,11 +193,11 @@ export class ProductComponent implements OnInit {
 
   AverageRating() {
     let fullRate = 0;
-    
-     this.productReviews.forEach(rev => {
+
+    this.productReviews.forEach(rev => {
       fullRate += rev.rating;
     });
-    this.avgRatiing = fullRate / this.productReviews.length;
+    this.avgRatiing = fullRate / this.productReviews.length | 0;
   }
 
   // Function to set the color name
@@ -232,36 +253,47 @@ export class ProductComponent implements OnInit {
   resetHoverStar(): void {
     this.hoveredStar = null;
   }
-  IsDiscountEnded(){
-    let TodeyDate:any =new Date().getTime();
-    let EndDate:any =new Date(this.product.discount.endDate).getTime();
+  IsDiscountEnded() {
+    let TodeyDate: any = new Date().getTime();
+    let EndDate: any = new Date(this.product.discount.endDate).getTime();
     let Days = EndDate - TodeyDate;
     const HoursOut = Math.floor((Days % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    return HoursOut<0;
+    return HoursOut < 0;
   }
 
-  CurrentDate(){
-    let EndDate:any =new Date().getTime();
+  CurrentDate() {
+    let EndDate: any = new Date().getTime();
     return EndDate;
   }
-  DiscountEndDate(){
-    let EndDate:any =new Date(this.product.discount.endDate).getTime();
+  DiscountEndDate() {
+    let EndDate: any = new Date(this.product.discount.endDate).getTime();
     return EndDate;
   }
 
-  DeleteReveiw(revId:number){
+  DeleteReveiw(revId: number) {
     this.reviewService.deleteReview(revId).subscribe({
-      next: data =>{
+      next: data => {
         this.productReviews = data;
-        console.log(this.product,"data after deleted")
         this.AverageRating();
-        if(this.avgRatiing > 0){
-        this.ratings[4].rating = Math.round(this.productReviews.filter(rev => rev.rating == 1).length * 100 / this.productReviews.length);
-        this.ratings[3].rating = Math.round(this.productReviews.filter(rev => rev.rating == 2).length * 100 / this.productReviews.length);
-        this.ratings[2].rating = Math.round(this.productReviews.filter(rev => rev.rating == 3).length * 100 / this.productReviews.length);
-        this.ratings[1].rating = Math.round(this.productReviews.filter(rev => rev.rating == 4).length * 100 / this.productReviews.length);
-        this.ratings[0].rating = Math.round(this.productReviews.filter(rev => rev.rating == 5).length * 100 / this.productReviews.length);
-        console.log(this.ratings)
+        if (this.avgRatiing > 0) {
+          this.ratings[4].rating = Math.round(this.productReviews.filter(rev => rev.rating == 1).length * 100 / this.productReviews.length) | 0;
+          this.ratings[3].rating = Math.round(this.productReviews.filter(rev => rev.rating == 2).length * 100 / this.productReviews.length) | 0;
+          this.ratings[2].rating = Math.round(this.productReviews.filter(rev => rev.rating == 3).length * 100 / this.productReviews.length) | 0;
+          this.ratings[1].rating = Math.round(this.productReviews.filter(rev => rev.rating == 4).length * 100 / this.productReviews.length) | 0;
+          this.ratings[0].rating = Math.round(this.productReviews.filter(rev => rev.rating == 5).length * 100 / this.productReviews.length) | 0;
+         
+          this.updateRatings();
+          this.fetchReviews()
+        }
+        else {
+          this.ratings = [
+            { stars: 5, rating: 0 },
+            { stars: 4, rating: 0 },
+            { stars: 3, rating: 0 },
+            { stars: 2, rating: 0 },
+            { stars: 1, rating: 0 },
+          ];
+          this.fetchReviews();
         }
       }
     });

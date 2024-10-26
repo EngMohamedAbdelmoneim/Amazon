@@ -12,14 +12,25 @@ import { Review } from '../../Models/review';
   templateUrl: './review-list.component.html',
   styleUrl: './review-list.component.css'
 })
-export class ReviewListComponent{
+export class ReviewListComponent implements OnInit{
   constructor(public router: Router,public reviewService:ReviewService) { }
   @Input({required:true}) productReviews : any;
   @Input({required:true}) productId : any;
   @Input({required:true}) productName : any;
 
   @Output() itemDeleted = new EventEmitter<number>();
-
+  userName:string = '';
+  isAuthenticated : boolean = false;
+  ngOnInit(): void {
+    if(localStorage.getItem('isAuthenticated'))
+      {
+        this.isAuthenticated = true;
+        this.userName = localStorage.getItem('userName');
+      }
+      else{
+        this.isAuthenticated = false;
+      }
+  }
   GetRatingArray(rating: number): boolean[] {
     const maxStars = 5;  
     return Array.from({ length: maxStars }, (_, index) => index < rating);

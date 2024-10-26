@@ -9,7 +9,7 @@
       </div>
       <div class="input-container">
         <div class="action-buttons d-flex">
-          <a routerLink="/seller/add-product"  class="btn btn-warning mx-3 my-1">Add Product +</a>
+          <a [routerLink]="['/seller/add-product']"  class="btn btn-warning mx-3 my-1">Add Product +</a>
         </div>
       </div>
       <div style="display: flex;" class="links">
@@ -25,7 +25,7 @@
                 <a href="#">Your Lists</a>
                 @if(isAuthenticated)
                 {
-                <a (click)="SignOut()">Sign Out</a>
+                <a (click)="signOut()">Sign Out</a>
                 }
                 @else
                 {
@@ -77,9 +77,9 @@
               <button (click)="edit(product)" class="btn btn-success">Edit Product</button>
             </td>
             <td>
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <button type="button" class="btn btn-danger" (click)="selectProduct(product.id)"(click)="selectProductName(product.name)" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Delete
-              </button>
+              </button>              
               <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
@@ -89,11 +89,11 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      <h5>Do you want to delete : {{product.name}}</h5>
+                      <h5>Do you want to delete : {{selectedProductName}}</h5>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="button" (click)="delete(product.id)" class="btn" data-bs-dismiss="modal"
+                      <button type="button" (click)="deleteProduct(selectedProductId)" class="btn" data-bs-dismiss="modal"
                         style="background-color: #CC0C39; color: white;">Save
                         changes</button>
                     </div>

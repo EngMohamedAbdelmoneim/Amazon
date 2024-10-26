@@ -7,7 +7,9 @@ export class Product {
     price: number;
     pictureUrl: string;
     productImages: string[];
+    categoryId: number;
     categoryName: string;
+    brandId: number;
     brandName: string;
     quantityInStock: number;
     discount:Discount;
@@ -21,7 +23,9 @@ export class Product {
             description: string,
             pictureUrl: string,
             productImages: string[],
+            categoryId: number,
             categoryName: string,
+            brandId: number,
             brandName: string,
             quantityInStock: number,
             discount:Discount
@@ -32,7 +36,9 @@ export class Product {
         this.description = description;
         this.pictureUrl = pictureUrl;
         this.productImages = productImages;
+        this.categoryId = categoryId;
         this.categoryName = categoryName;
+        this.brandId = brandId;
         this.brandName = brandName;
         this.quantityInStock = quantityInStock;
         this.discount = discount;

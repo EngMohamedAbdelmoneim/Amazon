@@ -190,16 +190,9 @@
           </div>
           <h4 class="mt-3">Review this product</h4>
           <p>Share your thoughts with other customers</p>
-          @if(!this.reviewed){
             <div class="add-review">
-              <button [routerLink]="['/review',product.id,product.name]" class="btn btn-outline-dark">Write a customer review</button>
+              <button [disabled]="reviewed" [routerLink]="['/review',product.id,product.name]" class="btn btn-outline-dark">{{reviewedText}}</button>
             </div>
-          }
-          @else {
-            <div class="add-review">
-              <button  [routerLink]="['/review',product.id,product.name]" class="btn btn-outline-dark" disabled>Your reviewed</button>
-            </div>
-          }
         </div>
       </div>
       <div class="customer-reviews">
