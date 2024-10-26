@@ -10,8 +10,16 @@
             <label for="qty3">Qty:</label>
             <select (change)="QNTChanged()" class="ms-2 form-select d-inline" style="width: fit-content;" id="qty3"
                 [(ngModel)]="prop.quantity">
-                <option *ngFor="let number of Quantity(10)">{{number}}</option>
+                @for (number of Quantity(10); track $index) {
+                 @if(number < product.quantityInStock){
+                     <option>{{number}}</option>
+                 }     
+                 @else {
+                    <option disabled>{{number}}</option>
+                 }
+                }
             </select>
+
             <i class="a-icon a-icon-text-separator" role="presentation"></i>
             <button (click)="Delete()" class="btn link-danger">Delete</button>
             <i class="a-icon a-icon-text-separator" role="presentation"></i>

@@ -50,6 +50,7 @@
             <th>Brand</th>
             <th>Price</th>
             <th>Category</th>
+            <th>Quantity</th>
             <th>Brand</th>
             <th>Sales</th>
             <th>Action</th>
@@ -64,6 +65,7 @@
             <td>{{ product.brandName }}</td>
             <td>{{ product.price | currency }}</td>
             <td>{{ product.categoryName }}</td>
+            <td>{{ product.quantityInStock }}</td>
             <td>{{ product.brandName }}</td>
             <td>
               @if (product.discount) {

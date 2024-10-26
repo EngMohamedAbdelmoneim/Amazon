@@ -37,9 +37,11 @@ export class CartCardComponent implements OnInit {
     const HoursOut = Math.floor((Days % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     return HoursOut<0;
   }
-  Quantity(max: number) {
-    return Array.from({ length: Number(max) - 0 + 1 }, (v, k) => k + 0);
+  Quantity(max: number): number[] {
+    console.log("Available quantity:", this.prop.quantity);
+    return Array.from({ length: max + 1 }, (_, k) => k);
   }
+  
   Price() {
     return Number(this.prop.price) * Number(this.prop.quantity);
   }
@@ -57,13 +59,13 @@ export class CartCardComponent implements OnInit {
     console.log("on item QNT Changed");
   }
   GetProduct(){
-    console.log("ssssssssssssssssssssssssssssssssss",this.prop.id);
     this.productService.getProductById(this.prop.id).subscribe({
-      next:async product=>{
-           this.product = await product;
+      next: product=>{
+           this.product =  product;
            console.log(this.product);
            if(this.product.discount != null  && this.IsDiscountEnded()){
             this.product.discount.discountStarted = false;
+            
           }
       }
     })
