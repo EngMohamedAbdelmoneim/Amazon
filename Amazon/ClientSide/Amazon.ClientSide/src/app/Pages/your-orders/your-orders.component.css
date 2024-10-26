@@ -1,0 +1,40 @@
+main
+{
+    .order-item
+    {
+        width: 80%;
+        margin-inline: auto;
+        border: 1px solid #ddd;
+        border-radius: 0.5em;
+        overflow: hidden;
+
+        .order-item-header
+        {
+            background: #f0f2f2;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .order-item-body
+        {
+            .order-item
+            {
+                display: flex;
+                width: 100%;
+                border: none;
+                justify-content: space-between;
+                div
+                {
+                    display: inline-block;
+                }
+            }
+
+            img
+            {
+                /* height: 100px; */
+                width: 150px;
+                object-fit: cover;
+            }
+        }
+    }
+}

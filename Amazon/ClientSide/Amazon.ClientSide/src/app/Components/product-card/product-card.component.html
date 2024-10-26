@@ -27,7 +27,8 @@
   
       <!-- Pricing Section -->
       <div class="pricing">
-        @if(product.discount !=null && product.discount.discountStarted != false){
+        @if(product.discount !=null && product.discount.discountStarted != false)
+        {
           <div class="discount-info">
             <span class="discount">
             <span class="discount-percentage">-{{Discount()}}% off</span>
@@ -42,28 +43,43 @@
           <br/>
           <div class="price-note text-danger">Lowest Price in <strong>{{DiscountTimeOut().toString()}}</strong></div>
         }
-        @else{
+        @else if (product.quantityInStock <= 0)
+        {
+        }
+        @else
+        {
           <span class="current-price">{{ product.price.toFixed(2) | currency:'EGP' }}</span>
         }
       </div>
   
       <!-- Availability Information -->
       <div class="availability">
-        @if(product.discount !=null){
-        <p>Get it as soon as <strong>{{ DiscountEndDate() | date: 'EEEE, d MMMM' }}</strong></p>
-      }
+        @if(product.discount !=null)
+        {
+          <p>Get it as soon as <strong>{{ DiscountEndDate() | date: 'EEEE, d MMMM' }}</strong></p>
+        }
         <p>Fulfilled by Amazon</p>
-        @if (product.quantityInStock < 10)
+        @if (product.quantityInStock < 10 && product.quantityInStock > 0)
         {
           <p class="text-danger">Only {{product.quantityInStock}} left in stock - order soon.</p>
+        }
+        @else if (product.quantityInStock <= 0)
+        {
+          <p class="text-danger">Out of Stock.</p>
         }
       
         </div>
     </div>
   
     <!-- Actions Section -->
-    <div class="product-actions">
-      <button (click)="AddToCart()" class="add-to-cart-btn rounded-pill " >Add to Cart</button>
-    </div>
+     @if(product.quantityInStock == 0)
+     {
+     }
+     @else 
+     {
+       <div class="product-actions">
+         <button (click)="AddToCart()" class="add-to-cart-btn rounded-pill " >Add to Cart</button>
+       </div>
+     }
 </div>
   

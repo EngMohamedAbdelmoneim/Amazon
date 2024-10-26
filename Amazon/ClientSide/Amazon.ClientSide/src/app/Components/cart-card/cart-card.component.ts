@@ -20,6 +20,8 @@ export class CartCardComponent implements OnInit {
   @Input({ required: true })prop: CartItem;
   @Output() itemDeleted = new EventEmitter<void>();
   @Output() qntChanged = new EventEmitter<any>();
+  @Output() addToCart = new EventEmitter<void>();
+
   product: Product | null = new Product(0, "", 0, "", "", [], "", "", 0, null);
   sub: Subscription | null;
   ngOnInit(){
@@ -41,6 +43,10 @@ export class CartCardComponent implements OnInit {
   }
   Price() {
     return Number(this.prop.price) * Number(this.prop.quantity);
+  }
+  AddToCart() {
+    this.addToCart.emit();
+    console.log("on item adding");
   }
   Delete() {
     this.itemDeleted.emit();

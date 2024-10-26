@@ -22,7 +22,8 @@ import { ToastrService } from 'ngx-toastr';
 export class OrderComponent  implements OnInit {
 
 
-  order: Order = new Order(1, 1, "", [], 1, "", 1, "", "");
+  // order: Order = new Order(1, 1, "", [], 1, "", 1, "", "");
+  order: Order;
 
 
   showCardForm:boolean = false;
@@ -93,7 +94,7 @@ export class OrderComponent  implements OnInit {
   TempTotal: number;
   Items: number;
 
-constructor(private orderService:OrderService, private cookieService: CookieService, private cartService: CartService, private toastr: ToastrService) {}
+constructor(private orderService:OrderService, private cookieService: CookieService, private cartService: CartService, private toastr: ToastrService, private router:Router) {}
 
 ngOnInit() {
 
@@ -135,8 +136,12 @@ ngOnInit() {
 
         }
       }) 
-
-
+    },
+    error: () => {
+      this.toastr.error('No Address was Found');
+      setTimeout(() => {
+        this.router.navigateByUrl('/manage-address-book')
+      }, 2000);
     }
   })
 

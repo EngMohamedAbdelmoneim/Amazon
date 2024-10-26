@@ -12,6 +12,7 @@ import { ManageAddressBookComponent } from './Pages/address-form/manage-address-
 import { PageNotFoundComponent } from './Pages/page-not-found/page-not-found.component';
 import { DiscountsComponent } from './Pages/discounts/discounts.component';
 import { BrandsComponent } from './Pages/brands/brands.component';
+import { YourOrdersComponent } from './Pages/your-orders/your-orders.component';
 
 
 
@@ -30,5 +31,5 @@ export const App_Routes: Routes =
     { path: 'review/:id/:pname/:edit',component:AddReviewComponent},
     { path: 'manage-address-book', component: ManageAddressBookComponent },
     { path: 'Discount', component: DiscountsComponent },
-    // { path: '**',pathMatch:'full', component:PageNotFoundComponent},
+    { path: 'Your-Orders', component: YourOrdersComponent },
 ];

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Address } from '../Models/address';
+import { Order } from '../Models/order';
+import { MyOrder } from '../Models/MyOrder';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +40,10 @@ export class OrderService {
   placeOrder(cartId: string, deliveryMethodId: number, paymentMethodId: number = 2, shippingAddressId: string)
   {
     return this.http.post("https://localhost:7283/api/Order", {cartId: cartId, deliveryMethodId: deliveryMethodId, paymentMethodId: paymentMethodId, shippingAddressId: shippingAddressId});
+  }
+
+  getOrders()
+  {
+    return this.http.get<Array<MyOrder>>('https://localhost:7283/api/Order');
   }
 }

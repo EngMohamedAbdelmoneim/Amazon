@@ -143,8 +143,9 @@ export class ProductComponent implements OnInit {
       quantity: Number(this.selectedQtn.nativeElement.value),
     };
     this.cartService.updateCartWithItem(("cart-" + _id), cartitem);
-    this.toastr.success("Item Added To Cart", 'Added',{positionClass:'toast-bottom-right'})
+    // this.toastr.success("Item Added To Cart", 'Added',{positionClass:'toast-bottom-right'})
   }
+
   AddToWishList(product: Product, _id: string) {
     const wishListItem: WishListItem =
     {
@@ -175,7 +176,7 @@ export class ProductComponent implements OnInit {
      this.productReviews.forEach(rev => {
       fullRate += rev.rating;
     });
-    this.avgRatiing = fullRate / 5;
+    this.avgRatiing = fullRate / this.productReviews.length;
   }
 
   // Function to set the color name

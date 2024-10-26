@@ -16,27 +16,32 @@
           {{ product.name }},<br>
           {{ product.description }}<br>
         </h4>
-        @if(product.discount !=null && product.discount.discountStarted == true){
-        <div class="discount-info">
-          <span class="discount">
-            <span class="discount-percentage">-{{Discount()}}% off</span>
-          </span>
-          <span class="discount-text">
-            <span>Limited Time Deal</span>
-          </span>
-        </div>
-        <span class="current-price">{{ product.discount.priceAfterDiscount.toFixed(2) | currency:'EGP' }}</span>
-        <br />
-        <span class="old-price">List:{{ product.price.toFixed(2) | currency:'EGP' }}</span>
-        <br />
-        <div class="price-note text-danger">Lowest Price in {{DiscountTimeOut().toString()}}</div>
+        @if(product.discount !=null && product.discount.discountStarted == true)
+        {
+          <div class="discount-info">
+            <span class="discount">
+              <span class="discount-percentage">-{{Discount()}}% off</span>
+            </span>
+            <span class="discount-text">
+              <span>Limited Time Deal</span>
+            </span>
+          </div>
+          <span class="current-price">{{ product.discount.priceAfterDiscount.toFixed(2) | currency:'EGP' }}</span>
+          <br />
+          <span class="old-price">List:{{ product.price.toFixed(2) | currency:'EGP' }}</span>
+          <br />
+          <div class="price-note text-danger">Lowest Price in {{DiscountTimeOut().toString()}}</div>
         }
-        @else{
-        <span class="current-price">{{ product.price.toFixed(2) | currency:'EGP' }}</span>
+        @else if (product.quantityInStock <= 0)
+        {
+        }
+        @else
+        {
+          <span class="current-price">{{ product.price.toFixed(2) | currency:'EGP' }}</span>
         }
         <div>
           <div class="stars">
-            <span class="mx-1">{{ avgRatiing }}</span>
+            <span class="mx-1">{{ avgRatiing.toFixed(1) }}</span>
             <span class="stars">
               @for(star of GetRatingArray(avgRatiing);track $index){
               @if(star){
@@ -56,14 +61,14 @@
             {{ratingMessage}}
           </div>
         </div>
-        <div>
+        <!-- <div>
           <span class="badge rounded-pill text-bg-dark"><i class="fa fa-amazon" aria-hidden="true">Editor's <span
                 class="Choiceinyellow">choice</span></i></span>
-        </div>
+        </div> -->
         <!-- <h3> This item cannot be shipped to your selected delivery location. Please choose a different delivery location. -->
         <!-- </h3> -->
-        <div class="ColorResult"></div>
-        <div class="PickColor">
+        <!-- <div class="ColorResult"></div> -->
+        <!-- <div class="PickColor">
           <div class="ProductColor" style="background-color: #ffffff;" data-color="#ffffff" color-name="White"> </div>
           <div class="ProductColor" style="background-color: #ac9a9a;" data-color="#ac9a9a"
             color-name="Heliotrope Gray"> </div>
@@ -71,7 +76,7 @@
           <div class="ProductColor" style="background-color: #124055;" data-color="#124055" color-name="light-blue">
           </div>
           <div class="ProductColor" style="background-color: #000000;" data-color="#000000" color-name="Black"> </div>
-        </div>
+        </div> -->
       </div>
       <div class="Physical-Details">
 
@@ -96,38 +101,51 @@
     </section>
 
     <section class="p-4">
-      @if(product.discount !=null){
-      <span class="current-price">{{ product.discount.priceAfterDiscount.toFixed(2) | currency:'EGP' }}</span>
-      <br />
-      <span class="old-price">List:{{ product.price.toFixed(2) | currency:'EGP' }}</span>
-      <br />
-      <div class="price-note text-danger">Lowest Price in {{DiscountTimeOut().toString()}} days</div>
+      @if(product.discount !=null)
+      {
+        <span class="current-price">{{ product.discount.priceAfterDiscount.toFixed(2) | currency:'EGP' }}</span>
+        <br />
+        <span class="old-price">List:{{ product.price.toFixed(2) | currency:'EGP' }}</span>
+        <br />
+        <div class="price-note text-danger">Lowest Price in {{DiscountTimeOut().toString()}} days</div>
       }
-      @else {
-      <span class="current-price">{{ product.price.toFixed(2) | currency:'EGP' }}</span>
+      @else if (product.quantityInStock <= 0) 
+      {
       }
+      @else 
+      {
+        <span class="current-price">{{ product.price.toFixed(2) | currency:'EGP' }}</span>
+      }
+
       @if (product.quantityInStock > 10)
       {
-      <h5 class="text-success">In Stock</h5>
+        <h5 class="text-success">In Stock</h5>
+      }
+      @else if (product.quantityInStock <= 0)
+      {
+        <p class="text-danger">Out of Stock</p>  
       }
       @else
       {
       <p class="text-danger">Only {{product.quantityInStock}} left in stock - order soon.</p>
       }
-      <select #quantity class="form-select mb-2">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-      </select>
-      <button class="p-1 mb-2" (click)="AddToCart(product,getGuid())">Add to Cart</button>
-      <button class="p-1 mb-2">Buy Now</button>
+      @if(product.quantityInStock > 0)
+      {
+        <select #quantity class="form-select mb-2">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+        <button class="p-1 mb-2" (click)="AddToCart(product,getGuid())">Add to Cart</button>
+        <button class="p-1 mb-2">Buy Now</button>
+      }
       <button class="p-1" (click)="AddToWishList(product,getGuid())">Add to Wishlist</button>
     </section>
 
@@ -151,7 +169,7 @@
               }
             </span>
           </div>
-          {{ avgRatiing }} out of 5
+          {{ avgRatiing.toFixed(1) }} out of 5
         </div>
         <div class="global-ratings">{{ productReviews.length }} global ratings</div>
 

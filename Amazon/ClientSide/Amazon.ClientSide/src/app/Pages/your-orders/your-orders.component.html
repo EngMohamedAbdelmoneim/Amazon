@@ -1,0 +1,48 @@
+<main class="p-4">
+
+    @for (order of orders; track $index) 
+    {
+        <div class="order-item mb-4">
+
+            <div class="order-item-header p-2">
+                <div>
+                    <div>
+                        Order Placed: {{order.orderDate | date:'dd/MM/yyyy' }}
+                    </div>
+                    <div>
+                        Total: {{order.total | currency:'EGP'}}
+                    </div>
+                </div>
+
+                <div>
+                    Order Status: {{order.orderStatus}}
+                </div>
+            </div>
+
+            <div class="order-item-body p-2">
+                
+                <div *ngFor="let product of order.items" class="order-item p-2">
+                    <div>
+                        <img src={{product.pictureUrl}} />
+                    </div>
+                    
+                    <div>
+                        <h1>{{product.productName}}</h1>
+                    </div>
+
+                    <div>
+                        {{product.price | currency:'EGP'}}
+                    </div>
+                </div>
+
+                <!-- @for (product of orders.items; track $index) 
+                {
+                    {{product.brand}}
+                } -->
+            </div>
+
+        </div>
+    }
+
+
+</main>

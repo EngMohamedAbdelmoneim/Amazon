@@ -73,7 +73,7 @@ export class ProductCardComponent implements OnInit{
         data.forEach(rev => {
           fullRate += rev.rating;
         });
-        this.avgRatiing = fullRate / 5;
+        this.avgRatiing = fullRate / data.length;
       }
     })
   }

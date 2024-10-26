@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CategoryService } from '../../Services/category.service';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
+import { Product } from '../../Models/product';
+import { CartItem } from '../../Models/cart-item';
+import { ToastrService } from 'ngx-toastr';
+import { CartService } from '../../Services/cart.service';
 
 @Component({
   selector: 'app-category-list',
@@ -14,9 +18,13 @@ import { Router, RouterModule } from '@angular/router';
 export class CategoryListComponent implements OnInit {
   parentcategories: Array<any> = [];
   isAuthenticated: boolean;
+  @ViewChild('quantity') selectedQtn: ElementRef;
 
   sub: Subscription | null = null;
-  constructor(private router: Router, public categoryService: CategoryService) { }
+  constructor(private router: Router, public categoryService: CategoryService,    public cartService: CartService, 
+
+    public toastr: ToastrService,
+) { }
 
   ngOnInit() {
     this.isAuthenticated = JSON.parse(localStorage.getItem('isAuthenticated'));
@@ -32,6 +40,19 @@ export class CategoryListComponent implements OnInit {
     }
   }
 
+  AddToCart(product: Product, _id: string) {
+    const cartitem: CartItem =
+    {
+      id: product.id,
+      productName: product.name,
+      category: product.categoryName,
+      price: product.price,
+      pictureUrl: product.pictureUrl,
+      quantity: Number(this.selectedQtn.nativeElement.value),
+    };
+    this.cartService.updateCartWithItem(("cart-" + _id), cartitem);
+    this.toastr.success("Item Added To Cart", 'Added',{positionClass:'toast-bottom-right'})
+  }
   SignOut()
   {
     localStorage.clear();
