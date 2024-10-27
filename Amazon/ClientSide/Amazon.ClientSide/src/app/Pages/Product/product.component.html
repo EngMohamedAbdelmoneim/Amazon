@@ -1,5 +1,6 @@
 <main class="main">
   <div class="product-main-sections">
+
     <section class="first-section">
       <div class="SideImages">
         <img *ngFor="let image of productImages" [src]=image id="Side-Image" (click)="DisplaySideImage(image)">
@@ -10,7 +11,8 @@
           (mouseleave)="resetImage()">
       </div>
     </section>
-    <section class="p-2">
+
+    <section class="p-2" style="align-self: flex-start">
       <div>
         <h4>
           {{ product.name }},<br>
@@ -43,13 +45,16 @@
           <div class="stars">
             <span class="mx-1">{{ avgRatiing.toFixed(1) }}</span>
             <span class="stars">
-              @for(star of GetRatingArray(avgRatiing);track $index){
-              @if(star){
-              <i class="fa-solid fa-star" style="color: orange;"></i>
-              }
-              @else{
-              <i class="fa-regular fa-star" style="color: orange;"></i>
-              }
+              @for(star of GetRatingArray(avgRatiing);track $index)
+              {
+                @if(star)
+                {
+                  <i class="fa-solid fa-star" style="color: orange;"></i>
+                }
+                @else
+                {
+                  <i class="fa-regular fa-star" style="color: orange;"></i>
+                }
               }
             </span>
           </div>
@@ -109,10 +114,10 @@
         <br />
         <div class="price-note text-danger">Lowest Price in {{DiscountTimeOut().toString()}} days</div>
       }
-      @else if (product.quantityInStock <= 0) 
+      @else if (product.quantityInStock <= 0)
       {
       }
-      @else 
+      @else
       {
         <span class="current-price">{{ product.price.toFixed(2) | currency:'EGP' }}</span>
       }
@@ -123,7 +128,7 @@
       }
       @else if (product.quantityInStock <= 0)
       {
-        <p class="text-danger">Out of Stock</p>  
+        <p class="text-danger">Out of Stock</p>
       }
       @else
       {

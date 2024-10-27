@@ -18,7 +18,8 @@
 
 <!-- @if(isAuthenticated){ -->
 <div class="cart-container">
-    @if(cartItems == null || cartItems.length == 0){
+    @if(cartItems == null || cartItems.length == 0)
+    {
     <main>
         <div class="cart-section">
             <div class="cart-info">
@@ -41,13 +42,15 @@
 
     </main>
     }
-    @else{
+    @else
+    {
     <main>
         <div class="shopping-cart-container">
             <h1>Shopping Cart</h1>
             <div class="split-line">
             </div>
-            @for (cartItem of cartItems; track $index) {
+            @for (cartItem of cartItems; track $index)
+            {
             <app-cart-card [prop]=cartItem (itemDeleted)="RemoveFromCart(('cart-'+getGuid()),cartItem.id)"
                 (qntChanged)="UpdateQnt(('cart-'+getGuid()),cartItem)"></app-cart-card>
             <div class="split-line">

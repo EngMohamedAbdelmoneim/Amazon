@@ -41,7 +41,7 @@ export class CartCardComponent implements OnInit {
     console.log("Available quantity:", this.prop.quantity);
     return Array.from({ length: max + 1 }, (_, k) => k);
   }
-  
+
   Price() {
     return Number(this.prop.price) * Number(this.prop.quantity);
   }
@@ -61,13 +61,13 @@ export class CartCardComponent implements OnInit {
   GetProduct(){
     this.productService.getProductById(this.prop.id).subscribe({
       next: product=>{
-           this.product =  product;
-           console.log(this.product);
-           if(this.product.discount != null  && this.IsDiscountEnded()){
-            this.product.discount.discountStarted = false;
-            
-          }
+        this.product =  product;
+        console.log(this.product);
+        if(this.product.discount != null  && this.IsDiscountEnded()){
+          this.product.discount.discountStarted = false;
+
+        }
       }
     })
   }
-} 
+}

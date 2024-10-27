@@ -39,13 +39,20 @@
   </nav>
 </header>
 
-<main>
-
+<main class="p-4">
+  <div style="display: flex; justify-content: space-between">
+    <h1>All Products</h1>
+    <div>
+      <a routerLink="/seller/verified-product-list" class="btn btn-outline-primary mx-1">Verified Products</a>
+      <a routerLink="/seller/unverified-product-list" class="btn btn-outline-primary">Unverified Products</a>
+    </div>
+  </div>
   <section>
-    <div *ngIf="products.length >0" style="width: 100%;" class="table-container" >
-      <table  style="width: 100%;">
-        <thead style="width: 100%;"> 
-          <tr style="width: 100%;">
+    <div *ngIf="products.length > 0" style="width: 100%;" class="table-container" >
+      <table class="table table-striped">
+
+        <thead>
+          <tr>
             <th>Product Name</th>
             <th>Brand</th>
             <th>Price</th>
@@ -58,10 +65,11 @@
             <th>Seller</th>
           </tr>
         </thead>
+
         <tbody>
           <!-- Sample data loop - bind this to your product list in your component -->
           <tr *ngFor="let product of products">
-            <td [routerLink]="['/seller/product-details',product.id]">{{ product.name }}</td>
+            <td [routerLink]="['/seller/product-details',product.id]" style="cursor: pointer">{{ product.name }}</td>
             <td>{{ product.brandName }}</td>
             <td>{{ product.price | currency }}</td>
             <td>{{ product.categoryName }}</td>
@@ -81,7 +89,7 @@
             <td>
               <button type="button" class="btn btn-danger" (click)="selectProduct(product.id)"(click)="selectProductName(product.name)" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Delete
-              </button>              
+              </button>
               <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">

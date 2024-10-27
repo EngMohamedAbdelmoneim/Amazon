@@ -10,18 +10,14 @@ import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 export class ProductService {
   private apiUrl = 'https://localhost:7283/api/Product/GetAllProducts';
   private apiUrlId = 'https://localhost:7283/api/Product/GetProduct';
-  private apiUrlSellerId = 'https://localhost:7283/api/Product/GetSellerProducts';
   private apiUrlAdd = 'https://localhost:7283/api/Product/AddProduct';
   private apiUrlUpdate = 'https://localhost:7283/api/Product/UpdateProduct';
   private apiUrlDelete = 'https://localhost:7283/api/Product/DeleteProduct';
-  
+
   constructor(private http:HttpClient) { }
 
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.apiUrl);
-  }
-  GetSellerProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiUrlSellerId);
   }
 
   getProductById(id:number):Observable<Product>{

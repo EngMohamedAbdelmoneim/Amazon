@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Product } from '../../Models/product';
+import { Product } from '../../../Models/product';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductService } from '../../Services/product.service';
+import { ProductService } from '../../../Services/product.service';
 import { CommonModule } from '@angular/common';
-import { ReviewService } from '../../Services/review.service';
+import { ReviewService } from '../../../Services/review.service';
 import { Subscription } from 'rxjs';
+import {SellerService} from "../../../Services/seller.service";
 
 @Component({
   selector: 'app-seller-product-details',
@@ -22,23 +23,27 @@ export class SellerProductDetailsComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private productService: ProductService,
+    private sellerService: SellerService,
     private reviewService: ReviewService,
   ) {}
 
-  async ngOnInit(): Promise<void> {
+  async ngOnInit(): Promise<void>
+  {
     const id = +this.route.snapshot.paramMap.get('id')!;
     await this.loadProductDetails(id);
     await this.loadProductReviews(id);
   }
 
-  private async loadProductDetails(id: number): Promise<void> {
-    this.sub = this.productService.getProductById(id).subscribe({
-      next: (product) => this.product = product,
-      error: (err) => console.error('Error loading product details:', err)
+  private async loadProductDetails(id: number): Promise<void>
+  {
+    this.sub = this.sellerService.GetSellerProductById(id).subscribe({
+      next: product => this.product = product,
+      error: err => console.error('Error loading product details:', err)
     });
   }
 
-  private async loadProductReviews(id: number): Promise<void> {
+  private async loadProductReviews(id: number): Promise<void>
+  {
     this.sub = this.reviewService.getAllProductReviewsById(id).subscribe({
       next: (reviews) => this.productReviews = reviews,
       error: (err) => console.error('Error loading reviews:', err)

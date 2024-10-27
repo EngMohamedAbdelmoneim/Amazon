@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../../Services/product.service';
-import { Product } from '../../Models/product';
+import { ProductService } from '../../../../Services/product.service';
+import { Product } from '../../../../Models/product';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ReviewService } from '../../Services/review.service';
-import { Review } from '../../Models/review';
+import { ReviewService } from '../../../../Services/review.service';
+import { Review } from '../../../../Models/review';
 import { Subscription } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
+import {SellerService} from "../../../../Services/seller.service";
 
 @Component({
   selector: 'app-admin-product-list',
@@ -19,12 +20,13 @@ export class SellerProductListComponent implements OnInit {
   products: Product[] = []; // Initialized as an empty array
   isAuthenticated: boolean = false; // Initialized to false
   userName: string | null = null; // Initialized to null
-  selectedProductName: string | null = null; 
+  selectedProductName: string | null = null;
   selectedProductId: number | null = null;
   sub:Subscription | null = null;
   constructor(
     private router: Router,
     private productService: ProductService,
+    private sellerService: SellerService,
     private reviewService: ReviewService
   ) {}
 
@@ -37,8 +39,9 @@ export class SellerProductListComponent implements OnInit {
   }
 
   loadSellerProducts(): void {
-    this.sub = this.productService.GetSellerProducts().subscribe({
+    this.sub = this.sellerService.GetSellerProducts().subscribe({
       next: (data: Product[]) => {
+        console.log(data)
         this.products = data; // Assuming data is of type Product[]
       },
       error: (error) => {
@@ -60,7 +63,7 @@ export class SellerProductListComponent implements OnInit {
   selectProduct(id: number) {
     this.selectedProductId = id;
   }
-  
+
   deleteProduct(id: number): void {
     this.productService.DeleteProduct(id).subscribe({
       next: () => {

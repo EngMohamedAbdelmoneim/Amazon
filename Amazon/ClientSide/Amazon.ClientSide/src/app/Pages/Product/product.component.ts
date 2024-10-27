@@ -79,7 +79,7 @@ export class ProductComponent implements OnInit {
           if (this.product.discount != null && this.IsDiscountEnded()) {
             this.product.discount.discountStarted = false;
           }
-  
+
         },
         error: err => {
           console.error('Sorry, we couldn\'t fetch the data', err);
@@ -115,7 +115,7 @@ export class ProductComponent implements OnInit {
             this.reviewed = true;
            this.reviewedText= "You Should sing in to add review"
          }
-          
+
         },
         error: err => {
           this.reviewed = true;
@@ -140,10 +140,13 @@ export class ProductComponent implements OnInit {
 
 
 
-  Discount() {
+  Discount()
+  {
     return Number(this.product.discount.discountPercentage * 100);
   }
-  DiscountTimeOut() {
+
+  DiscountTimeOut()
+  {
     let TodeyDate: any = new Date().getTime();
     let EndDate: any = new Date(this.product.discount.endDate).getTime();
     let Days = EndDate - TodeyDate;
@@ -152,18 +155,26 @@ export class ProductComponent implements OnInit {
     return DaysOut + " Days - " + HoursOut + " Hours";
   }
 
-  AddToCart(product: Product, _id: string) {
-    const cartitem: CartItem =
+  AddToCart(product: Product, _id: string)
+  {
+    if(this.selectedQtn.nativeElement.value > product.quantityInStock)
     {
-      id: product.id,
-      productName: product.name,
-      category: product.categoryName,
-      price: product.price,
-      pictureUrl: product.pictureUrl,
-      quantity: Number(this.selectedQtn.nativeElement.value),
-    };
-    this.cartService.updateCartWithItem(("cart-" + _id), cartitem);
-    // this.toastr.success("Item Added To Cart", 'Added',{positionClass:'toast-bottom-right'})
+      this.toastr.error(`Can't Select more than available quantity`)
+    }
+    else
+    {
+      const cartitem: CartItem =
+        {
+          id: product.id,
+          productName: product.name,
+          category: product.categoryName,
+          price: product.price,
+          pictureUrl: product.pictureUrl,
+          quantity: Number(this.selectedQtn.nativeElement.value),
+        };
+      this.cartService.updateCartWithItem(("cart-" + _id), cartitem);
+      // this.toastr.success("Item Added To Cart", 'Added',{positionClass:'toast-bottom-right'})
+    }
   }
 
 
@@ -281,7 +292,7 @@ export class ProductComponent implements OnInit {
           this.ratings[2].rating = Math.round(this.productReviews.filter(rev => rev.rating == 3).length * 100 / this.productReviews.length) | 0;
           this.ratings[1].rating = Math.round(this.productReviews.filter(rev => rev.rating == 4).length * 100 / this.productReviews.length) | 0;
           this.ratings[0].rating = Math.round(this.productReviews.filter(rev => rev.rating == 5).length * 100 / this.productReviews.length) | 0;
-         
+
           this.updateRatings();
           this.fetchReviews()
         }

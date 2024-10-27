@@ -26,9 +26,10 @@ export class AppComponent implements OnInit{
   readonly PageLayout = PageLayout;
   constructor(public pageLayoutService: PageLayoutService,public guidService:GuidService){}
 
- ngOnInit(): void {
+ ngOnInit(): void
+ {
     // this.pageLayoutService.setLayout(PageLayout.Authorized)
     this.currentGuid = this.guidService.initializeGUID();
  }
-  
+
 }

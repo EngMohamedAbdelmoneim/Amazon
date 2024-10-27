@@ -18,7 +18,8 @@ import { LoadingService } from '../../Services/loading-service.service';
   styleUrl: './cart.component.css'
 })
 
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit
+{
 
   cartItems: any | null;
   Qnt:number=0;
@@ -30,7 +31,8 @@ export class CartComponent implements OnInit {
   constructor(public http: HttpClient, public activatedRoute: ActivatedRoute, private cartService: CartService , public guidServices: GuidService ,public cookieService:CookieService, private loadingService: LoadingService) { }
 
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
     // if(localStorage.getItem('isAuthenticated'))
     // {
     //   this.isAuthenticated = true;
@@ -43,20 +45,21 @@ export class CartComponent implements OnInit {
     this.subCart  = this.cartService.cartQnt.subscribe({
       next: p => { this.Qnt = p; }
     });
-    if (this.cookieService.get('Qnt') != null) {
+    if (this.cookieService.get('Qnt') != null)
+    {
       this.Qnt = Number(this.cookieService.get('Qnt'));
     }
     else{
       this.Qnt = 0;
     }
 
-    this.subCart =this.cartService.cartProduct$
+    this.subCart = this.cartService.cartProduct$
       .pipe()
       .subscribe({
         next: products => {
           if (products.length !== 0) {
             console.log('from list');
-            this.cartItems = products; 
+            this.cartItems = products;
             console.log('Updated cartProducts:', this.cartItems);
             this.loadingService.hide();
             console.log('Cart data loaded:', products);
@@ -104,12 +107,15 @@ export class CartComponent implements OnInit {
     return this.guidServices.getGUID();
   }
 
-  RemoveFromCart(cartId: string, cartItamId: number): void {
+  RemoveFromCart(cartId: string, cartItamId: number): void
+  {
     this.cartService.removeFromCart(cartId, cartItamId);
     this.loading = false;
   }
-  UpdateQnt(cartId: string, item: CartItem): void {
-    console.log(item.quantity)
+
+  UpdateQnt(cartId: string, item: CartItem): void
+  {
+    console.log(item.quantity);
     this.cartService.updateCartItemQnt(cartId,item);
     this.loading = false;
   }
@@ -118,7 +124,7 @@ export class CartComponent implements OnInit {
     let TotalPrice = 0;
     if(this.cartItems != null){
       this.cartItems.forEach(item => {
-        TotalPrice += Number(item.price * item.quantity); 
+        TotalPrice += Number(item.price * item.quantity);
       });
       return TotalPrice.toFixed(2);
     }

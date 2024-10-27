@@ -17,31 +17,30 @@ export class AccountService {
   {
     return this.http.post("https://localhost:7283/api/Account/Login/", { 'email': email, 'password': password })
   }
-  
+
   register(email: string, displayName: string, phoneNumber: string, password: string, confirmPassword: string)
   {
-    return this.http.post("https://localhost:7283/api/Account/register/", 
-      { 
+    return this.http.post("https://localhost:7283/api/Account/register/",
+      {
         'email': email,
-        'displayName': displayName, 
-        'phoneNumber': phoneNumber, 
-        'password': password, 
-        'confirmPassword': confirmPassword 
+        'displayName': displayName,
+        'phoneNumber': phoneNumber,
+        'password': password,
+        'confirmPassword': confirmPassword
       }
     )
   }
+
   sellerRegister(sellerName:string,email: string, displayName: string, phoneNumber: string, password: string, confirmPassword: string)
   {
-    return this.http.post(`https://localhost:7283/api/Account/SellerRegister?sellerName=${sellerName}`, 
-      { 
+    return this.http.post(`https://localhost:7283/api/Account/SellerRegister?sellerName=${sellerName}`,
+      {
         'email': email,
-        'displayName': displayName, 
-        'phoneNumber': phoneNumber, 
-        'password': password, 
-        'confirmPassword': confirmPassword 
+        'displayName': displayName,
+        'phoneNumber': phoneNumber,
+        'password': password,
+        'confirmPassword': confirmPassword
       }
     )
   }
-
-
 }
