@@ -1,5 +1,7 @@
+using Amazon.Core.DBContext;
 using Amazon.Core.Entities;
 using Amazon.Core.Entities.Identity;
+using Amazon.Core.Entities.OrderAggregate;
 using Amazon.Services.ProductService.Dto;
 using Amazon.Services.Utilities;
 using Amazone.Infrastructure.Interfaces;
@@ -15,13 +17,19 @@ namespace Amazon.Services.ProductService
 
 		private readonly IProductRepository _productRepo;
 		private readonly UserManager<AppUser> _userManager;
+		private readonly IGenericRepository<Order> _orderRepo;
 		private readonly IMapper _mapper;
+		
 
-		public ProductService(IMapper mapper, IProductRepository productRepo,UserManager<AppUser> userManager)
+		public ProductService(IMapper mapper,
+						IProductRepository productRepo,
+						UserManager<AppUser> userManager,
+						IGenericRepository<Order> OrderRepo)
 		{
 			_mapper = mapper;
 			_productRepo = productRepo;
 			_userManager = userManager;
+			_orderRepo = OrderRepo;
 		}
 
 
@@ -30,6 +38,7 @@ namespace Amazon.Services.ProductService
 
 			var seller = await _userManager.FindByEmailAsync(sellerEmail);
 					
+			
 			if (productDto.Discount != null)
 			{
 				if (productDto.Discount.StartDate.Value.Date == DateTime.Now.Date)
@@ -40,6 +49,8 @@ namespace Amazon.Services.ProductService
 			}
 			var product = _mapper.Map<Product>(productDto);
 			product.PictureUrl = await DocumentSettings.UploadFile(productDto.ImageFile, "productImages");
+			product.IsAccepted = false;
+			product.QuantitySold = 0 ;
 			product.SellerEmail = seller.Email;
 			product.SellerName = seller.SellerName;
 				
@@ -83,6 +94,7 @@ namespace Amazon.Services.ProductService
 				}
 				productDto.Discount.PriceAfterDiscount = productDto.Price * (1 - productDto.Discount.DiscountPercentage);
 			}
+			existintProduct.IsAccepted = false;
 			_mapper.Map(productDto, existintProduct);
 
 			await _productRepo.Update(existintProduct);
@@ -90,12 +102,22 @@ namespace Amazon.Services.ProductService
 
 			return await GetProductByIdAsync(existintProduct.Id);
 		}
-		public async Task<IReadOnlyList<ProductToReturnDto>> DeleteProduct(int id)
+		public async Task<bool> DeleteProduct(int id,string sellerEmail)
 		{
 			var product = await _productRepo.GetByIdAsync(id);
 			if (product is null)
-				return null;
+				return false;
 
+
+			var orders = await _orderRepo.GetAllAsync();
+			var productOrders = orders.Where(o => o.Items.Any(i => i.Product.ProductId == product.Id));
+			if (productOrders != null || productOrders.Any())
+			{
+				var pendingOrders = productOrders.Where(o => o.OrderStatus == OrderStatus.Pending).ToList();
+				
+				if (pendingOrders.Count > 0)
+					return false;
+			}
 
 			DocumentSettings.DeleteFile("productImages", product.PictureUrl);
 			foreach (var item in product.Images)
@@ -106,9 +128,11 @@ namespace Amazon.Services.ProductService
 			await _productRepo.Delete(product);
 
 
-			var products = await GetAllProductsAsync();
-			return products;
+			var products = await GetAllSellerProductsAsync(sellerEmail);
+			
+			return true;
 		}
+
 
 		public async Task<IReadOnlyList<ProductToReturnDto>> GetAllProductsAsync()
 		{
@@ -256,6 +280,12 @@ namespace Amazon.Services.ProductService
 
 			var products = await _productRepo.GetAllWithSpecAsync(spec);
 
+			var verifiedSeller = _userManager.Users.Where(u => u.IsActiveSeller == true).ToList();
+
+			var VerifiedSelllersEmails = verifiedSeller.Select(s => s.Email).ToList();
+
+			products = products.Where(p => p.IsAccepted == true && VerifiedSelllersEmails.Contains(p.SellerEmail)).ToList();
+
 			if (products.Count <= 0)
 				return null;
 
@@ -302,6 +332,7 @@ namespace Amazon.Services.ProductService
 			if (product == null)
 				return null;
 
+
 			var mappedProduct = _mapper.Map<ProductToReturnDto>(product);
 			
 
@@ -316,5 +347,90 @@ namespace Amazon.Services.ProductService
 			return count;
 		}
 
+		public async Task<IReadOnlyList<ProductToReturnDto>> GetAllSellerAccepedProductsAsync(string sellerEmail)
+		{
+			var spec = new ProductWithBrandAndCategorySpecifications(sellerEmail);
+
+			var products = await _productRepo.GetAllWithSpecAsync(spec);
+
+			if (products.Count <= 0)
+				return null;
+			products = products.Where(p => p.IsAccepted == true).ToList();
+
+			var sellerProducts = _mapper.Map<IReadOnlyList<ProductToReturnDto>>(products);
+
+			return sellerProducts;
+		}
+
+		public async Task<IReadOnlyList<ProductToReturnDto>> GetAllSellerPendingProductsAsync(string sellerEmail)
+		{
+			var spec = new ProductWithBrandAndCategorySpecifications(sellerEmail);
+
+			var products = await _productRepo.GetAllWithSpecAsync(spec);
+
+			if (products.Count <= 0)
+				return null;
+
+			products = products.Where(p => p.IsAccepted == false).ToList();
+
+			var sellerProducts = _mapper.Map<IReadOnlyList<ProductToReturnDto>>(products);
+
+			return sellerProducts;
+		}
+
+		public async Task<decimal> GetAllSellerEarnings(string sellerEmail)
+		{
+			var seller = await _userManager.FindByEmailAsync(sellerEmail);
+
+			decimal totalEarnings = 0;
+
+			var orders = await _orderRepo.GetAllAsync();
+			orders = orders.Where(o => o.OrderStatus != OrderStatus.Cancelled && o.PaymentStatus== PaymentStatus.PaymentRecieved).ToList();
+			foreach (var order in orders)
+			{
+				foreach (var item in order.Items)
+				{
+					if (item.Product.SellerEmail == seller.Email)	
+					{
+						totalEarnings += item.Price * item.Quantity;
+					}
+				}
+			}
+			return totalEarnings;
+		}
+
+		public async Task<IReadOnlyList<ItemEarningsDto>> GetAllSellerEarningsWithDetails(string sellerEmail)
+			=> await CalculateSellerEarnings(sellerEmail);
+		
+
+		public async Task<ItemEarningsDto> GetSellerEarningsByProductId(int id ,string sellerEmail)
+			=> (await CalculateSellerEarnings(sellerEmail)).Where( i =>i.ProductId == id ).FirstOrDefault();
+
+		
+
+		private async Task<IReadOnlyList<ItemEarningsDto>> CalculateSellerEarnings(string sellerEmail)
+		{
+			var orders = await _orderRepo.GetAllAsync();
+			orders = orders.Where(o => o.OrderStatus != OrderStatus.Cancelled && o.PaymentStatus == PaymentStatus.PaymentRecieved).ToList();
+
+			if (orders == null || !orders.Any())
+				return null;
+
+			var productEarnings = orders.Where(o => o.OrderStatus != OrderStatus.Cancelled && o.PaymentStatus == PaymentStatus.PaymentRecieved)
+						.SelectMany(order => order.Items)
+						.Where(item => item.Product.SellerEmail == sellerEmail)
+						.GroupBy(item => new { item.Product.ProductId, item.Product.ProductName })
+						.Select(group => new ItemEarningsDto
+						{
+							ProductId = group.Key.ProductId,
+							ProductName = group.Key.ProductName,
+							Earnings = group.Sum(item => item.Price * item.Quantity),
+							QuantitySold = group.Sum(item => item.Quantity)
+						})
+						.ToList();
+
+
+			return productEarnings;
+		}
 	}
 }

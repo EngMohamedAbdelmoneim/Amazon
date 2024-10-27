@@ -86,7 +86,11 @@ namespace Amazon.Core.DBContext
                     Description = "Latest model with A15 Bionic chip and triple-camera system.",
                     Price = 999.99m,
                     QuantityInStock = 50,
-                    PictureUrl = "apple-iphone-13-pro-128gb-blue.webp"
+                    PictureUrl = "apple-iphone-13-pro-128gb-blue.webp",
+                    IsAccepted = true,
+                    QuantitySold = 0,
+					SellerEmail = "Admin@gmail.com",
+					SellerName = "Amazon",
                 },
                 new
                 {
@@ -97,7 +101,11 @@ namespace Amazon.Core.DBContext
                     Description = "Flagship phone with 108MP camera and 8K video recording.",
                     Price = 1199.99m,
                     QuantityInStock = 30,
-                    PictureUrl = "eg-galaxy-s21-ultra-5g-g988-sm-g998bzkgmea-368371553.jpg"
+                    PictureUrl = "eg-galaxy-s21-ultra-5g-g988-sm-g998bzkgmea-368371553.jpg",
+                    IsAccepted = true,
+                    QuantitySold = 0,
+                    SellerEmail = "Admin@gmail.com",
+                    SellerName = "Amazon",
                 },
                 new
                 {
@@ -108,7 +116,11 @@ namespace Amazon.Core.DBContext
                     Description = "Apple's latest MacBook Pro with M1 chip, 16-inch Retina display.",
                     Price = 2499.99m,
                     QuantityInStock = 30,
-                    PictureUrl = "111901_mbp16-gray.png"
+                    PictureUrl = "111901_mbp16-gray.png",
+                    IsAccepted = true,
+                    QuantitySold = 0,
+                    SellerEmail = "Admin@gmail.com",
+                    SellerName = "Amazon",
                 },
                 new
                 {
@@ -119,7 +131,11 @@ namespace Amazon.Core.DBContext
                     Description = "Business laptop with a 14-inch display, 11th Gen Intel Core i7, and long battery life.",
                     Price = 1799.99m,
                     QuantityInStock = 20,
-                    PictureUrl = "pw5jy11vn8u0jbi3rdu3aq1ij4bl15411237.jpg"
+                    PictureUrl = "pw5jy11vn8u0jbi3rdu3aq1ij4bl15411237.jpg",
+                    IsAccepted = true,
+                    QuantitySold = 0,
+                    SellerEmail = "Admin@gmail.com",
+                    SellerName = "Amazon",
                 },
                 new
                 {
@@ -130,7 +146,11 @@ namespace Amazon.Core.DBContext
                     Description = "High-end tablet with M1 chip and 12.9-inch Liquid Retina XDR display.",
                     Price = 1099.99m,
                     QuantityInStock = 40,
-                    PictureUrl = "6adf3e75_d5edc742_iPadPro12-wifi-Silver.png"
+                    PictureUrl = "6adf3e75_d5edc742_iPadPro12-wifi-Silver.png",
+                    IsAccepted = true,
+                    QuantitySold = 0,
+                    SellerEmail = "Admin@gmail.com",
+                    SellerName = "Amazon",
                 },
                 new
                 {
@@ -141,7 +161,11 @@ namespace Amazon.Core.DBContext
                     Description = "Premium Android tablet with 12.4-inch AMOLED display and S Pen.",
                     Price = 849.99m,
                     QuantityInStock = 30,
-                    PictureUrl = "nz-galaxy-tab-s7-plus-wifi-t970-sm-t970nzkexnz-frontmysticblack-thumb-284684467.jpg"
+                    PictureUrl = "nz-galaxy-tab-s7-plus-wifi-t970-sm-t970nzkexnz-frontmysticblack-thumb-284684467.jpg",
+                    IsAccepted = true,
+                    QuantitySold = 0,
+                    SellerEmail = "Admin@gmail.com",
+                    SellerName = "Amazon",
                 },
                 new
                 {
@@ -152,7 +176,11 @@ namespace Amazon.Core.DBContext
                     Description = "Energy-efficient air conditioner with dual inverter compressor and fast cooling.",
                     Price = 699.99m,
                     QuantityInStock = 25,
-                    PictureUrl = "lg-dualcool-inverter-compressor-artcool-15-hp-cooling-and-heating-uvnano-faster-cooling-energy-saving-s4-w12jarma.jpg"
+                    PictureUrl = "lg-dualcool-inverter-compressor-artcool-15-hp-cooling-and-heating-uvnano-faster-cooling-energy-saving-s4-w12jarma.jpg",
+                    IsAccepted = true,
+                    QuantitySold = 0,
+                    SellerEmail = "Admin@gmail.com",
+                    SellerName = "Amazon",
                 },
                 new
                 {
@@ -163,7 +191,11 @@ namespace Amazon.Core.DBContext
                     Description = "Wind-free cooling technology with energy-efficient inverter compressor.",
                     Price = 799.99m,
                     QuantityInStock = 20,
-                    PictureUrl = "levant-ar9500t-ac-windfree-ar24cxfcabt-jo-536285193.jpg"
+                    PictureUrl = "levant-ar9500t-ac-windfree-ar24cxfcabt-jo-536285193.jpg",
+                    IsAccepted = true,
+                    QuantitySold = 0,
+                    SellerEmail = "Admin@gmail.com",
+                    SellerName = "Amazon",
                 },
                 new
                 {
@@ -174,7 +206,11 @@ namespace Amazon.Core.DBContext
                     Description = "High-efficiency front-load washer with TurboWash technology.",
                     Price = 799.99m,
                     QuantityInStock = 20,
-                    PictureUrl = "lg-washing-machine-front-load-15kg-6-motion-direct-drive-inverter-direct-drive-f0l9dyp2e.jpg"
+                    PictureUrl = "lg-washing-machine-front-load-15kg-6-motion-direct-drive-inverter-direct-drive-f0l9dyp2e.jpg",
+                    IsAccepted = true,
+                    QuantitySold = 0,
+                    SellerEmail = "Admin@gmail.com",
+                    SellerName = "Amazon",
                 },
                 new
                 {
@@ -185,7 +221,11 @@ namespace Amazon.Core.DBContext
                     Description = "Top-load washer with active water jet and super speed wash.",
                     Price = 699.99m,
                     QuantityInStock = 15,
-                    PictureUrl = "samsung-washing-machine-top-loading-11-kg-gray-wa11dg5410bdas.jpg"
+                    PictureUrl = "samsung-washing-machine-top-loading-11-kg-gray-wa11dg5410bdas.jpg",
+                    IsAccepted = true,
+                    QuantitySold = 0,
+                    SellerEmail = "Admin@gmail.com",
+                    SellerName = "Amazon",
                 },
                 new
                 {
@@ -196,7 +236,11 @@ namespace Amazon.Core.DBContext
                     Description = "Convection oven with smart dial controls and air fry technology.",
                     Price = 599.99m,
                     QuantityInStock = 20,
-                    PictureUrl = "images.jpg"
+                    PictureUrl = "images.jpg",
+                    IsAccepted = true,
+                    QuantitySold = 0,
+                    SellerEmail = "Admin@gmail.com",
+                    SellerName = "Amazon",
                 },
                 new
                 {
@@ -207,7 +251,11 @@ namespace Amazon.Core.DBContext
                     Description = "Smart oven with AI technology and precise temperature control.",
                     Price = 799.99m,
                     QuantityInStock = 15,
-                    PictureUrl = "MH7636GIS-Microwave-Ovens-d-1.jpg"
+                    PictureUrl = "MH7636GIS-Microwave-Ovens-d-1.jpg",
+                    IsAccepted = true,
+                    QuantitySold = 0,
+                    SellerEmail = "Admin@gmail.com",
+                    SellerName = "Amazon",
                 }
                 );
 

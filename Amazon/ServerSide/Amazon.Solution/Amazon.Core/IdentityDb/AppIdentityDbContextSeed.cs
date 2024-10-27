@@ -42,14 +42,16 @@ namespace Amazon.Core.IdentityDb
 				var admin = new AppUser()
 				{
 					DisplayName = "AbdElRahman Saleh",
-					Email = "admin@gmail.com",
+					Email = "Admin@gmail.com",
 					EmailConfirmed = true,
 					UserName = "AbdelRahmanSaleh",
 					PhoneNumber = "01234567891",
-
+					SellerName = "Amazon",
+					IsActiveSeller = true
 				};
 				await _userManager.CreateAsync(admin, "Admin123?");
 				await _userManager.AddToRoleAsync(admin, "Admin");
+				await _userManager.AddToRoleAsync(admin, "Seller");
 
 				var customer = new AppUser()
 				{
@@ -61,6 +63,19 @@ namespace Amazon.Core.IdentityDb
 				};
 				await _userManager.CreateAsync(customer, "Customer123?");
 				await _userManager.AddToRoleAsync(customer, "Customer");
+				
+				var seller = new AppUser()
+				{
+					DisplayName = "Yousef Mohammed",
+					Email = "Seller@gmail.com",
+					EmailConfirmed = true,
+					UserName = "YousefMohammed",
+					PhoneNumber = "01234567892",
+					SellerName	= "YM Store",
+					IsActiveSeller = true
+				};
+				await _userManager.CreateAsync(seller, "Seller123?");
+				await _userManager.AddToRoleAsync(seller, "Seller");
 			}
 
 		}

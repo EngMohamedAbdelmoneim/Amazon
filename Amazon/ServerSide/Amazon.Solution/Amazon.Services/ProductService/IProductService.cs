@@ -14,6 +14,14 @@ namespace Amazon.Services.ProductService
 
 		Task<ProductToReturnDto> GetSellerProductByIdAsync(string sellerEmail, int productId);
 		Task<IReadOnlyList<ProductToReturnDto>> GetAllSellerProductsAsync(string sellerEmail);
+		Task<IReadOnlyList<ProductToReturnDto>> GetAllSellerAccepedProductsAsync(string sellerEmail);
+		Task<IReadOnlyList<ProductToReturnDto>> GetAllSellerPendingProductsAsync(string sellerEmail);
+		Task<decimal> GetAllSellerEarnings(string sellerEmail);
+		Task<IReadOnlyList<ItemEarningsDto>> GetAllSellerEarningsWithDetails(string sellerEmail);
+		Task<ItemEarningsDto> GetSellerEarningsByProductId(int id,string sellerEmail);
+
+
+
 
 
 		Task<IReadOnlyList<ProductToReturnDto>> GetProductsByBrandIdAsync(int id);
@@ -32,6 +40,6 @@ namespace Amazon.Services.ProductService
 
 		Task<ProductToReturnDto> AddProduct(ProductDto product,string sellerEmail);
 		Task<ProductToReturnDto> UpdateProduct(int id, ProductDto product);
-		Task<IReadOnlyList<ProductToReturnDto>> DeleteProduct(int id);
+		Task<bool> DeleteProduct(int id,string sellerEmail);
 	}
 }

@@ -61,5 +61,18 @@ namespace Amazon.API.Controllers
 				return NotFound(new ApiResponse(404));
 			return Ok(order);
 		}
+
+		[Authorize]
+		[HttpPost("cancel/{orderId}")]
+		public async Task<IActionResult> CancelOrder(int orderId)
+		{
+			var buyerEmail = User.FindFirstValue("Email");
+
+			var result = await _orderService.CancelOrderAsync(orderId, buyerEmail);
+			if (result is null)
+				return BadRequest(new ApiResponse(400, "Order cancellation failed or is not allowed."));
+
+			return Ok(new ApiResponse(200, "Order has been canceled successfully."));
+		}
 	}
 }

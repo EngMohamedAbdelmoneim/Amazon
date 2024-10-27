@@ -22,6 +22,7 @@ namespace Amazon.Services.ProductService.Dto
 		public string PictureUrl { get; set; }
 
 		public int QuantityInStock { get; set; }
+		public int QuantitySold { get; set; }
 
 		public int CategoryId { get; set; }
 		public string CategoryName { get; set; }
@@ -32,5 +33,6 @@ namespace Amazon.Services.ProductService.Dto
 		public string SellerEmail { get; set; }
 		public ICollection<string> ProductImages { get; set; } = [];
 		public DiscountDto Discount { get; set; }
+        public bool IsAccepted { get; set; }
     }
 }

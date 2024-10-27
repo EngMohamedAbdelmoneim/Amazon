@@ -124,7 +124,36 @@ namespace Amazon.Services.PaymentService
 			await _orderRepo.Update(order);
 
 			return order;
+		}
+
+		public async Task<bool> RefundPayment(string paymentIntentId)
+		{
+			var spec = new OrderWithPaymentIntentSpecification(paymentIntentId);
+
+			var order = await _orderRepo.GetWithSpecAsync(spec);
+			var refundOptions = new RefundCreateOptions { PaymentIntent = paymentIntentId };
+			var client = new StripeClient(_config["StripeSettings:SecretKey"]);
+			var service = new RefundService(client);
+			var refund = await service.CreateAsync(refundOptions);
+
+            if (refund.Status == "succeeded")
+                return true;
+
+            return false;
 
 		}
+
+		//public async Task UpdateOrderStatusToRefunded(string paymentIntentId)
+		//{
+		//	var orderSpec = new OrderWithPaymentIntentSpecification(paymentIntentId);
+		//	var order = await _orderRepo.GetWithSpecAsync(orderSpec);
+
+		//	if (order != null)
+		//	{
+		//		order.PaymentStatus = PaymentStatus.Refunded;
+		//		order.OrderStatus = OrderStatus.Cancelled; // Set order as canceled if applicable
+		//		await _orderRepo.Update(order);
+		//	}
+		//}
 	}
 }

@@ -49,9 +49,17 @@ namespace Amazon.API.Controllers
 			Order order;
             if (stripeEvent.Type == EventTypes.PaymentIntentSucceeded)
                 order = await _paymentService.UpdatePaymentIntentToSucceededOrFailed(paymentIntent.Id, true);
-            else
+            else if (stripeEvent.Type == EventTypes.PaymentIntentSucceeded)
                 order = await _paymentService.UpdatePaymentIntentToSucceededOrFailed(paymentIntent.Id, false);
-            
+			//else if (stripeEvent.Type == EventTypes.ChargeRefunded) // Handle the refund event
+			//{
+			//	var charge = stripeEvent.Data.Object as Charge;
+			//	if (charge.PaymentIntentId != null)
+			//	{
+			//		await _paymentService.UpdateOrderStatusToRefunded(charge.PaymentIntentId);
+			//	}
+			//}
+
 
 			return Ok();
 		}

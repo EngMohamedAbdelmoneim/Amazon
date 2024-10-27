@@ -83,10 +83,10 @@ namespace Amazon.API
 			}
 			#endregion
 
-			//app.UseMiddleware<ExceptionMiddleware>();
+			app.UseMiddleware<ExceptionMiddleware>();
 
-			// Configure the HTTP request pipeline.
-			if (app.Environment.IsDevelopment())
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
             {
 				app.UseSwaggerMiddlewares();
 			}

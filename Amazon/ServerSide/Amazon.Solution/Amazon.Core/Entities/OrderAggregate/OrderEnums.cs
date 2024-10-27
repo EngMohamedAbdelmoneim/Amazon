@@ -28,7 +28,10 @@ namespace Amazon.Core.Entities.OrderAggregate
 		PaymentRecieved,
 		
 		[EnumMember(Value ="Payment Failed")]
-		PaymentFailed
+		PaymentFailed,
+		
+		[EnumMember(Value = "Refunded")]
+		Refunded,
 	}
 	//public enum PaymentMethod
 	//{

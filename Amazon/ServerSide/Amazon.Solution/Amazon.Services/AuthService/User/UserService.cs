@@ -83,6 +83,7 @@ namespace Amazon.Services.AuthService.User
 				UserName = registerDto.Email.Split('@')[0] + $"{random.Next(1000)}",
 				PhoneNumber = registerDto.PhoneNumber,
 				SellerName = sellerName,
+				IsActiveSeller = false
 			};
 
 			var result = await _userManager.CreateAsync(appUser, registerDto.Password);
@@ -104,6 +105,8 @@ namespace Amazon.Services.AuthService.User
 			var user = await _userManager.FindByEmailAsync(loginDto.Email);
 			if (user == null)
 				return null;
+
+			
 
 			var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
 			if (!result.Succeeded)

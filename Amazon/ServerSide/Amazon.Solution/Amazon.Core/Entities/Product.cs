@@ -18,6 +18,7 @@ namespace Amazon.Core.Entities
 		public IFormFile ImageFile { get; set; }
 
 		public int QuantityInStock { get; set; }
+		public int QuantitySold { get; set; }
 
         public virtual Category Category { get; set; }
         public int CategoryId { get; set; }
@@ -27,6 +28,7 @@ namespace Amazon.Core.Entities
 
         public string SellerName { get; set; }
         public string SellerEmail { get; set; }
+        public bool IsAccepted { get; set; }
 
         public virtual ICollection<ProductImages> Images { get; set; } = [];
         [NotMapped]

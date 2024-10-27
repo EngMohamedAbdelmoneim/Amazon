@@ -40,13 +40,51 @@ namespace Amazon.Services.OrderService
 			_mapper = mapper;
 			_paymentService = paymentService;
 		}
-        public async Task<OrderToReturnDto> CreateOrderAsync(string buyerEmail, string cartId,int paymentMethodId ,int deliveryMethodId, string shippingAddressId)
+
+
+		public async Task<OrderToReturnDto> CancelOrderAsync(int orderId, string buyerEmail)
+		{
+			var order = await _orderRepo.GetWithSpecAsync(new OrderSpecifications(orderId, buyerEmail));
+
+			if (order == null || order.OrderStatus == OrderStatus.Delivered || order.OrderStatus == OrderStatus.Shipped)
+				return null;
+
+			order.OrderStatus = OrderStatus.Cancelled;
+
+			if (order.PaymentMethod.Id == 2)
+			{
+				var refundSuccess = await _paymentService.RefundPayment(order.PaymentIntentId);
+
+				if (!refundSuccess)
+					return null;
+				order.PaymentStatus = PaymentStatus.Refunded;
+			}
+
+			foreach (var item in order.Items)
+			{
+				var product = await _productRepo.GetByIdAsync(item.Product.ProductId);
+
+				if (product != null)
+				{
+					product.QuantityInStock += item.Quantity; 
+					product.QuantitySold -= item.Quantity;
+					await _productRepo.Update(product);
+				}
+			}
+
+			var result = await _orderRepo.Update(order);
+
+			
+			return _mapper.Map<OrderToReturnDto>(result); ;
+		}
+
+		public async Task<OrderToReturnDto> CreateOrderAsync(string buyerEmail, string cartId,int paymentMethodId ,int deliveryMethodId, string shippingAddressId)
 		{
 			var cart = await _cartRepo.GetAsync(cartId);
 			if (cart == null)
 				return null;
 
-			var user =await _userManager.Users.Include(u => u.Addresses).SingleOrDefaultAsync(u => u.Email == buyerEmail);
+			var user = await _userManager.Users.Include(u => u.Addresses).SingleOrDefaultAsync(u => u.Email == buyerEmail);
 
 			var userAddresses = user.Addresses.ToList();
 			var Address = user.Addresses.FirstOrDefault(x => x.Id == shippingAddressId);
@@ -67,6 +105,7 @@ namespace Amazon.Services.OrderService
 						return null;
 
 					product.QuantityInStock -= item.Quantity;
+					product.QuantitySold += item.Quantity;
 					await _productRepo.Update(product);
 
 					if (product.Discount != null && product.Discount.DiscountStarted &&
@@ -76,7 +115,7 @@ namespace Amazon.Services.OrderService
 					else
 						item.Price = product.Price;
 
-					var productItemOrder = new ProductItemOrdered(item.Id, product.Name,product.PictureUrl,product.Category.Name,product.Brand.Name);
+					var productItemOrder = new ProductItemOrdered(item.Id, product.Name,product.PictureUrl,product.Category.Name,product.Brand.Name,product.SellerEmail);
 					var orderItem = new OrderItem(productItemOrder, item.Price, item.Quantity);
 
 					orderItems.Add(orderItem);
@@ -157,5 +196,6 @@ namespace Amazon.Services.OrderService
 
 			return _mapper.Map<IReadOnlyList<OrderToReturnDto>>(orders);
 		}
+
 	}
 }

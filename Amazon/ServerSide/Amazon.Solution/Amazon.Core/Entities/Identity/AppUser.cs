@@ -8,7 +8,7 @@ namespace Amazon.Core.Entities.Identity
 		public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
 
 		public string SellerName { get; set; }
-
-		public string DefaultAddressId { get; set; }
+        public bool IsActiveSeller { get; set; }
+        public string DefaultAddressId { get; set; }
 	}
 }

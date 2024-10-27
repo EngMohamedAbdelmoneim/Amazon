@@ -8,6 +8,9 @@ namespace Amazon.Services.OrderService
 		Task<IReadOnlyList<OrderToReturnDto>> GetOrdersForUserAsync(string buyerEmail);
 
 		Task<OrderToReturnDto> GetOrderByIdForUserAsync(int orderId, string buyerEmail);
+		Task<OrderToReturnDto> CancelOrderAsync(int orderId, string buyerEmail);
+
+
 
 	}
 }

@@ -17,5 +17,10 @@ namespace Amazon.Services.PaymentService
 
 		Task<Order> UpdatePaymentIntentToSucceededOrFailed(string paymentIntentId, bool isSusseeded);
 
+		Task<bool> RefundPayment(string paymentIntentId);
+
+		//Task UpdateOrderStatusToRefunded(string paymentIntentId);
+
+
 	}
 }

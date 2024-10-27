@@ -4,6 +4,7 @@ using Amazon.Core.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Amazon.Core.Migrations
 {
     [DbContext(typeof(AmazonDbContext))]
-    partial class AmazonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241025190313_AddSoldQuantityAndIsAcceptedToProductTable")]
+    partial class AddSoldQuantityAndIsAcceptedToProductTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -322,9 +325,7 @@ namespace Amazon.Core.Migrations
                             PictureUrl = "apple-iphone-13-pro-128gb-blue.webp",
                             Price = 999.99m,
                             QuantityInStock = 50,
-                            QuantitySold = 0,
-                            SellerEmail = "Admin@gmail.com",
-                            SellerName = "Amazon"
+                            QuantitySold = 0
                         },
                         new
                         {
@@ -337,9 +338,7 @@ namespace Amazon.Core.Migrations
                             PictureUrl = "eg-galaxy-s21-ultra-5g-g988-sm-g998bzkgmea-368371553.jpg",
                             Price = 1199.99m,
                             QuantityInStock = 30,
-                            QuantitySold = 0,
-                            SellerEmail = "Admin@gmail.com",
-                            SellerName = "Amazon"
+                            QuantitySold = 0
                         },
                         new
                         {
@@ -352,9 +351,7 @@ namespace Amazon.Core.Migrations
                             PictureUrl = "111901_mbp16-gray.png",
                             Price = 2499.99m,
                             QuantityInStock = 30,
-                            QuantitySold = 0,
-                            SellerEmail = "Admin@gmail.com",
-                            SellerName = "Amazon"
+                            QuantitySold = 0
                         },
                         new
                         {
@@ -367,9 +364,7 @@ namespace Amazon.Core.Migrations
                             PictureUrl = "pw5jy11vn8u0jbi3rdu3aq1ij4bl15411237.jpg",
                             Price = 1799.99m,
                             QuantityInStock = 20,
-                            QuantitySold = 0,
-                            SellerEmail = "Admin@gmail.com",
-                            SellerName = "Amazon"
+                            QuantitySold = 0
                         },
                         new
                         {
@@ -382,9 +377,7 @@ namespace Amazon.Core.Migrations
                             PictureUrl = "6adf3e75_d5edc742_iPadPro12-wifi-Silver.png",
                             Price = 1099.99m,
                             QuantityInStock = 40,
-                            QuantitySold = 0,
-                            SellerEmail = "Admin@gmail.com",
-                            SellerName = "Amazon"
+                            QuantitySold = 0
                         },
                         new
                         {
@@ -397,9 +390,7 @@ namespace Amazon.Core.Migrations
                             PictureUrl = "nz-galaxy-tab-s7-plus-wifi-t970-sm-t970nzkexnz-frontmysticblack-thumb-284684467.jpg",
                             Price = 849.99m,
                             QuantityInStock = 30,
-                            QuantitySold = 0,
-                            SellerEmail = "Admin@gmail.com",
-                            SellerName = "Amazon"
+                            QuantitySold = 0
                         },
                         new
                         {
@@ -412,9 +403,7 @@ namespace Amazon.Core.Migrations
                             PictureUrl = "lg-dualcool-inverter-compressor-artcool-15-hp-cooling-and-heating-uvnano-faster-cooling-energy-saving-s4-w12jarma.jpg",
                             Price = 699.99m,
                             QuantityInStock = 25,
-                            QuantitySold = 0,
-                            SellerEmail = "Admin@gmail.com",
-                            SellerName = "Amazon"
+                            QuantitySold = 0
                         },
                         new
                         {
@@ -427,9 +416,7 @@ namespace Amazon.Core.Migrations
                             PictureUrl = "levant-ar9500t-ac-windfree-ar24cxfcabt-jo-536285193.jpg",
                             Price = 799.99m,
                             QuantityInStock = 20,
-                            QuantitySold = 0,
-                            SellerEmail = "Admin@gmail.com",
-                            SellerName = "Amazon"
+                            QuantitySold = 0
                         },
                         new
                         {
@@ -442,9 +429,7 @@ namespace Amazon.Core.Migrations
                             PictureUrl = "lg-washing-machine-front-load-15kg-6-motion-direct-drive-inverter-direct-drive-f0l9dyp2e.jpg",
                             Price = 799.99m,
                             QuantityInStock = 20,
-                            QuantitySold = 0,
-                            SellerEmail = "Admin@gmail.com",
-                            SellerName = "Amazon"
+                            QuantitySold = 0
                         },
                         new
                         {
@@ -457,9 +442,7 @@ namespace Amazon.Core.Migrations
                             PictureUrl = "samsung-washing-machine-top-loading-11-kg-gray-wa11dg5410bdas.jpg",
                             Price = 699.99m,
                             QuantityInStock = 15,
-                            QuantitySold = 0,
-                            SellerEmail = "Admin@gmail.com",
-                            SellerName = "Amazon"
+                            QuantitySold = 0
                         },
                         new
                         {
@@ -472,9 +455,7 @@ namespace Amazon.Core.Migrations
                             PictureUrl = "images.jpg",
                             Price = 599.99m,
                             QuantityInStock = 20,
-                            QuantitySold = 0,
-                            SellerEmail = "Admin@gmail.com",
-                            SellerName = "Amazon"
+                            QuantitySold = 0
                         },
                         new
                         {
@@ -487,9 +468,7 @@ namespace Amazon.Core.Migrations
                             PictureUrl = "MH7636GIS-Microwave-Ovens-d-1.jpg",
                             Price = 799.99m,
                             QuantityInStock = 15,
-                            QuantitySold = 0,
-                            SellerEmail = "Admin@gmail.com",
-                            SellerName = "Amazon"
+                            QuantitySold = 0
                         });
                 });
 
@@ -792,9 +771,6 @@ namespace Amazon.Core.Migrations
                                 .HasColumnType("int");
 
                             b1.Property<string>("ProductName")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("SellerEmail")
                                 .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("OrderItemId");
