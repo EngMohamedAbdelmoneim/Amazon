@@ -1,4 +1,4 @@
-import { Component,ElementRef,Input,OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Order } from '../../Models/order';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -19,10 +19,9 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
 })
-export class OrderComponent  implements OnInit {
+export class OrderComponent  implements OnInit
+{
 
-
-  // order: Order = new Order(1, 1, "", [], 1, "", 1, "", "");
   order: Order;
 
 
@@ -31,24 +30,12 @@ export class OrderComponent  implements OnInit {
   nameOnCard:string = '';
   expirationDate:string = '';
   securityCode:string = '';
-  countriesList: string[] = [];
-  countiresWithCodes:any[]=[];
-  selectedCountryCode:string='';
   showDropDown:boolean=false;
-  selectedCountry:any=null;
 
   showAddressOptions:boolean = false;
   showAddressForm:boolean = false;
-  // country:string = '';
-  // phoneNumber:number = 0;
-  // streetNumber:number = 0;
-  // unit:string = '';
-  // city:string = '';
-  // state:string = '';
-  // zipCode:number = 0;
   currentShippingAddress:Address;
   selectedShippingAddress:Address;
-  // selectedShippingAddress:Address = this.order.UserAddress[0];
   isAddressChanged: boolean = false;
   isPaymentChanged: boolean = false;
   isPaymentBoxOpen: boolean = true;
@@ -62,19 +49,14 @@ export class OrderComponent  implements OnInit {
 
   Total: number;
 
-  DeliveryTest: any;
-
   Addresssub: Subscription;
   DeliverySub: Subscription;
   cartSub: Subscription;
-  deleteCartSub: Subscription;
 
-  PaymentValue: number;
   DeliveryValue: number = 0;
   DeliveryMethodId: number;
 
   cart: Cart;
-  // OrderTest: {AddresId: string, PaymentId: string, DeliveryId: string, CartId} = {AddresId: "", PaymentId: "", DeliveryId: "", CartId:""}
 
   OnlinePaymentForm?: FormGroup;
 
@@ -88,8 +70,6 @@ export class OrderComponent  implements OnInit {
   cardExpiry?: StripeCardExpiryElement;
   cardCvc?: StripeCardCvcElement
   cardErrors: any;
-
-  ClinetSecret: string;
 
   TempTotal: number;
   Items: number;
@@ -178,13 +158,13 @@ ngOnInit()
                 next: d => {
                   console.log(d);
                   this.cartService.removeCart(`cart-${this.cookieService.get('guid')}`);
-                  this.cookieService.delete('Qnt')
+                  this.cookieService.delete('Qnt');
                   this.toastr.success("Payment Successful", "Success", {positionClass:'toast-bottom-right'})
                   window.location.href = 'http://localhost:4200';
                 },
                 error: e => {
                   console.log(e);
-                  this.toastr.error("Pyament Failed", "Failed", {positionClass: 'toast-bottom-right'})
+                  this.toastr.error("Payment Failed", "Failed", {positionClass: 'toast-bottom-right'})
                   // this.cookieService.delete('Qnt')
                   // this.toastr.success("Payment Successful", "Success", {positionClass:'toast-bottom-right'})
                   // window.location.href = 'http://localhost:4200';
@@ -192,43 +172,6 @@ ngOnInit()
               })
             }
         })
-
-        // this.orderService.placeOrder(`cart-${this.cookieService.get('guid')}`, this.DeliveryMethodId, 2, this.currentShippingAddress.id)
-        // .subscribe({
-        //   next: () => {
-        //     this.stripe?.confirmCardPayment(this.cart.clientSecret, {
-        //       payment_method: {
-        //             card: this.cardNumber,
-        //             // billing_details: {
-        //             //   name: this.OnlinePaymentForm?.get('paymentForm')?.get('nameOnCard')?.value
-        //             // }
-        //       }
-        //     })
-        //     .then(res => {
-        //       if(res.paymentIntent)
-        //           {
-        //             this.orderService.placeOrder(`cart-${this.cookieService.get('guid')}`, 2, Number(this.PaymentValue), this.currentShippingAddress.id).subscribe({
-        //               next: d => {
-        //                 console.log(d);
-        //                 // this.cartService.removeCart(`cart-${this.cookieService.get('guid')}`);
-        //                 this.cookieService.delete('Qnt')
-        //                 this.toastr.success("Payment Successful", "Success", {positionClass:'toast-bottom-right'})
-        //                 window.location.href = 'http://localhost:4200';
-        //               },
-        //               error: e => {
-        //                 console.log(e);
-        //                 // this.toastr.error("Pyament Failed", "Failed", {positionClass: 'toast-bottom-right'})
-        //                 this.cookieService.delete('Qnt')
-        //                 this.toastr.success("Payment Successful", "Success", {positionClass:'toast-bottom-right'})
-        //                 window.location.href = 'http://localhost:4200';
-        //               }
-        //             })
-        //           }
-        //     })
-
-        //   }
-        // })
-
       },
       error: e => {
         console.log(e)
@@ -285,7 +228,6 @@ ngOnInit()
 
   shippingMethodChoice(shippingMethodId)
   {
-    // const TempTotal = this.Total;
     switch (shippingMethodId)
     {
       case 1:
@@ -293,7 +235,6 @@ ngOnInit()
         this.DeliveryMethodId = 1;
         this.cart.deliveryMethodId = 1;
         this.cart.shippingPrice = 30;
-        // console.log(this.cart);
         this.Total = this.TempTotal + 30;
         break;
       case 2:
@@ -315,7 +256,7 @@ ngOnInit()
         this.DeliveryMethodId = 4;
         this.cart.deliveryMethodId = 4;
         this.cart.shippingPrice = 0;
-        this.Total = this.TempTotal + 0;
+        this.Total = this.TempTotal;
         break;
     }
   }
@@ -353,31 +294,6 @@ ngOnInit()
     }
   }
 
-
-  OpenAddressInfo(): void
-  {
-    this.showAddressOptions = !this.showAddressOptions;
-
-    // this.isAddressChanged = !this.isAddressChanged;
-    // this.isPaymentChanged = false;
-  }
-
-  TogglePaymentChange(): void
-  {
-    this.isPaymentChanged = !this.isPaymentChanged;
-    this.isPaymentBoxOpen = !this.isPaymentBoxOpen;
-    this.isAddressChanged = false;
-  }
-
-  SubmitCardInfo():void
-  {
-    console.log('Card Number:',this.cardNumberr)
-    console.log('Name On Card:',this.nameOnCard)
-    console.log('Expiration Date',this.expirationDate)
-    console.log('Security Code:',this.securityCode)
-    this.showCardForm = false;
-  }
-
   SelectAddress(): void
   {
     this.currentShippingAddress = this.selectedShippingAddress;
@@ -388,21 +304,5 @@ ngOnInit()
     //this.order.UserAddress[0] = this.selectedShippingAddress;
     this.showAddressOptions = false;
     //}
-  }
-
-  openAddressForm(): void
-  {
-    this.showAddressForm = true;
-    this.showAddressOptions = false;
-  }
-
-  CancelAddress(): void
-  {
-    this.showAddressForm = false ;
-  }
-
-  CancelAddCard(): void
-  {
-    this.showCardForm = false;
   }
 }
