@@ -52,7 +52,7 @@ export class OrderComponent  implements OnInit {
   isAddressChanged: boolean = false;
   isPaymentChanged: boolean = false;
   isPaymentBoxOpen: boolean = true;
-  
+
   cartId: string;
   DeliveryMethods: any;
   PaymentMethods: any;
@@ -75,7 +75,7 @@ export class OrderComponent  implements OnInit {
 
   cart: Cart;
   // OrderTest: {AddresId: string, PaymentId: string, DeliveryId: string, CartId} = {AddresId: "", PaymentId: "", DeliveryId: "", CartId:""}
-  
+
   OnlinePaymentForm?: FormGroup;
 
   @ViewChild('cardNumber') cardNumberElement?: ElementRef;
@@ -96,29 +96,34 @@ export class OrderComponent  implements OnInit {
 
 constructor(private orderService:OrderService, private cookieService: CookieService, private cartService: CartService, private toastr: ToastrService, private router:Router) {}
 
-ngOnInit() {
+ngOnInit()
+{
 
   // console.log(this.cartId)
-  
+
   this.cartId = this.cookieService.get('guid');
-          this.cartSub = this.cartService.getAllFromCart(`cart-${this.cartId}`).subscribe({
-            next: d => {
-              this.cart = d;
-              // console.log('this is the cart', this.cart);
-              this.Total = d.items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-              this.Items = d.items.reduce((sum, item) => sum + item.quantity, 0)
-              this.TempTotal = this.Total;
-              // console.log(this.Total)
-            },
-            error: e => {
-              console.log(e)
-            }
-          })
+
+  this.cartSub = this.cartService.getAllFromCart(`cart-${this.cartId}`).subscribe({
+    next: d => {
+      this.cart = d;
+      // console.log('this is the cart', this.cart);
+      this.Total = d.items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+      this.Items = d.items.reduce((sum, item) => sum + item.quantity, 0)
+      this.TempTotal = this.Total;
+      // console.log(this.Total)
+    },
+    error: e => {
+      console.log(e)
+    }
+  })
 
   this.Addresssub = this.orderService.getAddresses().subscribe({
-    next: d => {
+    next: d =>
+    {
       console.log('adresses',d)
-      this.order.UserAddress = d;
+      // this line breaks the page, can't remember why I wrote it
+      // this.order.UserAddress = [...d];
+      /////////////////////////////////////////////////////////
       this.currentShippingAddress = d[0];
       this.selectedShippingAddress = d[0];
       // this.OrderTest.AddresId = this.selectedShippingAddress.id;
@@ -126,8 +131,6 @@ ngOnInit() {
       this.DeliverySub = this.orderService.getDeliveryMethods().subscribe({
         next: d => {
           this.DeliveryMethods = d;
-
-
           this.PaymentMethods = this.orderService.getPaymentMethods().subscribe({
             next: d => {
               this.PaymentMethods = d;
@@ -135,21 +138,16 @@ ngOnInit() {
           })
 
         }
-      }) 
+      })
     },
-    error: () => {
+    error: () =>
+    {
       this.toastr.error('No Address was Found');
       setTimeout(() => {
         this.router.navigateByUrl('/manage-address-book')
       }, 2000);
     }
   })
-
-
-  
-  
-  
-   
 }
 
   // #region Payment Methods
@@ -163,7 +161,7 @@ ngOnInit() {
         console.log(this.cart)
         this.cart.shippingPrice = this.DeliveryValue;
         this.cart.deliveryMethodId = this.DeliveryMethodId;
-        
+
         console.log('this is the cart', this.cart);
 
         this.stripe.confirmCardPayment(this.cart.clientSecret, {
@@ -227,7 +225,7 @@ ngOnInit() {
         //             })
         //           }
         //     })
-            
+
         //   }
         // })
 
@@ -240,7 +238,7 @@ ngOnInit() {
 
   paymentMethodChoice(paymentMethodId: number)
   {
-   
+
     if(paymentMethodId == 2)
     {
       console.log(this.cart)
@@ -252,7 +250,7 @@ ngOnInit() {
         },
         error: (e) => console.log(e)
       })
-      
+
       loadStripe("pk_test_51QBxlsGxfUlD5tIRm7qqPS3KLHioihsPUsHSOxHy5pbXi4tdXhrdneN8z9epNWHNczPjc10Jyt20GIgQLJhjmg9X001nO7NxRt")
       .then(stripe => {
         this.stripe = stripe;
@@ -331,27 +329,27 @@ ngOnInit() {
   }
 
 
-  OpenCardInfo(): void 
+  OpenCardInfo(): void
   {
     this.showCardForm = !this.showCardForm;
   }
 
-  updateButton() 
+  updateButton()
   {
-    if (this.isAddressChanged) 
+    if (this.isAddressChanged)
     {
       this.buttonLabel = 'Use This Address';
-      this.buttonColor = 'yellow'; 
+      this.buttonColor = 'yellow';
     }
-    else if (this.isPaymentChanged) 
+    else if (this.isPaymentChanged)
     {
       this.buttonLabel = 'Use This Payment Method';
-      this.buttonColor = 'yellow'; 
-    } 
-    else 
+      this.buttonColor = 'yellow';
+    }
+    else
     {
       this.buttonLabel = 'Use This Payment Method';
-      this.buttonColor = ''; 
+      this.buttonColor = '';
     }
   }
 
@@ -364,7 +362,7 @@ ngOnInit() {
     // this.isPaymentChanged = false;
   }
 
-  TogglePaymentChange(): void 
+  TogglePaymentChange(): void
   {
     this.isPaymentChanged = !this.isPaymentChanged;
     this.isPaymentBoxOpen = !this.isPaymentBoxOpen;
@@ -398,12 +396,12 @@ ngOnInit() {
     this.showAddressOptions = false;
   }
 
-  CancelAddress(): void 
+  CancelAddress(): void
   {
     this.showAddressForm = false ;
   }
 
-  CancelAddCard(): void 
+  CancelAddCard(): void
   {
     this.showCardForm = false;
   }

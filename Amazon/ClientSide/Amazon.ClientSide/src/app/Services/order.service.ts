@@ -8,17 +8,21 @@ import { MyOrder } from '../Models/MyOrder';
 @Injectable({
   providedIn: 'root'
 })
-export class OrderService {
-  private apiUrl = '';
+export class OrderService
+{
   private apiUrlCountries = 'https://restcountries.com/v3.1/all';
 
   constructor(private http: HttpClient) { }
 
-  fetchCountries(): Observable<any> {
+  // region Get Methods
+
+  fetchCountries(): Observable<any>
+  {
     return this.http.get<any>(this.apiUrlCountries);
   }
 
-  getCountriesWithCodes(): Observable<any[]> {
+  getCountriesWithCodes(): Observable<any[]>
+  {
     return this.http.get<any[]>(this.apiUrlCountries);
   }
 
@@ -37,13 +41,24 @@ export class OrderService {
     return this.http.get("https://localhost:7283/api/PaymentMethods");
   }
 
+  getOrders()
+  {
+    return this.http.get<Array<MyOrder>>('https://localhost:7283/api/Order');
+  }
+
+  // endregion
+
+  // region Post Methods
+
   placeOrder(cartId: string, deliveryMethodId: number, paymentMethodId: number = 2, shippingAddressId: string)
   {
     return this.http.post("https://localhost:7283/api/Order", {cartId: cartId, deliveryMethodId: deliveryMethodId, paymentMethodId: paymentMethodId, shippingAddressId: shippingAddressId});
   }
 
-  getOrders()
+  cancelOrder(Id: number)
   {
-    return this.http.get<Array<MyOrder>>('https://localhost:7283/api/Order');
+    return this.http.post(`https://localhost:7283/api/Order/cancel/${Id}`, null);
   }
+
+  // endregion
 }

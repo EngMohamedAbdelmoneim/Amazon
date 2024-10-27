@@ -13,11 +13,13 @@ export class BrandService {
 
   constructor(private http:HttpClient) { }
 
-  getBrands(): Observable<Brand[]> {
+  getBrands(): Observable<Brand[]>
+  {
     return this.http.get<Brand[]>(this.apiUrl);
   }
 
-  getBrandById(id:number):Observable<Brand>{
+  getBrandById(id:number):Observable<Brand>
+  {
     return this.http.get<Brand>(`${this.apiUrlId}/${id}`);
   }
 }

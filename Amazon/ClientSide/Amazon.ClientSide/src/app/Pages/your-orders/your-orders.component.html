@@ -1,6 +1,6 @@
 <main class="p-4">
 
-    @for (order of orders; track $index) 
+    @for (order of orders; track $index)
     {
         <div class="order-item mb-4">
 
@@ -14,18 +14,22 @@
                     </div>
                 </div>
 
-                <div>
-                    Order Status: {{order.orderStatus}}
+              <div>
+                <span [ngClass]="{'text-danger' : order.orderStatus == 'Cancelled'}">Order Status: {{order.orderStatus}}</span>
+                @if(order.orderStatus != "Cancelled")
+                {
+                  <button class="btn btn-outline-danger" (click)="cancelOrder(order.id)">Cancel Order</button>
+                }
                 </div>
             </div>
 
             <div class="order-item-body p-2">
-                
+
                 <div *ngFor="let product of order.items" class="order-item p-2">
                     <div>
-                        <img src={{product.pictureUrl}} />
+                        <img src={{product.pictureUrl}} alt="{{product.productName}}"/>
                     </div>
-                    
+
                     <div>
                         <h1>{{product.productName}}</h1>
                     </div>
@@ -35,7 +39,7 @@
                     </div>
                 </div>
 
-                <!-- @for (product of orders.items; track $index) 
+                <!-- @for (product of orders.items; track $index)
                 {
                     {{product.brand}}
                 } -->
