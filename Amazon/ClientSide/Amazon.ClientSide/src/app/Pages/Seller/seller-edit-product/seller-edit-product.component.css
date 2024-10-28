@@ -7,6 +7,10 @@
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
+  .disabled-div {
+    pointer-events: none; /* Prevents clicks, form inputs, etc. */
+    opacity: 0.5; /* Makes the div look disabled */
+  }
   
   /* Form title */
   .add-product-form h2 {

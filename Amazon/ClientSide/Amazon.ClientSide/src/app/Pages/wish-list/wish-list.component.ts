@@ -101,7 +101,13 @@ export class WishListComponent {
 
   RemoveFromWishList(wishListId: string, wishListItemId: number): void {
     console.log(wishListId, wishListItemId);
-    this.wishListService.removeFromWishList(wishListId, wishListItemId);
+    if (this.wishListItems.length > 1) {
+      
+      this.wishListService.removeFromWishList(wishListId, wishListItemId);
+    }
+    else{
+      this.wishListService.removeWishList(wishListId);
+    }
     this.loading = false;
   }
   AddToCart(wishListItem: WishListItem, _id: string) {

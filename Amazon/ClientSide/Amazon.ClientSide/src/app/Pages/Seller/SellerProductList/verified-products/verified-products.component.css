@@ -1,0 +1,56 @@
+
+/* Table container for responsiveness */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  /* Table Styling */
+  .product-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    text-align: left;
+    
+  }
+  
+  .product-table th, .product-table td {
+    /* padding: 12px 15px; */
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Header styles */
+  .product-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #343a40;
+    border-bottom: 2px solid #dee2e6;
+  }
+  
+  /* Row hover effect */
+  .product-table tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+  
+  /* Alignments for numerical data */
+  .product-table td:nth-child(3), /* Price */
+  .product-table td:nth-child(5), /* Rank */
+  .product-table td:nth-child(6), /* Sales */
+  .product-table td:nth-child(7), /* Revenue */
+  .product-table td:nth-child(8), /* Reviews */
+  .product-table td:nth-child(9) { /* Rating */
+    text-align: start;
+  }
+
+
+
+ 
+  /* Styling for mobile views */
+  @media (max-width: 768px) {
+    .product-table {
+      font-size: 14px;
+    }
+  }
+  

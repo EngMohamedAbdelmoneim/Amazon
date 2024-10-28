@@ -21,7 +21,7 @@ import { LoadingService } from '../../Services/loading-service.service';
 export class CartComponent implements OnInit
 {
 
-  cartItems: any | null;
+  cartItems: any[] | null = [];
   Qnt:number=0;
   subCart: Subscription | null = null;
   loading: boolean = true;
@@ -54,10 +54,9 @@ export class CartComponent implements OnInit
     }
 
     this.subCart = this.cartService.cartProduct$
-      .pipe()
       .subscribe({
         next: products => {
-          if (products.length !== 0) {
+          if (products.length != 0) {
             console.log('from list');
             this.cartItems = products;
             console.log('Updated cartProducts:', this.cartItems);
@@ -109,8 +108,14 @@ export class CartComponent implements OnInit
 
   RemoveFromCart(cartId: string, cartItamId: number): void
   {
-    this.cartService.removeFromCart(cartId, cartItamId);
-    this.loading = false;
+    debugger
+    if(this.cartItems.length > 1){
+      this.cartService.removeFromCart(cartId, cartItamId);
+    }
+    else{
+      this.cartService.removeCart(cartId);
+
+    }
   }
 
   UpdateQnt(cartId: string, item: CartItem): void

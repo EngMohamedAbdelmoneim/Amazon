@@ -1,139 +1,288 @@
 <!-- add-product.component.html -->
 <div class="add-product-form">
-    <h2>Update Product</h2>
-    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-        <div>
-            <label for="name">Product Name:</label>
-            <input id="name" formControlName="name" [(ngModel)]="product.name" />
-            <div
-                *ngIf="productForm.get('name')?.invalid && (productForm.get('name')?.touched || productForm.get('name')?.dirty)">
-                <div style="color: red;" *ngIf="productForm.get('name')?.errors?.['required']">Name is required.
-                </div>
-            </div>
+  <h2>Update Product</h2>
+  <form
+    [ngClass]="{ 'disabled-div': isDisabled }"
+    [formGroup]="productForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <div>
+      <label for="name">Product Name:</label>
+      <input id="name" formControlName="name" [(ngModel)]="product.name" />
+      <div
+        *ngIf="
+          productForm.get('name')?.invalid &&
+          (productForm.get('name')?.touched || productForm.get('name')?.dirty)
+        "
+      >
+        <div
+          style="color: red"
+          *ngIf="productForm.get('name')?.errors?.['required']"
+        >
+          Name is required.
         </div>
+      </div>
+    </div>
 
-        <div>
-            <label for="description">Description:</label>
-            <textarea id="description" formControlName="description" [(ngModel)]="product.description"></textarea>
-            <div
-                *ngIf="productForm.get('description')?.invalid && (productForm.get('description')?.touched || productForm.get('description')?.dirty)">
-                <div class="alert alert-danger border-0 mt-1" role="alert" style="color: red;" *ngIf="productForm.get('description')?.errors?.['required']">Description is
-                    required.
-                </div>
-            </div>
+    <div>
+      <label for="description">Description:</label>
+      <textarea
+        id="description"
+        formControlName="description"
+        [(ngModel)]="product.description"
+      ></textarea>
+      <div
+        *ngIf="
+          productForm.get('description')?.invalid &&
+          (productForm.get('description')?.touched ||
+            productForm.get('description')?.dirty)
+        "
+      >
+        <div
+          class="alert alert-danger border-0 mt-1"
+          role="alert"
+          style="color: red"
+          *ngIf="productForm.get('description')?.errors?.['required']"
+        >
+          Description is required.
         </div>
+      </div>
+    </div>
 
-        <div class="price-discount">
-            <div>
-                <label for="price">Price:</label>
-                <input id="price" type="number" formControlName="price" [(ngModel)]="product.price" (keydown)="restrictInput($event)"    />
-                <div
-                    *ngIf="productForm.get('price')?.invalid && (productForm.get('price')?.touched || productForm.get('price')?.dirty)" >
-                    <div class="alert alert-danger border-0 mt-1" role="alert" style="color: red;" *ngIf="productForm.get('price')?.errors?.['required']">Price is required.
-                        <span style="color: gray;">(ex. 1252.22)</span>
-                    </div>
-                    <div class="alert alert-danger border-0 mt-1" role="alert" style="color: red;" *ngIf="productForm.get('price')?.errors?.['min']">Price can't
-                        be 0 </div>
-                </div>
-            </div>
-            <div>
-                <button type="button" class="btn btn-danger btn-dicount" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Add Discount</button>
-            </div>
+    <div class="price-discount">
+      <div>
+        <label for="price">Price:</label>
+        <input
+          id="price"
+          type="number"
+          formControlName="price"
+          [(ngModel)]="product.price"
+          (keydown)="restrictInput($event)"
+        />
+        <div
+          *ngIf="
+            productForm.get('price')?.invalid &&
+            (productForm.get('price')?.touched ||
+              productForm.get('price')?.dirty)
+          "
+        >
+          <div
+            class="alert alert-danger border-0 mt-1"
+            role="alert"
+            style="color: red"
+            *ngIf="productForm.get('price')?.errors?.['required']"
+          >
+            Price is required.
+            <span style="color: gray">(ex. 1252.22)</span>
+          </div>
+          <div
+            class="alert alert-danger border-0 mt-1"
+            role="alert"
+            style="color: red"
+            *ngIf="productForm.get('price')?.errors?.['min']"
+          >
+            Price can't be 0
+          </div>
         </div>
-        <div>
-            <label for="quantityInStock">Quantity in Stock:</label>
-            <input id="quantityInStock" type="number" formControlName="quantityInStock" (keydown)="restrictInput($event)"
-                [(ngModel)]="product.quantityInStock" />
-            <div
-                *ngIf="productForm.get('quantityInStock')?.invalid && (productForm.get('quantityInStock')?.touched || productForm.get('quantityInStock')?.dirty)">
-                <div class="alert alert-danger border-0 mt-1" role="alert" style="color: red;" *ngIf="productForm.get('quantityInStock')?.errors?.['required']">Quantity is
-                    required.
-                    <span style="color: gray;">(ex. 1252.22)</span>
-                </div>
-                <div style="color: red;" *ngIf="productForm.get('quantityInStock')?.errors?.['min']">Quantity can't be 0
-                </div>
-            </div>
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-danger btn-dicount"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+          data-bs-whatever="@getbootstrap"
+        >
+          Add Discount
+        </button>
+      </div>
+    </div>
+    <div>
+      <label for="quantityInStock">Quantity in Stock:</label>
+      <input
+        id="quantityInStock"
+        type="number"
+        formControlName="quantityInStock"
+        (keydown)="restrictInput($event)"
+        [(ngModel)]="product.quantityInStock"
+      />
+      <div
+        *ngIf="
+          productForm.get('quantityInStock')?.invalid &&
+          (productForm.get('quantityInStock')?.touched ||
+            productForm.get('quantityInStock')?.dirty)
+        "
+      >
+        <div
+          class="alert alert-danger border-0 mt-1"
+          role="alert"
+          style="color: red"
+          *ngIf="productForm.get('quantityInStock')?.errors?.['required']"
+        >
+          Quantity is required.
+          <span style="color: gray">(ex. 1252.22)</span>
         </div>
+        <div
+          style="color: red"
+          *ngIf="productForm.get('quantityInStock')?.errors?.['min']"
+        >
+          Quantity can't be 0
+        </div>
+      </div>
+    </div>
 
-        <div>
-            <label for="categoryId">Category:</label>
-            <select class="form-select" id="categoryId" formControlName="categoryId" [(ngModel)]="product.categoryId">
-                <option value="" disabled selected>current category : {{product.categoryName}}</option>
-                @for (category of categories; track $index) {
-                <option [value]="category.id">{{ category.name }}</option>
-                }
-            </select>
-        </div>
+    <div>
+      <label for="categoryId">Category:</label>
+      <select
+        class="form-select"
+        id="categoryId"
+        formControlName="categoryId"
+        [(ngModel)]="product.categoryId"
+      >
+        <option value="" disabled selected>
+          current category : {{ product.categoryName }}
+        </option>
+        @for (category of categories; track $index) {
+        <option [value]="category.id">{{ category.name }}</option>
+        }
+      </select>
+    </div>
 
-        <div>
-            <label for="brandId">Brand:</label>
-            <select class="form-select" id="brandId" formControlName="brandId" [(ngModel)]="product.brandId">
-                <option value="" disabled selected>current brand : {{product.brandName}}</option>
-                @for (brand of brands; track $index) {
-                <option [value]="brand.id">{{ brand.name }}</option>
-                }
-            </select>
-        </div>
+    <div>
+      <label for="brandId">Brand:</label>
+      <select
+        class="form-select"
+        id="brandId"
+        formControlName="brandId"
+        [(ngModel)]="product.brandId"
+      >
+        <option value="" disabled selected>
+          current brand : {{ product.brandName }}
+        </option>
+        @for (brand of brands; track $index) {
+        <option [value]="brand.id">{{ brand.name }}</option>
+        }
+      </select>
+    </div>
 
-        <div>
-            <label for="imageFile">Main Image:</label>
-            <input id="imageFile" type="file" (change)="onFileSelect($event, 'mainImage')" />
-        </div>
+    <div>
+      <label for="imageFile">Main Image:</label>
+      <input
+        id="imageFile"
+        type="file"
+        (change)="onFileSelect($event, 'mainImage')"
+      />
+    </div>
 
-        <div>
-            <label for="imagesFiles">Additional Images:</label>
-            <input id="imagesFiles" type="file" multiple (change)="onFileSelect($event, 'additionalImages')" />
-        </div>
-        <button type="submit" [disabled]="productForm.invalid">Update Product</button>
-    </form>
+    <div>
+      <label for="imagesFiles">Additional Images:</label>
+      <input
+        id="imagesFiles"
+        type="file"
+        multiple
+        (change)="onFileSelect($event, 'additionalImages')"
+      />
+    </div>
+    <button type="submit" [disabled]="productForm.invalid">
+      Update Product
+    </button>
+  </form>
+  <button class="my-2" style="background-color: blue" (click)="goBack()">
+    Back to Products
+  </button>
 </div>
-
-
-
 
 <!-- ////////////////////////////// Discount ///////////////////////////////////////// -->
 @if (discount !=null) {
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color: #CC0C39;">
-                <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: #FFFFFF;">Add Discount</h1>
-                <button type="button" class="btn-close btn-close-custom" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-            </div>
-            <form #myForm="ngForm" (ngSubmit)="addDiscount()">
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="discountPercentage" class="col-form-label">Discount Percentage</label>
-                        <input type="number" id="discountPercentage" min="0.1" max="0.99" step="0.01"
-                            class="form-control" name="discountPercentage" [(ngModel)]="discount.discountPercentage" />
-                    </div>
-                    <div class="mb-3">
-                        <label for="startDate">Start Date</label>
-                        <input id="startDate" class="form-control" type="date" name="startDate"
-                            [(ngModel)]="discount.startDate" />
-                    </div>
-                    <div class="mb-3">
-                        <label for="endDate">End Date</label>
-                        <input id="endDate" class="form-control" type="date" name="endDate"
-                            [(ngModel)]="discount.endDate" />
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="discountStarted" name="discountStarted"
-                            [(ngModel)]="discount.discountStarted" />
-                        <label class="form-check-label" for="discountStarted">
-                            Start Discount?
-                        </label>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" (click)="resetForm()"
-                        data-bs-dismiss="modal">Delete</button>
-                    <button type="submit" data-bs-dismiss="modal" class="btn btn-danger">Add</button>
-                </div>
-            </form>
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #cc0c39">
+        <h1
+          class="modal-title fs-5"
+          id="exampleModalLabel"
+          style="color: #ffffff"
+        >
+          Add Discount
+        </h1>
+        <button
+          type="button"
+          class="btn-close btn-close-custom"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <form #myForm="ngForm" (ngSubmit)="addDiscount()">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="discountPercentage" class="col-form-label"
+              >Discount Percentage</label
+            >
+            <input
+              type="number"
+              id="discountPercentage"
+              min="0.1"
+              max="0.99"
+              step="0.01"
+              class="form-control"
+              name="discountPercentage"
+              [(ngModel)]="discount.discountPercentage"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="startDate">Start Date</label>
+            <input
+              id="startDate"
+              class="form-control"
+              type="date"
+              name="startDate"
+              [(ngModel)]="discount.startDate"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="endDate">End Date</label>
+            <input
+              id="endDate"
+              class="form-control"
+              type="date"
+              name="endDate"
+              [(ngModel)]="discount.endDate"
+            />
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="discountStarted"
+              name="discountStarted"
+              [(ngModel)]="discount.discountStarted"
+            />
+            <label class="form-check-label" for="discountStarted">
+              Start Discount?
+            </label>
+          </div>
         </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="resetForm()"
+            data-bs-dismiss="modal"
+          >
+            Delete
+          </button>
+          <button type="submit" data-bs-dismiss="modal" class="btn btn-danger">
+            Add
+          </button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
 }

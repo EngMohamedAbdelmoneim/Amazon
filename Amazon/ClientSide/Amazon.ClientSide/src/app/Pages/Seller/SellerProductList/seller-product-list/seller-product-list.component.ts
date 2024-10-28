@@ -7,14 +7,15 @@ import { ReviewService } from '../../../../Services/review.service';
 import { Review } from '../../../../Models/review';
 import { Subscription } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
-import {SellerService} from "../../../../Services/seller.service";
+import { SellerService } from '../../../../Services/seller.service';
+import { OrderService } from '../../../../Services/order.service';
 
 @Component({
   selector: 'app-admin-product-list',
   standalone: true,
-  imports: [RouterModule, CommonModule,ReactiveFormsModule],
+  imports: [RouterModule, CommonModule, ReactiveFormsModule],
   templateUrl: './seller-product-list.component.html',
-  styleUrl: './seller-product-list.component.css'
+  styleUrl: './seller-product-list.component.css',
 })
 export class SellerProductListComponent implements OnInit {
   products: Product[] = []; // Initialized as an empty array
@@ -22,33 +23,91 @@ export class SellerProductListComponent implements OnInit {
   userName: string | null = null; // Initialized to null
   selectedProductName: string | null = null;
   selectedProductId: number | null = null;
-  sub:Subscription | null = null;
+  allSellerEarnings: any | 0 = 0;
+  allProductsReviews: any | 0 = 0;
+  SoldNumber: any | 0 = 0;
+  averagePrice: any | 0 = 0;
+  sub: Subscription | null = null;
   constructor(
     private router: Router,
-    private productService: ProductService,
     private sellerService: SellerService,
-    private reviewService: ReviewService
+    private reviewService: ReviewService,
+    private orderService: OrderService
   ) {}
 
   ngOnInit(): void {
     const isAuthenticated = localStorage.getItem('isAuthenticated');
-    this.isAuthenticated = isAuthenticated ? JSON.parse(isAuthenticated) : false; // Handle potential null
+    this.isAuthenticated = isAuthenticated
+      ? JSON.parse(isAuthenticated)
+      : false; // Handle potential null
     this.userName = localStorage.getItem('userName');
 
-     this.loadSellerProducts(); // Method to load products
+    this.loadSellerProducts(); // Method to load products
+    this.loadSellerStats();
   }
+  loadSellerStats(): void {
+    let earning = {
+      totalEarnings: 0,
+    };
+    let sellerProductDetails = {
+      productId: 0,
+      productName: "",
+      earnings: 0,
+      quantitySold: 0
+    }
+    this.sub = this.sellerService.GetAllSellerEarnings().subscribe({
+      next: (data) => {
+        console.log(' seller products earning:', data);
+        earning = data;
+        this.allSellerEarnings = earning.totalEarnings;
+      },
+      error: (error) => {
+        console.error('Error loading seller products:', error);
+      },
+    });
+    this.sellerService.GetSellerAcceptedProducts().subscribe({
+      next: (datas) => {
+        datas.forEach((elm) =>{
+          this.averagePrice +=elm.price;          
+        })
+        this.averagePrice =this.averagePrice / datas.length
+        datas.forEach((elm) => {
+          this.reviewService
+            .getAllProductReviewsById(elm.id)
+            .subscribe((datar) => {
+              this.allProductsReviews += datar.length;
+            });
+        });
+      },
+      error: (error) => {
+        console.error('Error loading seller products:', error);
+      },
+    });
+    this.sellerService.GetAllSellerEarningsWithDetails().subscribe({
+      next: (data) => {
+        console.log('asdadadadadaadsadd:', data);
+        data.forEach((elm) =>{
+          this.SoldNumber +=elm.quantitySold;          
+        })
 
+      },
+      error: (error) => {
+        console.error('Error loading seller products:', error);
+      },
+    });
+  }
   loadSellerProducts(): void {
     this.sub = this.sellerService.GetSellerProducts().subscribe({
       next: (data: Product[]) => {
-        console.log(data)
+        console.log(data);
         this.products = data; // Assuming data is of type Product[]
       },
       error: (error) => {
         console.error('Error loading seller products:', error);
-      }
+      },
     });
   }
+
   add(product: Product): void {
     const serializedObject = encodeURIComponent(JSON.stringify(product));
     this.router.navigate(['/seller/edit-product', serializedObject]);
@@ -65,13 +124,13 @@ export class SellerProductListComponent implements OnInit {
   }
 
   deleteProduct(id: number): void {
-    this.productService.DeleteProduct(id).subscribe({
+    this.sellerService.DeleteProduct(id).subscribe({
       next: () => {
-        this.products = this.products.filter(product => product.id !== id);
+        this.products = this.products.filter((product) => product.id !== id);
       },
       error: (error) => {
         console.error('Error deleting product:', error);
-      }
+      },
     });
   }
 

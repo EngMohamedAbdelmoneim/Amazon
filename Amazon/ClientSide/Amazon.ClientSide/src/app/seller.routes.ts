@@ -11,12 +11,14 @@ import {
 import {
   UnverifiedProductsComponent
 } from "./Pages/Seller/SellerProductList/unverified-products/unverified-products.component";
+import { SellerProductsEarningsDetailsComponent } from './Pages/Seller/SellerProductList/seller-products-earnings-details/seller-products-earnings-details.component';
 
 export const Seller_Routes: Routes =
 [
     { path: 'product-list', component: SellerProductListComponent , canActivate: [sellerGuard]},
     { path: 'verified-product-list', component: VerifiedProductsComponent , canActivate: [sellerGuard]},
     { path: 'unverified-product-list', component: UnverifiedProductsComponent , canActivate: [sellerGuard]},
+    { path: 'seller-products-earnings-details', component: SellerProductsEarningsDetailsComponent , canActivate: [sellerGuard]},
     { path: 'add-product', component: SellerAddProductComponent },
     { path: 'edit-product/:product', component: SellerEditProductComponent },
     { path: 'product-details/:id', component: SellerProductDetailsComponent },

@@ -1,0 +1,41 @@
+<main class="p-4">
+    <h1  class="p-3 mb-2 bg-warning text-dark">Products Earnings</h1>
+    <section>
+      <div *ngIf="productsDetails.length > 0" style="width: 100%;" class="table-container" >
+        <table class="table table-striped">
+  
+          <thead class="table-dark">
+            <tr>
+              <th>productId</th>
+              <th>productName</th>
+              <th>earnings</th>
+              <th>quantitySold</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of productsDetails">
+              <td>{{ product.productId }}</td>
+              <td>{{ product.productName }}</td>
+              <td>{{ product.earnings | currency }}</td>
+              <td>{{ product.quantitySold }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex flex-column justify-content-center align-items-center" *ngIf="productsDetails.length == 0">
+        <table class="product-table">
+          <thead>
+            <tr>
+              <th>Product Name</th>
+              <th>Brand</th>
+              <th>Price</th>
+              <th>Category</th>
+            </tr>
+          </thead>
+        </table>
+        <img src="No_Product_Found.png" style="text-align: center; width: 100%;" alt="">
+      </div>
+  
+    </section>
+  </main>
+  

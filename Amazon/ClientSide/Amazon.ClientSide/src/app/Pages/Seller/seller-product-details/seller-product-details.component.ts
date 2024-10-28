@@ -22,7 +22,6 @@ export class SellerProductDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private productService: ProductService,
     private sellerService: SellerService,
     private reviewService: ReviewService,
   ) {}

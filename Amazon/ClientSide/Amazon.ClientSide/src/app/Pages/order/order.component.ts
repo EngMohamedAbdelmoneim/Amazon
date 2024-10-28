@@ -8,16 +8,22 @@ import { Address } from '../../Models/address';
 import { CookieService } from 'ngx-cookie-service';
 import { CartService } from '../../Services/cart.service';
 import { Router, RouterModule } from '@angular/router';
-import { loadStripe, Stripe, StripeCardCvcElement, StripeCardExpiryElement, StripeCardNumberElement } from '@stripe/stripe-js'
+import {
+  loadStripe,
+  Stripe,
+  StripeCardCvcElement,
+  StripeCardExpiryElement,
+  StripeCardNumberElement,
+} from '@stripe/stripe-js';
 import { Cart } from '../../Models/cart';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [FormsModule,CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [FormsModule, CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './order.component.html',
-  styleUrl: './order.component.css'
+  styleUrl: './order.component.css',
 })
 export class OrderComponent  implements OnInit
 {
@@ -68,81 +74,133 @@ export class OrderComponent  implements OnInit
 
   cardNumber?: StripeCardNumberElement;
   cardExpiry?: StripeCardExpiryElement;
-  cardCvc?: StripeCardCvcElement
+  cardCvc?: StripeCardCvcElement;
   cardErrors: any;
 
   TempTotal: number;
   Items: number;
 
-constructor(private orderService:OrderService, private cookieService: CookieService, private cartService: CartService, private toastr: ToastrService, private router:Router) {}
+  constructor(
+    private orderService: OrderService,
+    private cookieService: CookieService,
+    private cartService: CartService,
+    private toastr: ToastrService,
+    private router: Router
+  ) {}
 
-ngOnInit()
-{
+  ngOnInit() {
+    // console.log(this.cartId)
 
-  // console.log(this.cartId)
+    this.cartId = this.cookieService.get('guid');
 
-  this.cartId = this.cookieService.get('guid');
+    this.cartSub = this.cartService
+      .getAllFromCart(`cart-${this.cartId}`)
+      .subscribe({
+        next: (d) => {
+          this.cart = d;
+          // console.log('this is the cart', this.cart);
+          this.Total = d.items.reduce(
+            (sum, item) => sum + item.price * item.quantity,
+            0
+          );
+          this.Items = d.items.reduce((sum, item) => sum + item.quantity, 0);
+          this.TempTotal = this.Total;
+          // console.log(this.Total)
+        },
+        error: (e) => {
+          console.log(e);
+        },
+      });
 
-  this.cartSub = this.cartService.getAllFromCart(`cart-${this.cartId}`).subscribe({
-    next: d => {
-      this.cart = d;
-      // console.log('this is the cart', this.cart);
-      this.Total = d.items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-      this.Items = d.items.reduce((sum, item) => sum + item.quantity, 0)
-      this.TempTotal = this.Total;
-      // console.log(this.Total)
-    },
-    error: e => {
-      console.log(e)
-    }
-  })
+    this.Addresssub = this.orderService.getAddresses().subscribe({
+      next: (d) => {
+        console.log('adresses', d);
+        // this line breaks the page, can't remember why I wrote it
+        // this.order.UserAddress = [...d];
+        /////////////////////////////////////////////////////////
+        this.currentShippingAddress = d[0];
+        this.selectedShippingAddress = d[0];
+        // this.OrderTest.AddresId = this.selectedShippingAddress.id;
 
-  this.Addresssub = this.orderService.getAddresses().subscribe({
-    next: d =>
-    {
-      console.log('adresses',d)
-      // this line breaks the page, can't remember why I wrote it
-      // this.order.UserAddress = [...d];
-      /////////////////////////////////////////////////////////
-      this.currentShippingAddress = d[0];
-      this.selectedShippingAddress = d[0];
-      // this.OrderTest.AddresId = this.selectedShippingAddress.id;
-
-      this.DeliverySub = this.orderService.getDeliveryMethods().subscribe({
-        next: d => {
-          this.DeliveryMethods = d;
-          this.PaymentMethods = this.orderService.getPaymentMethods().subscribe({
-            next: d => {
-              this.PaymentMethods = d;
-            }
-          })
-
-        }
-      })
-    },
-    error: () =>
-    {
-      this.toastr.error('No Address was Found');
-      setTimeout(() => {
-        this.router.navigateByUrl('/manage-address-book')
-      }, 2000);
-    }
-  })
-}
+        this.DeliverySub = this.orderService.getDeliveryMethods().subscribe({
+          next: (d) => {
+            this.DeliveryMethods = d;
+            this.PaymentMethods = this.orderService
+              .getPaymentMethods()
+              .subscribe({
+                next: (d) => {
+                  this.PaymentMethods = d;
+                },
+              });
+          },
+        });
+      },
+      error: () => {
+        this.toastr.error('No Address was Found');
+        setTimeout(() => {
+          this.router.navigateByUrl('/manage-address-book');
+        }, 2000);
+      },
+    });
+  }
 
   // #region Payment Methods
 
-  async onSubmit()
-  {
+  async onSubmit() {
+    this.cartSub = this.cartService
+      .getAllFromCart(`cart-${this.cartId}`)
+      .subscribe({
+        next: (d) => {
+          this.cart = d;
+          console.log(this.cart);
+          this.cart.shippingPrice = this.DeliveryValue;
+          this.cart.deliveryMethodId = this.DeliveryMethodId;
 
-    this.cartSub = this.cartService.getAllFromCart(`cart-${this.cartId}`).subscribe({
-      next: d => {
-        this.cart = d;
-        console.log(this.cart)
-        this.cart.shippingPrice = this.DeliveryValue;
-        this.cart.deliveryMethodId = this.DeliveryMethodId;
+          console.log('this is the cart', this.cart);
 
-        console.log('this is the cart', this.cart);
+          this.stripe
+            .confirmCardPayment(this.cart.clientSecret, {
+              payment_method: {
+                card: this.cardNumber,
+                // billing_details: {
+                //   name: this.OnlinePaymentForm?.get('paymentForm')?.get('nameOnCard')?.value
+                // }
+              },
+            })
+            .then((res) => {
+              if (res.paymentIntent) {
+                this.orderService
+                  .placeOrder(
+                    `cart-${this.cookieService.get('guid')}`,
+                    this.cart.deliveryMethodId,
+                    2,
+                    this.currentShippingAddress.id
+                  )
+                  .subscribe({
+                    next: (d) => {
+                      console.log(d);
+                      this.cartService.removeCart(
+                        `cart-${this.cookieService.get('guid')}`
+                      );
+                      this.toastr.success('Payment Successful', 'Success', {
+                        positionClass: 'toast-bottom-right',
+                      });
+                      setTimeout(() => {
+                        window.location.href = 'http://localhost:4200';
+                      }, 1000);
+                    },
+                    error: (e) => {
+                      console.log(e);
+                      this.toastr.error('Pyament Failed', 'Failed', {
+                        positionClass: 'toast-bottom-right',
+                      });
+                      // this.cookieService.delete('Qnt')
+                      // this.toastr.success("Payment Successful", "Success", {positionClass:'toast-bottom-right'})
+                      // window.location.href = 'http://localhost:4200';
+                    },
+                  });
+              }
+            });
 
         this.stripe.confirmCardPayment(this.cart.clientSecret, {
           payment_method: {
@@ -179,50 +237,46 @@ ngOnInit()
     })
   }
 
-  paymentMethodChoice(paymentMethodId: number)
-  {
-
-    if(paymentMethodId == 2)
-    {
-      console.log(this.cart)
+  paymentMethodChoice(paymentMethodId: number) {
+    if (paymentMethodId == 2) {
+      console.log(this.cart);
       let cartId = this.cookieService.get('guid');
 
       this.cartService.createPaymentIntent(`cart-${cartId}`).subscribe({
         next: (res) => {
           console.log('success');
         },
-        error: (e) => console.log(e)
-      })
+        error: (e) => console.log(e),
+      });
 
-      loadStripe("pk_test_51QBxlsGxfUlD5tIRm7qqPS3KLHioihsPUsHSOxHy5pbXi4tdXhrdneN8z9epNWHNczPjc10Jyt20GIgQLJhjmg9X001nO7NxRt")
-      .then(stripe => {
+      loadStripe(
+        'pk_test_51QEbcUJ8s6fJIEi4nxLYfPMnQ5nJ7cumJ7wKPm0VU6pE5bSJcbD05dQPaVkFKzZ5QiQvqbQrBorK0Fbk9tFe8kS000H6RtFJEj'
+      ).then((stripe) => {
         this.stripe = stripe;
         const elements = stripe?.elements();
-        if(elements)
-        {
+        if (elements) {
           this.cardNumber = elements.create('cardNumber');
           this.cardNumber.mount(this.cardNumberElement?.nativeElement);
-          this.cardNumber.on('change', e => {
-            if(e.error) this.cardErrors = e.error.message;
+          this.cardNumber.on('change', (e) => {
+            if (e.error) this.cardErrors = e.error.message;
             else this.cardErrors = null;
-          })
+          });
 
           this.cardExpiry = elements.create('cardExpiry');
           this.cardExpiry.mount(this.cardExpiryElement?.nativeElement);
-          this.cardExpiry.on('change', e => {
-            if(e.error) this.cardErrors = e.error.message;
+          this.cardExpiry.on('change', (e) => {
+            if (e.error) this.cardErrors = e.error.message;
             else this.cardErrors = null;
-          })
+          });
 
           this.cardCvc = elements.create('cardCvc');
           this.cardCvc.mount(this.cardCvcElement?.nativeElement);
-          this.cardCvc.on('change', e => {
-            if(e.error) this.cardErrors = e.error.message;
+          this.cardCvc.on('change', (e) => {
+            if (e.error) this.cardErrors = e.error.message;
             else this.cardErrors = null;
-          })
-
+          });
         }
-      })
+      });
     }
   }
 
@@ -263,32 +317,22 @@ ngOnInit()
 
   // #endregion
 
-
-  ToggleDropdown(): void
-  {
+  ToggleDropdown(): void {
     this.showDropDown = !this.showDropDown;
   }
 
-
-  OpenCardInfo(): void
-  {
+  OpenCardInfo(): void {
     this.showCardForm = !this.showCardForm;
   }
 
-  updateButton()
-  {
-    if (this.isAddressChanged)
-    {
+  updateButton() {
+    if (this.isAddressChanged) {
       this.buttonLabel = 'Use This Address';
       this.buttonColor = 'yellow';
-    }
-    else if (this.isPaymentChanged)
-    {
+    } else if (this.isPaymentChanged) {
       this.buttonLabel = 'Use This Payment Method';
       this.buttonColor = 'yellow';
-    }
-    else
-    {
+    } else {
       this.buttonLabel = 'Use This Payment Method';
       this.buttonColor = '';
     }
@@ -298,7 +342,7 @@ ngOnInit()
   {
     this.currentShippingAddress = this.selectedShippingAddress;
     // if(this.selectedShippingAddress){
-    console.log('Selected Address:',this.selectedShippingAddress)
+    console.log('Selected Address:', this.selectedShippingAddress);
     //this.selectedShippingAddress = address;
     // this.selectedShippingAddress = this.selectedShippingAddress;
     //this.order.UserAddress[0] = this.selectedShippingAddress;

@@ -8,10 +8,9 @@ import { Cart } from '../Models/cart';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class CartService
-{
+export class CartService {
   private cartProductSource = new BehaviorSubject<any[]>([]);
   cartProduct$ = this.cartProductSource.asObservable();
 
@@ -23,152 +22,154 @@ export class CartService
   sub: Subscription | null = null;
   ClientSecret: string;
 
-  constructor(private http: HttpClient, public cookieService: CookieService,public toastr:ToastrService) { }
+  constructor(
+    private http: HttpClient,
+    public cookieService: CookieService,
+    public toastr: ToastrService
+  ) {}
 
-  updateCart(cartProducts: any[])
-  {
+  updateCart(cartProducts: any[]) {
     this.cartProductSource.next(cartProducts);
     this.CartQnt();
   }
 
-  updateCartQnt(cartQnt: number)
-  {
+  updateCartQnt(cartQnt: number) {
     this.cartQntSource.next(cartQnt);
   }
 
-  addToCart(cartId: string, cartItam: any)
-  {
+  addToCart(cartId: string, cartItam: any) {
     this.sub = this.getAllFromCart(cartId).subscribe({
-      next: data =>
-      {
-        if (data != null)
-        {
-          console.log(data.items)
+      next: (data) => {
+        if (data != null) {
+          console.log(data.items);
           const updatedProducts = [...data.items, cartItam];
-          console.log("products :", updatedProducts)
+          console.log('products :', updatedProducts);
           this.updateCart(updatedProducts);
           this.setToCart(cartId, updatedProducts);
-        }
-        else
-        {
+        } else {
           this.updateCart([cartItam]);
           this.setToCart(cartId, [cartItam]);
         }
-      }
+      },
     });
   }
 
-  updateCartWithItem(cartId: string, newItem: CartItem): void
-  {
-    this.getAllFromCart(cartId).subscribe(cartData => {
-      if (cartData != null)
-      {
+  updateCartWithItem(cartId: string, newItem: CartItem): void {
+    this.getAllFromCart(cartId).subscribe((cartData) => {
+      if (cartData != null) {
         let cart = cartData.items;
 
-        const existingItemIndex = cart.findIndex(item => item.id === newItem.id);
+        const existingItemIndex = cart.findIndex(
+          (item) => item.id === newItem.id
+        );
 
         if (existingItemIndex !== -1) {
-          console.log("old qnt:", cart[existingItemIndex].quantity);
-          console.log("new qnt:", newItem.quantity);
-          if ((cart[existingItemIndex].quantity) + Number(newItem.quantity) <= 10) {
+          console.log('old qnt:', cart[existingItemIndex].quantity);
+          console.log('new qnt:', newItem.quantity);
+          if (
+            cart[existingItemIndex].quantity + Number(newItem.quantity) <=
+            10
+          ) {
             cart[existingItemIndex].quantity += Number(newItem.quantity);
-          }
-          else {
+          } else {
             cart[existingItemIndex].quantity = 10;
           }
-          console.log(`Item exists, new quantity: ${cart[existingItemIndex].quantity}`);
+          console.log(
+            `Item exists, new quantity: ${cart[existingItemIndex].quantity}`
+          );
         } else {
           cart.push(newItem);
           console.log(`Item added to the cart: ${newItem.productName}`);
         }
         this.updateCart(cart);
         this.setToCart(cartId, cart);
-      }
-      else
-      {
+      } else {
         this.addToCart(cartId, newItem);
       }
     });
   }
 
-  updateCartItemQnt(cartId: string, newItem: CartItem): void
-  {
-    if (newItem.quantity != 0)
-    {
-      this.getAllFromCart(cartId).subscribe(cartData =>
-      {
+  updateCartItemQnt(cartId: string, newItem: CartItem): void {
+    if (newItem.quantity != 0) {
+      this.getAllFromCart(cartId).subscribe((cartData) => {
         let cart = cartData.items;
 
-        const existingItemIndex = cart.findIndex(item => item.id === newItem.id);
-        console.log("old qnt:", cart[existingItemIndex].quantity);
-        console.log("new qnt:", newItem.quantity);
+        const existingItemIndex = cart.findIndex(
+          (item) => item.id === newItem.id
+        );
+        console.log('old qnt:', cart[existingItemIndex].quantity);
+        console.log('new qnt:', newItem.quantity);
         cart[existingItemIndex].quantity = newItem.quantity;
-        console.log(`Item exists, new quantity: ${cart[existingItemIndex].quantity}`);
+        console.log(
+          `Item exists, new quantity: ${cart[existingItemIndex].quantity}`
+        );
         this.updateCart(cart);
         this.setToCart(cartId, cart);
       });
-    }
-    else
-    {
+    } else {
       this.removeFromCart(cartId, newItem.id);
     }
   }
 
-  CartQnt()
-  {
-    console.log("cart qtn loaded");
+  CartQnt() {
+    console.log('cart qtn loaded');
     this.cartProduct$.subscribe({
-      next: data =>
-      {
+      next: (data) => {
         let Qnt: number = 0;
         if (data != null) {
-          data.forEach(item => {
+          data.forEach((item) => {
             Qnt += Number(item.quantity);
           });
           this.updateCartQnt(Qnt);
-          this.cookieService.set('Qnt', String(Qnt), { expires: 30, path: '/' });
+          this.cookieService.set('Qnt', String(Qnt), {
+            expires: 30,
+            path: '/',
+          });
         }
         this.updateCartQnt(Qnt);
         this.cookieService.set('Qnt', String(Qnt), { expires: 30, path: '/' });
-      }
-    })
+      },
+    });
   }
-
 
   // #region API Methods
 
-  setToCart(cartId: string, cartItems: any)
-  {
+  setToCart(cartId: string, cartItems: any) {
     console.log(this.cartProductSource.getValue());
-    return this.http.post<any>(`https://localhost:7283/api/Cart/SetCart?cartId=${cartId}`, { id: cartId, items: cartItems })
+    return this.http
+      .post<any>(`https://localhost:7283/api/Cart/SetCart?cartId=${cartId}`, {
+        id: cartId,
+        items: cartItems,
+      })
       .pipe(
-        catchError((error) =>
-        {
+        catchError((error) => {
           console.error('Error setting cart:', error);
-          this.toastr.error("Failed", "Error", {positionClass:'toast-bottom-right'})
+          this.toastr.error('Failed', 'Error', {
+            positionClass: 'toast-bottom-right',
+          });
           return of(null);
         })
-      ).subscribe(response =>
-      {
+      )
+      .subscribe((response) => {
         if (response) {
           console.log('Cart updated successfully:', response);
-          this.toastr.success("Success", "Success", {positionClass:'toast-bottom-right'})
+          this.toastr.success('Success', 'Success', {
+            positionClass: 'toast-bottom-right',
+          });
         }
       });
   }
 
-  getAllFromCart(cartId: string): Observable<any>
-  {
-    return this.http.get<any>(`https://localhost:7283/api/Cart/GetCartById/${cartId}`, { params: { cartId: `${cartId}` } })
+  getAllFromCart(cartId: string): Observable<any> {
+    return this.http
+      .get<any>(`https://localhost:7283/api/Cart/GetCartById/${cartId}`, {
+        params: { cartId: `${cartId}` },
+      })
       .pipe(
-        catchError((error) =>
-        {
-          if (error.status === 400 || error.status === 404)
-          {
+        catchError((error) => {
+          if (error.status === 400 || error.status === 404) {
             return of(null);
-          }
-          else
-          {
+          } else {
             console.error('Error fetching cart data:', error);
             return of(null);
           }
@@ -176,75 +177,71 @@ export class CartService
       );
   }
 
-  deleteCart(cartId: string)
-  {
-    return this.http.delete<any>(`https://localhost:7283/api/Cart/DeleteCart/${cartId}`)
+  deleteCart(cartId: string) {
+    return this.http
+      .delete<any>(`https://localhost:7283/api/Cart/DeleteCart/${cartId}`)
       .pipe(
-        catchError((error) =>
-        {
+        catchError((error) => {
           console.error('Error deleting cart:', error);
-          this.toastr.error("Failed", "Failed", {positionClass:'toast-bottom-right'})
+          this.toastr.error('Failed Deleting Cart', 'Failed Cart', {
+            positionClass: 'toast-bottom-right',
+          });
           return of(null); // Handle error
         })
       );
   }
 
-  removeFromCart(cartId: string, productId: Number)
-  {
+  removeFromCart(cartId: string, productId: Number) {
     const currentProducts = this.cartProductSource.getValue();
-    console.log("cart for deleting", currentProducts)
-    if (currentProducts.length > 1)
-    {
-      const updatedProducts = currentProducts.filter(item => item.id !== productId);
-      this.updateCart(updatedProducts);
-      this.setToCart(cartId, updatedProducts);
-    }
-    else
-    {
-      this.deleteCart(cartId).subscribe(p =>
-      {
-        this.toastr.success("Deleted Successfully", "Success", {positionClass:'toast-bottom-right'})
-       });
-      const updatedProducts = [];
-      this.updateCart(updatedProducts);
-      this.cookieService.delete('Qnt', '/');
-      this.updateCartQnt(0);
-      console.log("is/Empty");
-    }
-  }
-
-  removeCart(cartId: string)
-  {
-    this.deleteCart(cartId).subscribe(p => { });
-    const updatedProducts = [];
+    console.log('cart for deleting', currentProducts);
+    const updatedProducts = currentProducts.filter(
+      (item) => item.id !== productId
+    );
     this.updateCart(updatedProducts);
-    this.cookieService.delete('Qnt', '/');
-    this.updateCartQnt(0);
-    console.log("is/Empty");
+    this.setToCart(cartId, updatedProducts);
   }
 
+  removeCart(cartId: string) {
+    this.deleteCart(cartId).subscribe({
+      next: (response) => {
+        this.cartProductSource.next([]);
+        this.cookieService.delete('Qnt', '/');
+        this.updateCartQnt(0);
+        console.log('is/Empty');
+        this.toastr.success('Success', 'Success', {
+          positionClass: 'toast-bottom-right',
+        });
+      },
+      error: error =>{
+        console.error('Error deleting cart:', error);
+          this.toastr.error('Failed Deleting Cart', 'Failed Cart', {
+            positionClass: 'toast-bottom-right',
+          });
+      }
+    });
+  }
 
   // #endregion
 
-  calculateSubtotal(cart: Cart)
-  {
+  calculateSubtotal(cart: Cart) {
     let Total = 0;
-    Total = cart.items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+    Total = cart.items.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
   }
-
 
   ///////////////////////// Payment Methods /////////////////////////
 
-
-  createPaymentIntent(cartId: string)
-  {
-    return this.http.post<Cart>('https://localhost:7283/api/Payments/' + cartId, {})
-    .pipe(
-      map(cart => {
-        this.basketSource.next(cart);
-        this.ClientSecret = cart.clientSecret;
-        console.log(cart)
-      })
-    )
+  createPaymentIntent(cartId: string) {
+    return this.http
+      .post<Cart>('https://localhost:7283/api/Payments/' + cartId, {})
+      .pipe(
+        map((cart) => {
+          this.basketSource.next(cart);
+          this.ClientSecret = cart.clientSecret;
+          console.log(cart);
+        })
+      );
   }
 }
