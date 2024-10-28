@@ -7,16 +7,13 @@
         <thead>
             <tr>
                 <th>
-                    Display Name
-                </th>
-                <th>
-                    Email
-                </th>
-                <th>
                     Seller Name
                 </th>
                 <th>
-                    Phone Number
+                    Display Name
+                </th>
+                <th>
+                    Status
                 </th>
                 <th>
                     Options
@@ -24,25 +21,28 @@
             </tr>
         </thead>
         <tbody>
-    @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DisplayName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SellerName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PhoneNumber)
-                </td>
-                <td>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">🗑️</a>
-                </td>
-            </tr>
-    }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SellerName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DisplayName)
+                    </td>
+                    <td>
+                        @(item.IsActiveSeller ? "Verified" : "Unverified")
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info" title="View Details">
+                            📄
+                        </a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" title="Delete Seller">
+                            🗑️
+                        </a>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>

@@ -69,8 +69,9 @@ namespace AdminWebApplication.Controllers
                     QuantityInStock = productDto.QuantityInStock,
                     BrandId = productDto.BrandId,
                     CategoryId = productDto.CategoryId,
-                    SellerEmail = "admin@amazon.com",
-                    SellerName = "Amazon"
+                    SellerEmail = "Admin@gmail.com",
+                    SellerName = "Amazon",
+                    IsAccepted = true
                 };
 
                 // Define the main image folder path

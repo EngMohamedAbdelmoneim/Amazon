@@ -9,10 +9,22 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SellerName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SellerName)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.DisplayName)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DisplayName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PhoneNumber)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Email)
@@ -21,10 +33,10 @@
             @Html.DisplayFor(model => model.Email)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SellerName)
+            @Html.DisplayNameFor(model => model.IsActiveSeller)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SellerName)
+            @(Model.IsActiveSeller ? "Yes" : "No")
         </dd>
     </dl>
 

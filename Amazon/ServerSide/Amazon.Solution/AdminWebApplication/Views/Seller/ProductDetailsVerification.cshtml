@@ -1,0 +1,75 @@
+﻿@model Amazon.Services.ProductService.Dto.ProductToReturnDto
+
+
+<h1>Details for Verification</h1>
+
+<div>
+    <img src="~/Amazon.API/Files/productImages/@Model.PictureUrl" alt="@Model.PictureUrl" width="380px" />
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Name
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Name
+        </dd>
+        <dt class="col-sm-2">
+            Description
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Description
+        </dd>
+        <dt class="col-sm-2">
+            Price
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Price
+        </dd>
+        <dt class="col-sm-2">
+            PictureUrl
+        </dt>
+        <dd class="col-sm-10">
+            @Model.PictureUrl
+        </dd>
+        <dt class="col-sm-2">
+            QuantityInStock
+        </dt>
+        <dd class="col-sm-10">
+            @Model.QuantityInStock
+        </dd>
+        <dt class="col-sm-2">
+            Category
+        </dt>
+        <dd class="col-sm-10">
+            @Model.CategoryName
+        </dd>
+        <dt class="col-sm-2">
+            Brand
+        </dt>
+        <dd class="col-sm-10">
+            @Model.BrandName
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsAccepted)
+        </dt>
+        <dd class="col-sm-10">
+            @(Model.IsAccepted ? "Yes" : "No")
+            <div class="mt-2">
+                @if (Model.IsAccepted)
+                {
+                    <!-- Unverify Button -->
+                    <form asp-action="ToggleAcceptance" asp-route-id="@Model.Id" method="post">
+                        <button type="submit" class="btn btn-warning">Reject Product</button> 
+                    </form>
+                }
+                else
+                {
+                    <!-- Verify Button -->
+                    <form asp-action="ToggleAcceptance" asp-route-id="@Model.Id" method="post">
+                        <button type="submit" class="btn btn-success">Accept Product</button> 
+                    </form>
+                }
+            </div>
+        </dd>
+    </dl>
+</div>

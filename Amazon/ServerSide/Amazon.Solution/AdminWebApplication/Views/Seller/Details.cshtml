@@ -1,0 +1,112 @@
+﻿@model SellerDetailsViewModel
+
+<div>
+    <h4>Seller Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Seller.SellerName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Seller.SellerName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Seller.DisplayName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Seller.DisplayName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Seller.PhoneNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Seller.PhoneNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Seller.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Seller.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Seller.IsActiveSeller)
+        </dt>
+        <dd class="col-sm-10">
+            @(Model.Seller.IsActiveSeller ? "Yes" : "No")
+            <div class="mt-2">
+                @if (Model.Seller.IsActiveSeller)
+                {
+                    <!-- Unverify Button -->
+                    <form asp-action="ToggleVerification" asp-route-id="@Model.Seller.Id" method="post">
+                        <button type="submit" class="btn btn-warning">Unverify Seller</button> |
+                        <a asp-action="Index">Back to List</a>
+                    </form>
+                }
+                else
+                {
+                    <!-- Verify Button -->
+                    <form asp-action="ToggleVerification" asp-route-id="@Model.Seller.Id" method="post">
+                        <button type="submit" class="btn btn-success">Verify Seller</button> |
+                        <a asp-action="Index">Back to List</a>
+                    </form>
+                }
+            </div>
+        </dd>
+    </dl>
+</div>
+
+<hr />
+
+<h4>Seller's Products</h4>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                Product Name
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Options
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Products.Any())
+        {
+            @foreach (var product in Model.Products)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => product.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => product.Price)
+                    </td>
+                    <td>
+                        @(product.IsAccepted ? "Accepted" : "Unaccepted")
+                    </td>
+                    <td>
+                        <i class="fas fa-cog"></i>
+                        <a asp-action="ToggleAcceptance" asp-route-id="@product.Id" class="btn bg-secondary">
+                            🛠️
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-center">
+                    <em>No products found for this seller.</em>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
