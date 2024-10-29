@@ -38,3 +38,8 @@ main
         }
     }
 }
+
+.dangerz{
+    background: rgb(190, 69, 69) !important;
+    color: white;
+}

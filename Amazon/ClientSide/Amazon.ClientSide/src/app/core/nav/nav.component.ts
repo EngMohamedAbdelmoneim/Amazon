@@ -9,6 +9,8 @@ import { CartService } from '../../Services/cart.service';
 import { CookieService } from 'ngx-cookie-service';
 import { AccountService } from '../../Services/account.service';
 import { AddressFormComponent } from '../../Pages/address-form/address-form.component';
+import { AddressService } from '../../Services/address.service';
+import { Address } from '../../Models/address';
 
 @Component({
   selector: 'app-nav',
@@ -24,7 +26,8 @@ export class NavComponent implements OnInit {
     public guidService: GuidService,
     public cartService: CartService,
     private cookieService: CookieService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private addressService: AddressService
   ) { }
 
   addressFormVisible: boolean = false;
@@ -35,10 +38,13 @@ export class NavComponent implements OnInit {
   cartQnt: number;
   isAuthenticated: boolean;
   userName: string | null;
+  savedAddresses: Address[] = [];
 
   ngOnInit(): void {
     this.isAuthenticated = JSON.parse(localStorage.getItem('isAuthenticated'));
     this.userName = localStorage.getItem('userName');
+
+    this.fetchSavedAddresses();
 
 
     this.cartService.cartQnt.subscribe({
@@ -112,4 +118,18 @@ export class NavComponent implements OnInit {
   }
 
     protected readonly localStorage = localStorage;
+
+
+  fetchSavedAddresses(): void
+  {
+    this.addressService.getSavedAddresses().subscribe(
+      (addresses) => {
+        console.log(addresses);
+        this.savedAddresses = addresses;
+      },
+      (error) => {
+        console.error('Error fetching addresses:', error);
+      }
+    );
+  }
 }
