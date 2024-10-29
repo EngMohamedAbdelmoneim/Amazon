@@ -97,7 +97,8 @@ export class CartComponent implements OnInit
       });
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy(): void
+  {
     if (this.subCart) {
       this.subCart.unsubscribe();
     }

@@ -16,24 +16,24 @@
         left:50%;
         transform:translate(-50%,-50%);*/
         display: flex;
-        flex-direction: column;   
-        height: 500px; 
+        flex-direction: column;
+        height: 500px;
         width: 375px;
         background-color: white;
         border-radius: 8px;
         /* padding: 10px; */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         /* max-width: none; */
         max-height: 85vh;
         z-index: 1001;
         overflow-y: auto;
-    
+
         .popup-header{
             background-color: #d5d9d9;
             padding: 25px;
             border-radius: 8px 8px 0 0;
             text-align: center;
-    
+
             /* width: 345px; */
             h2{
                 color: black;
@@ -43,7 +43,7 @@
                 text-align: center;
                 margin: 0;
             }
-    
+
             button{
                 position: absolute;
                 top: 20px;
@@ -54,19 +54,19 @@
                 cursor: pointer;
                 color: #494141;
             }
-    
+
             button:hover {
                 color: #b90707;
             }
         }
     }
-    
+
 }
 
 .saved-addresses {
     flex-grow: 1;
     overflow-y: auto;
-    
+
     .container{
         display:flex;
         flex-direction: column;
@@ -132,19 +132,19 @@
         .form-buttons{
             display: flex;
             justify-content: flex-end;
-            padding: 10px; 
+            padding: 10px;
 
             .use-address {
                 background-color: #ffd814;
                 color: black;
-                border-radius: 100px; 
+                border-radius: 100px;
                 padding: 0;
                 height: 35px;
                 width: 50px;
                 font-size: 14px;
-                border: 1px solid #ffd814; 
+                border: 1px solid #ffd814;
                 cursor: pointer;
-                position: relative; 
+                position: relative;
                 transition: background-color 0.3s ease;
             }
 
@@ -168,7 +168,7 @@
     .popup-header {
         padding: 15px;
         h2 {
-            font-size: 18px; 
+            font-size: 18px;
         }
     }
 
@@ -177,8 +177,8 @@
     }
 
     .form-buttons .use-address {
-        height: 30px; 
-        width: 70px; 
+        height: 30px;
+        width: 70px;
         font-size: 12px;
     }
 }
@@ -186,20 +186,20 @@
 
 @media (min-width: 768px) and (max-width: 1024px) {
     .popub-box {
-        width: 85%; 
-        height: auto; 
+        width: 85%;
+        height: auto;
         max-height: 85vh;
     }
 
     .popup-header {
-        padding: 20px; 
+        padding: 20px;
         h2 {
             font-size: 22px;
         }
     }
 
     .form-buttons .use-address {
-        height: 35px; 
+        height: 35px;
         width: 80px;
         font-size: 14px;
     }
@@ -221,7 +221,7 @@
     }
 
     .form-buttons .use-address {
-        height: 40px; 
+        height: 40px;
         width: 100px;
         font-size: 16px;
     }
@@ -238,4 +238,3 @@
 
 
 
-  

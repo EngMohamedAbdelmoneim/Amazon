@@ -46,6 +46,11 @@ export class OrderService
     return this.http.get<Array<MyOrder>>('https://localhost:7283/api/Order');
   }
 
+  getOrderById(Id: string)
+  {
+    return this.http.get<Order>('https://localhost:7283/api/Order/' + Id);
+  }
+
   // endregion
 
   // region Post Methods

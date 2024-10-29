@@ -2,7 +2,7 @@ main
 {
     .order-item
     {
-        width: 80%;
+        width: 60%;
         margin-inline: auto;
         border: 1px solid #ddd;
         border-radius: 0.5em;

@@ -1,0 +1,65 @@
+<main class="p-4">
+  <h1>Order Details</h1>
+  Ordered On {{order.orderDate | date:'dd MMMM yyyy' }}
+  <div class="Order-Container rounded p-4">
+
+    <div style="display: flex; flex-direction: column">
+      <h6>Shipping Address</h6>
+      <span>{{address.firstName}} {{address.lastName}}</span>
+      <span>{{address.streetAddress}}</span>
+      <span>{{address.governorate}}, {{address.city}}, {{address.district}}</span>
+      <span>{{address.country}}</span>
+    </div>
+
+    <div>
+      <h6>Payment Method</h6>
+      {{order.paymentMethod.name}}
+    </div>
+
+    <div>
+      <h6>Order Summary</h6>
+
+      <div style="display: flex; justify-content: space-between; min-width: 250px;">
+
+        <div style="display:flex; flex-direction: column">
+          <span>Subtotal:</span>
+          <span>Shipping Cost:</span>
+          <span>Total:</span>
+        </div>
+
+        <div style="display:flex; flex-direction: column">
+          <span>{{order.subTotal | currency: 'EGP'}}</span>
+          <span>{{order.shippingPrice | currency: 'EGP'}}</span>
+          <span>{{order.total | currency: 'EGP'}}</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="order-item-container p-4 mt-2 rounded">
+
+    @for (product of products; track $index)
+    {
+      <div class="order-item">
+        <div>
+          <img src={{product.pictureUrl}} alt="{{product.productName}}"/>
+        </div>
+
+        <div style="flex-grow: 1; align-self: center">
+          <h6>{{product.productName}}</h6>
+          <h6>{{product.brand}}</h6>
+        </div>
+
+        <div style="align-self: center; display: flex; flex-direction: column">
+          {{product.price | currency:'EGP'}}
+          <a class="btn btn-outline-primary" routerLink="/review/{{product.productId}}/{{product.productName}}">Submit a Review</a>
+        </div>
+      </div>
+    }
+
+  </div>
+
+</main>

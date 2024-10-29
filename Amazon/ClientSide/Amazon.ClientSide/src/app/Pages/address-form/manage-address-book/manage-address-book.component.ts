@@ -4,57 +4,127 @@ import { Address } from '../../../Models/address';
 import { CommonModule } from '@angular/common';
 import { response } from 'express';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { error } from 'console';
 import { delay, Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import * as http from "node:http";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-manage-address-book',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule, ReactiveFormsModule],
   templateUrl: './manage-address-book.component.html',
   styleUrl: './manage-address-book.component.css'
 })
 export class ManageAddressBookComponent implements OnInit
 {
-  
+  AddressForm: FormGroup;
+  EditAddressForm: FormGroup | null = null;
   savedAddresses: Address[] = [];
   @Output() addressAdded = new EventEmitter<void>();
 
-  constructor(private addressService: AddressService, private router: Router, private toastr: ToastrService) {}
+  constructor(private addressService: AddressService, private http: HttpClient, private router: Router, private toastr: ToastrService) {}
   address:Address = new Address('','','','','','','','','','','');
-  showAddAddressForm = false;
+
+  showAddAddressForm: boolean = false;
+  showEditAddressForm: boolean = false;
+
   isEditMode: boolean = false;
   selectedAddress: Address | null = null;
+  countriesUrl = "/assets/Countries.json";
+  countries: any;
 
   deleteSub: Subscription | null;
 
-  ngOnInit(): void 
+  ngOnInit(): void
   {
     this.fetchSavedAddresses();
+    this.http.get(this.countriesUrl).subscribe({
+      next: data => {
+        this.countries = data;
+      }
+    });
+
+    this.AddressForm = new FormGroup({
+      'Country': new FormControl(null, Validators.required),
+      'FirstName': new FormControl(null, Validators.required),
+      'LastName': new FormControl(null, Validators.required),
+      'Phonenumber': new FormControl(null, [Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern('^[0-9]*$')]),
+      'StreetAddress': new FormControl(null, Validators.required),
+      'BuildingName': new FormControl(null, Validators.required),
+      'City': new FormControl(null, Validators.required),
+      'District': new FormControl(null, Validators.required),
+      'Governorate': new FormControl(null, Validators.required),
+      'NearestLandMark': new FormControl(null, Validators.required),
+    })
+
+    // this.EditAddressForm = new FormGroup({
+    //   'Countrye': new FormControl(this.address.country, Validators.required),
+    //   'FirstNamee': new FormControl(this.address.firstName, Validators.required),
+    //   'LastNamee': new FormControl(this.address.lastName, Validators.required),
+    //   'Phonenumbere': new FormControl(this.address.phoneNumber, [Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern('^[0-9]*$')]),
+    //   'StreetAddresse': new FormControl(this.address.streetAddress, Validators.required),
+    //   'BuildingNamee': new FormControl(this.address.buildingName, Validators.required),
+    //   'Citye': new FormControl(this.address.city, Validators.required),
+    //   'Districte': new FormControl(this.address.district, Validators.required),
+    //   'Governoratee': new FormControl(this.address.governorate, Validators.required),
+    //   'NearestLandMarke': new FormControl(this.address.nearestLandMark, Validators.required),
+    // })
   }
 
-  onSelectAddress(address: Address): void {
+  onSelectAddress(address: Address): void
+  {
     this.selectedAddress = address;
   }
   //Fetch address saved in database and display them in the boxes
 
-  openAddForm() {
-    this.isEditMode = false;
-    this.address = this.address
+  openAddForm()
+  {
+    // this.isEditMode = false;
+    this.address = this.address;
     this.showAddAddressForm = true;
   }
 
-  openEditForm(selectedAddress: Address) 
+
+  openEditForm(selectedAddress: Address)
   {
-    this.isEditMode = true;
+    console.log(selectedAddress.city)
+    console.log("=========================")
+    console.log(this.address);
+
+    this.EditAddressForm = new FormGroup({
+      'id': new FormControl(selectedAddress.id),
+      'Country': new FormControl(selectedAddress.country, Validators.required),
+      'FirstName': new FormControl(selectedAddress.firstName, Validators.required),
+      'LastName': new FormControl(selectedAddress.lastName, Validators.required),
+      'Phonenumber': new FormControl(selectedAddress.phoneNumber, [Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern('^[0-9]*$')]),
+      'StreetAddress': new FormControl(selectedAddress.streetAddress, Validators.required),
+      'BuildingName': new FormControl(selectedAddress.buildingName, Validators.required),
+      'City': new FormControl(selectedAddress.city, Validators.required),
+      'District': new FormControl(selectedAddress.district, Validators.required),
+      'Governorate': new FormControl(selectedAddress.governorate, Validators.required),
+      'NearestLandMark': new FormControl(selectedAddress.nearestLandMark, Validators.required),
+    })
+
+
+
+    this.showEditAddressForm = true;
+    // this.isEditMode = true;
     this.address = { ...selectedAddress };
-    this.showAddAddressForm = true;
+
+    console.log(this.address);
+    // this.showAddAddressForm = true;
   }
-  
-  fetchSavedAddresses(): void 
+
+  closeEditForm()
+  {
+    this.showEditAddressForm = false;
+  }
+
+  fetchSavedAddresses(): void
   {
     this.addressService.getSavedAddresses().subscribe(
       (addresses) => {
@@ -71,10 +141,16 @@ export class ManageAddressBookComponent implements OnInit
   //   this.showEditForm = true;
   // }
 
-  editAddress(selectedAddress: Address){
+  editAddress()
+  {
     //if(this.selectedAddress){
-      this.address = selectedAddress;
-      this.addressService.updateAddress(this.address).subscribe({
+    //   this.address = selectedAddress;
+
+      let editedAddress = this.EditAddressForm.value;
+
+      console.log(editedAddress);
+
+      this.addressService.updateAddress(editedAddress).subscribe({
         next:(response) =>{
           this.toastr.success('Address Modified');
           window.location.reload();
@@ -88,7 +164,7 @@ export class ManageAddressBookComponent implements OnInit
 
   // editAddress(selectedAddress: Address)
   // {
-      
+
   //   console.log('cond true')
   //   this.address = selectedAddress;
   //   this.addressService.updateAddress(this.address).subscribe({
@@ -102,10 +178,10 @@ export class ManageAddressBookComponent implements OnInit
   //     console.log('Error updating address',error);
   //   }
   // });
-    
+
   // }
 
-  loadAddresses() 
+  loadAddresses()
   {
     this.addressService.getSavedAddresses().subscribe(
       (data) => {
@@ -118,21 +194,15 @@ export class ManageAddressBookComponent implements OnInit
     );
   }
 
-  deleteAddress(addressId: string) 
+  deleteAddress(addressId: string)
   {
-    this.deleteSub = this.addressService.deleteAddress(addressId).subscribe({
-      next: () => {
-        console.log('deleted');
-        // const currentUrl = this.router.url;
-        // this.savedAddresses.pop();
-        // this.loadAddresses();
+    this.addressService.deleteAddress(addressId).subscribe({
+      next: (res) => {
+        this.toastr.success('Address Deleted', "Success", {positionClass: 'toast-bottom-right'});
         this.fetchSavedAddresses();
-        // this.toastr.success('Address Deleted');
       },
       error:(error) =>{
-        console.error('Error deleting address', error);
-        this.fetchSavedAddresses();
-        // this.savedAddresses.pop();
+        this.toastr.error("Error Deleting the Address", "Error", {positionClass: 'toast-bottom-right'});
       }
     });
   }
@@ -150,29 +220,51 @@ export class ManageAddressBookComponent implements OnInit
     this.showAddAddressForm = !this.showAddAddressForm;
   }
 
-  loadAddressToEdit(selectedAddress: Address) {
+  loadAddressToEdit(selectedAddress: Address)
+  {
     this.address = selectedAddress;
     this.isEditMode = true;
   }
 
-  onSubmit() {
-    if (this.isEditMode) 
+  onSubmit()
+  {
+    if (this.isEditMode)
     {
-      this.editAddress(this.address);
-    } 
-    else 
+      // this.editAddress(this.address);
+    }
+    else
     {
       this.onSubmitNewAddress();
     }
   }
+
   //binded to the submit button that add the input of form into the database
-  onSubmitNewAddress():void{
+  onSubmitNewAddress():void
+  {
+    let { Country, FirstName, LastName, Phonenumber, StreetAddress, BuildingName, City, District, Governorate, NearestLandMark } = this.AddressForm.value;
+
+    this.address.country = Country;
+    this.address.firstName = FirstName;
+    this.address.lastName = LastName;
+    this.address.phoneNumber = Phonenumber;
+    this.address.streetAddress = StreetAddress;
+    this.address.buildingName = BuildingName;
+    this.address.city = City;
+    this.address.district = District;
+    this.address.governorate = Governorate;
+    this.address.nearestLandMark = NearestLandMark;
+
+    console.log(this.address);
+
+
     this.addressService.addAddresses(this.address).subscribe(
     (response)=>{
+      this.AddressForm.reset();
       this.fetchSavedAddresses();
       this.toggleAddAddressForm();
       this.addressAdded.emit();
       this.resetAddressForm();
+      this.toastr.success("Added New Address", "Success", {positionClass : "toast-bottom-right"});
     },
     (error)=>{
       console.error('Error adding address:', error);
@@ -185,8 +277,8 @@ export class ManageAddressBookComponent implements OnInit
       this.addressService.setDefaultAddress(addressId)
         .subscribe({
           next:(response) =>{
-            // toastr.success('Changed Default Address')
-            this.router.navigate(['/manage-address-book']);
+            this.toastr.success('Changed Default Address')
+            // this.router.navigate(['/manage-address-book']);
           },
           error:(error) =>{
             console.log('Error setting default address',error);
@@ -195,7 +287,8 @@ export class ManageAddressBookComponent implements OnInit
     }
   }
 
-  resetAddressForm(): void {
+  resetAddressForm(): void
+  {
     this.address = {
       id:'',
       country: '',

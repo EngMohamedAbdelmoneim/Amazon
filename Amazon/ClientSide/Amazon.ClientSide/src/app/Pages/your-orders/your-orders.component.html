@@ -5,33 +5,47 @@
         <div class="order-item mb-4">
 
             <div class="order-item-header p-2">
-                <div>
-                    <div>
-                        Order Placed: {{order.orderDate | date:'dd/MM/yyyy' }}
+                <div style="display: flex; gap: 1.5rem">
+                    <div style="display: flex; flex-direction: column">
+                      <span>Order Placed</span>
+                      {{order.orderDate | date:'dd MMMM yyyy' }}
                     </div>
-                    <div>
-                        Total: {{order.total | currency:'EGP'}}
+                    <div style="display: flex; flex-direction: column">
+                      <span>Total</span>
+                      {{order.total | currency:'EGP'}}
                     </div>
                 </div>
 
-              <div>
-                <span [ngClass]="{'text-danger' : order.orderStatus == 'Cancelled'}">Order Status: {{order.orderStatus}}</span>
-                @if(order.orderStatus != "Cancelled")
+              <div style="display: flex; gap: 1.5rem; align-items: center">
+
+                <div style="display: flex; flex-direction: column; align-items: center">
+
+                  <span class="fw-bold" [ngClass]="{'text-danger' : order.orderStatus == 'Cancelled', 'text-success': order.orderStatus == 'Shipped'}">
+                    {{order.orderStatus}}
+                  </span>
+                </div>
+                @if(order.orderStatus == "Pending")
                 {
                   <button class="btn btn-outline-danger" (click)="cancelOrder(order.id)">Cancel Order</button>
                 }
+
+                <div>
+                  <a routerLink="/Order/{{order.id}}" class="text-decoration-none">Order Details</a>
                 </div>
+              </div>
             </div>
 
             <div class="order-item-body p-2">
 
                 <div *ngFor="let product of order.items" class="order-item p-2">
+
                     <div>
                         <img src={{product.pictureUrl}} alt="{{product.productName}}"/>
                     </div>
 
-                    <div>
-                        <h1>{{product.productName}}</h1>
+                    <div style="flex-grow: 1">
+                        <h6>{{product.productName}}</h6>
+                        <h6>{{product.brand}}</h6>
                     </div>
 
                     <div>
@@ -39,10 +53,6 @@
                     </div>
                 </div>
 
-                <!-- @for (product of orders.items; track $index)
-                {
-                    {{product.brand}}
-                } -->
             </div>
 
         </div>

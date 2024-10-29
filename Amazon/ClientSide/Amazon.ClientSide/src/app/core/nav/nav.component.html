@@ -10,7 +10,7 @@
                 <img src="White-Amazon-Logo.png" alt="">
             </a>
 
-            @if(isAuthenticated) 
+            @if(isAuthenticated)
             {
                 <button class="Change-Address" (click)="toggleAddressForm()">Deliver to <i class="fas fa-map-marker-alt" style="color: white; padding: 10px; border-radius: 50%;"></i></button>
                 <div *ngIf="addressFormVisible">
@@ -35,7 +35,7 @@
                 <input #query type="search" name="" id="search" class="form-control" placeholder="Search"
                     (keyup.enter)="search(query.value)" />
                 <!-- <div class="btn btn-primary" (click)="search(query.value)">
-                <svg fill="#ffffff" height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                <svg fill="#ffffff" height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                     viewBox="0 0 488.4 488.4" xml:space="preserve">
                     <g>
                     <g>
@@ -53,13 +53,18 @@
         <div style="display: flex;" class="links">
             <a [routerLink]="['/wishlist', ('wishlist-'+getGuid())]" style="display: flex; align-items: end;"class="p-2 mx-1">WISHLIST</a>
             <div class="dropdown-container">
-                <button class="dropdown-btn">Account & Lists</button>
+                <button class="dropdown-btn">
+                  <div class="name">Hello, {{ localStorage.getItem('userName') }}</div>
+                  <div>
+                    Account & Lists
+                  </div>
+                </button>
                 <div class="dropdown-content p-2">
                     <div class="signin-btn">
                         @if(isAuthenticated)
                         {
                         }
-                        @else 
+                        @else
                         {
                             <a routerLink="/login">Sign In</a>
                         }
@@ -74,9 +79,9 @@
                             <a [routerLink]="['/seller/product-list']">Your Seller Account</a>
                             @if(isAuthenticated)
                             {
-                                <a (click)="SignOut()">Sign Out</a>
+                                <a (click)="SignOut()" style="cursor: pointer">Sign Out</a>
                             }
-                            @else 
+                            @else
                             {
                             }
                         </div>
@@ -92,15 +97,15 @@
                         <path d="M1.25 1.25 L5 1.25 L11.25 20 L25 20 L35 5" stroke="white" stroke-width="4" fill="none" />
                     </svg>
                 </div>
-                Cart 
+                Cart
             </a>
         </div>
     </div>
 
     <div class="lower-nav">
 
-        <div class="burger-menu-contianer">
-            <div class="burger-menu" (click)="toggleMenu()">
+        <div class="burger-menu-contianer" (click)="toggleMenu()">
+            <div class="burger-menu">
                 <div [ngClass]="['line1', open ? 'line1O' : '']"></div>
                 <div [ngClass]="['line2', open ? 'line2O' : '']"></div>
                 <div [ngClass]="['line3', open ? 'line3O' : '']"></div>
@@ -109,7 +114,7 @@
 
         <a routerLink="/">Home</a>
         <a routerLink="/Discount">Today's Deals</a>
-        <a routerLink="/category/Electronics">Elctronics</a>
+        <a routerLink="/category/Electronics">Electronics</a>
         <a routerLink="/category/Electronics/Phones">Mobile Phones</a>
         <a routerLink="/seller/product-list">Sell</a>
     </div>
@@ -119,12 +124,12 @@
 <div class="sidebar" [style.translate]="open ?'0px':'-400px'">
     <div class="mb-3 authbar">
         <img src="user.svg" alt="">
-        <h4 class="m-lg-2">Hello, 
+        <h4 class="m-lg-2">Hello,
             @if(userName)
             {
                 {{userName}}
             }
-            @else 
+            @else
             {
                 Sign In
             }

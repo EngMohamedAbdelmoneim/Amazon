@@ -17,24 +17,23 @@ import { ProductService } from '../../Services/product.service';
 
 export class DiscountsComponent implements OnInit
 {
-  
+
   constructor(private cartService: CartService, private guidService: GuidService, private productService: ProductService) {}
 
   products: Array<Product> = [];
   productSub: Subscription;
 
-  ngOnInit(): void 
+  ngOnInit(): void
   {
     this.productSub = this.productService.getProducts().subscribe({
       next: data => {
+        console.log(data);
         // this.products = data;
-        this.products = data.filter(d => d.discount.discountStarted == true);
+        this.products = data.filter(d => d.discount != null);
+        // this.products = data.filter(d => d.discount.discountStarted != false);
       }
     })
   }
-
-
-
 
   AddToCart(product: Product, _id: string) {
     const cartitem: CartItem =

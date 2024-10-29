@@ -7,6 +7,7 @@ import { CategoryService } from '../../Services/category.service';
 import { Subscription } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 import { loginData } from '../../Models/data';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ import { loginData } from '../../Models/data';
 })
 export class LoginComponent implements OnInit{
 
-  constructor(public accountService: AccountService, public router: Router) {}
+  constructor(public accountService: AccountService, public router: Router, private toastr: ToastrService) {}
 
   loginForm: FormGroup;
   UserName = new FormControl('');
@@ -50,7 +51,8 @@ export class LoginComponent implements OnInit{
         this.router.navigateByUrl('');
       },
       error: e => {
-        console.log("You've Entered Something Wrong")
+        console.log("You've Entered Something Wrong");
+        this.toastr.error("You've Entered Something Wrong", "Error", {positionClass: "toast-bottom-right"});
       }
     });
   }

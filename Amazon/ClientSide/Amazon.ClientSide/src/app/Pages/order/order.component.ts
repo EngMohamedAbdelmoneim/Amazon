@@ -88,7 +88,8 @@ export class OrderComponent  implements OnInit
     private router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit()
+  {
     // console.log(this.cartId)
 
     this.cartId = this.cookieService.get('guid');
@@ -98,11 +99,9 @@ export class OrderComponent  implements OnInit
       .subscribe({
         next: (d) => {
           this.cart = d;
+          console.log(d);
           // console.log('this is the cart', this.cart);
-          this.Total = d.items.reduce(
-            (sum, item) => sum + item.price * item.quantity,
-            0
-          );
+          this.Total = d.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
           this.Items = d.items.reduce((sum, item) => sum + item.quantity, 0);
           this.TempTotal = this.Total;
           // console.log(this.Total)
@@ -209,18 +208,21 @@ export class OrderComponent  implements OnInit
             //   name: this.OnlinePaymentForm?.get('paymentForm')?.get('nameOnCard')?.value
             // }
           }
-        }).then(res => {
+        }).then(res =>
+        {
           if(res.paymentIntent)
             {
               this.orderService.placeOrder(`cart-${this.cookieService.get('guid')}`, this.cart.deliveryMethodId, 2, this.currentShippingAddress.id).subscribe({
-                next: d => {
+                next: d =>
+                {
                   console.log(d);
                   this.cartService.removeCart(`cart-${this.cookieService.get('guid')}`);
                   this.cookieService.delete('Qnt');
                   this.toastr.success("Payment Successful", "Success", {positionClass:'toast-bottom-right'})
                   window.location.href = 'http://localhost:4200';
                 },
-                error: e => {
+                error: e =>
+                {
                   console.log(e);
                   this.toastr.error("Payment Failed", "Failed", {positionClass: 'toast-bottom-right'})
                   // this.cookieService.delete('Qnt')

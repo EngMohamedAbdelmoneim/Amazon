@@ -1,0 +1,39 @@
+main
+{
+  width: 60%;
+  margin-inline: auto;
+
+
+  .Order-Container
+  {
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+  }
+  .order-item-container
+  {
+    border: 1px solid #ddd;
+    .order-item
+    {
+      display: flex;
+      width: 100%;
+      border: none;
+      justify-content: space-between;
+      div
+      {
+        display: inline-block;
+      }
+      img
+      {
+        width: 150px;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+
+
+
+
+

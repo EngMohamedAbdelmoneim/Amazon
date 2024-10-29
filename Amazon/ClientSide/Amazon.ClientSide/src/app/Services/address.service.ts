@@ -27,9 +27,9 @@ export class AddressService {
     return this.http.put<Address>(`${this.apiUrl}/editAddress/${address.id}`, address);
   }
 
-  deleteAddress(addressId:string): Observable<Address>
+  deleteAddress(addressId: string)
   {
-    return this.http.delete<Address>(`${this.apiUrl}/deleteAddress/${addressId}`);
+    return this.http.delete(`${this.apiUrl}/deleteAddress/${addressId}`, { responseType: 'text'} );
   }
 
   setDefaultAddress(addressId:string):Observable<Address>

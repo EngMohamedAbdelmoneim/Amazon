@@ -21,8 +21,8 @@ import { AddressFormComponent } from '../../Pages/address-form/address-form.comp
 export class NavComponent implements OnInit {
   constructor(private router: Router,
     private searchService: SearchService,
-    public guidService: GuidService, 
-    public cartService: CartService, 
+    public guidService: GuidService,
+    public cartService: CartService,
     private cookieService: CookieService,
     private accountService: AccountService
   ) { }
@@ -39,7 +39,7 @@ export class NavComponent implements OnInit {
   ngOnInit(): void {
     this.isAuthenticated = JSON.parse(localStorage.getItem('isAuthenticated'));
     this.userName = localStorage.getItem('userName');
-    
+
 
     this.cartService.cartQnt.subscribe({
       next: p => { this.cartQnt = p; }
@@ -56,14 +56,15 @@ export class NavComponent implements OnInit {
   }
   toggleMenu() {
     const body = document.body;
-
+    console.log("Opened, Closed")
     if (this.open) {
       body.style.position = '';
       body.style.top = '';
       body.style.height = '';
       body.style.overflowY = '';
     }
-    else {
+    else
+    {
       body.style.height = '100vh';
       body.style.overflowY = 'hidden';
     }
@@ -99,7 +100,7 @@ export class NavComponent implements OnInit {
     // }
   }
 
-  toggleAddressForm(): void 
+  toggleAddressForm(): void
   {
     this.addressFormVisible = !this.addressFormVisible;
   }
@@ -110,4 +111,5 @@ export class NavComponent implements OnInit {
     window.location.href = 'http://localhost:4200/login';
   }
 
+    protected readonly localStorage = localStorage;
 }

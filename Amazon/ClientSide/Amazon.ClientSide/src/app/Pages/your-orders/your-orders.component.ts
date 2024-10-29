@@ -5,11 +5,12 @@ import { Order } from '../../Models/order';
 import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { MyOrder } from '../../Models/MyOrder';
 import {ToastrService} from "ngx-toastr";
+import {RouterModule} from "@angular/router";
 
 @Component({
   selector: 'app-your-orders',
   standalone: true,
-  imports: [DatePipe, CurrencyPipe, CommonModule],
+  imports: [DatePipe, CurrencyPipe, CommonModule, RouterModule],
   templateUrl: './your-orders.component.html',
   styleUrl: './your-orders.component.css'
 })

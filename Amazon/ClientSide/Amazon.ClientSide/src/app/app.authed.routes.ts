@@ -13,10 +13,11 @@ import { PageNotFoundComponent } from './Pages/page-not-found/page-not-found.com
 import { DiscountsComponent } from './Pages/discounts/discounts.component';
 import { BrandsComponent } from './Pages/brands/brands.component';
 import { YourOrdersComponent } from './Pages/your-orders/your-orders.component';
+import { OrderDetailsComponent } from "./Pages/order-details/order-details.component";
 
 
 
-export const App_Routes: Routes = 
+export const App_Routes: Routes =
 [
     { path: '', component: HomeComponent },
     { path: 'search/:productName', component: SearchComponent },
@@ -32,4 +33,5 @@ export const App_Routes: Routes =
     { path: 'manage-address-book', component: ManageAddressBookComponent },
     { path: 'Discount', component: DiscountsComponent },
     { path: 'Your-Orders', component: YourOrdersComponent },
+    { path: 'Order/:id', component: OrderDetailsComponent },
 ];
