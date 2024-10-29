@@ -1,10 +1,19 @@
 <main class="p-4">
 
+  @if (orders.length <= 0) 
+  {
+    <div style="margin-inline: auto; width: 700px; text-align: center;" class="p-4">
+      <h1>You Have not Made Any Orders</h1>
+      <img src="../../../assets/EmptyCart.png" alt="">
+    </div>
+  }
+  @else 
+  {
     @for (order of orders; track $index)
     {
         <div class="order-item mb-4">
 
-            <div class="order-item-header p-2">
+            <div class="order-item-header p-2" [ngClass]="{'bg-danger text-white': order.orderStatus == 'Cancelled', 'bg-success': order.orderStatus == 'Shipped', 'bg-warning': order.orderStatus == 'Pending'}">
                 <div style="display: flex; gap: 1.5rem">
                     <div style="display: flex; flex-direction: column">
                       <span>Order Placed</span>
@@ -20,23 +29,18 @@
 
                 <div style="display: flex; flex-direction: column; align-items: center">
 
-                  <span class="fw-bold" [ngClass]="{'text-danger' : order.orderStatus == 'Cancelled', 'text-success': order.orderStatus == 'Shipped'}">
+                  <span class="fw-bold" [ngClass]="{'text-black' : order.orderStatus == 'Pending'}">
                     {{order.orderStatus}}
                   </span>
                 </div>
-                @if(order.orderStatus == "Pending")
-                {
-                  <button class="btn btn-outline-danger" (click)="cancelOrder(order.id)">Cancel Order</button>
-                }
 
                 <div>
-                  <a routerLink="/Order/{{order.id}}" class="text-decoration-none">Order Details</a>
+                  <a routerLink="/Order/{{order.id}}" class="text-decoration-none text-white text-decoration-underline">Order Details</a>
                 </div>
               </div>
             </div>
 
             <div class="order-item-body p-2">
-
                 <div *ngFor="let product of order.items" class="order-item p-2">
 
                     <div>
@@ -52,11 +56,10 @@
                         {{product.price | currency:'EGP'}}
                     </div>
                 </div>
-
             </div>
-
         </div>
     }
+  }
 
 
 </main>

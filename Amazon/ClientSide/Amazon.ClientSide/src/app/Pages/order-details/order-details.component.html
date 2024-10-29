@@ -1,6 +1,37 @@
 <main class="p-4">
-  <h1>Order Details</h1>
-  Ordered On {{order.orderDate | date:'dd MMMM yyyy' }}
+  <div style="display: flex; align-items: center; justify-content: space-between;">
+    <div>
+      <h1>Order Details</h1>
+      Ordered On {{order.orderDate | date:'dd MMMM yyyy' }}
+    </div>
+    @if(order.orderStatus == "Pending")
+    {
+      <!-- <button class="btn btn-outline-danger" (click)="cancelOrder(order.id)">Cancel Order</button> -->
+      <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Cancel Order
+        <i class="bi bi-trash3-fill"></i>
+      </button>
+    }
+  </div>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #CC0C39;">
+          <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: white;">Cancel Order</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h5 style="font-weight: 400;">Do you want to Cancel Order</h5>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" (click)="cancelOrder(order.id)" class="btn" data-bs-dismiss="modal" style="background-color: #CC0C39; color: white;">Cancel Order</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="Order-Container rounded p-4">
 
     <div style="display: flex; flex-direction: column">
@@ -13,7 +44,9 @@
 
     <div>
       <h6>Payment Method</h6>
-      {{order.paymentMethod.name}}
+      {{order.paymentMethod.name}}<br/>
+      {{order.orderStatus}}<br/>
+      {{order.paymentStatus}}
     </div>
 
     <div>

@@ -172,7 +172,7 @@ export class ProductComponent implements OnInit {
           pictureUrl: product.pictureUrl,
           quantity: Number(this.selectedQtn.nativeElement.value),
         };
-      this.cartService.updateCartWithItem(("cart-" + _id), cartitem,product.quantityInStock);
+      this.cartService.updateCartWithItem(("cart-" + _id), cartitem, product.quantityInStock);
       // this.toastr.success("Item Added To Cart", 'Added',{positionClass:'toast-bottom-right'})
     }
   }

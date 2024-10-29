@@ -17,6 +17,8 @@ import {
 } from '@stripe/stripe-js';
 import { Cart } from '../../Models/cart';
 import { ToastrService } from 'ngx-toastr';
+import { ProductService } from '../../Services/product.service';
+import { Product } from '../../Models/product';
 
 @Component({
   selector: 'app-order',
@@ -29,7 +31,7 @@ export class OrderComponent  implements OnInit
 {
 
   order: Order;
-
+  product: Product | null = new Product(0, "", 0, "", "", [],0, "",0, "", 0, null);
 
   showCardForm:boolean = false;
   cardNumberr:string = '';
@@ -77,7 +79,7 @@ export class OrderComponent  implements OnInit
   cardCvc?: StripeCardCvcElement;
   cardErrors: any;
 
-  TempTotal: number;
+  TempTotal: number = 0;
   Items: number;
 
   constructor(
@@ -85,7 +87,8 @@ export class OrderComponent  implements OnInit
     private cookieService: CookieService,
     private cartService: CartService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private productService: ProductService
   ) {}
 
   ngOnInit()
@@ -94,16 +97,15 @@ export class OrderComponent  implements OnInit
 
     this.cartId = this.cookieService.get('guid');
 
-    this.cartSub = this.cartService
-      .getAllFromCart(`cart-${this.cartId}`)
-      .subscribe({
+    this.cartSub = this.cartService.getAllFromCart(`cart-${this.cartId}`).subscribe({
         next: (d) => {
           this.cart = d;
           console.log(d);
+          this.CalculateTotal();
           // console.log('this is the cart', this.cart);
-          this.Total = d.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-          this.Items = d.items.reduce((sum, item) => sum + item.quantity, 0);
-          this.TempTotal = this.Total;
+          // this.Total = d.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+          // this.Items = d.items.reduce((sum, item) => sum + item.quantity, 0);
+          // this.TempTotal = this.Total;
           // console.log(this.Total)
         },
         error: (e) => {
@@ -118,6 +120,7 @@ export class OrderComponent  implements OnInit
         // this.order.UserAddress = [...d];
         /////////////////////////////////////////////////////////
         this.currentShippingAddress = d[0];
+        console.log(this.currentShippingAddress);
         this.selectedShippingAddress = d[0];
         // this.OrderTest.AddresId = this.selectedShippingAddress.id;
 
@@ -146,9 +149,7 @@ export class OrderComponent  implements OnInit
   // #region Payment Methods
 
   async onSubmit() {
-    this.cartSub = this.cartService
-      .getAllFromCart(`cart-${this.cartId}`)
-      .subscribe({
+    this.cartSub = this.cartService.getAllFromCart(`cart-${this.cartId}`).subscribe({
         next: (d) => {
           this.cart = d;
           console.log(this.cart);
@@ -168,13 +169,7 @@ export class OrderComponent  implements OnInit
             })
             .then((res) => {
               if (res.paymentIntent) {
-                this.orderService
-                  .placeOrder(
-                    `cart-${this.cookieService.get('guid')}`,
-                    this.cart.deliveryMethodId,
-                    2,
-                    this.currentShippingAddress.id
-                  )
+                this.orderService.placeOrder(`cart-${this.cookieService.get('guid')}`, this.cart.deliveryMethodId, 2, this.currentShippingAddress.id)
                   .subscribe({
                     next: (d) => {
                       console.log(d);
@@ -190,7 +185,7 @@ export class OrderComponent  implements OnInit
                     },
                     error: (e) => {
                       console.log(e);
-                      this.toastr.error('Pyament Failed', 'Failed', {
+                      this.toastr.error('Payment Failed', 'Failed', {
                         positionClass: 'toast-bottom-right',
                       });
                       // this.cookieService.delete('Qnt')
@@ -252,7 +247,7 @@ export class OrderComponent  implements OnInit
       });
 
       loadStripe(
-        'pk_test_51QEbcUJ8s6fJIEi4nxLYfPMnQ5nJ7cumJ7wKPm0VU6pE5bSJcbD05dQPaVkFKzZ5QiQvqbQrBorK0Fbk9tFe8kS000H6RtFJEj'
+        'pk_test_51QBxlsGxfUlD5tIRm7qqPS3KLHioihsPUsHSOxHy5pbXi4tdXhrdneN8z9epNWHNczPjc10Jyt20GIgQLJhjmg9X001nO7NxRt'
       ).then((stripe) => {
         this.stripe = stripe;
         const elements = stripe?.elements();
@@ -350,5 +345,46 @@ export class OrderComponent  implements OnInit
     //this.order.UserAddress[0] = this.selectedShippingAddress;
     this.showAddressOptions = false;
     //}
+  }
+
+  // GetProduct()
+  // {
+  //   this.productService.getProductById(this.prop.id).subscribe({
+  //     next: product=>{
+  //       this.product =  product;
+  //       console.log(this.product);
+  //       if(this.product.discount != null)
+  //       {
+  //         this.prop.price = this.product.discount.priceAfterDiscount;
+  //       }
+  //       if(this.product.discount != null  && this.IsDiscountEnded())
+  //       {
+  //         this.product.discount.discountStarted = false;
+  //       }
+  //     }
+  //   })
+  // }
+
+  CalculateTotal()
+  {
+    this.cart.items.forEach(i => {
+      this.productService.getProductById(i.id).subscribe({
+        next: res => {
+          console.log(res);
+          if(res.discount != null)
+          {
+            console.log(res.discount.priceAfterDiscount);
+            this.TempTotal += res.discount.priceAfterDiscount * i.quantity;
+            this.Total = this.TempTotal;
+          }
+          else
+          {
+            console.log(res.price);
+            this.TempTotal += res.price * i.quantity;
+            this.Total = this.TempTotal;
+          }
+        }
+      })
+    })
   }
 }

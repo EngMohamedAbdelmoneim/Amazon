@@ -26,6 +26,8 @@ export class YourOrdersComponent implements OnInit{
     this.orderSub = this.orderService.getOrders().subscribe({
       next: data => {
         this.orders = data;
+        // this.orders = [];
+
         console.log(this.orders);
       },
       error: e => {

@@ -2,14 +2,10 @@ import { Component,OnInit,Output,EventEmitter} from '@angular/core';
 import { AddressService } from '../../../Services/address.service';
 import { Address } from '../../../Models/address';
 import { CommonModule } from '@angular/common';
-import { response } from 'express';
-import { NgModule } from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
-import { error } from 'console';
-import { delay, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import * as http from "node:http";
 import {HttpClient} from "@angular/common/http";
 
 @Component({
@@ -128,6 +124,7 @@ export class ManageAddressBookComponent implements OnInit
   {
     this.addressService.getSavedAddresses().subscribe(
       (addresses) => {
+        console.log(addresses);
         this.savedAddresses = addresses;
       },
       (error) => {
@@ -303,5 +300,4 @@ export class ManageAddressBookComponent implements OnInit
       nearestLandMark: ''
     };
   }
-
 }
