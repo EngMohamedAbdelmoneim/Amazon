@@ -126,6 +126,7 @@ export class NavComponent implements OnInit {
       (addresses) => {
         console.log(addresses);
         this.savedAddresses = addresses;
+        // this.savedAddresses = [];
       },
       (error) => {
         console.error('Error fetching addresses:', error);

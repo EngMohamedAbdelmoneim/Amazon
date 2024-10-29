@@ -13,18 +13,25 @@
             @if(isAuthenticated)
             {
                 <div style="display: inline-block;">
-                    
+
                     <button class="Change-Address" (click)="toggleAddressForm()" style="display: flex;">
                         <div style="display: inline-block;">
                             <i class="fas fa-map-marker-alt" style="color: white; padding: 10px; border-radius: 50%;"></i>
                         </div>
                         <div style="text-align: left; width: 120px; overflow: hidden; text-overflow: ellipsis; text-wrap: nowrap;">
+                          @if (savedAddresses.length <= 0)
+                          {
+                            <span style="font-size: 12px;">Deliever to</span>
+                          }
+                          @else
+                          {
                             <span style="font-size: 12px;">Deliever to {{savedAddresses[0].firstName}}</span> <br>
                             {{savedAddresses[0].city}}
+                          }
                         </div>
                     </button>
-                    
-                    
+
+
                 </div>
                 <div *ngIf="addressFormVisible">
                     <app-address-form (addressAdded)="addressFormVisible = false"></app-address-form>
