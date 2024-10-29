@@ -46,15 +46,21 @@ export class CartService {
           console.log('products :', updatedProducts);
           this.updateCart(updatedProducts);
           this.setToCart(cartId, updatedProducts);
+          this.toastr.success('Success', 'Success', {
+            positionClass: 'toast-bottom-right',
+          });
         } else {
           this.updateCart([cartItam]);
           this.setToCart(cartId, [cartItam]);
+          this.toastr.success('Success', 'Success', {
+            positionClass: 'toast-bottom-right',
+          });
         }
       },
     });
   }
 
-  updateCartWithItem(cartId: string, newItem: CartItem): void {
+  updateCartWithItem(cartId: string, newItem: CartItem,quantityInStock:number): void {
     this.getAllFromCart(cartId).subscribe((cartData) => {
       if (cartData != null ) {
         let cart = cartData.items;
@@ -62,17 +68,40 @@ export class CartService {
         const existingItemIndex = cart.findIndex(
           (item) => item.id === newItem.id
         );
-
         if (existingItemIndex !== -1) {
           console.log('old qnt:', cart[existingItemIndex].quantity);
           console.log('new qnt:', newItem.quantity);
-          if (
-            cart[existingItemIndex].quantity + Number(newItem.quantity) <=
-            10
-          ) {
-            cart[existingItemIndex].quantity += Number(newItem.quantity);
-          } else {
-            cart[existingItemIndex].quantity = 10;
+          if(quantityInStock>10){
+            if (
+              cart[existingItemIndex].quantity + Number(newItem.quantity) <=
+              10
+            ) {
+              cart[existingItemIndex].quantity += Number(newItem.quantity);
+              this.toastr.success('Success', 'Success', {
+                positionClass: 'toast-bottom-right',
+              });
+            } else {
+              cart[existingItemIndex].quantity = 10;
+              this.toastr.success('Success', 'Success', {
+                positionClass: 'toast-bottom-right',
+              });
+            }
+          }
+          else{
+            if (
+             ( cart[existingItemIndex].quantity + Number(newItem.quantity)) <
+              quantityInStock
+            ) {
+              cart[existingItemIndex].quantity += Number(newItem.quantity);
+              this.toastr.success('Success', 'Success', {
+                positionClass: 'toast-bottom-right',
+              });
+            } else {
+              cart[existingItemIndex].quantity = quantityInStock;
+              this.toastr.error('Can\'t add more', 'No more in stock to add', {
+                positionClass: 'toast-bottom-right',
+              });
+            }
           }
           console.log(
             `Item exists, new quantity: ${cart[existingItemIndex].quantity}`
@@ -80,6 +109,9 @@ export class CartService {
         } else {
           cart.push(newItem);
           console.log(`Item added to the cart: ${newItem.productName}`);
+          this.toastr.success('Success', 'Success', {
+            positionClass: 'toast-bottom-right',
+          });
         }
         this.updateCart(cart);
         this.setToCart(cartId, cart);
@@ -89,7 +121,7 @@ export class CartService {
     });
   }
 
-  updateCartItemQnt(cartId: string, newItem: CartItem): void {
+  updateCartItemQnt(cartId: string, newItem: CartItem,quantityInStock:number): void {
     if (newItem.quantity != 0 ) {
       this.getAllFromCart(cartId).subscribe((cartData) => {
         let cart = cartData.items;
@@ -99,7 +131,19 @@ export class CartService {
         );
         console.log('old qnt:', cart[existingItemIndex].quantity);
         console.log('new qnt:', newItem.quantity);
-        cart[existingItemIndex].quantity = newItem.quantity;
+        if(newItem.quantity <= quantityInStock){
+          cart[existingItemIndex].quantity = newItem.quantity;
+          this.toastr.success('Success', 'Success', {
+            positionClass: 'toast-bottom-right',
+          });
+        }
+        else{
+          cart[existingItemIndex].quantity = quantityInStock;
+          this.toastr.error('Can\'t add more', 'No more in stock to add', {
+            positionClass: 'toast-bottom-right',
+          });
+
+        }
         console.log(
           `Item exists, new quantity: ${cart[existingItemIndex].quantity}`
         );
@@ -153,9 +197,6 @@ export class CartService {
       .subscribe((response) => {
         if (response) {
           console.log('Cart updated successfully:', response);
-          this.toastr.success('Success', 'Success', {
-            positionClass: 'toast-bottom-right',
-          });
         }
       });
   }
@@ -213,7 +254,7 @@ export class CartService {
         this.cookieService.delete('Qnt', '/');
         this.updateCartQnt(0);
         console.log('is/Empty');
-        this.toastr.success('Success', 'Success', {
+        this.toastr.success('Success', 'Success Deleted', {
           positionClass: 'toast-bottom-right',
         });
       },
