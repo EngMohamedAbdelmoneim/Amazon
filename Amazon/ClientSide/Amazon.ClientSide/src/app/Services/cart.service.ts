@@ -56,7 +56,7 @@ export class CartService {
 
   updateCartWithItem(cartId: string, newItem: CartItem): void {
     this.getAllFromCart(cartId).subscribe((cartData) => {
-      if (cartData != null) {
+      if (cartData != null ) {
         let cart = cartData.items;
 
         const existingItemIndex = cart.findIndex(
@@ -90,7 +90,7 @@ export class CartService {
   }
 
   updateCartItemQnt(cartId: string, newItem: CartItem): void {
-    if (newItem.quantity != 0) {
+    if (newItem.quantity != 0 ) {
       this.getAllFromCart(cartId).subscribe((cartData) => {
         let cart = cartData.items;
 
@@ -198,7 +198,12 @@ export class CartService {
       (item) => item.id !== productId
     );
     this.updateCart(updatedProducts);
-    this.setToCart(cartId, updatedProducts);
+    if(currentProducts.length > 1){
+      this.setToCart(cartId, updatedProducts);
+    }
+    else{
+      this.removeCart(cartId);
+    }
   }
 
   removeCart(cartId: string) {

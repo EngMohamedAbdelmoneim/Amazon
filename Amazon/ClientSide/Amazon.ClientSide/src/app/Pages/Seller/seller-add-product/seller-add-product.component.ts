@@ -89,10 +89,10 @@ export class SellerAddProductComponent implements OnInit {
   }
   addDiscount() {
     if (
-      this.discount.discountPercentage < 0 ||
-      this.discount.discountPercentage > 1
+      this.discount.discountPercentage < 1 ||
+      this.discount.discountPercentage > 99
     ) {
-      alert('Discount percentage must be between 0 and 1.');
+      alert('Discount percentage must be between 1 and 99.');
       return;
     }
 
@@ -100,6 +100,7 @@ export class SellerAddProductComponent implements OnInit {
       alert('Start date cannot be later than end date.');
       return;
     }
+    this.discount.discountPercentage = this.discount.discountPercentage / 100;
     console.log('Discount added:', this.discount);
   }
 

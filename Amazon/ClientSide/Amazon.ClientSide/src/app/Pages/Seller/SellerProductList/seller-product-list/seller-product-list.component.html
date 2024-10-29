@@ -70,7 +70,7 @@
       <table class="table table-striped">
         <thead class="table-dark">
           <tr>
-            <th>#</th>
+            <th style="padding: 0 10px;">#</th>
             <th>Product Name</th>
             <th>Brand</th>
             <th>Price</th>
@@ -119,13 +119,13 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      <h5>Do you want to delete : {{selectedProductName}}</h5>
+                      <h5 style="font-weight: 400;">Do you want to delete : <strong>{{selectedProductName}}</strong></h5>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                       <button type="button" (click)="deleteProduct(selectedProductId)" class="btn" data-bs-dismiss="modal"
-                        style="background-color: #CC0C39; color: white;">Save
-                        changes</button>
+                        style="background-color: #CC0C39; color: white;">Confirm
+                        Delete</button>
                     </div>
                   </div>
                 </div>
@@ -142,6 +142,7 @@
       <table class="product-table">
         <thead>
           <tr>
+            <th style="padding: 0 10px;">#</th>
             <th>Product Name</th>
             <th>Brand</th>
             <th>Price</th>
@@ -155,7 +156,7 @@
           </tr>
         </thead>
       </table>
-      <img src="No_Product_Found.png" style="text-align: center; width: 100%;" alt="">
+      <img src="../../../assets/EmptyCart.png" style="padding: 20px; text-align: center; justify-content: center; width: 40%; max-height: 500px;" alt="">
     </div>
 
   </section>

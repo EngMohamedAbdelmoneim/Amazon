@@ -92,6 +92,7 @@
 
 .move-options {
     display: flex;
+    width: 100%;
     align-items: center;
     margin-bottom: 10px;
 }
@@ -102,18 +103,10 @@
     margin-bottom: 0;
 }
 
-.move-options select {
-    padding: 3px 5px;
-    margin-right: 10px;
-    background-color: white;
-    border: solid gray 0.1px;
-    font-size: 11px;
-    text-align: center;
- }
 
-.comment, .delete {
+.delete {
     background-color: transparent;
-    width: 50px;
+    width: 100%;
     height: fit-content;
     cursor: pointer;
     font-size: 11px;

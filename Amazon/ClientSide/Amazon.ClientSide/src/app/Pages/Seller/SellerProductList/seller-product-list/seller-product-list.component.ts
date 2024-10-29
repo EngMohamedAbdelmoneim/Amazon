@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SellerService } from '../../../../Services/seller.service';
 import { OrderService } from '../../../../Services/order.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin-product-list',
@@ -32,7 +33,7 @@ export class SellerProductListComponent implements OnInit {
     private router: Router,
     private sellerService: SellerService,
     private reviewService: ReviewService,
-    private orderService: OrderService
+    public toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -49,12 +50,6 @@ export class SellerProductListComponent implements OnInit {
     let earning = {
       totalEarnings: 0,
     };
-    let sellerProductDetails = {
-      productId: 0,
-      productName: "",
-      earnings: 0,
-      quantitySold: 0
-    }
     this.sub = this.sellerService.GetAllSellerEarnings().subscribe({
       next: (data) => {
         console.log(' seller products earning:', data);
@@ -129,8 +124,9 @@ export class SellerProductListComponent implements OnInit {
         this.products = this.products.filter((product) => product.id !== id);
       },
       error: (error) => {
-        console.error('Error deleting product:', error);
-      },
+        this.toastr.error('Can\'t Delete this product, still delivering ', 'Can\'t Delete', {
+          positionClass: 'toast-bottom-right',
+        });      },
     });
   }
 

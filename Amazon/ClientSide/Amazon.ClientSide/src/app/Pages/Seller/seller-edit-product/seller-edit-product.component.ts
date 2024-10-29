@@ -13,7 +13,6 @@ import { CategoryService } from '../../../Services/category.service';
 import { BrandService } from '../../../Services/brand.service';
 import { Product } from '../../../Models/product';
 import { Subscription } from 'rxjs';
-import { ProductService } from '../../../Services/product.service';
 import { Discount } from '../../../Models/Discount';
 import { CommonModule } from '@angular/common';
 import { SellerService } from '../../../Services/seller.service';
@@ -105,16 +104,18 @@ export class SellerEditProductComponent implements OnInit {
 
   addDiscount() {
     if (
-      this.discount.discountPercentage <= 0 ||
-      this.discount.discountPercentage >= 1
+      this.discount.discountPercentage < 1 ||
+      this.discount.discountPercentage > 99
     ) {
-      alert('Discount percentage must be between 0 and 1.');
+      alert('Discount percentage must be between 1 and 99.');
       return;
     }
+
     if (new Date(this.discount.startDate) > new Date(this.discount.endDate)) {
       alert('Start date cannot be later than end date.');
       return;
     }
+    this.discount.discountPercentage = this.discount.discountPercentage / 100;
     console.log('Discount added:', this.discount);
   }
 

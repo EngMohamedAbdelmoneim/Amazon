@@ -63,6 +63,9 @@ export class CartCardComponent implements OnInit {
       next: product=>{
         this.product =  product;
         console.log(this.product);
+        if(this.product.discount !=null){
+          this.prop.price = this.product.discount.priceAfterDiscount;
+        }
         if(this.product.discount != null  && this.IsDiscountEnded()){
           this.product.discount.discountStarted = false;
 

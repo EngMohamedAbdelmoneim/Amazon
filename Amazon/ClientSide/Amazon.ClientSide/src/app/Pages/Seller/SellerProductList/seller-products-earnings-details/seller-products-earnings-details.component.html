@@ -1,20 +1,18 @@
-<main class="p-4">
-    <h1  class="p-3 mb-2 bg-warning text-dark">Products Earnings</h1>
+<main >
+    <h1  class="p-3 m-0 bg-warning text-dark">Products Earnings</h1>
     <section>
       <div *ngIf="productsDetails.length > 0" style="width: 100%;" class="table-container" >
         <table class="table table-striped">
   
           <thead class="table-dark">
             <tr>
-              <th>productId</th>
-              <th>productName</th>
-              <th>earnings</th>
-              <th>quantitySold</th>
+              <th>Product Name</th>
+              <th>Earnings</th>
+              <th>Quantity Sold</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let product of productsDetails">
-              <td>{{ product.productId }}</td>
               <td>{{ product.productName }}</td>
               <td>{{ product.earnings | currency }}</td>
               <td>{{ product.quantitySold }}</td>
@@ -27,13 +25,12 @@
           <thead>
             <tr>
               <th>Product Name</th>
-              <th>Brand</th>
-              <th>Price</th>
-              <th>Category</th>
+              <th>Earnings</th>
+              <th>Quantity Sold</th>
             </tr>
           </thead>
         </table>
-        <img src="No_Product_Found.png" style="text-align: center; width: 100%;" alt="">
+        <img src="../../../assets/EmptyCart.png" style="padding: 20px; text-align: center; justify-content: center; width: 40%; max-height: 500px;" alt="">
       </div>
   
     </section>
