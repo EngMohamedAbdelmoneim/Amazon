@@ -120,7 +120,7 @@ export class WishListComponent {
       pictureUrl: wishListItem.pictureUrl,
       quantity: 1,
     };
-    this.cartService.updateCartWithItem(("cart-"+_id),cartitem);
+    this.cartService.updateCartWithItem(("cart-"+_id),cartitem,wishListItem.quantity);
   }
 
   searchArray(event): void {

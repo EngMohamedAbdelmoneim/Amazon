@@ -5,10 +5,10 @@ export class WishListItem {
     brand:string
     price:number
     pictureUrl:string
-    quantity:Number
+    quantity:number
 
 
-    constructor(id: number, ProductName: string, Category: string,Brand: string = "none",Price:number,PictureUrl:string,Quantity:Number)
+    constructor(id: number, ProductName: string, Category: string,Brand: string = "none",Price:number,PictureUrl:string,Quantity:number)
     {
         this.id = id;
         this.productName = ProductName;

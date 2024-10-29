@@ -45,7 +45,7 @@ export class DiscountsComponent implements OnInit
       pictureUrl: product.pictureUrl,
       quantity: 1,
     };
-    this.cartService.updateCartWithItem(("cart-"+_id),cartitem);
+    this.cartService.updateCartWithItem(("cart-"+_id),cartitem,product.quantityInStock);
   }
   getGuid(): string {
     return this.guidService.getGUID();

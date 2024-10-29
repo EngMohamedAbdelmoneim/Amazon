@@ -90,7 +90,10 @@ export class SearchComponent implements OnInit{
       pictureUrl: product.pictureUrl,
       quantity: 1,
     };
-    this.cartService.updateCartWithItem(("cart-"+_id),cartitem);
+    if(product.quantityInStock < 10 && cartitem.quantity ){
+
+    }
+    this.cartService.updateCartWithItem(("cart-"+_id),cartitem,product.quantityInStock);
   }
   getGuid(): string {
     return this.guidServices.getGUID();

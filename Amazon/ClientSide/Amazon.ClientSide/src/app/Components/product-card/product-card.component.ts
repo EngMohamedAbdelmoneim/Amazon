@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ReviewService } from '../../Services/review.service';
 import { ToastrService } from 'ngx-toastr';
+import { CartService } from '../../Services/cart.service';
 
 @Component({
   selector: 'app-product-card',
@@ -19,7 +20,7 @@ export class ProductCardComponent implements OnInit{
    avgRatiing: number;
    numberOfReviews: number;
    cardVisible = false;
-   constructor(public reviewService:ReviewService,private toastr: ToastrService){}
+   constructor(public reviewService:ReviewService,private toastr: ToastrService,public cartService:CartService){}
    ngOnInit() {
     this.NumberOfReviews() ;
     this.AverageRating() ;
@@ -35,7 +36,7 @@ export class ProductCardComponent implements OnInit{
     return Array.from({ length: maxStars }, (_, index) => index < rating);
   }
    AddToCart() {
-    this.addToCart.emit();
+      this.addToCart.emit();
     console.log("on item adding");
   }
   Discount(){
