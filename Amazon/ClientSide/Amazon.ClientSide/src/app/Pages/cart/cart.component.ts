@@ -46,7 +46,7 @@ export class CartComponent implements OnInit {
     // }
     // this.isLoading$= this.loadingService.loading$
     this.loadingService.show();
-    this.subCart = this.cartService.cartQnt.subscribe({
+        this.subCart = this.cartService.cartQnt.subscribe({
       next: (p) => {
         this.Qnt = p;
       },
@@ -108,7 +108,6 @@ export class CartComponent implements OnInit {
   }
 
   RemoveFromCart(cartId: string, cartItamId: number): void {
-    debugger;
     if (this.cartItems.length > 1) {
       this.cartService.removeFromCart(cartId, cartItamId);
     } else {
@@ -132,8 +131,10 @@ export class CartComponent implements OnInit {
       this.cartItems.forEach((item) => {
         TotalPrice += Number(item.price * item.quantity);
       });
+      // this.cookieService.set("cart-total-price", TotalPrice.toFixed(2), { expires: 7, path: '/' }); 
       return TotalPrice.toFixed(2);
     }
+    // this.cookieService.set("cart-total-price", TotalPrice.toFixed(2), { expires: 7, path: '/' }); 
     return TotalPrice.toFixed(2);
   }
 }

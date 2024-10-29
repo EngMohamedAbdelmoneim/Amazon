@@ -13,6 +13,7 @@ main {
 .shopping-wishList-container{
     align-self: center;
     padding: 20px;
+    width: 100%;
     border: #666 solid 0.1px;
 }
 

@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ReviewService } from '../../Services/review.service';
+import { ProductService } from '../../Services/product.service';
+import { Product } from '../../Models/product';
 
 @Component({
   selector: 'app-wishlist-card',
@@ -13,8 +15,10 @@ import { ReviewService } from '../../Services/review.service';
   styleUrl: './wish-list-card.component.css'
 })
 export class WishlistCardComponent implements OnInit {
-  constructor(private reviewService: ReviewService) { }
+  product: Product | null = new Product(0, "", 0, "", "", [],0, "",0, "", 0, null);
+  constructor(private reviewService: ReviewService,public productService:ProductService) { }
   ngOnInit(){
+    this.GetProduct()
     this.AverageRating();
     this.NumberOfReviews();
   }
@@ -69,6 +73,14 @@ export class WishlistCardComponent implements OnInit {
     this.reviewService.getAllProductReviewsById(this.prop.id).subscribe({
       next: data =>{
        this.numberOfReviews = data.length;
+      }
+    })
+  }
+  GetProduct(){
+    this.productService.getProductById(this.prop.id).subscribe({
+      next: product=>{
+        this.product =  product;
+        console.log(this.product);
       }
     })
   }

@@ -1,7 +1,9 @@
+
 .wish-list-card {
     display: grid;
     grid-template-columns: 20% 1fr auto;
     max-height: 200px;
+    width: 80%;
     gap: 20px;
     align-items: start ;
     background-color: white;
