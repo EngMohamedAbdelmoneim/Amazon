@@ -10,7 +10,7 @@ This project is a basic Amazon clone that includes essential e-commerce features
 - **Checkout & Payments**: Secure checkout with Stripe.
 - **Order Tracking**: Order status and history.
 - **Admin Dashboard**: Basic user, product, and order management.
-- **Seller Central Account**: Vendor product and sales management.
+- **Seller Central Account**: Seller operations, and some informations for seller sales.
 - **Responsive Design**: Mobile-friendly UI.
 
 ## ⚙️ Tech Stack
